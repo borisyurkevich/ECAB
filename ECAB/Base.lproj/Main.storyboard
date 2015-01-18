@@ -79,7 +79,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="s4N-Bo-lTq">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="WO4-aA-35Z">
+                        <barButtonItem key="leftBarButtonItem" id="WO4-aA-35Z">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kdE-kn-gkd" userLabel="Start">
                                 <rect key="frame" x="-23" y="-15" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
