@@ -47,7 +47,7 @@
         <!--Apples-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController title="Apples" id="8rJ-Kc-sve" customClass="SecondViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Apples" id="8rJ-Kc-sve" customClass="ECABApplesViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
