@@ -81,13 +81,10 @@
 		91E5C3B01A6BD5C400905752 /* ECAB */ = {
 			isa = PBXGroup;
 			children = (
-				91E5C3B31A6BD5C400905752 /* AppDelegate.swift */,
-				91E5C3B51A6BD5C400905752 /* ECABMenuViewController.swift */,
-				91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */,
-				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
-				91E5C3B91A6BD5C400905752 /* Main.storyboard */,
+				91E5C3DC1A6C205600905752 /* Model */,
+				91E5C3DB1A6C204D00905752 /* View */,
+				91E5C3DA1A6C204500905752 /* Controller */,
 				91E5C3BC1A6BD5C400905752 /* Images.xcassets */,
-				91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */,
 				91E5C3B11A6BD5C400905752 /* Supporting Files */,
 			);
 			path = ECAB;
@@ -96,6 +93,8 @@
 		91E5C3B11A6BD5C400905752 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				91E5C3B31A6BD5C400905752 /* AppDelegate.swift */,
+				91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */,
 				91E5C3B21A6BD5C400905752 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -116,6 +115,31 @@
 				91E5C3CA1A6BD5C400905752 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		91E5C3DA1A6C204500905752 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				91E5C3B51A6BD5C400905752 /* ECABMenuViewController.swift */,
+				91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */,
+				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		91E5C3DB1A6C204D00905752 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				91E5C3B91A6BD5C400905752 /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		91E5C3DC1A6C205600905752 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
