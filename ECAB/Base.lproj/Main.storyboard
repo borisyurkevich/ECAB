@@ -87,7 +87,7 @@
         <!--History-->
         <scene sceneID="pfl-yE-Jpj">
             <objects>
-                <viewController title="History" id="oC2-9i-Cdf" userLabel="History" customClass="ECABMenuViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="History" id="oC2-9i-Cdf" userLabel="History" customClass="ECABHistoryViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2tt-ao-Osk"/>
                         <viewControllerLayoutGuide type="bottom" id="Dwe-eh-ecg"/>

@@ -14,6 +14,7 @@
 		91E5C3C01A6BD5C400905752 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */; };
 		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
 		91E5C3D71A6BDB5000905752 /* ECABApplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */; };
+		91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		91E5C3CA1A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
 		91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesViewController.swift; sourceTree = "<group>"; };
+		91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				91E5C3B31A6BD5C400905752 /* AppDelegate.swift */,
 				91E5C3B51A6BD5C400905752 /* ECABMenuViewController.swift */,
 				91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */,
+				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
 				91E5C3B91A6BD5C400905752 /* Main.storyboard */,
 				91E5C3BC1A6BD5C400905752 /* Images.xcassets */,
 				91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */,
@@ -236,6 +239,7 @@
 			files = (
 				91E5C3D71A6BDB5000905752 /* ECABApplesViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
+				91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */,
 				91E5C3B61A6BD5C400905752 /* ECABMenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
