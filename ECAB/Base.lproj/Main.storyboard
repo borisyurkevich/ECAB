@@ -7,7 +7,7 @@
         <!--Menu-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController title="Menu" id="9pv-A4-QxB" customClass="FirstViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Menu" id="9pv-A4-QxB" customClass="ECABMenuViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -87,7 +87,7 @@
         <!--History-->
         <scene sceneID="pfl-yE-Jpj">
             <objects>
-                <viewController title="History" id="oC2-9i-Cdf" userLabel="History" customClass="SecondViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="History" id="oC2-9i-Cdf" userLabel="History" customClass="ECABMenuViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2tt-ao-Osk"/>
                         <viewControllerLayoutGuide type="bottom" id="Dwe-eh-ecg"/>
