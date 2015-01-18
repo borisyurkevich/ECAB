@@ -16,6 +16,7 @@
 		91E5C3D71A6BDB5000905752 /* ECABApplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */; };
 		91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */; };
+		91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesViewController.swift; sourceTree = "<group>"; };
 		91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABHistoryViewController.swift; sourceTree = "<group>"; };
 		91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABViewController.swift; sourceTree = "<group>"; };
+		91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
 				91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */,
+				91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */,
+				91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */,
 				91E5C3B61A6BD5C400905752 /* ECABMenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
