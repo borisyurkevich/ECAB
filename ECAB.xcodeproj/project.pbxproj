@@ -159,6 +159,7 @@
 		91E5C3A61A6BD5C400905752 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ECAB;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Oliver Braddick and Jan Atkinson";
 				TargetAttributes = {
