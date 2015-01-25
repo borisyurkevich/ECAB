@@ -1,5 +1,5 @@
 //
-//  ECABGamePeace.swift
+//  ECABGamePeaceType.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 25/01/2015.
@@ -9,11 +9,34 @@
 import UIKit
 
 class ECABGamePeace {
-
-    private var isSelected = false
-    private var image: UIImage
     
-    init() {
-        self.image = UIImage()
+    let 🍎 = "ECABGamePeaceTypeRedApple"
+    let 🍏 = "ECABGamePeaceTyeGreenApple"
+    let 🍓 = "ECABGamePeaceTypeRedStrawberry"
+    
+    let type: String
+    var isCrossed = false
+    let isValuable: Bool
+    let image: UIImage!
+    
+    init(type: String) {
+        if (type == self.🍎) {
+            self.type = self.🍎
+            self.isValuable = true
+            self.image = UIImage(named: "red_apple")
+        } else if (type == self.🍏) {
+            self.type = self.🍏
+            self.isValuable = false
+            self.image = UIImage(named: "white_apple")
+        } else if (type == self.🍓) {
+            self.type = 🍓
+            self.isValuable = false
+            self.image = UIImage(named: "red_strawberry")
+        } else {
+            fatalError("Game peace can be only of certain type: 🍎, 🍏, or 🍓")
+        }
+        
+        
     }
+   
 }

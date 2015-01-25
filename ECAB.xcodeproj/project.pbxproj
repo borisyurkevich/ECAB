@@ -19,8 +19,7 @@
 		91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */; };
 		91E5C41A1A6C6F5400905752 /* ECABApplesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* ECABApplesCollectionViewCell.swift */; };
 		91F378471A754EA000D2F77B /* ECABGameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* ECABGameBoard.swift */; };
-		91F378491A754F5C00D2F77B /* ECABGamePeace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378481A754F5C00D2F77B /* ECABGamePeace.swift */; };
-		91F3784B1A75529000D2F77B /* ECABGamePeaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* ECABGamePeaceType.swift */; };
+		91F3784B1A75529000D2F77B /* ECABGamePeace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* ECABGamePeace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,8 +49,7 @@
 		91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesCollectionViewController.swift; sourceTree = "<group>"; };
 		91E5C4191A6C6F5400905752 /* ECABApplesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesCollectionViewCell.swift; sourceTree = "<group>"; };
 		91F378461A754EA000D2F77B /* ECABGameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABGameBoard.swift; sourceTree = "<group>"; };
-		91F378481A754F5C00D2F77B /* ECABGamePeace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABGamePeace.swift; sourceTree = "<group>"; };
-		91F3784A1A75529000D2F77B /* ECABGamePeaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABGamePeaceType.swift; sourceTree = "<group>"; };
+		91F3784A1A75529000D2F77B /* ECABGamePeace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABGamePeace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				91F378461A754EA000D2F77B /* ECABGameBoard.swift */,
-				91F378481A754F5C00D2F77B /* ECABGamePeace.swift */,
-				91F3784A1A75529000D2F77B /* ECABGamePeaceType.swift */,
+				91F3784A1A75529000D2F77B /* ECABGamePeace.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -284,11 +281,10 @@
 				91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* ECABGameBoard.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
-				91F3784B1A75529000D2F77B /* ECABGamePeaceType.swift in Sources */,
+				91F3784B1A75529000D2F77B /* ECABGamePeace.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */,
 				91E5C3B61A6BD5C400905752 /* ECABMenuViewController.swift in Sources */,
-				91F378491A754F5C00D2F77B /* ECABGamePeace.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
