@@ -13,6 +13,12 @@ class ECABApplesCollectionViewController:
     UICollectionViewDelegateFlowLayout {
     
     private let reuseIdentifier = "ApplesCell"
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // All praparation
+    }
     
     // MARK: UICollectionViewDataSource
 
