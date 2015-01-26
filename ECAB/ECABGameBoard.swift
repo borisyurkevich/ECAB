@@ -9,9 +9,9 @@
 import UIKit
 
 class ECABGameBoard {
-    private var numberOfCells = 0
+    var numberOfCells = 0
     private var numberOfObjectTypes = 3
-    private var field: Field
+    var field: Field
     
     init(with rows: Int,
             colums: Int,

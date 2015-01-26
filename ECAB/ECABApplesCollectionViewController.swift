@@ -13,24 +13,30 @@ class ECABApplesCollectionViewController:
     UICollectionViewDelegateFlowLayout {
     
     private let reuseIdentifier = "ApplesCell"
+    private let board = ECABGameBoard(with: 5,
+                                    colums: 5,
+                          realTouchTargets: 2,
+                          fakeTouchTargers: 13,
+                          otherFakeTargets: 10)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // All praparation
     }
     
     // MARK: UICollectionViewDataSource
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return self.board.numberOfCells
     }
 
     override func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as ECABApplesCollectionViewCell
         cell.backgroundColor = UIColor.redColor()
-        cell.imageView.image = UIImage(named: "red_apple")
+        
+        let fruit = self.board.field.grid[indexPath.row]
+        
+        cell.imageView.image = fruit.image
         return cell
     }
 
