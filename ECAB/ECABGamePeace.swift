@@ -10,26 +10,26 @@ import UIKit
 
 class ECABGamePeace {
     
-    let 🍎 = "ECABGamePeaceTypeRedApple"
-    let 🍏 = "ECABGamePeaceTyeGreenApple"
-    let 🍓 = "ECABGamePeaceTypeRedStrawberry"
+    enum Fruit {
+        case 🍎, 🍏, 🍓
+    }
     
-    let type: String
+    let type: Fruit
     var isCrossed = false
     let isValuable: Bool
     let image: UIImage!
     
-    init(type: String) {
-        if (type == self.🍎) {
-            self.type = self.🍎
+    init(type: Fruit) {
+        if (type == .🍎) {
+            self.type = .🍎
             self.isValuable = true
             self.image = UIImage(named: "red_apple")
-        } else if (type == self.🍏) {
-            self.type = self.🍏
+        } else if (type == .🍏) {
+            self.type = .🍏
             self.isValuable = false
             self.image = UIImage(named: "white_apple")
-        } else if (type == self.🍓) {
-            self.type = 🍓
+        } else if (type == .🍓) {
+            self.type = .🍓
             self.isValuable = false
             self.image = UIImage(named: "red_strawberry")
         } else {

@@ -39,7 +39,7 @@ class ECABGameBoard {
         init(rows: Int, columns: Int) {
             self.rows = rows
             self.columns = columns
-            grid = Array(count: rows * columns, repeatedValue: ECABGamePeace(type: "ECABGamePeaceTypeRedApple"))
+            grid = Array(count: rows * columns, repeatedValue: ECABGamePeace(type: ECABGamePeace.Fruit.🍎))
         }
     }
 }
