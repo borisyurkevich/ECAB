@@ -11,7 +11,7 @@ import UIKit
 class ECABGameBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
-    var field: Field
+    var data = Array<ECABGamePeace>()
     
     init(with rows: Int,
             colums: Int,
@@ -19,27 +19,49 @@ class ECABGameBoard {
   fakeTouchTargers: Int,
   otherFakeTargets: Int)
     {
-        self.field = Field(rows: rows, columns: colums)
-        self.numberOfCells = self.field.columns * self.field.rows
+        self.numberOfCells = rows * colums
         
         if ((realTouchTargets +
             fakeTouchTargers +
-            otherFakeTargets) != self.numberOfCells) {
-            fatalError("Please set correct field size and game peaces count")
+            otherFakeTargets) == self.numberOfCells){
+            println("Board looks good")
+            generateDifferentFruits(realTouchTargets, whiteApples: fakeTouchTargers, strawberries: otherFakeTargets)
         } else {
-            for var i = 0; i < self.numberOfCells; i++ {
-                println("adding one more \(i)")
-            }
+            fatalError("Please set correct board size and game peaces count.")
         }
     }
     
-    struct Field {
-        let rows: Int, columns: Int
-        var grid: [ECABGamePeace]
-        init(rows: Int, columns: Int) {
-            self.rows = rows
-            self.columns = columns
-            grid = Array(count: rows * columns, repeatedValue: ECABGamePeace(type: ECABGamePeace.Fruit.🍎))
+    func generateDifferentFruits(apples: Int, whiteApples: Int, strawberries: Int){
+        let summ = apples+whiteApples+strawberries
+        var fruits = Array<ECABGamePeace>()
+        
+        for var i = 0; i <= apples; i++ {
+            let freshApple = ECABGamePeace(type: ECABGamePeace.Fruit.🍎)
+            fruits.append(freshApple)
         }
+        
+        for var i = 0; i <= whiteApples; i++ {
+            let freshWhiteApple = ECABGamePeace(type: ECABGamePeace.Fruit.🍏)
+            fruits.append(freshWhiteApple)
+        }
+        
+        for var i = 0; i <= whiteApples; i++ {
+            let strawberry = ECABGamePeace(type: ECABGamePeace.Fruit.🍓)
+            fruits.append(strawberry)
+        }
+        // Added all 3 types of fruits to the fruits collection
+        
+        self.data = shuffle(fruits)
     }
+    
+    func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
+        let count = countElements(list)
+        for i in 0..<(count - 1) {
+            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            swap(&list[i], &list[j])
+        }
+        return list
+    }
+    // http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift
+
 }

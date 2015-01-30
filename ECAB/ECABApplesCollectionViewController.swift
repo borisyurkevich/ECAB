@@ -34,9 +34,8 @@ class ECABApplesCollectionViewController:
         let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as ECABApplesCollectionViewCell
         cell.backgroundColor = UIColor.redColor()
         
-        let fruit = self.board.field.grid[indexPath.row]
-        
-        cell.imageView.image = fruit.image
+        let aFruit:ECABGamePeace = self.board.data[indexPath.row]
+        cell.imageView.image = aFruit.image
         return cell
     }
 
