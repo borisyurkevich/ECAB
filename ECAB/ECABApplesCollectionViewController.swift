@@ -13,12 +13,9 @@ class ECABApplesCollectionViewController:
     UICollectionViewDelegateFlowLayout {
     
     private let reuseIdentifier = "ApplesCell"
-    private let board = ECABGameBoard(with: 5,
-                                    colums: 5,
-                          realTouchTargets: 2,
-                          fakeTouchTargers: 13,
-                          otherFakeTargets: 10)
-
+    private let board = ECABGameBoard(targets: 2,
+                                  fakeTargers: 3,
+                                 otherTargets: 10)
     override func viewDidLoad() {
         super.viewDidLoad()
     }

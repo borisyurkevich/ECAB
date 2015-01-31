@@ -13,25 +13,14 @@ class ECABGameBoard {
     private var numberOfObjectTypes = 3
     var data = Array<ECABGamePeace>()
     
-    init(with rows: Int,
-            colums: Int,
-  realTouchTargets: Int,
-  fakeTouchTargers: Int,
-  otherFakeTargets: Int)
-    {
-        self.numberOfCells = rows * colums
-        
-        if ((realTouchTargets +
-            fakeTouchTargers +
-            otherFakeTargets) == self.numberOfCells){
-            println("Board looks good")
-            generateDifferentFruits(realTouchTargets, whiteApples: fakeTouchTargers, strawberries: otherFakeTargets)
-        } else {
-            fatalError("Please set correct board size and game peaces count.")
-        }
+    init(targets realTargets: Int,
+              fakeTargers: Int,
+              otherTargets: Int){
+        self.numberOfCells = realTargets + fakeTargers + otherTargets
+        generateDifferentFruits(targets: realTargets, whiteApples: fakeTargers, strawberries: otherTargets)
     }
     
-    func generateDifferentFruits(apples: Int, whiteApples: Int, strawberries: Int){
+    func generateDifferentFruits(targets apples: Int, whiteApples: Int, strawberries: Int){
         let summ = apples+whiteApples+strawberries
         var fruits = Array<ECABGamePeace>()
         

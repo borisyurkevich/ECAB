@@ -130,11 +130,11 @@
 		91E5C3DA1A6C204500905752 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */,
 				91E5C3B51A6BD5C400905752 /* ECABMenuViewController.swift */,
 				91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
 				91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */,
-				91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
