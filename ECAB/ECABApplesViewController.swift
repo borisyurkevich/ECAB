@@ -10,6 +10,8 @@ import UIKit
 
 class ECABApplesViewController: UIViewController, SubjectPickerDelegate
 {
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -27,6 +29,9 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
     }
     
     func pickDefaultSubject() {
+        let gameController = ECABApplesCollectionViewController()
+//        self.presentViewController(gameController, animated: true, completion: nil)
+        self.performSegueWithIdentifier("startApplesGame", sender: self)
         println("Show default delgate")
     }
     
