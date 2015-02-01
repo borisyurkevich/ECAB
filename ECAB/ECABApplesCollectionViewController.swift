@@ -12,6 +12,8 @@ class ECABApplesCollectionViewController:
     UICollectionViewController,
     UICollectionViewDelegateFlowLayout {
     
+    let model: ECABData = ECABData.sharedInstance
+    
     private let reuseIdentifier = "ApplesCell"
     private let board = ECABGameBoard(targets: 2,
                                   fakeTargers: 13,
