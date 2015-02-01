@@ -10,20 +10,15 @@ import UIKit
 
 class ECABApplesViewController: UIViewController
 {
-
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func openPopUp(sender: UIBarButtonItem) {
+        let popOverContentVC = UIViewController()
+        let popOver = UIPopoverController(contentViewController: popOverContentVC)
+        popOver.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection(), animated: true)
     }
-    
 
     /*
     // MARK: - Navigation
