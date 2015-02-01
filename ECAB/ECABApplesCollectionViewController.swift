@@ -14,7 +14,7 @@ class ECABApplesCollectionViewController:
     
     private let reuseIdentifier = "ApplesCell"
     private let board = ECABGameBoard(targets: 2,
-                                  fakeTargers: 3,
+                                  fakeTargers: 13,
                                  otherTargets: 10)
     override func viewDidLoad() {
         super.viewDidLoad()
