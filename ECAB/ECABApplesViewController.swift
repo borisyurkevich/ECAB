@@ -15,9 +15,13 @@ class ECABApplesViewController: UIViewController
     }
 
     @IBAction func openPopUp(sender: UIBarButtonItem) {
-        let popOverContentVC = UIViewController()
+        let popOverContentVC = ECABSubjectPickerDataSourceTVC()
         let popOver = UIPopoverController(contentViewController: popOverContentVC)
-        popOver.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection(), animated: true)
+
+        popOverContentVC.modalPresentationStyle = .Popover
+        popOverContentVC.preferredContentSize = CGSizeMake(200, 200)
+        
+        popOver.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection(1), animated: true)
     }
 
     /*

@@ -9,7 +9,7 @@
 import UIKit
 
 class ECABData: NSObject {
-   var subjects = Array<ECABSubject>()
+    var subjects = Array<ECABSubject>()
     
     override init() {
         super.init()
@@ -21,7 +21,7 @@ class ECABData: NSObject {
         }
     }
     
-    class var sharedInstance :ECABData {
+    class var sharedInstance: ECABData {
         struct Singleton {
             static let instance = ECABData()
         }

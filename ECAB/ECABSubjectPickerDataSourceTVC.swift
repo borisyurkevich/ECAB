@@ -1,0 +1,42 @@
+//
+//  ECABSubjectPickerDataSourceTVC.swift
+//  ECAB
+//
+//  Created by Boris Yurkevich on 01/02/2015.
+//  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
+//
+
+import UIKit
+
+class ECABSubjectPickerDataSourceTVC: UITableViewController {
+    
+    let subjectPickerOptions = ["Current subject", "Add new subject"]
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.clearsSelectionOnViewWillAppear = false;
+        // Make row selections persist.
+        
+        // Set size for popover
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.Value2, reuseIdentifier: nil)
+        let name: String = subjectPickerOptions[indexPath.row]
+        let label: UILabel! = cell.textLabel
+        label.text = name
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subjectPickerOptions.count
+    }
+}
