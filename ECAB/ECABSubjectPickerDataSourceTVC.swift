@@ -29,7 +29,7 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Value2, reuseIdentifier: nil)
+        var cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: nil)
         let name: String = subjectPickerOptions[indexPath.row]
         let label: UILabel! = cell.textLabel
         label.text = name
