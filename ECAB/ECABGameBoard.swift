@@ -12,29 +12,41 @@ class ECABGameBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
     var data = Array<ECABGamePeace>()
+    private let apples: Int
+    private let whiteApples: Int
+    private let strawberries: Int
     
     init(targets realTargets: Int,
-              fakeTargers: Int,
-              otherTargets: Int){
-        self.numberOfCells = realTargets + fakeTargers + otherTargets
-        generateDifferentFruits(targets: realTargets, whiteApples: fakeTargers, strawberries: otherTargets)
+                 fakeTargers: Int,
+                otherTargets: Int){
+                    
+        apples = realTargets
+        whiteApples = fakeTargers
+        strawberries = otherTargets
+                    
+        numberOfCells = apples + whiteApples + strawberries
+        
+        if numberOfCells == 0 {
+            fatalError("🚫 You need to add at least one game peact to board")
+        }
+        generateDifferentFruits()
     }
     
-    func generateDifferentFruits(targets apples: Int, whiteApples: Int, strawberries: Int){
-        let summ = apples+whiteApples+strawberries
+    func generateDifferentFruits(){
+
         var fruits = Array<ECABGamePeace>()
         
-        for var i = 0; i <= apples; i++ {
+        for var i = 0; i < apples; i++ {
             let freshApple = ECABGamePeace(type: ECABGamePeace.Fruit.🍎)
             fruits.append(freshApple)
         }
         
-        for var i = 0; i <= whiteApples; i++ {
+        for var i = 0; i < whiteApples; i++ {
             let freshWhiteApple = ECABGamePeace(type: ECABGamePeace.Fruit.🍏)
             fruits.append(freshWhiteApple)
         }
         
-        for var i = 0; i <= whiteApples; i++ {
+        for var i = 0; i < strawberries; i++ {
             let strawberry = ECABGamePeace(type: ECABGamePeace.Fruit.🍓)
             fruits.append(strawberry)
         }
