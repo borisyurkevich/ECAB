@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ECABApplesViewController: UIViewController
+class ECABApplesViewController: UIViewController, SubjectPickerDelegate
 {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,11 +17,21 @@ class ECABApplesViewController: UIViewController
     @IBAction func openPopUp(sender: UIBarButtonItem) {
         let popOverContentVC = ECABSubjectPickerDataSourceTVC()
         let popOver = UIPopoverController(contentViewController: popOverContentVC)
+        
+        popOverContentVC.delegate = self
 
         popOverContentVC.modalPresentationStyle = .Popover
-        popOverContentVC.preferredContentSize = CGSizeMake(200, 200)
+        popOverContentVC.preferredContentSize = CGSizeMake(200, 140)
         
         popOver.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection(1), animated: true)
+    }
+    
+    func pickDefaultSubject() {
+        println("Show default delgate")
+    }
+    
+    func createNewSubject() {
+        
     }
 
     /*

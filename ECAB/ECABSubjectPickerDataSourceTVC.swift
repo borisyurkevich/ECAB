@@ -8,17 +8,21 @@
 
 import UIKit
 
+protocol SubjectPickerDelegate {
+    func pickDefaultSubject()
+    func createNewSubject()
+}
+
 class ECABSubjectPickerDataSourceTVC: UITableViewController {
     
     let subjectPickerOptions = ["Current subject", "Add new subject"]
-
+    var delegate: SubjectPickerDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.clearsSelectionOnViewWillAppear = false;
         // Make row selections persist.
-        
-        // Set size for popover
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,5 +42,9 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return subjectPickerOptions.count
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        delegate?.pickDefaultSubject()
     }
 }
