@@ -101,6 +101,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CwZ-l8-dZD">
                             <size key="itemSize" width="70" height="70"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -129,10 +130,16 @@
                         <connections>
                             <outlet property="dataSource" destination="ISY-A3-MAQ" id="2J3-2H-5Mu"/>
                             <outlet property="delegate" destination="ISY-A3-MAQ" id="Dpc-N0-uO4"/>
+                            <outletCollection property="gestureRecognizers" destination="vbL-fH-4vi" appends="YES" id="46e-57-X7J"/>
                         </connections>
                     </collectionView>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MW-uj-0oR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="vbL-fH-4vi">
+                    <connections>
+                        <action selector="handleTaps:" destination="ISY-A3-MAQ" id="SvQ-Oe-f31"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2328" y="360"/>
         </scene>

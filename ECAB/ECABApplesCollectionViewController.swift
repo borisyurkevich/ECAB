@@ -10,7 +10,8 @@ import UIKit
 
 class ECABApplesCollectionViewController:
     UICollectionViewController,
-    UICollectionViewDelegateFlowLayout {
+    UICollectionViewDelegateFlowLayout,
+    UIAlertViewDelegate {
     
     let model: ECABData = ECABData.sharedInstance
     
@@ -38,6 +39,27 @@ class ECABApplesCollectionViewController:
         return cell
     }
 
+    @IBAction func handleTaps(sender: UITapGestureRecognizer)
+    {
+        sender.numberOfTouchesRequired = 3
+        
+        if sender.numberOfTouches() == 3 {
+            let alert = UIAlertView(title: "Quit", message: "Are you sure you want to quit? All progrss will be lost.", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Quit")
+            alert.show()
+        }
+    }
+    
+    // MARKL UIAlertViewDelegate
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 1
+        {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            println("2")
+        }
+    }
+    
+    
     // MARK: UICollectionViewDelegate
 
     /*
