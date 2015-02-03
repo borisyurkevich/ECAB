@@ -44,7 +44,7 @@ class ECABApplesCollectionViewController:
         sender.numberOfTouchesRequired = 3
         
         if sender.numberOfTouches() == 3 {
-            let alert = UIAlertView(title: "Quit", message: "Are you sure you want to quit? All progrss will be lost.", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Quit")
+            let alert = UIAlertView(title: "Game paused", message: "Tap quit to ext the game. All progrss will be lost.", delegate: self, cancelButtonTitle: "Continue", otherButtonTitles: "Quit")
             alert.show()
         }
     }
