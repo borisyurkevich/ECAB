@@ -11,4 +11,7 @@ import UIKit
 class ECABApplesCollectionViewCell: UICollectionViewCell
 {
     @IBOutlet weak var imageView: UIImageView!
+    
+    var fruit: ECABGamePeace!
+    // Init to nil automatically
 }
