@@ -72,6 +72,16 @@ class ECABApplesCollectionViewController:
             
             if cell.fruit.isValuable {
                 println("Apple!")
+                let crossImage = UIImage(named: "cross_gray")
+                var cross = UIImageView(image: crossImage)
+                cross.frame = cell.imageView.frame
+                cell.imageView.addSubview(cross)
+                
+                cross.center.x = cell.contentView.center.x-7
+                cross.center.y = cell.contentView.center.y-7
+                // Sorry for magin numbers, for some reason contentView.center
+                // is not looking like real center.
+
             } else {
                 println("Not apple")
             }
