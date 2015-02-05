@@ -12,5 +12,10 @@
 import UIKit
 
 class ECABResult {
-   
+    
+    var scores = 0
+    
+    init() {
+        
+    }
 }

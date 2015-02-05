@@ -8,17 +8,18 @@
 
 import UIKit
 
-class ECABData: NSObject {
-    var subjects = Array<ECABSubject>()
+class ECABData {
+    private var subjects = Array<ECABSubject>()
+    var subject: ECABSubject
     
-    override init() {
-        super.init()
+    init() {
         if subjects.count == 0 {
             let subject = ECABSubject()
             subjects.append(subject)
             println("Default test subject created")
             // Creates default test subject
         }
+        self.subject = subjects[0]
     }
     
     class var sharedInstance: ECABData {

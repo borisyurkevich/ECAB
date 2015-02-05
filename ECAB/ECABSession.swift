@@ -11,7 +11,7 @@ import UIKit
 class ECABSession {
     let type: ECABGame
     let subject: ECABSubject
-    let score: ECABResult?
+    let score = ECABResult()
     
     init(with gameType: ECABGame, subject: ECABSubject) {
         self.type = gameType
@@ -20,6 +20,6 @@ class ECABSession {
     // To start session call init
     
     func end() {
-        println("Session ended.")
+        println("Session ended with total scores: \(score.scores)")
     }
 }

@@ -16,11 +16,16 @@ class ECABApplesCollectionViewController:
     let model: ECABData = ECABData.sharedInstance
     
     private let reuseIdentifier = "ApplesCell"
-    private let board = ECABGameBoard(targets: 2,
-                                  fakeTargers: 13,
-                                 otherTargets: 10)
+    private let board = ECABGameBoard(targets: 7,
+                                  fakeTargers: 20,
+                                 otherTargets: 50)
+    
+    var session: ECABSession?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.session = ECABSession(with: ECABApplesGame(), subject: self.model.subject)
+        // Start session
     }
     
     // MARK: UICollectionViewDataSource
@@ -56,6 +61,7 @@ class ECABApplesCollectionViewController:
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if buttonIndex == 1 {
             self.dismissViewControllerAnimated(true, completion: nil)
+            self.session?.end()
         }
     }
     
@@ -77,9 +83,14 @@ class ECABApplesCollectionViewController:
                 cross.center.y = cell.contentView.center.y-7
                 // Sorry for magin numbers, for some reason contentView.center
                 // is not looking like real center.
+                
+                if cell.fruit.isCrossed == false {
+                    self.session!.score.scores += 1
+                    cell.fruit.isCrossed = true
+                }
 
             } else {
-                println("Not apple")
+
             }
     }
     
