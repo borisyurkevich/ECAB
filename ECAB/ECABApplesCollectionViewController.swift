@@ -71,7 +71,6 @@ class ECABApplesCollectionViewController:
             let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as ECABApplesCollectionViewCell
             
             if cell.fruit.isValuable {
-                println("Apple!")
                 let crossImage = UIImage(named: "cross_gray")
                 var cross = UIImageView(image: crossImage)
                 cross.frame = cell.imageView.frame
