@@ -30,7 +30,6 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
     
     func pickDefaultSubject() {
         let gameController = ECABApplesCollectionViewController()
-//        self.presentViewController(gameController, animated: true, completion: nil)
         self.performSegueWithIdentifier("startApplesGame", sender: self)
         println("Show default delgate")
     }
