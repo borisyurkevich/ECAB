@@ -42,8 +42,7 @@ class ECABApplesCollectionViewController:
         return cell
     }
 
-    @IBAction func handleTaps(sender: UITapGestureRecognizer)
-    {
+    @IBAction func handleTaps(sender: UITapGestureRecognizer) {
         sender.numberOfTouchesRequired = 3
         
         if sender.numberOfTouches() == 3 {
@@ -55,10 +54,8 @@ class ECABApplesCollectionViewController:
     // MARKL UIAlertViewDelegate
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 1
-        {
+        if buttonIndex == 1 {
             self.dismissViewControllerAnimated(true, completion: nil)
-            println("2")
         }
     }
     
