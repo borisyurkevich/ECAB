@@ -15,7 +15,6 @@ class ECABMenuTBC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("Model created")
         // Do any additional setup after loading the view.
     }
     
