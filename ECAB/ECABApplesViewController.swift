@@ -10,7 +10,7 @@ import UIKit
 
 class ECABApplesViewController: UIViewController, SubjectPickerDelegate
 {
-    
+    var isStatusBarHidden = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +30,17 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
     
     func pickDefaultSubject() {
         self.performSegueWithIdentifier("startApplesGame", sender: self)
+        
+        self.isStatusBarHidden = true
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     func createNewSubject() {
-        
+        // TODO add
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return self.isStatusBarHidden
     }
 
     /*
