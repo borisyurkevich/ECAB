@@ -14,7 +14,7 @@ protocol SubjectPickerDelegate {
 
 class ECABSubjectPickerDataSourceTVC: UITableViewController {
     
-    let subjectPickerOptions = ["Current subject", "Add new subject"]
+    let subjectPickerOptions = ["Current subject", "Other subject"]
     var delegate: SubjectPickerDelegate!
     private let reuseIdentifier = "subjectPickerCell"
     
@@ -23,11 +23,9 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
         
         self.clearsSelectionOnViewWillAppear = false;
         // Make row selections persist.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        // Hide search bar
     }
 
     // MARK: - Table view data source

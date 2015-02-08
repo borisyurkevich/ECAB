@@ -82,7 +82,7 @@
                     <navigationItem key="navigationItem" id="s4N-Bo-lTq">
                         <barButtonItem key="leftBarButtonItem" systemItem="play" id="WO4-aA-35Z">
                             <connections>
-                                <segue destination="FZR-c7-dgV" kind="popoverPresentation" identifier="showSubjectPicker" popoverAnchorBarButtonItem="WO4-aA-35Z" id="2DX-Mw-l5d">
+                                <segue destination="71V-q1-46a" kind="popoverPresentation" identifier="showSubjectPicker" popoverAnchorBarButtonItem="WO4-aA-35Z" id="2DX-Mw-l5d">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -104,7 +104,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="9zB-zx-Gcz">
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="9zB-zx-Gcz">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -126,6 +126,9 @@
                             <outlet property="delegate" destination="FZR-c7-dgV" id="2JM-2X-aKJ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="UdE-Ke-H0m">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="jDV-VW-SaG"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="MWa-Lf-I3h" id="NgM-w6-GgX"/>
                     </connections>
@@ -141,7 +144,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2247" y="360"/>
+            <point key="canvasLocation" x="3059" y="360"/>
         </scene>
         <!--Apples Collection View Controller-->
         <scene sceneID="qiW-Gf-9mJ">
@@ -315,6 +318,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N1d-Su-lGk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="1041"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hQE-R9-JVy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="71V-q1-46a" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QRo-gt-HrO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FZR-c7-dgV" kind="relationship" relationship="rootViewController" id="myK-8I-5Nt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bao-ad-upj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2247" y="360"/>
         </scene>
     </scenes>
     <resources>
