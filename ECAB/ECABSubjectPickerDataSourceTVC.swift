@@ -9,8 +9,7 @@
 import UIKit
 
 protocol SubjectPickerDelegate {
-    func pickDefaultSubject()
-    func createNewSubject()
+    func pickSubject(isDefault: Bool)
 }
 
 class ECABSubjectPickerDataSourceTVC: UITableViewController {
@@ -47,6 +46,10 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        delegate?.pickDefaultSubject()
+        if indexPath.row == 0 {
+            delegate?.pickSubject(true)
+        } else {
+            delegate?.pickSubject(false)
+        }
     }
 }

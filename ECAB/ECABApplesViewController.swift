@@ -28,15 +28,17 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
         popOver.presentPopoverFromBarButtonItem(sender, permittedArrowDirections: UIPopoverArrowDirection(1), animated: true)
     }
     
-    func pickDefaultSubject() {
+    func pickSubject(isDefault: Bool) {
         self.performSegueWithIdentifier("startApplesGame", sender: self)
         
         self.isStatusBarHidden = true
         self.setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    func createNewSubject() {
-        // TODO add
+        
+        if isDefault {
+            println("Def sub picked")
+        } else {
+            println("Not default subject picked")
+        }
     }
     
     override func prefersStatusBarHidden() -> Bool {
