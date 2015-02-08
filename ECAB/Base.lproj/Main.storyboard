@@ -82,7 +82,6 @@
                     <navigationItem key="navigationItem" id="s4N-Bo-lTq">
                         <barButtonItem key="leftBarButtonItem" systemItem="play" id="WO4-aA-35Z">
                             <connections>
-                                <action selector="openPopUp:" destination="8rJ-Kc-sve" id="Fkg-Wm-49y"/>
                                 <segue destination="FZR-c7-dgV" kind="popoverPresentation" identifier="showSubjectPicker" popoverAnchorBarButtonItem="WO4-aA-35Z" id="2DX-Mw-l5d">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
