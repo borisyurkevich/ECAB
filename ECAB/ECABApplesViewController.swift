@@ -45,14 +45,15 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
         return self.isStatusBarHidden
     }
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.destinationViewController.isKindOfClass(ECABSubjectPickerDataSourceTVC) {
+            var popOver = segue.destinationViewController as ECABSubjectPickerDataSourceTVC
+            popOver.delegate = self
+        }
     }
-    */
 
 }

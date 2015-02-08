@@ -146,6 +146,7 @@
 		91E5C3DA1A6C204500905752 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				910367F81A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift */,
 				910367F61A7E40FE00522B2B /* ECABMenuTBC.swift */,
 				91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */,
 				91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */,
@@ -172,7 +173,6 @@
 				91F3784A1A75529000D2F77B /* ECABGamePeace.swift */,
 				910367F21A7E3B4900522B2B /* ECABData.swift */,
 				910367F41A7E3BCC00522B2B /* ECABSubject.swift */,
-				910367F81A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift */,
 				910368021A841B2500522B2B /* ECABSession.swift */,
 				910368041A841BAC00522B2B /* ECABGame.swift */,
 				910368061A841C3700522B2B /* ECABApplesGame.swift */,

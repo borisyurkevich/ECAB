@@ -16,6 +16,7 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
     
     let subjectPickerOptions = ["Current subject", "Add new subject"]
     var delegate: SubjectPickerDelegate!
+    private let reuseIdentifier = "subjectPickerCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
