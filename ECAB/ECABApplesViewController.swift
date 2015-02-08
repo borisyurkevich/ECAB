@@ -36,8 +36,9 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.destinationViewController.isKindOfClass(ECABSubjectPickerDataSourceTVC) {
-            var popOver = segue.destinationViewController as ECABSubjectPickerDataSourceTVC
+        if segue.destinationViewController.isKindOfClass(UINavigationController) {
+            var nav = segue.destinationViewController as UINavigationController
+            var popOver = nav.topViewController as ECABSubjectPickerDataSourceTVC
             popOver.delegate = self
         }
     }
