@@ -20,7 +20,7 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
         self.performSegueWithIdentifier("startApplesGame", sender: self)
         
         self.isStatusBarHidden = true
-        self.setNeedsStatusBarAppearanceUpdate()
+        setNeedsStatusBarAppearanceUpdate()
         
         if isDefault {
             println("Def sub picked")
@@ -40,6 +40,10 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate
             var nav = segue.destinationViewController as UINavigationController
             var popOver = nav.topViewController as ECABSubjectPickerDataSourceTVC
             popOver.delegate = self
+        }
+        if segue.destinationViewController.isKindOfClass(ECABApplesCollectionViewController) {
+            var destination = segue.destinationViewController as ECABApplesCollectionViewController
+            destination.presenter = self
         }
     }
 

@@ -14,6 +14,7 @@ class ECABApplesCollectionViewController:
     UIAlertViewDelegate {
     
     let model: ECABData = ECABData.sharedInstance
+    var presenter: ECABApplesViewController?
     
     private let reuseIdentifier = "ApplesCell"
     private let board = ECABGameBoard(targets: 7,
@@ -60,6 +61,8 @@ class ECABApplesCollectionViewController:
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if buttonIndex == 1 {
+            self.presenter?.isStatusBarHidden = false
+            self.presenter?.setNeedsStatusBarAppearanceUpdate()
             self.dismissViewControllerAnimated(true, completion: nil)
             self.session?.end()
         }
@@ -94,13 +97,13 @@ class ECABApplesCollectionViewController:
             }
     }
     
-    /*
     // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+        if segue.destinationViewController.isKindOfClass(ECABApplesViewController) {
+            var dest = segue.destinationViewController as ECABApplesViewController
+            dest.isStatusBarHidden = false
+            dest.setNeedsStatusBarAppearanceUpdate()
+        }
     }
-    */
 }
