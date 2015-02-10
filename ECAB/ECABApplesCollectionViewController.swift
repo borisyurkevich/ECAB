@@ -10,8 +10,7 @@ import UIKit
 
 class ECABApplesCollectionViewController:
     UICollectionViewController,
-    UICollectionViewDelegateFlowLayout,
-    UIAlertViewDelegate {
+    UICollectionViewDelegateFlowLayout {
     
     let model: ECABData = ECABData.sharedInstance
     var presenter: ECABApplesViewController?
@@ -52,22 +51,23 @@ class ECABApplesCollectionViewController:
         sender.numberOfTouchesRequired = 3
         
         if sender.numberOfTouches() == 3 {
-            let alert = UIAlertView(title: "Game paused", message: "Tap quit to ext the game. All progrss will be lost.", delegate: self, cancelButtonTitle: "Continue", otherButtonTitles: "Quit")
-            alert.show()
+            let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progrss will be lost.", preferredStyle: .Alert)
+            
+            alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+                self.quit()
+            }))
+            alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+            
+            presentViewController(alertView, animated: true, completion: nil)
         }
     }
     
-    // MARKL UIAlertViewDelegate
-    
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 1 {
-            self.presenter?.isStatusBarHidden = false
-            self.presenter?.setNeedsStatusBarAppearanceUpdate()
-            self.dismissViewControllerAnimated(true, completion: nil)
-            self.session?.end()
-        }
+    func quit() {
+        self.presenter?.isStatusBarHidden = false
+        self.presenter?.setNeedsStatusBarAppearanceUpdate()
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.session?.end()
     }
-    
     
     // MARK: UICollectionViewDelegate
     

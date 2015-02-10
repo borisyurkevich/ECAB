@@ -23,11 +23,13 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
         
         self.clearsSelectionOnViewWillAppear = false;
         // Make row selections persist.
-        
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-        // Hide search bar
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.preferredContentSize = CGSizeMake(200, 200)
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath
