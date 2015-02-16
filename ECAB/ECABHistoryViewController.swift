@@ -8,18 +8,20 @@
 
 import UIKit
 
-class ECABHistoryViewController: UIViewController
-{
+class ECABHistoryViewController: UIViewController {
 
-    override func viewDidLoad()
-    {
+    @IBOutlet var labels: [UILabel]!
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        for label in labels {
+            label.sizeToFit()
+            label.setNeedsLayout()
+        }
     }
 
-    override func didReceiveMemoryWarning()
-    {
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
