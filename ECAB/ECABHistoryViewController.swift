@@ -11,13 +11,29 @@ import UIKit
 class ECABHistoryViewController: UIViewController {
 
     @IBOutlet var labels: [UILabel]!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var surnameLabel: UILabel!
+    @IBOutlet weak var ageLabel: UILabel!
+    @IBOutlet weak var gameNameLabel: UILabel!
+    @IBOutlet weak var scoresLabel: UILabel!
+    
+    var currentSubject: ECABSubject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        for label in labels {
-            label.sizeToFit()
-            label.setNeedsLayout()
+        currentSubject = ECABData.sharedInstance.subject
+        update()
+    }
+    
+    func update() {
+        nameLabel.text = currentSubject?.name
+        surnameLabel.text = currentSubject?.surname
+        ageLabel.text = String(currentSubject!.age)
+        
+        if (currentSubject?.sessions.last != nil) {
+            let session = currentSubject?.sessions.last
+            let score = session!.score
+            scoresLabel.text = String(score.scores)
         }
     }
 

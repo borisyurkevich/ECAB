@@ -13,6 +13,7 @@ class ECABSubject {
     var name: String
     var surname: String
     var age: Int
+    var sessions = [ECABSession]()
     
     init() {
         self.name = "New subject"

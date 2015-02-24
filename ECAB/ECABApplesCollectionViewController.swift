@@ -20,7 +20,7 @@ class ECABApplesCollectionViewController:
                                   fakeTargers: 20,
                                  otherTargets: 50)
     
-    var session: ECABSession?
+    var session: ECABSession!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,6 +63,8 @@ class ECABApplesCollectionViewController:
     }
     
     func quit() {
+        model.subject.sessions.append(session)
+        
         self.presenter?.isStatusBarHidden = false
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)

@@ -16,7 +16,7 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
     
     let subjectPickerOptions = ["Current subject", "Other subject"]
     var delegate: SubjectPickerDelegate!
-    private let reuseIdentifier = "subjectPickerCell"
+    private let reuseIdentifier = "Subject picker cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,7 @@ class ECABSubjectPickerDataSourceTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
         if indexPath.row == 0 {
             delegate?.pickSubject(true)
         } else {

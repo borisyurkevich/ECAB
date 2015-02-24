@@ -45,6 +45,32 @@
             </objects>
             <point key="canvasLocation" x="1562" y="-320"/>
         </scene>
+        <!--Subject Picker Data SourceTVC-->
+        <scene sceneID="FSE-0t-32M">
+            <objects>
+                <tableViewController id="AZE-dC-AXL" customClass="ECABSubjectPickerDataSourceTVC" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iZa-yQ-WVI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Subject picker cell" id="4Cv-A5-QpR">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Cv-A5-QpR" id="XrS-53-8fo">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="AZE-dC-AXL" id="L0N-Mq-S65"/>
+                            <outlet property="delegate" destination="AZE-dC-AXL" id="4MH-87-M8p"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6F1-B3-zXK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1562" y="1075"/>
+        </scene>
         <!--Apples-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
@@ -82,12 +108,14 @@
                     <navigationItem key="navigationItem" id="s4N-Bo-lTq">
                         <barButtonItem key="leftBarButtonItem" systemItem="play" id="WO4-aA-35Z">
                             <connections>
-                                <action selector="openPopUp:" destination="8rJ-Kc-sve" id="sKd-TT-J1j"/>
+                                <segue destination="AZE-dC-AXL" kind="popoverPresentation" identifier="Open subjects popover" popoverAnchorBarButtonItem="WO4-aA-35Z" id="1ri-WR-e7W">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="ISY-A3-MAQ" kind="showDetail" identifier="startApplesGame" id="jat-dP-gsN"/>
+                        <segue destination="ISY-A3-MAQ" kind="showDetail" identifier="Start apples game" id="jat-dP-gsN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -226,6 +254,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="ageLabel" destination="7jS-Hy-VOy" id="Wru-D1-KKz"/>
+                        <outlet property="gameNameLabel" destination="K5d-SP-p98" id="fJU-67-x46"/>
+                        <outlet property="nameLabel" destination="ilu-8G-Dbh" id="0q6-Wz-rKL"/>
+                        <outlet property="scoresLabel" destination="5hK-xv-yGf" id="xdN-Oa-aAQ"/>
+                        <outlet property="surnameLabel" destination="A3R-xl-XPb" id="eHD-N9-agp"/>
                         <outletCollection property="labels" destination="K5d-SP-p98" collectionClass="NSMutableArray" id="ANY-ov-1lb"/>
                         <outletCollection property="labels" destination="a67-Ra-bV5" collectionClass="NSMutableArray" id="kLj-U2-5lt"/>
                         <outletCollection property="labels" destination="A3R-xl-XPb" collectionClass="NSMutableArray" id="i6m-V4-yOL"/>
