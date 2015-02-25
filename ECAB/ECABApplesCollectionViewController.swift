@@ -28,6 +28,10 @@ class ECABApplesCollectionViewController:
         // Start session
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     // MARK: UICollectionViewDataSource
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -51,7 +55,7 @@ class ECABApplesCollectionViewController:
         sender.numberOfTouchesRequired = 3
         
         if sender.numberOfTouches() == 3 {
-            let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progrss will be lost.", preferredStyle: .Alert)
+            let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progress will be lost.", preferredStyle: .Alert)
             
             alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
                 self.quit()
@@ -64,8 +68,6 @@ class ECABApplesCollectionViewController:
     
     func quit() {
         model.subject.sessions.append(session)
-        
-        self.presenter?.isStatusBarHidden = false
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
         self.session?.end()
@@ -86,7 +88,7 @@ class ECABApplesCollectionViewController:
                 
                 cross.center.x = cell.contentView.center.x-7
                 cross.center.y = cell.contentView.center.y-7
-                // Sorry for magin numbers, for some reason contentView.center
+                // Sorry for magic numbers, for some reason contentView.center
                 // is not looking like real center.
                 
                 if cell.fruit.isCrossed == false {
@@ -104,7 +106,6 @@ class ECABApplesCollectionViewController:
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.destinationViewController.isKindOfClass(ECABApplesViewController) {
             var dest = segue.destinationViewController as ECABApplesViewController
-            dest.isStatusBarHidden = false
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }

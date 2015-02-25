@@ -10,8 +10,6 @@ import UIKit
 
 class ECABApplesViewController: UIViewController, SubjectPickerDelegate, UIPopoverPresentationControllerDelegate
 {
-    var isStatusBarHidden = false
-    
     private struct Segues {
         static let startApplesGame = "Start apples game"
         static let openSubjectsPopover = "Open subjects popover"
@@ -19,10 +17,6 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate, UIPopov
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return self.isStatusBarHidden
     }
 
     // MARK: - Navigation
@@ -50,16 +44,6 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate, UIPopov
     // MARK: <SubjectPickerDelegate>
     
     func pickSubject(isDefault: Bool) {
-        
-        self.performSegueWithIdentifier(Segues.startApplesGame, sender: self)
-        
-        self.isStatusBarHidden = true
-        setNeedsStatusBarAppearanceUpdate()
-        
-        if isDefault {
-            println("Def sub picked")
-        } else {
-            println("Not default subject picked")
-        }
+        // TODO implement this
     }
 }
