@@ -27,7 +27,7 @@ class ECABGameBoard {
         numberOfCells = apples + whiteApples + strawberries
         
         if numberOfCells == 0 {
-            fatalError("🚫 You need to add at least one game peact to board")
+            fatalError("🚫 You need to add at least one game object to board")
         }
         generateDifferentFruits()
     }

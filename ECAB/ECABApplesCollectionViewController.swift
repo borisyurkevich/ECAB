@@ -21,11 +21,21 @@ class ECABApplesCollectionViewController:
                                  otherTargets: 50)
     
     var session: ECABSession!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.session = ECABSession(with: ECABApplesGame(), subject: self.model.subject)
         // Start session
+        
+        let labelText: String = "Pause"
+        let pauseButton: UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(14.0)])
+        let screen: CGSize = UIScreen.mainScreen().bounds.size
+        pauseButton.setTitle(labelText, forState: UIControlState.Normal)
+        pauseButton.frame = CGRectMake(screen.width - (size.width*2), 4, size.width * 2, size.height)
+        pauseButton.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
+        self.collectionView!.addSubview(pauseButton)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -51,19 +61,15 @@ class ECABApplesCollectionViewController:
         return cell
     }
 
-    @IBAction func handleTaps(sender: UITapGestureRecognizer) {
-        sender.numberOfTouchesRequired = 3
+    func presentPause() {
+        let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progress will be lost.", preferredStyle: .Alert)
         
-        if sender.numberOfTouches() == 3 {
-            let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progress will be lost.", preferredStyle: .Alert)
-            
-            alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
-                self.quit()
-            }))
-            alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-            
-            presentViewController(alertView, animated: true, completion: nil)
-        }
+        alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+            self.quit()
+        }))
+        alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        
+        presentViewController(alertView, animated: true, completion: nil)
     }
     
     func quit() {
