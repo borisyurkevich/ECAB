@@ -44,19 +44,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     // MARK: - UIGuidedAccessRestrictionDelegate
     
     let controlsRestrictionId = "net.borisy.ecab.ControlsRestrictionId"
+    let notificationId = "kECABGuidedAccessNotification"
     
     func guidedAccessRestrictionIdentifiers() -> [AnyObject] {
         return [controlsRestrictionId]
     }
     
     func textForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String! {
-        return "Pause game button"
+        if restrictionIdentifier == controlsRestrictionId {
+            return "Pause button"
+        }
+        return nil
+    }
+    
+    func detailTextForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String! {
+        if restrictionIdentifier == controlsRestrictionId {
+            return "Pause and quit game at any time"
+        }
+        return nil
     }
     
     func guidedAccessRestrictionWithIdentifier(restrictionIdentifier: String,
         didChangeState newRestrictionState: UIGuidedAccessRestrictionState) {
-            var enabled = newRestrictionState != UIGuidedAccessRestrictionState.Deny
-            println("Guided Access change controls state ebabled \(enabled)")
+            
+            if restrictionIdentifier == controlsRestrictionId
+            {
+                var enabled = newRestrictionState != UIGuidedAccessRestrictionState.Deny
+                NSNotificationCenter.defaultCenter().postNotificationName(notificationId, object: nil, userInfo: ["restriction":enabled])
+            }
     }
 }
 

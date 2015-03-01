@@ -19,6 +19,7 @@ class ECABApplesCollectionViewController:
     private let board = ECABGameBoard(targets: 7,
                                   fakeTargers: 20,
                                  otherTargets: 50)
+    private var pauseButton: UIButton?
     
     var session: ECABSession!
     
@@ -29,13 +30,29 @@ class ECABApplesCollectionViewController:
         // Start session
         
         let labelText: String = "Pause"
-        let pauseButton: UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
         let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(14.0)])
         let screen: CGSize = UIScreen.mainScreen().bounds.size
-        pauseButton.setTitle(labelText, forState: UIControlState.Normal)
-        pauseButton.frame = CGRectMake(screen.width - (size.width*2), 4, size.width * 2, size.height)
-        pauseButton.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
-        self.collectionView!.addSubview(pauseButton)
+        pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
+        pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 4, size.width * 2, size.height)
+        pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
+        self.collectionView!.addSubview(pauseButton!)
+        // Add pause button
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
+    }
+    
+    func guidedAccessNotificationHandler(notification: NSNotification) {
+        
+        let enabled: Bool = notification.userInfo!["restriction"] as Bool!
+        pauseButton?.enabled = enabled
+        
+        if pauseButton?.enabled == true {
+           pauseButton?.hidden = false
+        } else {
+            pauseButton?.hidden = true
+        }
+        // Hide button completly
     }
     
     override func prefersStatusBarHidden() -> Bool {
