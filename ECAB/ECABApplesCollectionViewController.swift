@@ -15,7 +15,7 @@ class ECABApplesCollectionViewController:
     let model: ECABData = ECABData.sharedInstance
     var presenter: ECABApplesViewController?
     
-    private let reuseIdentifier = "ApplesCell"
+    let reuseIdentifier = "ApplesCell"
     private let board = ECABGameBoard(targets: 7,
                                   fakeTargers: 20,
                                  otherTargets: 50)
@@ -25,6 +25,8 @@ class ECABApplesCollectionViewController:
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.collectionView!.registerClass(ECABApplesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         self.session = ECABSession(with: ECABApplesGame(), subject: self.model.subject)
         // Start session
@@ -44,7 +46,7 @@ class ECABApplesCollectionViewController:
     
     func guidedAccessNotificationHandler(notification: NSNotification) {
         
-        let enabled: Bool = notification.userInfo!["restriction"] as Bool!
+        let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
         pauseButton?.enabled = enabled
         
         if pauseButton?.enabled == true {
@@ -67,11 +69,11 @@ class ECABApplesCollectionViewController:
 
     override func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as ECABApplesCollectionViewCell
+        let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ECABApplesCollectionViewCell
         cell.backgroundColor = UIColor.redColor()
         
         let aFruit:ECABGamePeace = self.board.data[indexPath.row]
-        cell.imageView.image = aFruit.image
+//        cell.imageView.image = aFruit.image
         
         cell.fruit = aFruit
                 
@@ -101,7 +103,7 @@ class ECABApplesCollectionViewController:
     override func collectionView(collectionView: UICollectionView,
         didSelectItemAtIndexPath indexPath: NSIndexPath) {
             
-            let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as ECABApplesCollectionViewCell
+            let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! ECABApplesCollectionViewCell
             
             if cell.fruit.isValuable {
                 let crossImage = UIImage(named: "cross_gray")
@@ -128,7 +130,7 @@ class ECABApplesCollectionViewController:
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.destinationViewController.isKindOfClass(ECABApplesViewController) {
-            var dest = segue.destinationViewController as ECABApplesViewController
+            var dest = segue.destinationViewController as! ECABApplesViewController
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }

@@ -16,8 +16,8 @@ class ECABSubject {
     var sessions = [ECABSession]()
     
     init() {
-        self.name = "New subject"
-        self.surname = ""
+        self.name = "New"
+        self.surname = "Player"
         self.age = 0
     }
     

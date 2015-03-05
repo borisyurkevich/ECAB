@@ -21,6 +21,22 @@ class ECABApplesViewController: UIViewController, SubjectPickerDelegate, UIPopov
 
     // MARK: - Navigation
 
+    @IBAction func playButtonHandler(sender: UIBarButtonItem) {
+        
+        if let detailVC: UISplitViewController = splitViewController {
+            // The right way get reference to UISplitViewController, UINavigationController or UITabBarController
+            
+            let flowLayout = UICollectionViewFlowLayout()
+            let gameVC = ECABApplesCollectionViewController(collectionViewLayout: flowLayout)
+
+            detailVC.presentViewController(gameVC, animated: true, completion: nil)
+        }
+        
+//        let presenter: UISplitViewController = self.navigationController!.splitViewController!
+//        
+//        presenter.performSegueWithIdentifier(Segues.startApplesGame, sender: presenter)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let identifier = segue.identifier {

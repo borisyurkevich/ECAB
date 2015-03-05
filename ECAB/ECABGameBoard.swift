@@ -56,9 +56,9 @@ class ECABGameBoard {
     }
     
     func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let count = countElements(list)
-        for i in 0..<(count - 1) {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+        let countNumber = count(list)
+        for i in 0..<(countNumber - 1) {
+            let j = Int(arc4random_uniform(UInt32(countNumber - i))) + i
             swap(&list[i], &list[j])
         }
         return list

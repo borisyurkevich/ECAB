@@ -11,8 +11,6 @@ import UIKit
 class ECABHistoryViewController: UIViewController {
 
     @IBOutlet var labels: [UILabel]!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var surnameLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var scoresLabel: UILabel!
@@ -31,9 +29,29 @@ class ECABHistoryViewController: UIViewController {
     }
     
     func update() {
-        nameLabel.text = currentSubject?.name
-        surnameLabel.text = currentSubject?.surname
-        ageLabel.text = String(currentSubject!.age)
+        
+        var name: String
+        var surname: String
+        var age: Int
+        
+        if currentSubject?.name != nil {
+            name = currentSubject!.name
+        } else {
+            name = "New"
+        }
+        if currentSubject?.surname != nil {
+            surname = currentSubject!.surname
+        } else {
+            surname = "Player"
+        }
+        if (currentSubject?.age != nil) {
+            age = currentSubject!.age
+            ageLabel.text = String(age)
+        } else {
+            ageLabel.text = "Unknown"
+        }
+        
+        self.title = "\(name) \(surname)"
         
         if (currentSubject?.sessions.last != nil) {
             let session = currentSubject?.sessions.last
