@@ -73,7 +73,9 @@ class ECABApplesCollectionViewController:
         cell.backgroundColor = UIColor.redColor()
         
         let aFruit:ECABGamePeace = self.board.data[indexPath.row]
-//        cell.imageView.image = aFruit.image
+        cell.imageView = UIImageView(frame: CGRectMake(0, 0, 40, 40));
+        cell.imageView.image = aFruit.image
+        cell.addSubview(cell.imageView)
         
         cell.fruit = aFruit
                 
