@@ -13,23 +13,37 @@ class ECABApplesCollectionViewController:
     UICollectionViewDelegateFlowLayout {
     
     let model: ECABData = ECABData.sharedInstance
-    var presenter: ECABApplesViewController?
-    
     let reuseIdentifier = "ApplesCell"
+
     private let board = ECABGameBoard(targets: 7,
                                   fakeTargers: 20,
                                  otherTargets: 50)
-    private var pauseButton: UIButton?
+    private struct Insets {
+        static let top:CGFloat = 10
+        static let left:CGFloat = 10
+        static let bottom:CGFloat = 10
+        static let right:CGFloat = 10
+    };
     
+    private var pauseButton: UIButton?
+    private var boardFlowLayout: UICollectionViewFlowLayout?
+    
+    var presenter: ECABApplesViewController?
     var session: ECABSession!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.registerClass(ECABApplesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        boardFlowLayout = configureFlowLayout()
+        
+        collectionView!.registerClass(ECABApplesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
         
         self.session = ECABSession(with: ECABApplesGame(), subject: self.model.subject)
         // Start session
+        
+        let whiteColor = UIColor.whiteColor()
+        collectionView?.backgroundColor = whiteColor
         
         let labelText: String = "Pause"
         pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
@@ -66,6 +80,9 @@ class ECABApplesCollectionViewController:
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.board.numberOfCells
     }
+    
+    private let cellWidth:CGFloat = 50
+    private let cellHeight:CGFloat = 50
 
     override func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -73,7 +90,7 @@ class ECABApplesCollectionViewController:
         cell.backgroundColor = UIColor.redColor()
         
         let aFruit:ECABGamePeace = self.board.data[indexPath.row]
-        cell.imageView = UIImageView(frame: CGRectMake(0, 0, 40, 40));
+        cell.imageView = UIImageView(frame: CGRectMake(0, 0, cellWidth, cellHeight));
         cell.imageView.image = aFruit.image
         cell.addSubview(cell.imageView)
         
@@ -81,23 +98,21 @@ class ECABApplesCollectionViewController:
                 
         return cell
     }
-
-    func presentPause() {
-        let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progress will be lost.", preferredStyle: .Alert)
-        
-        alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
-            self.quit()
-        }))
-        alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        
-        presentViewController(alertView, animated: true, completion: nil)
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    {
+        return CGSizeMake(cellWidth, cellHeight)
     }
     
-    func quit() {
-        model.subject.sessions.append(session)
-        self.presenter?.setNeedsStatusBarAppearanceUpdate()
-        self.dismissViewControllerAnimated(true, completion: nil)
-        self.session?.end()
+    func configureFlowLayout() -> UICollectionViewFlowLayout
+    {
+        var returnValue = UICollectionViewFlowLayout()
+        
+        returnValue.sectionInset = UIEdgeInsetsMake(Insets.top, Insets.left, Insets.bottom, Insets.right)
+        
+        return returnValue
     }
     
     // MARK: UICollectionViewDelegate
@@ -135,5 +150,23 @@ class ECABApplesCollectionViewController:
             var dest = segue.destinationViewController as! ECABApplesViewController
             dest.setNeedsStatusBarAppearanceUpdate()
         }
+    }
+    
+    func quit() {
+        model.subject.sessions.append(session)
+        self.presenter?.setNeedsStatusBarAppearanceUpdate()
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.session?.end()
+    }
+    
+    func presentPause() {
+        let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progress will be lost.", preferredStyle: .Alert)
+        
+        alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+            self.quit()
+        }))
+        alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        
+        presentViewController(alertView, animated: true, completion: nil)
     }
 }
