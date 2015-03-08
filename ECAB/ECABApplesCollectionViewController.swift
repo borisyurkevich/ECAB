@@ -15,6 +15,8 @@ class ECABApplesCollectionViewController:
     let model: ECABData = ECABData.sharedInstance
     let reuseIdentifier = "ApplesCell"
 
+    private let cellWidth:CGFloat = 100
+    private let cellHeight:CGFloat = 100
     private let board = ECABGameBoard(targets: 7,
                                   fakeTargers: 20,
                                  otherTargets: 50)
@@ -80,9 +82,6 @@ class ECABApplesCollectionViewController:
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.board.numberOfCells
     }
-    
-    private let cellWidth:CGFloat = 50
-    private let cellHeight:CGFloat = 50
 
     override func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

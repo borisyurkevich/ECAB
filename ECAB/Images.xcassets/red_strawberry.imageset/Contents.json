@@ -2,18 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "red_strawberry.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "red_strawberry-1.png"
+      "filename" : "strawberry-1.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "red_strawberry-2.png"
+      "scale" : "3x"
     }
   ],
   "info" : {

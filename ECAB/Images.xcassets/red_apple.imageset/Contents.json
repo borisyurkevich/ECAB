@@ -2,18 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "red_apple.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "red_apple-2.png"
+      "filename" : "red_apple.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "red_apple-1.png"
+      "scale" : "3x"
     }
   ],
   "info" : {
