@@ -54,7 +54,8 @@ class ECABApplesCollectionViewController:
         pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
         pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 4, size.width * 2, size.height)
         pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
-        self.collectionView!.addSubview(pauseButton!)
+        
+        view.addSubview(pauseButton!)
         // Add pause button
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
