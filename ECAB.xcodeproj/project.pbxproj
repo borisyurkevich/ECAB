@@ -15,6 +15,7 @@
 		910368051A841BAC00522B2B /* ECABGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368041A841BAC00522B2B /* ECABGame.swift */; };
 		910368071A841C3700522B2B /* ECABApplesGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368061A841C3700522B2B /* ECABApplesGame.swift */; };
 		910368091A841E5900522B2B /* ECABResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368081A841E5900522B2B /* ECABResult.swift */; };
+		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
 		91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B31A6BD5C400905752 /* AppDelegate.swift */; };
 		91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3B91A6BD5C400905752 /* Main.storyboard */; };
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
@@ -48,6 +49,7 @@
 		910368041A841BAC00522B2B /* ECABGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABGame.swift; sourceTree = "<group>"; };
 		910368061A841C3700522B2B /* ECABApplesGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesGame.swift; sourceTree = "<group>"; };
 		910368081A841E5900522B2B /* ECABResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABResult.swift; sourceTree = "<group>"; };
+		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
 		91E5C3AE1A6BD5C400905752 /* ECAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3B21A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3B31A6BD5C400905752 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
 				91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */,
+				917E878F1AAE466C00470759 /* GamesTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				910367F51A7E3BCC00522B2B /* ECABSubject.swift in Sources */,
 				910368071A841C3700522B2B /* ECABApplesGame.swift in Sources */,
+				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
 				91F3784B1A75529000D2F77B /* ECABGamePeace.swift in Sources */,
 				910368091A841E5900522B2B /* ECABResult.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */,

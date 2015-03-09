@@ -9,5 +9,11 @@
 import UIKit
 
 class ECABApplesGame: ECABGame {
+    
+    override init() {
+        super.init()
+        
+        title = "The Red Apple"
+    }
    
 }

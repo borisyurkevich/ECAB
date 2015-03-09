@@ -9,5 +9,8 @@
 import UIKit
 
 class ECABGame {
+    
+    var title = ""
+    // Displaying on the table view
    
 }
