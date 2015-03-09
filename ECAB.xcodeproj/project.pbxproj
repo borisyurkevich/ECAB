@@ -23,7 +23,7 @@
 		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */; };
 		91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */; };
-		91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */; };
+		91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */; };
 		91E5C41A1A6C6F5400905752 /* ECABApplesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* ECABApplesCollectionViewCell.swift */; };
 		91F378471A754EA000D2F77B /* ECABGameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* ECABGameBoard.swift */; };
 		91F3784B1A75529000D2F77B /* ECABGamePeace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* ECABGamePeace.swift */; };
@@ -60,7 +60,7 @@
 		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABHistoryViewController.swift; sourceTree = "<group>"; };
 		91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABViewController.swift; sourceTree = "<group>"; };
-		91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesCollectionViewController.swift; sourceTree = "<group>"; };
+		91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedAppleCollectionViewController.swift; sourceTree = "<group>"; };
 		91E5C4191A6C6F5400905752 /* ECABApplesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesCollectionViewCell.swift; sourceTree = "<group>"; };
 		91F378461A754EA000D2F77B /* ECABGameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABGameBoard.swift; sourceTree = "<group>"; };
 		91F3784A1A75529000D2F77B /* ECABGamePeace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABGamePeace.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 			children = (
 				910367F81A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift */,
 				910367F61A7E40FE00522B2B /* ECABMenuTBC.swift */,
-				91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */,
+				91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */,
 				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
 				91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */,
@@ -310,7 +310,7 @@
 				91F3784B1A75529000D2F77B /* ECABGamePeace.swift in Sources */,
 				910368091A841E5900522B2B /* ECABResult.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */,
-				91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */,
+				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift in Sources */,
 				910367F31A7E3B4900522B2B /* ECABData.swift in Sources */,
 			);

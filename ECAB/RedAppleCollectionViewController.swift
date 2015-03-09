@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ECABApplesCollectionViewController:
+class RedAppleCollectionViewController:
     UICollectionViewController,
     UICollectionViewDelegateFlowLayout {
     

@@ -27,7 +27,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             // The right way get reference to UISplitViewController, UINavigationController or UITabBarController
             
             let flowLayout = UICollectionViewFlowLayout()
-            let gameVC = ECABApplesCollectionViewController(collectionViewLayout: flowLayout)
+            let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
 
             detailVC.presentViewController(gameVC, animated: true, completion: nil)
         }
@@ -49,7 +49,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                     tvc.delegate = self
                 }
             case Segues.startApplesGame:
-                if let cvc = segue.destinationViewController as? ECABApplesCollectionViewController {
+                if let cvc = segue.destinationViewController as? RedAppleCollectionViewController {
                     cvc.presenter = self
                 }
             default: break;
