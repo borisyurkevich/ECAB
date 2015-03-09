@@ -30,7 +30,7 @@ class RedAppleCollectionViewController:
     private var pauseButton: UIButton?
     private var boardFlowLayout: UICollectionViewFlowLayout?
     
-    var presenter: MenuViewController?
+    var presenter: RedAppleMenuViewController?
     var session: ECABSession!
     
     override func viewDidLoad() {
@@ -146,8 +146,8 @@ class RedAppleCollectionViewController:
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.destinationViewController.isKindOfClass(MenuViewController) {
-            var dest = segue.destinationViewController as! MenuViewController
+        if segue.destinationViewController.isKindOfClass(RedAppleMenuViewController) {
+            var dest = segue.destinationViewController as! RedAppleMenuViewController
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }

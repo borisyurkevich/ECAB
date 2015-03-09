@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPresentationControllerDelegate
+class RedAppleMenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPresentationControllerDelegate
 {
     private struct Segues {
         static let startApplesGame = "Start apples game"

@@ -20,7 +20,7 @@
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
 		91E5C3C01A6BD5C400905752 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */; };
 		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
-		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
+		91E5C3D71A6BDB5000905752 /* RedAppleMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */; };
 		91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */; };
 		91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */; };
@@ -57,7 +57,7 @@
 		91E5C3C51A6BD5C400905752 /* ECABTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECABTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3CA1A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
-		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedAppleMenuViewController.swift; sourceTree = "<group>"; };
 		91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABHistoryViewController.swift; sourceTree = "<group>"; };
 		91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABViewController.swift; sourceTree = "<group>"; };
 		91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedAppleCollectionViewController.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 				910367F81A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift */,
 				910367F61A7E40FE00522B2B /* ECABMenuTBC.swift */,
 				91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */,
-				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
+				91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
 				91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */,
 			);
@@ -301,7 +301,7 @@
 				910368031A841B2500522B2B /* ECABSession.swift in Sources */,
 				910368051A841BAC00522B2B /* ECABGame.swift in Sources */,
 				910367F71A7E40FE00522B2B /* ECABMenuTBC.swift in Sources */,
-				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
+				91E5C3D71A6BDB5000905752 /* RedAppleMenuViewController.swift in Sources */,
 				91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* ECABGameBoard.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
