@@ -16,12 +16,11 @@
 		910368071A841C3700522B2B /* ECABApplesGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368061A841C3700522B2B /* ECABApplesGame.swift */; };
 		910368091A841E5900522B2B /* ECABResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368081A841E5900522B2B /* ECABResult.swift */; };
 		91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B31A6BD5C400905752 /* AppDelegate.swift */; };
-		91E5C3B61A6BD5C400905752 /* ECABMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B51A6BD5C400905752 /* ECABMenuViewController.swift */; };
 		91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3B91A6BD5C400905752 /* Main.storyboard */; };
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
 		91E5C3C01A6BD5C400905752 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */; };
 		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
-		91E5C3D71A6BDB5000905752 /* ECABApplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */; };
+		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */; };
 		91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */; };
 		91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */; };
@@ -52,14 +51,13 @@
 		91E5C3AE1A6BD5C400905752 /* ECAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3B21A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3B31A6BD5C400905752 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		91E5C3B51A6BD5C400905752 /* ECABMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABMenuViewController.swift; sourceTree = "<group>"; };
 		91E5C3BA1A6BD5C400905752 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91E5C3BC1A6BD5C400905752 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		91E5C3BF1A6BD5C400905752 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		91E5C3C51A6BD5C400905752 /* ECABTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECABTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3CA1A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
-		91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesViewController.swift; sourceTree = "<group>"; };
+		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABHistoryViewController.swift; sourceTree = "<group>"; };
 		91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABViewController.swift; sourceTree = "<group>"; };
 		91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABApplesCollectionViewController.swift; sourceTree = "<group>"; };
@@ -149,8 +147,7 @@
 				910367F81A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift */,
 				910367F61A7E40FE00522B2B /* ECABMenuTBC.swift */,
 				91E5C4151A6C6CEC00905752 /* ECABApplesCollectionViewController.swift */,
-				91E5C3D61A6BDB5000905752 /* ECABApplesViewController.swift */,
-				91E5C3B51A6BD5C400905752 /* ECABMenuViewController.swift */,
+				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* ECABHistoryViewController.swift */,
 				91E5C3DD1A6C4D9E00905752 /* ECABViewController.swift */,
 			);
@@ -304,7 +301,7 @@
 				910368031A841B2500522B2B /* ECABSession.swift in Sources */,
 				910368051A841BAC00522B2B /* ECABGame.swift in Sources */,
 				910367F71A7E40FE00522B2B /* ECABMenuTBC.swift in Sources */,
-				91E5C3D71A6BDB5000905752 /* ECABApplesViewController.swift in Sources */,
+				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91E5C3DE1A6C4D9E00905752 /* ECABViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* ECABGameBoard.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
@@ -316,7 +313,6 @@
 				91E5C4161A6C6CEC00905752 /* ECABApplesCollectionViewController.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift in Sources */,
 				910367F31A7E3B4900522B2B /* ECABData.swift in Sources */,
-				91E5C3B61A6BD5C400905752 /* ECABMenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

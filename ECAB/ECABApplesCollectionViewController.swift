@@ -30,7 +30,7 @@ class ECABApplesCollectionViewController:
     private var pauseButton: UIButton?
     private var boardFlowLayout: UICollectionViewFlowLayout?
     
-    var presenter: ECABApplesViewController?
+    var presenter: MenuViewController?
     var session: ECABSession!
     
     override func viewDidLoad() {
@@ -146,8 +146,8 @@ class ECABApplesCollectionViewController:
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.destinationViewController.isKindOfClass(ECABApplesViewController) {
-            var dest = segue.destinationViewController as! ECABApplesViewController
+        if segue.destinationViewController.isKindOfClass(MenuViewController) {
+            var dest = segue.destinationViewController as! MenuViewController
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }

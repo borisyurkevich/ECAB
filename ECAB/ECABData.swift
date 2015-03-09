@@ -12,6 +12,8 @@ class ECABData {
     private var subjects = Array<ECABSubject>()
     var subject: ECABSubject
     
+    let games = [ECABApplesGame()]
+    
     init() {
         if subjects.count == 0 {
             let subject = ECABSubject()
