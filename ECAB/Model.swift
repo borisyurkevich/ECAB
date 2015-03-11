@@ -12,7 +12,7 @@ class Model {
     private var subjects = Array<Player>()
     var subject: Player
     
-    let games = [RedAppleGame()]
+    let games = [RedAppleGame(), FishesAndMiceGame()]
     
     init() {
         if subjects.count == 0 {

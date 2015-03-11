@@ -10,4 +10,11 @@ import Foundation
 
 class FishesAndMiceGame : Game {
     
+    override init() {
+        super.init()
+        
+        title = "Flanker test (fishes & mice)"
+        
+    }
+    
 }
