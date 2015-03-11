@@ -10,7 +10,7 @@ import UIKit
 
 class ECABMenuTBC: UITabBarController {
     
-    let model = ECABData.sharedInstance
+    let model = Model.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()

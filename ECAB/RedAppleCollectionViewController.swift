@@ -12,7 +12,7 @@ class RedAppleCollectionViewController:
     UICollectionViewController,
     UICollectionViewDelegateFlowLayout {
     
-    let model: ECABData = ECABData.sharedInstance
+    let model: Model = Model.sharedInstance
     let reuseIdentifier = "ApplesCell"
 
     private let cellWidth:CGFloat = 100

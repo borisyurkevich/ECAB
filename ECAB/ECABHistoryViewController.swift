@@ -19,7 +19,7 @@ class ECABHistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentSubject = ECABData.sharedInstance.subject
+        currentSubject = Model.sharedInstance.subject
         update()
     }
     

@@ -1,5 +1,5 @@
 //
-//  ECABData.swift
+//  Model.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 01/02/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ECABData {
+class Model {
     private var subjects = Array<ECABSubject>()
     var subject: ECABSubject
     
@@ -24,9 +24,9 @@ class ECABData {
         self.subject = subjects[0]
     }
     
-    class var sharedInstance: ECABData {
+    class var sharedInstance: Model {
         struct Singleton {
-            static let instance = ECABData()
+            static let instance = Model()
         }
         
         return Singleton.instance

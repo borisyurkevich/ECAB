@@ -10,7 +10,7 @@ import UIKit
 
 class GamesTableViewController: UITableViewController {
     
-    let model = ECABData.sharedInstance
+    let model = Model.sharedInstance
     
     private let reuseIdentifier = "Games Table Cell"
     

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		910367F31A7E3B4900522B2B /* ECABData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* ECABData.swift */; };
+		910367F31A7E3B4900522B2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* Model.swift */; };
 		910367F51A7E3BCC00522B2B /* ECABSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F41A7E3BCC00522B2B /* ECABSubject.swift */; };
 		910367F71A7E40FE00522B2B /* ECABMenuTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F61A7E40FE00522B2B /* ECABMenuTBC.swift */; };
 		910367F91A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift */; };
@@ -41,7 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		910367F21A7E3B4900522B2B /* ECABData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABData.swift; sourceTree = "<group>"; };
+		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		910367F41A7E3BCC00522B2B /* ECABSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABSubject.swift; sourceTree = "<group>"; };
 		910367F61A7E40FE00522B2B /* ECABMenuTBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABMenuTBC.swift; sourceTree = "<group>"; };
 		910367F81A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABSubjectPickerDataSourceTVC.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 			children = (
 				91F378461A754EA000D2F77B /* ECABGameBoard.swift */,
 				91F3784A1A75529000D2F77B /* ECABGamePeace.swift */,
-				910367F21A7E3B4900522B2B /* ECABData.swift */,
+				910367F21A7E3B4900522B2B /* Model.swift */,
 				910367F41A7E3BCC00522B2B /* ECABSubject.swift */,
 				910368021A841B2500522B2B /* ECABSession.swift */,
 				910368041A841BAC00522B2B /* ECABGame.swift */,
@@ -316,7 +316,7 @@
 				91E5C3D91A6BDD8300905752 /* ECABHistoryViewController.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* ECABSubjectPickerDataSourceTVC.swift in Sources */,
-				910367F31A7E3B4900522B2B /* ECABData.swift in Sources */,
+				910367F31A7E3B4900522B2B /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
