@@ -1,19 +1,19 @@
 //
-//  ECABSubject.swift
+//  Player.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 01/02/2015.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ECABSubject {
+class Player {
     
     var name: String
     var surname: String
     var age: Int
-    var sessions = [ECABSession]()
+    var sessions = [Session]()
     
     init() {
         self.name = "New"

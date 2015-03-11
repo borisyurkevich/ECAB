@@ -1,5 +1,5 @@
 //
-//  ECABHistoryViewController.swift
+//  HistoryViewController.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 18/01/2015.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ECABHistoryViewController: UIViewController {
+class HistoryViewController: UIViewController {
 
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var scoresLabel: UILabel!
     
-    var currentSubject: ECABSubject?
+    var currentSubject: Player?
     
     override func viewDidLoad() {
         super.viewDidLoad()

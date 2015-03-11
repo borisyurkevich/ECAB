@@ -1,5 +1,5 @@
 //
-//  ECABGamePeaceType.swift
+//  GamePeaceType.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 25/01/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ECABGamePeace {
+class GamePeace {
     
     enum Fruit {
         case 🍎, 🍏, 🍓

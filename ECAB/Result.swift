@@ -1,5 +1,5 @@
 //
-//  ECABResult.swift
+//  Result.swift
 //  ECAB
 //
 //  Never use this class, always subclass it. Result as abstract want mean anything.
@@ -9,9 +9,9 @@
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ECABResult {
+class Result {
     
     var scores = 0
     

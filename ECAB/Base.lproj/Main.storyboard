@@ -127,8 +127,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Find the red apple" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="154" y="279" width="291" height="42"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Find all red apples" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
+                                <rect key="frame" x="152" y="279" width="295" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -176,7 +176,7 @@
         <!--Selected player-->
         <scene sceneID="17b-hn-LtR">
             <objects>
-                <viewController id="F2i-an-VHR" customClass="ECABHistoryViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="F2i-an-VHR" customClass="HistoryViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HTV-UW-0hh"/>
                         <viewControllerLayoutGuide type="bottom" id="Q7d-lA-mDn"/>
@@ -299,10 +299,10 @@
             </objects>
             <point key="canvasLocation" x="722" y="1387"/>
         </scene>
-        <!--MenuTBC-->
+        <!--Menu Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" customClass="ECABMenuTBC" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="MenuTabBarController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>

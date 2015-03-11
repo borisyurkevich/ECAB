@@ -1,17 +1,17 @@
 //
-//  ECABGameBoard.swift
+//  RedAppleBoard.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 25/01/2015.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ECABGameBoard {
+class RedAppleBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
-    var data = Array<ECABGamePeace>()
+    var data = Array<GamePeace>()
     private let apples: Int
     private let whiteApples: Int
     private let strawberries: Int
@@ -34,20 +34,20 @@ class ECABGameBoard {
     
     func generateDifferentFruits(){
 
-        var fruits = Array<ECABGamePeace>()
+        var fruits = Array<GamePeace>()
         
         for var i = 0; i < apples; i++ {
-            let freshApple = ECABGamePeace(type: ECABGamePeace.Fruit.🍎)
+            let freshApple = GamePeace(type: GamePeace.Fruit.🍎)
             fruits.append(freshApple)
         }
         
         for var i = 0; i < whiteApples; i++ {
-            let freshWhiteApple = ECABGamePeace(type: ECABGamePeace.Fruit.🍏)
+            let freshWhiteApple = GamePeace(type: GamePeace.Fruit.🍏)
             fruits.append(freshWhiteApple)
         }
         
         for var i = 0; i < strawberries; i++ {
-            let strawberry = ECABGamePeace(type: ECABGamePeace.Fruit.🍓)
+            let strawberry = GamePeace(type: GamePeace.Fruit.🍓)
             fruits.append(strawberry)
         }
         // Added all 3 types of fruits to the fruits collection

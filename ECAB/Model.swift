@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class Model {
-    private var subjects = Array<ECABSubject>()
-    var subject: ECABSubject
+    private var subjects = Array<Player>()
+    var subject: Player
     
-    let games = [ECABApplesGame()]
+    let games = [RedAppleGame()]
     
     init() {
         if subjects.count == 0 {
-            let subject = ECABSubject()
+            let subject = Player()
             subjects.append(subject)
             println("Default test subject created")
             // Creates default test subject

@@ -1,5 +1,5 @@
 //
-//  ECABMenuTBC.swift
+//  MenuTabBarController.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 01/02/2015.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ECABMenuTBC: UITabBarController {
+class MenuTabBarController: UITabBarController {
     
     let model = Model.sharedInstance
 

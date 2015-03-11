@@ -45,7 +45,7 @@ class GamesTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
         
-        let game: ECABGame = model.games[indexPath.row]
+        let game: Game = model.games[indexPath.row]
         cell.textLabel!.text = game.title
         
         return cell

@@ -42,7 +42,7 @@ class RedAppleMenuViewController: UIViewController, SubjectPickerDelegate, UIPop
         if let identifier = segue.identifier {
             switch identifier {
             case Segues.openSubjectsPopover:
-                if let tvc = segue.destinationViewController as? ECABSubjectPickerDataSourceTVC {
+                if let tvc = segue.destinationViewController as? PlayersTableViewController {
                     if let ppc = tvc.popoverPresentationController {
                         ppc.delegate = self;
                     }

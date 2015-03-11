@@ -1,5 +1,5 @@
 //
-//  ECABApplesCollectionViewCell.swift
+//  RedAppleCollectionViewCell.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 18/01/2015.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ECABApplesCollectionViewCell: UICollectionViewCell
+class RedAppleCollectionViewCell: UICollectionViewCell
 {
-    var fruit: ECABGamePeace!
+    var fruit: GamePeace!
     var imageView  = UIImageView()
 }

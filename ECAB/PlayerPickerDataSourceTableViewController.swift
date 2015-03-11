@@ -1,5 +1,5 @@
 //
-//  ECABSubjectPickerDataSourceTVC.swift
+//  PlayersTableViewController.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 01/02/2015.
@@ -12,7 +12,7 @@ protocol SubjectPickerDelegate {
     func pickSubject(isDefault: Bool)
 }
 
-class ECABSubjectPickerDataSourceTVC: UITableViewController {
+class PlayersTableViewController: UITableViewController {
     
     let subjectPickerOptions = ["Current subject", "Other subject"]
     var delegate: SubjectPickerDelegate!

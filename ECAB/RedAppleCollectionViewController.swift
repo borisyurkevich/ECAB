@@ -17,7 +17,7 @@ class RedAppleCollectionViewController:
 
     private let cellWidth:CGFloat = 100
     private let cellHeight:CGFloat = 100
-    private let board = ECABGameBoard(targets: 7,
+    private let board = RedAppleBoard(targets: 7,
                                   fakeTargers: 20,
                                  otherTargets: 50)
     private struct Insets {
@@ -31,17 +31,17 @@ class RedAppleCollectionViewController:
     private var boardFlowLayout: UICollectionViewFlowLayout?
     
     var presenter: RedAppleMenuViewController?
-    var session: ECABSession!
+    var session: Session!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         boardFlowLayout = configureFlowLayout()
         
-        collectionView!.registerClass(ECABApplesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
         
-        self.session = ECABSession(with: ECABApplesGame(), subject: self.model.subject)
+        self.session = Session(with: RedAppleGame(), subject: self.model.subject)
         // Start session
         
         let whiteColor = UIColor.whiteColor()
@@ -86,10 +86,10 @@ class RedAppleCollectionViewController:
 
     override func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ECABApplesCollectionViewCell
+        let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RedAppleCollectionViewCell
         cell.backgroundColor = UIColor.redColor()
         
-        let aFruit:ECABGamePeace = self.board.data[indexPath.row]
+        let aFruit:GamePeace = self.board.data[indexPath.row]
         cell.imageView = UIImageView(frame: CGRectMake(0, 0, cellWidth, cellHeight));
         cell.imageView.image = aFruit.image
         cell.addSubview(cell.imageView)
@@ -120,7 +120,7 @@ class RedAppleCollectionViewController:
     override func collectionView(collectionView: UICollectionView,
         didSelectItemAtIndexPath indexPath: NSIndexPath) {
             
-            let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! ECABApplesCollectionViewCell
+            let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
             
             if cell.fruit.isValuable {
                 let crossImage = UIImage(named: "cross_gray")

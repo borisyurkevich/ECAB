@@ -1,5 +1,5 @@
 //
-//  ECABViewController.swift
+//  ViewController.swift
 //  ECAB
 //
 //  Generic class for subclassing, provides basic navigation bar
@@ -11,7 +11,7 @@
 
 import UIKit
 
-class ECABViewController: UIViewController
+class ViewController: UIViewController
 {
 
     override func viewDidLoad()

@@ -1,19 +1,19 @@
 //
-//  ECABSession.swift
+//  Session.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 05/02/2015.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ECABSession {
-    let type: ECABGame
-    let subject: ECABSubject
-    let score = ECABResult()
+class Session {
+    let type: Game
+    let subject: Player
+    let score = Result()
     
-    init(with gameType: ECABGame, subject: ECABSubject) {
+    init(with gameType: Game, subject: Player) {
         self.type = gameType
         self.subject = subject
     }
