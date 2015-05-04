@@ -13,12 +13,12 @@ class RedAppleCollectionViewController:
     UICollectionViewDelegateFlowLayout {
     
     let model: Model = Model.sharedInstance
-    static let currentView = 0
+    var currentView = 0
     let reuseIdentifier = "ApplesCell"
 
     private let cellWidth:CGFloat = 100
     private let cellHeight:CGFloat = 100
-    private let board = RedAppleBoard(stage: currentView)
+    private var board = RedAppleBoard(stage: 0)
     
     private struct Insets {
         static let top:CGFloat = 10
@@ -61,15 +61,23 @@ class RedAppleCollectionViewController:
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
         
         // Start the game timer
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
 
     }
     
     func timerDidFire() {
-        println("Timer")
         
         // Here we shoulf set borard with new scene.
+        currentView += 1
+        board = RedAppleBoard(stage: currentView)
+        
         // And reload data
+        collectionView?.reloadData()
+        
+        // Set new timer. No need timer on the last step.
+        if currentView != 2 {
+            NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
+        }
     }
     
     func guidedAccessNotificationHandler(notification: NSNotification) {
