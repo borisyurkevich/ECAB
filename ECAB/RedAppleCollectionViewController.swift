@@ -15,6 +15,7 @@ class RedAppleCollectionViewController:
     let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
+    let gameSpeed: Double = 10 // Amount of seconds one view is visible
 
     private let cellWidth:CGFloat = 100
     private let cellHeight:CGFloat = 100
@@ -61,8 +62,10 @@ class RedAppleCollectionViewController:
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
         
         // Start the game timer
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
-
+        NSTimer.scheduledTimerWithTimeInterval(gameSpeed, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
+        
+        // Disable scrolling
+        collectionView?.scrollEnabled = false;
     }
     
     func timerDidFire() {
@@ -77,6 +80,8 @@ class RedAppleCollectionViewController:
         // Set new timer. No need timer on the last step.
         if currentView != 2 {
             NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
+        } else {
+            NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "quit", userInfo: nil, repeats: false)
         }
     }
     
