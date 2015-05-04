@@ -13,6 +13,7 @@ class Model {
     var subject: Player
     
     let games = [RedAppleGame(), FishesAndMiceGame()]
+    let currentView = 0
     
     init() {
         if subjects.count == 0 {

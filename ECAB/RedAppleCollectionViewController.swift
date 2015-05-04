@@ -13,13 +13,13 @@ class RedAppleCollectionViewController:
     UICollectionViewDelegateFlowLayout {
     
     let model: Model = Model.sharedInstance
+    static let currentView = 0
     let reuseIdentifier = "ApplesCell"
 
     private let cellWidth:CGFloat = 100
     private let cellHeight:CGFloat = 100
-    private let board = RedAppleBoard(targets: 7,
-                                  fakeTargers: 20,
-                                 otherTargets: 50)
+    private let board = RedAppleBoard(stage: currentView)
+    
     private struct Insets {
         static let top:CGFloat = 10
         static let left:CGFloat = 10
@@ -41,7 +41,7 @@ class RedAppleCollectionViewController:
         collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
         
-        self.session = Session(with: RedAppleGame(), subject: self.model.subject)
+        self.session = Session(with: RedAppleGame(), subject: model.subject)
         // Start session
         
         let whiteColor = UIColor.whiteColor()
@@ -59,6 +59,17 @@ class RedAppleCollectionViewController:
         // Add pause button
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
+        
+        // Start the game timer
+        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: true)
+
+    }
+    
+    func timerDidFire() {
+        println("Timer")
+        
+        // Here we shoulf set borard with new scene.
+        // And reload data
     }
     
     func guidedAccessNotificationHandler(notification: NSNotification) {

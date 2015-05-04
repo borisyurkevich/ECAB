@@ -12,13 +12,20 @@ class RedAppleBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
     var data = Array<GamePeace>()
-    private let apples: Int
-    private let whiteApples: Int
-    private let strawberries: Int
+    private var apples = 0
+    private var whiteApples = 0
+    private var strawberries = 0
+    
+    init(stage number: Int) { // From 1 to 3
+
+        generateDefaultPattern(forScreen: number)
+        
+        numberOfCells = data.count
+    }
     
     init(targets realTargets: Int,
-                 fakeTargers: Int,
-                otherTargets: Int){
+                     fakeTargers: Int,
+                    otherTargets: Int){
                     
         apples = realTargets
         whiteApples = fakeTargers
@@ -29,6 +36,7 @@ class RedAppleBoard {
         if numberOfCells == 0 {
             fatalError("🚫 You need to add at least one game object to board")
         }
+                    
         generateDifferentFruits()
     }
     
@@ -64,5 +72,119 @@ class RedAppleBoard {
         return list
     }
     // http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift
-
+    
+    func generateDefaultPattern(forScreen section: Int){
+        var f = [GamePeace]()
+        let t = GamePeace(type: .🍎) // target (red apple)
+        let w = GamePeace(type: .🍏) // white apple
+        let s = GamePeace(type: .🍓) // strawverry
+        
+        // This is complicated patters copied from PDF file. I separated matrix
+        // of fruits in the files to 4 different sections, 5 rows each, 
+        // 9 fruits in each row
+        
+        // Typical game will have 3 screens. Which means we have to devide all fruits on three screens.
+        // screen == 0 means we wil add all fruits
+        
+        switch section {
+        case 0:
+            // Black section
+            f.append(t); f.append(s); f.append(s);
+            f.append(w); f.append(w); f.append(s);
+            f.append(w); f.append(s); f.append(w);
+            
+            f.append(s); f.append(w); f.append(t);
+            f.append(w); f.append(s); f.append(w);
+            f.append(s); f.append(s); f.append(w);
+            
+            f.append(w); f.append(s); f.append(w);
+            f.append(w); f.append(s); f.append(s);
+            f.append(s); f.append(w); f.append(w);
+            
+            f.append(s); f.append(s); f.append(t);
+            f.append(w); f.append(s); f.append(s);
+            f.append(w); f.append(w); f.append(w);
+            
+            f.append(t); f.append(s); f.append(s);
+            f.append(w); f.append(t); f.append(w);
+            f.append(s); f.append(s); f.append(t);
+            
+            // Pink section
+            f.append(s); f.append(w); f.append(s);
+            f.append(t); f.append(w); f.append(s);
+            f.append(w); f.append(s); f.append(w);
+            
+            f.append(s); f.append(w); f.append(w);
+            f.append(w); f.append(s); f.append(s);
+            f.append(s); f.append(w); f.append(s);
+            
+            break;
+        case 1:
+            
+            f.append(s); f.append(w); f.append(s);
+            f.append(s); f.append(s); f.append(s);
+            f.append(s); f.append(s); f.append(s);
+            
+            f.append(w); f.append(s); f.append(w);
+            f.append(s); f.append(t); f.append(w);
+            f.append(s); f.append(s); f.append(w);
+            
+            f.append(s); f.append(s); f.append(t);
+            f.append(w); f.append(s); f.append(s);
+            f.append(w); f.append(w); f.append(s);
+            
+            // Purple
+            f.append(s); f.append(w); f.append(t);
+            f.append(w); f.append(w); f.append(w);
+            f.append(w); f.append(s); f.append(w);
+            
+            f.append(s); f.append(s); f.append(s);
+            f.append(s); f.append(w); f.append(w);
+            f.append(w); f.append(s); f.append(w);
+            
+            f.append(s); f.append(t); f.append(s);
+            f.append(s); f.append(w); f.append(s);
+            f.append(w); f.append(w); f.append(t);
+            
+            f.append(s); f.append(s); f.append(w);
+            f.append(t); f.append(s); f.append(w);
+            f.append(s); f.append(w); f.append(w);
+            
+            break;
+            
+        case 2:
+            
+            f.append(w); f.append(s); f.append(w);
+            f.append(w); f.append(w); f.append(s);
+            f.append(w); f.append(w); f.append(t);
+            
+            // Green
+            f.append(w); f.append(w); f.append(s);
+            f.append(s); f.append(s); f.append(s);
+            f.append(w); f.append(w); f.append(s);
+            
+            f.append(s); f.append(s); f.append(w);
+            f.append(s); f.append(w); f.append(s);
+            f.append(s); f.append(t); f.append(w);
+            
+            f.append(s); f.append(w); f.append(w);
+            f.append(s); f.append(s); f.append(s);
+            f.append(w); f.append(w); f.append(t);
+            
+            f.append(w); f.append(s); f.append(w);
+            f.append(w); f.append(s); f.append(w);
+            f.append(w); f.append(w); f.append(t);
+            
+            f.append(s); f.append(w); f.append(t);
+            f.append(w); f.append(w); f.append(s);
+            f.append(w); f.append(w); f.append(w);
+            
+            break;
+            
+        default:
+            println("⛔️ Set correct screen. From 0 to 2")
+        }
+        
+        self.data = f;
+    }
 }
