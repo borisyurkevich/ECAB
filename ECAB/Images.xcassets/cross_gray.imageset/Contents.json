@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "cross_gray.png"
+      "filename" : "Black Cross 200.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "cross_gray@2x.png"
+      "filename" : "Black Cross 300.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "cross_gray@3x.png"
+      "filename" : "Black Cross.png"
     }
   ],
   "info" : {
