@@ -17,9 +17,10 @@ class RedAppleCollectionViewController:
     let reuseIdentifier = "ApplesCell"
     let gameSpeed: Double = 10 // Amount of seconds one view is visible
 
-    private let cellWidth:CGFloat = 100
-    private let cellHeight:CGFloat = 100
+    private let cellWidth:CGFloat = 80
+    private let cellHeight:CGFloat = 80
     private var board = RedAppleBoard(stage: 0)
+    private let interSpacing:CGFloat = 20.0
     
     private struct Insets {
         static let top:CGFloat = 10
@@ -152,6 +153,9 @@ class RedAppleCollectionViewController:
         var returnValue = UICollectionViewFlowLayout()
         
         returnValue.sectionInset = UIEdgeInsetsMake(Insets.top, Insets.left, Insets.bottom, Insets.right)
+        
+        returnValue.minimumInteritemSpacing = interSpacing
+        returnValue.minimumLineSpacing = interSpacing
         
         return returnValue
     }
