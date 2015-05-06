@@ -161,6 +161,9 @@ class RedAppleCollectionViewController:
             let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
             
             if cell.fruit.isValuable {
+                
+                println("Fruit is valuable")
+                
                 let crossImage = UIImage(named: "cross_gray")
                 var cross = UIImageView(image: crossImage)
                 cross.frame = cell.imageView.frame
@@ -172,10 +175,12 @@ class RedAppleCollectionViewController:
                 if cell.fruit.isCrossed == false {
                     self.session!.score.scores += 1
                     cell.fruit.isCrossed = true
+                    println("Plus one score")
                 }
 
             } else {
-
+                
+                // Not valuable fruit selected
             }
     }
     

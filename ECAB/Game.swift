@@ -11,7 +11,6 @@ import Foundation
 class Game {
     
     var title = ""
-    var currentView = 0
     // Displaying on the table view
    
 }
