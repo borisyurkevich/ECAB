@@ -70,19 +70,33 @@ class RedAppleCollectionViewController:
     
     func timerDidFire() {
         
-        // Here we shoulf set borard with new scene.
-        currentView += 1
-        board = RedAppleBoard(stage: currentView)
-        
-        // And reload data
-        collectionView?.reloadData()
-        
-        // Set new timer. No need timer on the last step.
-        if currentView != 2 {
-            NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
-        } else {
-            NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "quit", userInfo: nil, repeats: false)
-        }
+        UIView.transitionWithView(self.view, duration: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+            // animation...
+            self.collectionView!.alpha = 0.0
+            
+            }, completion: { (fininshed: Bool) -> () in
+                
+                // Here we shoulf set borard with new scene.
+                self.currentView += 1
+                self.board = RedAppleBoard(stage: self.currentView)
+                
+                // And reload data
+                self.collectionView?.reloadData()
+                
+                // Set new timer. No need timer on the last step.
+                if self.currentView != 2 {
+                    NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
+                } else {
+                    NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "quit", userInfo: nil, repeats: false)
+                }
+                
+                UIView.transitionWithView(self.view, duration: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                    
+                    self.collectionView!.alpha = 1
+                    
+                }, completion: nil)
+        })
     }
     
     func guidedAccessNotificationHandler(notification: NSNotification) {
