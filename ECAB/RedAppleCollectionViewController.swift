@@ -86,9 +86,9 @@ class RedAppleCollectionViewController:
                 
                 // Set new timer. No need timer on the last step.
                 if self.currentView != 2 {
-                    NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
+                    NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
                 } else {
-                    NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "quit", userInfo: nil, repeats: false)
+                    NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "quit", userInfo: nil, repeats: false)
                 }
                 
                 UIView.transitionWithView(self.view, duration: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
@@ -166,10 +166,8 @@ class RedAppleCollectionViewController:
                 cross.frame = cell.imageView.frame
                 cell.imageView.addSubview(cross)
                 
-                cross.center.x = cell.contentView.center.x-7
-                cross.center.y = cell.contentView.center.y-7
-                // Sorry for magic numbers, for some reason contentView.center
-                // is not looking like real center.
+                cross.center.x = cell.contentView.center.x
+                cross.center.y = cell.contentView.center.y
                 
                 if cell.fruit.isCrossed == false {
                     self.session!.score.scores += 1
