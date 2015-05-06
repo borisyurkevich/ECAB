@@ -13,6 +13,9 @@ class Session {
     let subject: Player
     let score = Result()
     
+    // For Red Apple Game, describes selected index
+    var selectedItemsIndex = [Int]()
+    
     init(with gameType: Game, subject: Player) {
         self.type = gameType
         self.subject = subject

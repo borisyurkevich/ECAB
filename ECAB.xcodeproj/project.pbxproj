@@ -163,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				91E5C3B91A6BD5C400905752 /* Main.storyboard */,
-				91F3784A1A75529000D2F77B /* GamePeace.swift */,
 				91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */,
 			);
 			name = View;
@@ -177,6 +176,7 @@
 				910367F41A7E3BCC00522B2B /* Player.swift */,
 				910368021A841B2500522B2B /* Session.swift */,
 				910368041A841BAC00522B2B /* Game.swift */,
+				91F3784A1A75529000D2F77B /* GamePeace.swift */,
 				910368081A841E5900522B2B /* Result.swift */,
 				910368061A841C3700522B2B /* RedAppleGame.swift */,
 				91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */,

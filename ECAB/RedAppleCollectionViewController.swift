@@ -133,6 +133,9 @@ class RedAppleCollectionViewController:
         cell.addSubview(cell.imageView)
         
         cell.fruit = aFruit
+            
+        // In case cell was selected previously
+        cell.userInteractionEnabled = true
                 
         return cell
     }
@@ -162,8 +165,6 @@ class RedAppleCollectionViewController:
             
             if cell.fruit.isValuable {
                 
-                println("Fruit is valuable")
-                
                 let crossImage = UIImage(named: "cross_gray")
                 var cross = UIImageView(image: crossImage)
                 cross.frame = cell.imageView.frame
@@ -172,12 +173,11 @@ class RedAppleCollectionViewController:
                 cross.center.x = cell.contentView.center.x
                 cross.center.y = cell.contentView.center.y
                 
-                if cell.fruit.isCrossed == false {
-                    self.session!.score.scores += 1
-                    cell.fruit.isCrossed = true
-                    println("Plus one score")
-                }
-
+                self.session!.score.scores += 1
+                session.selectedItemsIndex.append(indexPath.row)
+                
+                cell.userInteractionEnabled = false
+                
             } else {
                 
                 // Not valuable fruit selected
@@ -198,6 +198,8 @@ class RedAppleCollectionViewController:
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
         self.session?.end()
+        
+        println("Result: \(session.selectedItemsIndex)")
     }
     
     func presentPause() {

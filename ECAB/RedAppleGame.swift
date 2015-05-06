@@ -15,5 +15,4 @@ class RedAppleGame: Game {
         
         title = "The Red Apple"
     }
-   
 }

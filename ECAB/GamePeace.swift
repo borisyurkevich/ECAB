@@ -15,7 +15,6 @@ class GamePeace {
     }
     
     let type: Fruit
-    var isCrossed = false
     let isValuable: Bool
     let image: UIImage!
     
