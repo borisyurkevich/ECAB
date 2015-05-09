@@ -23,7 +23,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         super.viewDidLoad()
         
         // Change button title to display current player name
-        changePlayerButton.title = "\(model.currentPlayer.name))"
+        changePlayerButton.title = "\(model.currentPlayer.name)"
     }
 
     // MARK: - Navigation
