@@ -12,14 +12,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="dRO-E3-9ZD">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="AZE-dC-AXL" id="MwM-I5-31p"/>
-                            </connections>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Subject picker cell" id="4Cv-A5-QpR">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -41,7 +33,6 @@
                 <searchDisplayController id="s8d-2u-c4w">
                     <connections>
                         <outlet property="delegate" destination="AZE-dC-AXL" id="XoQ-aD-06f"/>
-                        <outlet property="searchBar" destination="dRO-E3-9ZD" id="hdG-Qy-6Ka"/>
                         <outlet property="searchContentsController" destination="AZE-dC-AXL" id="vGr-bE-8cD"/>
                         <outlet property="searchResultsDataSource" destination="AZE-dC-AXL" id="wt8-7f-Dy7"/>
                         <outlet property="searchResultsDelegate" destination="AZE-dC-AXL" id="Cg6-8n-x9N"/>
