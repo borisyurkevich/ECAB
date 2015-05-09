@@ -14,9 +14,9 @@ protocol SubjectPickerDelegate {
 
 class PlayersTableViewController: UITableViewController {
     
-    private let model: Model = Model.sharedInstance
-    private var subjectPickerOptions = [String]()
     var delegate: SubjectPickerDelegate!
+    
+    private let model: Model = Model.sharedInstance
     private let reuseIdentifier = "Subject picker cell"
     
     @IBAction func addPlayerHandler(sender: UIBarButtonItem) {
@@ -30,14 +30,14 @@ class PlayersTableViewController: UITableViewController {
                 
                 let textField = alert.textFields![0] as! UITextField
                 
-                //data.players.app
-                
+                let newPlayer = Player(name: textField.text)
+                self.model.players.append(newPlayer)
                 
                 self.tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
-            style: .Default) { (action: UIAlertAction!) -> Void in
+            style: .Cancel) { (action: UIAlertAction!) -> Void in
         }
         
         alert.addTextFieldWithConfigurationHandler {
@@ -53,6 +53,8 @@ class PlayersTableViewController: UITableViewController {
         
     }
     
+    // MARK: - View Controller life
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,10 +63,6 @@ class PlayersTableViewController: UITableViewController {
         
         self.clearsSelectionOnViewWillAppear = true;
         // Make row selections not persist.
-        
-        for player in model.players {
-            subjectPickerOptions.append(player.name)
-        }
         
         tableView.reloadData()
     }
@@ -80,15 +78,15 @@ class PlayersTableViewController: UITableViewController {
                             indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)
             as! UITableViewCell
-                                
-        let name: String = subjectPickerOptions[indexPath.row]
+        
+        let player = model.players[indexPath.row]
         let label: UILabel! = cell.textLabel
-        label.text = name
+        label.text = player.name
         return cell
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return subjectPickerOptions.count
+        return model.players.count
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
