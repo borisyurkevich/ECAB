@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SubjectPickerDelegate {
-    func pickSubject(isDefault: Bool)
+    func pickSubject()
 }
 
 class PlayersTableViewController: UITableViewController {
@@ -91,10 +91,10 @@ class PlayersTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        if indexPath.row == 0 {
-            delegate?.pickSubject(true)
-        } else {
-            delegate?.pickSubject(false)
-        }
+        // Make selected player current player
+        let selectedPlayer = model.players[indexPath.row]
+        model.currentPlayer = selectedPlayer
+        
+        delegate?.pickSubject()
     }
 }

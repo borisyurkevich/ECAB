@@ -66,7 +66,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     
     // MARK: <SubjectPickerDelegate>
     
-    func pickSubject(isDefault: Bool) {
-        // TODO implement this
+    func pickSubject() {
+        changePlayerButton.title = model.currentPlayer.name
     }
 }
