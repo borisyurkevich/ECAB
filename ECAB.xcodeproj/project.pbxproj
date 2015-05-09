@@ -24,7 +24,6 @@
 		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
 		91E5C3D71A6BDB5000905752 /* RedAppleMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */; };
-		91E5C3DE1A6C4D9E00905752 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3DD1A6C4D9E00905752 /* ViewController.swift */; };
 		91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */; };
 		91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */; };
 		91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* RedAppleBoard.swift */; };
@@ -63,7 +62,6 @@
 		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
 		91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleMenuViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		91E5C3DD1A6C4D9E00905752 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F378461A754EA000D2F77B /* RedAppleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleBoard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -153,7 +151,6 @@
 				91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */,
 				91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
-				91E5C3DD1A6C4D9E00905752 /* ViewController.swift */,
 				917E878F1AAE466C00470759 /* GamesTableViewController.swift */,
 			);
 			name = Controller;
@@ -309,7 +306,6 @@
 				91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */,
 				910367F71A7E40FE00522B2B /* MenuTabBarController.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* RedAppleMenuViewController.swift in Sources */,
-				91E5C3DE1A6C4D9E00905752 /* ViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				910367F51A7E3BCC00522B2B /* Player.swift in Sources */,
