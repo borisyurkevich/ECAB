@@ -9,19 +9,19 @@
 import Foundation
 
 class Model {
-    private var subjects = Array<Player>()
+    var players = Array<Player>()
     var subject: Player
     
-    let games = [RedAppleGame(), FishesAndMiceGame()]
+    let games = [RedAppleGame()]
     
     init() {
-        if subjects.count == 0 {
+        if players.count == 0 {
             let subject = Player()
-            subjects.append(subject)
+            players.append(subject)
             println("Default test subject created")
             // Creates default test subject
         }
-        self.subject = subjects[0]
+        self.subject = players[0]
     }
     
     class var sharedInstance: Model {

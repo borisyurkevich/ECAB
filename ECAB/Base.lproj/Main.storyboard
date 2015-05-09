@@ -257,7 +257,9 @@
                             <outlet property="delegate" destination="z9N-tN-wyu" id="3BA-bG-Ty7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Players" id="Bv8-1s-JLB"/>
+                    <navigationItem key="navigationItem" title="Players" id="Bv8-1s-JLB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="JvH-ND-eqt"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a5V-hb-eHl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -14,15 +14,23 @@ protocol SubjectPickerDelegate {
 
 class PlayersTableViewController: UITableViewController {
     
-    let subjectPickerOptions = ["Current subject", "Other subject"]
+    private let model: Model = Model.sharedInstance
+    private var subjectPickerOptions = [String]()
     var delegate: SubjectPickerDelegate!
     private let reuseIdentifier = "Subject picker cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.clearsSelectionOnViewWillAppear = false;
-        // Make row selections persist.
+        self.clearsSelectionOnViewWillAppear = true;
+        // Make row selections not persist.
+        
+        for player in model.players {
+            let nameSurname = "\(player.name) \(player.surname)"
+            subjectPickerOptions.append(nameSurname)
+        }
+        
+        tableView.reloadData()
     }
 
     override func viewWillAppear(animated: Bool) {
