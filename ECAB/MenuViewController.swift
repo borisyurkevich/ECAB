@@ -12,6 +12,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 {
     
     @IBOutlet weak var changePlayerButton: UIBarButtonItem!
+    let model: Model = Model.sharedInstance
     
     private struct Segues {
         static let startApplesGame = "Start apples game"
@@ -20,6 +21,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Change button title to display current player name
+        changePlayerButton.title = "\(model.subject.name) \(model.subject.surname)"
     }
 
     // MARK: - Navigation
