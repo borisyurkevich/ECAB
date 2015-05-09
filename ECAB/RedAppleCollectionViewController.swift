@@ -32,7 +32,7 @@ class RedAppleCollectionViewController:
     private var pauseButton: UIButton?
     private var boardFlowLayout: UICollectionViewFlowLayout?
     
-    var presenter: RedAppleMenuViewController?
+    var presenter: MenuViewController?
     var session: Session!
     
     override func viewDidLoad() {
@@ -67,6 +67,9 @@ class RedAppleCollectionViewController:
         
         // Disable scrolling
         collectionView?.scrollEnabled = false;
+        
+        // Disable player name on to right corner
+        
     }
     
     func timerDidFire() {
@@ -191,8 +194,8 @@ class RedAppleCollectionViewController:
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.destinationViewController.isKindOfClass(RedAppleMenuViewController) {
-            var dest = segue.destinationViewController as! RedAppleMenuViewController
+        if segue.destinationViewController.isKindOfClass(MenuViewController) {
+            var dest = segue.destinationViewController as! MenuViewController
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }

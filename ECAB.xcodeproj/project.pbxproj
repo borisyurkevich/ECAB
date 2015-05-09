@@ -22,7 +22,7 @@
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
 		91E5C3C01A6BD5C400905752 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */; };
 		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
-		91E5C3D71A6BDB5000905752 /* RedAppleMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */; };
+		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */; };
 		91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */; };
 		91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */; };
@@ -60,7 +60,7 @@
 		91E5C3C51A6BD5C400905752 /* ECABTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECABTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3CA1A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
-		91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleMenuViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MenuViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -149,7 +149,7 @@
 				910367F81A7EC7CA00522B2B /* PlayerPickerDataSourceTableViewController.swift */,
 				910367F61A7E40FE00522B2B /* MenuTabBarController.swift */,
 				91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */,
-				91E5C3D61A6BDB5000905752 /* RedAppleMenuViewController.swift */,
+				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 				917E878F1AAE466C00470759 /* GamesTableViewController.swift */,
 			);
@@ -305,7 +305,7 @@
 				910368051A841BAC00522B2B /* Game.swift in Sources */,
 				91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */,
 				910367F71A7E40FE00522B2B /* MenuTabBarController.swift in Sources */,
-				91E5C3D71A6BDB5000905752 /* RedAppleMenuViewController.swift in Sources */,
+				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				910367F51A7E3BCC00522B2B /* Player.swift in Sources */,

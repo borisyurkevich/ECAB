@@ -109,7 +109,7 @@
         <!--Apples-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController title="Apples" id="8rJ-Kc-sve" customClass="RedAppleMenuViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Apples" id="8rJ-Kc-sve" customClass="MenuViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -159,6 +159,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="changePlayerButton" destination="Bs7-bU-6Lo" id="GM4-dM-FBJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>

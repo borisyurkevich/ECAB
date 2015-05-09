@@ -8,8 +8,11 @@
 
 import UIKit
 
-class RedAppleMenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPresentationControllerDelegate
+class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPresentationControllerDelegate
 {
+    
+    @IBOutlet weak var changePlayerButton: UIBarButtonItem!
+    
     private struct Segues {
         static let startApplesGame = "Start apples game"
         static let openSubjectsPopover = "Open subjects popover"
