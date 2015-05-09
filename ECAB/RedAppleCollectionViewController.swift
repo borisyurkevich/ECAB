@@ -15,15 +15,15 @@ class RedAppleCollectionViewController:
     let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
-    let gameSpeed: Double = 10 // Amount of seconds one view is visible
+    let gameSpeed: Double = 20 // Amount of seconds one view is visible
 
-    private let cellWidth:CGFloat = 80
-    private let cellHeight:CGFloat = 80
+    private let cellWidth:CGFloat = 70
+    private let cellHeight:CGFloat = 70
     private var board = RedAppleBoard(stage: 0)
-    private let interSpacing:CGFloat = 20.0
+    private let interSpacing:CGFloat = 27
     
     private struct Insets {
-        static let top:CGFloat = 10
+        static let top:CGFloat = 95
         static let left:CGFloat = 10
         static let bottom:CGFloat = 10
         static let right:CGFloat = 10
@@ -71,7 +71,7 @@ class RedAppleCollectionViewController:
     
     func timerDidFire() {
         
-        UIView.transitionWithView(self.view, duration: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+        UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             
             // animation...
             self.collectionView!.alpha = 0.0
@@ -92,7 +92,7 @@ class RedAppleCollectionViewController:
                     NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "quit", userInfo: nil, repeats: false)
                 }
                 
-                UIView.transitionWithView(self.view, duration: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     
                     self.collectionView!.alpha = 1
                     

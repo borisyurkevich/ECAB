@@ -116,10 +116,10 @@ class RedAppleBoard {
             
             f.append(s); f.append(w); f.append(w);
             f.append(w); f.append(s); f.append(s);
-            f.append(s); f.append(w); f.append(s);
             
             break;
         case 1:
+            f.append(s); f.append(w); f.append(s);
             
             f.append(s); f.append(w); f.append(s);
             f.append(s); f.append(s); f.append(s);
@@ -147,12 +147,13 @@ class RedAppleBoard {
             f.append(w); f.append(w); f.append(t);
             
             f.append(s); f.append(s); f.append(w);
-            f.append(t); f.append(s); f.append(w);
-            f.append(s); f.append(w); f.append(w);
             
             break;
             
         case 2:
+            
+            f.append(t); f.append(s); f.append(w);
+            f.append(s); f.append(w); f.append(w);
             
             f.append(w); f.append(s); f.append(w);
             f.append(w); f.append(w); f.append(s);
