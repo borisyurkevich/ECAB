@@ -43,7 +43,7 @@ class RedAppleCollectionViewController:
         collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
         
-        self.session = Session(with: RedAppleGame(), subject: model.subject)
+        self.session = Session(with: RedAppleGame(), subject: model.currentPlayer)
         // Start session
         
         let whiteColor = UIColor.whiteColor()
@@ -201,7 +201,9 @@ class RedAppleCollectionViewController:
     }
     
     func quit() {
-        model.subject.sessions.append(session)
+        
+        // TODO: Make sure current session has a link to the player which played this session.
+        
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
         self.session?.end()

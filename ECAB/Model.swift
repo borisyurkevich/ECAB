@@ -10,18 +10,18 @@ import Foundation
 
 class Model {
     var players = Array<Player>()
-    var subject: Player
+    var currentPlayer: Player
     
     let games = [RedAppleGame()]
     
     init() {
         if players.count == 0 {
-            let subject = Player()
+            let subject = Player(name: "Default")
             players.append(subject)
             println("Default test subject created")
             // Creates default test subject
         }
-        self.subject = players[0]
+        self.currentPlayer = players[0]
     }
     
     class var sharedInstance: Model {

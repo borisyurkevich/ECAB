@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		910367F31A7E3B4900522B2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* Model.swift */; };
 		910367F51A7E3BCC00522B2B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F41A7E3BCC00522B2B /* Player.swift */; };
-		910367F91A7EC7CA00522B2B /* PlayerPickerDataSourceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayerPickerDataSourceTableViewController.swift */; };
+		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
 		910368031A841B2500522B2B /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368021A841B2500522B2B /* Session.swift */; };
 		910368051A841BAC00522B2B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368041A841BAC00522B2B /* Game.swift */; };
 		910368071A841C3700522B2B /* RedAppleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368061A841C3700522B2B /* RedAppleGame.swift */; };
@@ -43,7 +43,7 @@
 /* Begin PBXFileReference section */
 		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		910367F41A7E3BCC00522B2B /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		910367F81A7EC7CA00522B2B /* PlayerPickerDataSourceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayerPickerDataSourceTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayersTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		910368021A841B2500522B2B /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		910368041A841BAC00522B2B /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Game.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		910368061A841C3700522B2B /* RedAppleGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleGame.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -147,7 +147,7 @@
 		91E5C3DA1A6C204500905752 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				910367F81A7EC7CA00522B2B /* PlayerPickerDataSourceTableViewController.swift */,
+				910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */,
 				91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */,
 				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
@@ -315,7 +315,7 @@
 				910368091A841E5900522B2B /* Result.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
-				910367F91A7EC7CA00522B2B /* PlayerPickerDataSourceTableViewController.swift in Sources */,
+				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
 				910367F31A7E3B4900522B2B /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

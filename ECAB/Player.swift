@@ -11,20 +11,9 @@ import Foundation
 class Player {
     
     var name: String
-    var surname: String
-    var age: Int
-    var sessions = [Session]()
     
-    init() {
-        self.name = "New"
-        self.surname = "Player"
-        self.age = 0
-    }
-    
-    init(name: String, surname: String, age: Int) {
+    init(name: String) {
         self.name = name
-        self.surname = surname
-        self.age = age
     }
     
 }
