@@ -14,6 +14,7 @@
 		910368051A841BAC00522B2B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368041A841BAC00522B2B /* Game.swift */; };
 		910368071A841C3700522B2B /* RedAppleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368061A841C3700522B2B /* RedAppleGame.swift */; };
 		910368091A841E5900522B2B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368081A841E5900522B2B /* Result.swift */; };
+		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
 		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
 		91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */; };
 		91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B31A6BD5C400905752 /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		910368041A841BAC00522B2B /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Game.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		910368061A841C3700522B2B /* RedAppleGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleGame.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		910368081A841E5900522B2B /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
 		91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishesAndMiceGame.swift; sourceTree = "<group>"; };
 		91E5C3AE1A6BD5C400905752 /* ECAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 		91E5C3A51A6BD5C400905752 = {
 			isa = PBXGroup;
 			children = (
+				914346891AFE8A65000FCF3A /* Model.xcdatamodeld */,
 				91E5C3B01A6BD5C400905752 /* ECAB */,
 				91E5C3C81A6BD5C400905752 /* ECABTests */,
 				91E5C3AF1A6BD5C400905752 /* Products */,
@@ -305,6 +308,7 @@
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				910367F51A7E3BCC00522B2B /* Player.swift in Sources */,
+				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
 				910368071A841C3700522B2B /* RedAppleGame.swift in Sources */,
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
 				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
@@ -524,6 +528,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		914346891AFE8A65000FCF3A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */,
+			);
+			currentVersion = 9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 91E5C3A61A6BD5C400905752 /* Project object */;
 }
