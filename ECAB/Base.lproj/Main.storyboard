@@ -170,7 +170,7 @@
         <!--Selected player-->
         <scene sceneID="17b-hn-LtR">
             <objects>
-                <viewController id="F2i-an-VHR" customClass="HistoryViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="F2i-an-VHR" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HTV-UW-0hh"/>
                         <viewControllerLayoutGuide type="bottom" id="Q7d-lA-mDn"/>
@@ -185,32 +185,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Apples" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5d-SP-p98">
-                                <rect key="frame" x="16" y="138" width="568" height="20"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKT-XE-qNu">
-                                <rect key="frame" x="16" y="166" width="568" height="20"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scores:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zA1-qL-kOI">
-                                <rect key="frame" x="16" y="194" width="74" height="20"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jS-Hy-VOy">
                                 <rect key="frame" x="98" y="72" width="108" height="20"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hK-xv-yGf">
-                                <rect key="frame" x="98" y="194" width="10" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -219,18 +195,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Selected player" id="j57-EK-xY9"/>
-                    <connections>
-                        <outlet property="ageLabel" destination="7jS-Hy-VOy" id="Wru-D1-KKz"/>
-                        <outlet property="gameNameLabel" destination="K5d-SP-p98" id="fJU-67-x46"/>
-                        <outlet property="scoresLabel" destination="5hK-xv-yGf" id="xdN-Oa-aAQ"/>
-                        <outletCollection property="labels" destination="K5d-SP-p98" collectionClass="NSMutableArray" id="ANY-ov-1lb"/>
-                        <outletCollection property="labels" destination="9eW-TU-imb" collectionClass="NSMutableArray" id="Fcj-kB-b51"/>
-                        <outletCollection property="labels" destination="K5d-SP-p98" collectionClass="NSMutableArray" id="Moe-vc-yYZ"/>
-                        <outletCollection property="labels" destination="dKT-XE-qNu" collectionClass="NSMutableArray" id="A3x-7W-geG"/>
-                        <outletCollection property="labels" destination="zA1-qL-kOI" collectionClass="NSMutableArray" id="UfT-LQ-Ghm"/>
-                        <outletCollection property="labels" destination="7jS-Hy-VOy" collectionClass="NSMutableArray" id="2Tt-TN-XZE"/>
-                        <outletCollection property="labels" destination="5hK-xv-yGf" collectionClass="NSMutableArray" id="f1q-3H-kVL"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="caB-9j-HLB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -320,23 +284,52 @@
         <!--Session-->
         <scene sceneID="LZK-h6-jyy">
             <objects>
-                <viewController id="syM-os-cW6" sceneMemberID="viewController">
+                <viewController id="syM-os-cW6" customClass="HistoryViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5Ss-PX-2fe"/>
-                        <viewControllerLayoutGuide type="bottom" id="8Hn-eJ-TYK"/>
+                        <viewControllerLayoutGuide type="top" id="IEC-Jv-4fz"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Po-nN-x5h"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jcu-4h-3Eb">
+                    <view key="view" contentMode="scaleToFill" id="ivj-Ld-cwN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Apples" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76v-ZP-WrX">
+                                <rect key="frame" x="16" y="106" width="568" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2W-f4-kdE">
+                                <rect key="frame" x="16" y="78" width="568" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scores:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNO-Hq-o2u">
+                                <rect key="frame" x="16" y="134" width="74" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYu-KI-7I6">
+                                <rect key="frame" x="98" y="134" width="10" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Session" id="RR3-0r-HER">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="qgc-FN-XJt"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="scoresLabel" destination="OYu-KI-7I6" id="NxB-r3-gqs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vV4-xE-keC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1630" y="3250"/>
+            <point key="canvasLocation" x="1557" y="3250"/>
         </scene>
         <!--Sessions-->
         <scene sceneID="QKP-0z-xcM">
@@ -347,7 +340,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="A8N-tz-2pC">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SessionID" id="A8N-tz-2pC">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A8N-tz-2pC" id="ys4-OB-97Z">
                                     <autoresizingMask key="autoresizingMask"/>
