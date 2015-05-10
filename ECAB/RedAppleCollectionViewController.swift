@@ -43,7 +43,9 @@ class RedAppleCollectionViewController:
         collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
         
-        self.session = Session(with: RedAppleGame(), subject: model.currentPlayer)
+        let player = Player(name: model.currentPlayerName)
+        
+        self.session = Session(with: RedAppleGame(), subject: player)
         // Start session
         
         let whiteColor = UIColor.whiteColor()

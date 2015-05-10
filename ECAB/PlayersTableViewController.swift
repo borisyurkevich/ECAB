@@ -30,8 +30,7 @@ class PlayersTableViewController: UITableViewController {
                 
                 let textField = alert.textFields![0] as! UITextField
                 
-                let newPlayer = Player(name: textField.text)
-                self.model.players.append(newPlayer)
+                self.model.savePlayer(textField.text)
                 
                 self.tableView.reloadData()
         }
@@ -81,7 +80,7 @@ class PlayersTableViewController: UITableViewController {
         
         let player = model.players[indexPath.row]
         let label: UILabel! = cell.textLabel
-        label.text = player.name
+        label.text = player.valueForKey("name") as? String
         return cell
     }
     
@@ -92,8 +91,9 @@ class PlayersTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         // Make selected player current player
-        let selectedPlayer = model.players[indexPath.row]
-        model.currentPlayer = selectedPlayer
+        let selectedPlayerEntity = model.players[indexPath.row]
+        let name = selectedPlayerEntity.valueForKey("name") as? String
+        model.currentPlayerName = name!
         
         delegate?.pickSubject()
     }
