@@ -3,7 +3,9 @@
     <entity name="Player" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Session" syncable="YES"/>
     <elements>
         <element name="Player" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="Session" positionX="-54" positionY="0" width="128" height="45"/>
     </elements>
 </model>

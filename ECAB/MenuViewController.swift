@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPresentationControllerDelegate
 {
+	var managedContext: NSManagedObjectContext!
     
     @IBOutlet weak var changePlayerButton: UIBarButtonItem!
     let model: Model = Model.sharedInstance
@@ -21,6 +23,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		model.setupWithContext(managedContext)
         
         // Change button title to display current player name
         changePlayerButton.title = "\(model.currentPlayerName)"

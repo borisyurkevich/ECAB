@@ -15,23 +15,12 @@ class Model {
     var currentPlayerName: String = "No name"
     
     let games = [RedAppleGame()]
+	
+	var managedContext: NSManagedObjectContext!
     
     init() {
         
-        self.fetchFromCoreData()
-        
-        if players.count == 0 {
-            
-            // We extracted all objects from CoreData
-            // If this object is not there, create default one
-            savePlayer("Default")
-            println("Default test subject created")
-        }
-        
-        // Make first player default one
-        let playerEntity = players[0]
-        let name = playerEntity.valueForKey("name") as? String
-        currentPlayerName = name!
+        // To configure call the setupWithContext function from VC
     }
     
     class var sharedInstance: Model {
@@ -41,13 +30,31 @@ class Model {
         
         return Singleton.instance
     }
-    
+	
+	func setupWithContext(let context: NSManagedObjectContext) {
+		
+		managedContext = context
+		
+		fetchFromCoreData()
+		
+		if players.count == 0 {
+			
+			// We extracted all objects from CoreData
+			// If this object is not there, create default one
+			savePlayer("Default")
+			println("Default test subject created")
+		}
+		
+		// Make first player default one
+		let playerEntity = players[0]
+		let name = playerEntity.valueForKey("name") as? String
+		currentPlayerName = name!
+	}
+	
     func fetchFromCoreData() {
-        
+		
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext!
-        
+		
         let fetchRequest = NSFetchRequest(entityName:"Player")
         
         var error: NSError?
@@ -66,8 +73,8 @@ class Model {
     func savePlayer(name: String) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-        let entity =  NSEntityDescription.entityForName("Player",
+
+		let entity =  NSEntityDescription.entityForName("Player",
             inManagedObjectContext:
             managedContext)
         let player = NSManagedObject(entity: entity!,
@@ -80,7 +87,6 @@ class Model {
         }
         
         players.append(player)
-        
-        
+		
     }
 }
