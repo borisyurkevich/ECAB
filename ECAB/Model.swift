@@ -123,4 +123,31 @@ class Model {
 			println("Could not save session: \(error)")
 		}
 	}
+	
+	func addSuccess(row: Int, column: Int, session: Session) {
+		
+		// Insert new Success entity into Core Data
+		
+		let successMoveEntity = NSEntityDescription.entityForName("Success", inManagedObjectContext: managedContext)
+		
+		let successObj = Success(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
+		
+		successObj.row = row
+		successObj.column = column
+		successObj.session = session
+		successObj.date = NSDate()
+		
+		let allSessions = data.sessions
+		let lastSession = allSessions.lastObject as! Session
+		
+		var allSuccessMoves = lastSession.success.mutableCopy() as! NSMutableSet
+		allSuccessMoves.addObject(successObj)
+		lastSession.success = allSuccessMoves.copy() as! NSSet
+		
+		//Save the managed object context
+		var error: NSError?
+		if !managedContext!.save(&error) {
+			println("Could not save new success move: \(error)")
+		}
+	}
 }
