@@ -59,9 +59,9 @@ class Model {
 				if !managedContext.save(&error) {
 					println("Could not save the Data: \(error)")
 				}
+			} else {
+				data = fetchedData[0]
 			}
-			
-			data = fetchedData[0]
 			
 			// If there's no current player,
 			// create new one

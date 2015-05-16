@@ -13,6 +13,14 @@ class SessionsTableViewController: UITableViewController {
 	let model = Model.sharedInstance
 	
 	private let reuseIdentifier = "Session Table Cell"
+	
+	override func viewWillAppear(animated: Bool) {
+		
+		// For some reason there's delay and table is not updated streight after
+		// game is finished.
+		
+		tableView.reloadData()
+	}
 
 	// MARK: - Table view data source
 	
