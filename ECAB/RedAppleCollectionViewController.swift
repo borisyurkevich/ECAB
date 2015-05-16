@@ -45,10 +45,8 @@ class RedAppleCollectionViewController:
 		
 		// Instert fresh session entity
 		model.addSession("Apples")
-		
-		session.player = model.data.currentPlayer
         session = model.data.sessions.lastObject as! Session
-        // Start session
+		session.player = model.data.currentPlayer
         
         let whiteColor = UIColor.whiteColor()
         collectionView?.backgroundColor = whiteColor
