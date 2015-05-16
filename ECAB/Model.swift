@@ -59,21 +59,21 @@ class Model {
 				if !managedContext.save(&error) {
 					println("Could not save the Data: \(error)")
 				}
-				
-			} else {
-				data = fetchedData[0]
-				
-				// If there's no current player,
-				// create new one
-				if let currPl = data?.currentPlayer {
-					println("Default player found")
-				} else {
-					if data.players.count == 0 {
-						addPlayer("Default")
-					}
-					data.currentPlayer = data.players.firstObject as! Player
-				}
 			}
+			
+			data = fetchedData[0]
+			
+			// If there's no current player,
+			// create new one
+			if let currPl = data?.currentPlayer {
+				println("Default player found")
+			} else {
+				if data.players.count == 0 {
+					addPlayer("Default")
+				}
+				data.currentPlayer = data.players.firstObject as! Player
+			}
+			
 		} else {
 			println("Could not fetch: \(error)")
 		}
