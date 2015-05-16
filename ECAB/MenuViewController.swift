@@ -25,10 +25,15 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         super.viewDidLoad()
 		
 		model.setupWithContext(managedContext)
-        
-        // Change button title to display current player name
-        changePlayerButton.title = "\(model.data.currentPlayer.name)"
-    }
+		
+		let modelReference = model
+		let dataRef = modelReference.data
+		if let playerRef = dataRef.currentPlayer as Player?{
+		
+			// Change button title to display current player name
+			changePlayerButton.title = "\(playerRef.name)"
+		}
+	}
 
     // MARK: - Navigation
 
