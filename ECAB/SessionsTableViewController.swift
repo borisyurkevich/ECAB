@@ -37,5 +37,34 @@ class SessionsTableViewController: UITableViewController {
 		let returnValue = model.data.sessions.count
 		return returnValue
 	}
+	
+	// MARK: Table view delegate
+	
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let pickedSesstion = model.data.sessions[indexPath.row] as! Session
+		
+		var detailMoves = ""
+		
+		for move  in pickedSesstion.success {
+			let successMove = move as! Success
+			let append = "Row: \(successMove.row) Column: \(successMove.column) Time: \(successMove.date)\n"
+			detailMoves = detailMoves + append
+		}
+		
+		let dateStarted = pickedSesstion.dateStart.description
+//		let dateEnded = pickedSesstion.dateEnd.description
+		let name = pickedSesstion.player.name
+		
+		let stringForTheTextView = "Total score = \(pickedSesstion.score), succesfull moves: \(pickedSesstion.success.count)\n\nSession started: \(dateStarted)\n\nPlayer name: \(name)\n\nDetail moves:\n\n\(detailMoves)"
+		
+		
+//		let stringForTheTextView = "Total score = \(pickedSesstion.score), succesfull moves: \(pickedSesstion.success.count)\n\nSession started: \(pickedSesstion.dateStart.description), ended: \(pickedSesstion.dateEnd)\n\nPlayer name: \(pickedSesstion.player.name)\n\n Error moves: \(pickedSesstion.failure.count), repeats: \(pickedSesstion.repeat.count)\n\n Detail moves:\n\n\(detailMoves)"
+		
+		
+		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
+
+		detailVC.textView.text = stringForTheTextView
+		
+	}
 
 }

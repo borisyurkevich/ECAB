@@ -210,6 +210,10 @@ class RedAppleCollectionViewController:
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
 		
+		// TODO: Fix this.
+		// Session will not persist this.
+		// I think it is more efficent created filled with data Session obj after game is finished
+		// Right here and not call for the model every move
 		session.dateEnd = NSDate()
 		
         println("Result: \(session.score)")

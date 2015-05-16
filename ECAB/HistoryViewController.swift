@@ -10,7 +10,7 @@ import UIKit
 
 class HistoryViewController: UIViewController {
 
-    @IBOutlet weak var scoresLabel: UILabel!
+	@IBOutlet weak var textView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
