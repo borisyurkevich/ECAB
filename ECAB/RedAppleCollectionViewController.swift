@@ -46,6 +46,7 @@ class RedAppleCollectionViewController:
 		// Instert fresh session entity
 		model.addSession("Apples")
 		
+		session.player = model.data.currentPlayer
         session = model.data.sessions.lastObject as! Session
         // Start session
         
@@ -206,13 +207,11 @@ class RedAppleCollectionViewController:
     }
     
     func quit() {
-        
-        // TODO: Make sure current session has a link to the player which played this session.
-        
+			
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
 		
-		// TODO end the session
+		session.dateEnd = NSDate()
 		
         println("Result: \(session.score)")
     }
