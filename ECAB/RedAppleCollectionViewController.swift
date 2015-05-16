@@ -42,10 +42,11 @@ class RedAppleCollectionViewController:
         
         collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
-        
-        let player = Player(name: model.currentPlayerName)
-        
-        self.session = Session(with: RedAppleGame(), subject: player)
+		
+		// Instert fresh session entity
+		model.addSession("Apples")
+		
+        session = model.data.sessions.lastObject as! Session
         // Start session
         
         let whiteColor = UIColor.whiteColor()
@@ -181,9 +182,11 @@ class RedAppleCollectionViewController:
                 
                 cross.center.x = cell.contentView.center.x
                 cross.center.y = cell.contentView.center.y
-                
-                self.session!.score.scores += 1
-                session.selectedItemsIndex.append(indexPath.row)
+				
+				let times = session.score.integerValue
+				session.score = NSNumber(integer: (times + 1))
+				
+				// TODO add precies coordinates (success object)
                 
                 cell.userInteractionEnabled = false
                 
@@ -208,9 +211,10 @@ class RedAppleCollectionViewController:
         
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
-        self.session?.end()
-        
-        println("Result: \(session.selectedItemsIndex)")
+		
+		// TODO end the session
+		
+        println("Result: \(session.score)")
     }
     
     func presentPause() {

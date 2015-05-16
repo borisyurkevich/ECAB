@@ -30,7 +30,7 @@ class PlayersTableViewController: UITableViewController {
                 
                 let textField = alert.textFields![0] as! UITextField
                 
-                self.model.savePlayer(textField.text)
+                self.model.addPlayer(textField.text)
                 
                 self.tableView.reloadData()
         }
@@ -78,22 +78,26 @@ class PlayersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)
             as! UITableViewCell
         
-        let player = model.players[indexPath.row]
+		let data = model.data as Data
+		let players = data.players
+		let player = players[indexPath.row] as! Player
+								
         let label: UILabel! = cell.textLabel
-        label.text = player.valueForKey("name") as? String
+        label.text = player.name
         return cell
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.players.count
+        return model.data.players.count
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         // Make selected player current player
-        let selectedPlayerEntity = model.players[indexPath.row]
-        let name = selectedPlayerEntity.valueForKey("name") as? String
-        model.currentPlayerName = name!
+		let data = model.data as Data
+        let selectedPlayerEntity = data.players[indexPath.row] as! Player
+        let name = selectedPlayerEntity.name
+        model.data.currentPlayer = selectedPlayerEntity
         
         delegate?.pickSubject()
     }

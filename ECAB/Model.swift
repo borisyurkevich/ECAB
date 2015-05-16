@@ -11,12 +11,11 @@ import CoreData
 import UIKit
 
 class Model {
-    var players = [NSManagedObject]()
-    var currentPlayerName: String = "No name"
-    
     let games = [RedAppleGame()]
 	
 	var managedContext: NSManagedObjectContext!
+	
+	var data: Data!
     
     init() {
         
@@ -36,57 +35,92 @@ class Model {
 		managedContext = context
 		
 		fetchFromCoreData()
-		
-		if players.count == 0 {
-			
-			// We extracted all objects from CoreData
-			// If this object is not there, create default one
-			savePlayer("Default")
-			println("Default test subject created")
-		}
-		
-		// Make first player default one
-		let playerEntity = players[0]
-		let name = playerEntity.valueForKey("name") as? String
-		currentPlayerName = name!
 	}
 	
     func fetchFromCoreData() {
 		
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		// Data entity
+		let dataEntity = NSEntityDescription.entityForName("Data", inManagedObjectContext: managedContext)
 		
-        let fetchRequest = NSFetchRequest(entityName:"Player")
-        
-        var error: NSError?
-        
-        let fetchedResults =
-        managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [NSManagedObject]
-        
-        if let results = fetchedResults {
-            players = results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-        }
+		let dataIdentifier = "Default"
+		let dataFetch = NSFetchRequest(entityName: "Data")
+		dataFetch.predicate = NSPredicate(format: "id == %@", dataIdentifier)
+		
+		var error: NSError?
+		
+		let result = managedContext.executeFetchRequest(dataFetch, error: &error) as! [Data]?
+		
+		if let fetchedData = result {
+			
+			if fetchedData.count == 0 {
+				data = Data(entity: dataEntity!, insertIntoManagedObjectContext: managedContext)
+				data!.id = dataIdentifier
+				
+				if !managedContext.save(&error) {
+					println("Could not save the Data: \(error)")
+				}
+				
+			} else {
+				data = fetchedData[0]
+				
+				// If there's no current player,
+				// create new one
+				if let currPl = data?.currentPlayer {
+					println("Default player found")
+				} else {
+					if data.players.count == 0 {
+						addPlayer("Default")
+					}
+					data.currentPlayer = data.players.firstObject as! Player
+				}
+			}
+		} else {
+			println("Could not fetch: \(error)")
+		}
     }
     
-    func savePlayer(name: String) {
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
-		let entity =  NSEntityDescription.entityForName("Player",
-            inManagedObjectContext:
-            managedContext)
-        let player = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext:managedContext)
-        player.setValue(name, forKey: "name")
-        
-        var error: NSError?
-        if !managedContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
-        }
-        
-        players.append(player)
+    func addPlayer(playerName: String) {
 		
+		// Insert new Player entity into Core Data
+		
+		let playerEntity = NSEntityDescription.entityForName("Player", inManagedObjectContext: managedContext)
+		
+		let player = Player(entity: playerEntity!, insertIntoManagedObjectContext: managedContext)
+		
+		player.name = playerName
+		
+		// Insert the new Player into the Data set
+		var players = data.players.mutableCopy() as! NSMutableOrderedSet
+		players.addObject(player)
+		data.players = players.copy() as! NSOrderedSet
+		
+		//Save the managed object context
+		var error: NSError?
+		if !managedContext!.save(&error) {
+			println("Could not save player: \(error)")
+		}
     }
+	
+	func addSession(type: String) {
+		
+		// Insert new Session entity into Core Data
+		
+		let sessionEntity = NSEntityDescription.entityForName("Session", inManagedObjectContext: managedContext)
+		
+		let session = Session(entity: sessionEntity!, insertIntoManagedObjectContext: managedContext)
+		
+		session.gameType = type
+		session.dateStart = NSDate()
+		
+		// Insert the new Session into the Data set
+		var sessions = data.sessions.mutableCopy() as! NSMutableOrderedSet
+		sessions.addObject(session)
+		data.sessions = sessions.copy() as! NSOrderedSet
+		
+		//Save the managed object context
+		var error: NSError?
+		if !managedContext!.save(&error) {
+			println("Could not save session: \(error)")
+		}
+	}
 }
