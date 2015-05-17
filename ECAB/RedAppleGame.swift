@@ -13,6 +13,6 @@ class RedAppleGame: Game {
     override init() {
         super.init()
         
-        title = "The Red Apple"
+        title = "The Visual Search"
     }
 }
