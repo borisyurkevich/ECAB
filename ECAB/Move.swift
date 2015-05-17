@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class Success: NSManagedObject {
+class Move: NSManagedObject {
 
     @NSManaged var column: NSNumber
     @NSManaged var date: NSDate

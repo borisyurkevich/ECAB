@@ -46,8 +46,8 @@ class SessionsTableViewController: UITableViewController {
 		var detailMoves = ""
 		
 		for move  in pickedSesstion.moves {
-			let successMove = move as! Success
-			let append = "Row: \(successMove.row) Column: \(successMove.column) Time: \(successMove.date)\n"
+			let gameMove = move as! Move
+			let append = "Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date)\n"
 			detailMoves = detailMoves + append
 		}
 		

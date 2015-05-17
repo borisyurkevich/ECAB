@@ -6,7 +6,7 @@
         <relationship name="players" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Player" inverseName="data" inverseEntity="Player" syncable="YES"/>
         <relationship name="sessions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Session" inverseName="data" inverseEntity="Session" syncable="YES"/>
     </entity>
-    <entity name="Move" representedClassName="ECAB.Success" syncable="YES">
+    <entity name="Move" representedClassName="ECAB.Move" syncable="YES">
         <attribute name="column" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="repeat" optional="YES" attributeType="Boolean" syncable="YES"/>

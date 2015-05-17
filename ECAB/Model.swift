@@ -128,21 +128,21 @@ class Model {
 		
 		// Insert new Success entity into Core Data
 		
-		let successMoveEntity = NSEntityDescription.entityForName("Success", inManagedObjectContext: managedContext)
+		let successMoveEntity = NSEntityDescription.entityForName("Move", inManagedObjectContext: managedContext)
 		
-		let successObj = Success(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
+		let move = Move(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
 		
-		successObj.row = row
-		successObj.column = column
-		successObj.session = session
-		successObj.date = NSDate()
+		move.row = row
+		move.column = column
+		move.session = session
+		move.date = NSDate()
 		
 		let allSessions = data.sessions
 		let lastSession = allSessions.lastObject as! Session
 		
-		var allSuccessMoves = lastSession.success.mutableCopy() as! NSMutableSet
-		allSuccessMoves.addObject(successObj)
-		lastSession.success = allSuccessMoves.copy() as! NSSet
+		var allMoves = lastSession.moves.mutableCopy() as! NSMutableSet
+		allMoves.addObject(move)
+		lastSession.moves = allMoves.copy() as! NSSet
 		
 		//Save the managed object context
 		var error: NSError?
