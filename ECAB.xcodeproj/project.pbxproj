@@ -185,7 +185,6 @@
 				910368081A841E5900522B2B /* Result.swift */,
 				910368061A841C3700522B2B /* RedAppleGame.swift */,
 				91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */,
-				91AE3E621B0292ED00871B7A /* CoreDataStack.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -197,6 +196,7 @@
 				91F448151B089A110082EB6A /* Move.swift */,
 				91F448111B089A110082EB6A /* Player.swift */,
 				91F4480F1B089A100082EB6A /* Data.swift */,
+				91AE3E621B0292ED00871B7A /* CoreDataStack.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";

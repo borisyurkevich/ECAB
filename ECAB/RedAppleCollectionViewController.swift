@@ -44,9 +44,8 @@ class RedAppleCollectionViewController:
         collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
 		
 		// Instert fresh session entity
-		model.addSession("Apples")
+		model.addSession("Apple", player: model.data.currentPlayer)
         session = model.data.sessions.lastObject as! Session
-		session.player = model.data.currentPlayer
         
         let whiteColor = UIColor.whiteColor()
         collectionView?.backgroundColor = whiteColor
@@ -169,7 +168,18 @@ class RedAppleCollectionViewController:
     
     override func collectionView(collectionView: UICollectionView,
         didSelectItemAtIndexPath indexPath: NSIndexPath) {
-            
+			
+			// Calculate row and column of the collection view
+			let total: Double = 60
+			let rowCount: Double = total / 6
+			var row: Double = Double(indexPath.row) / rowCount
+			let rowNumber = ceil(row)
+			var normalizedRow = Int(rowNumber)
+			if normalizedRow != 0 {
+				normalizedRow -= 1
+			}
+			let columnNumber = indexPath.row - (normalizedRow * 6)
+			
             let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
             
             if cell.fruit.isValuable {
@@ -186,7 +196,7 @@ class RedAppleCollectionViewController:
 				session.score = NSNumber(integer: (times + 1))
 				
 				// TODO: add precies coordinates (success object)
-				model.addMove(9, column: 9, session: session, isSuccess: true, isRepeat: false)
+				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false)
                 
                 cell.userInteractionEnabled = false
                 

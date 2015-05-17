@@ -53,6 +53,7 @@ class Model {
 		if let fetchedData = result {
 			
 			if fetchedData.count == 0 {
+				
 				data = Data(entity: dataEntity!, insertIntoManagedObjectContext: managedContext)
 				data!.id = dataIdentifier
 				
@@ -101,7 +102,7 @@ class Model {
 		}
     }
 	
-	func addSession(type: String) {
+	func addSession(type: String, player: Player) {
 		
 		// Insert new Session entity into Core Data
 		
@@ -111,6 +112,7 @@ class Model {
 		
 		session.gameType = type
 		session.dateStart = NSDate()
+		session.player = player
 		
 		// Insert the new Session into the Data set
 		var sessions = data.sessions.mutableCopy() as! NSMutableOrderedSet

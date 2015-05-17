@@ -53,7 +53,8 @@ class SessionsTableViewController: UITableViewController {
 		
 		let dateStarted = pickedSesstion.dateStart.description
 //		let dateEnded = pickedSesstion.dateEnd.description
-		let name = pickedSesstion.player.name
+		let player = pickedSesstion.player
+		let name = player.name
 		
 		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nSession started: \(dateStarted)\n\nPlayer name: \(name)\n\nDetail moves:\n\n\(detailMoves)"
 		
