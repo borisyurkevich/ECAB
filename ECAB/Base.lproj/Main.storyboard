@@ -307,9 +307,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Session" id="RR3-0r-HER">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="qgc-FN-XJt"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Session" id="RR3-0r-HER"/>
                     <connections>
                         <outlet property="textView" destination="obK-CX-Wet" id="NQN-T7-X52"/>
                     </connections>

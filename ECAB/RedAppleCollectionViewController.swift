@@ -195,7 +195,6 @@ class RedAppleCollectionViewController:
 				let times = session.score.integerValue
 				session.score = NSNumber(integer: (times + 1))
 				
-				// TODO: add precies coordinates (success object)
 				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false)
                 
                 cell.userInteractionEnabled = false
