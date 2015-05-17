@@ -28,7 +28,7 @@
         <attribute name="repeatCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="sessions" inverseEntity="Data" syncable="YES"/>
-        <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Move" inverseName="session" inverseEntity="Move" syncable="YES"/>
+        <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Move" inverseName="session" inverseEntity="Move" syncable="YES"/>
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="sessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>

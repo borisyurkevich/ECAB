@@ -142,9 +142,9 @@ class Model {
 		let allSessions = data.sessions
 		let lastSession = allSessions.lastObject as! Session
 		
-		var allMoves = lastSession.moves.mutableCopy() as! NSMutableSet
+		var allMoves = lastSession.moves.mutableCopy() as! NSMutableOrderedSet
 		allMoves.addObject(move)
-		lastSession.moves = allMoves.copy() as! NSSet
+		lastSession.moves = allMoves.copy() as! NSOrderedSet
 		
 		//Save the managed object context
 		var error: NSError?
