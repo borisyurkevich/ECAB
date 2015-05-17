@@ -186,7 +186,7 @@ class RedAppleCollectionViewController:
 				session.score = NSNumber(integer: (times + 1))
 				
 				// TODO: add precies coordinates (success object)
-				model.addSuccess(6, column: 9, session: session)
+				model.addMove(9, column: 9, session: session, isSuccess: true, isRepeat: false)
                 
                 cell.userInteractionEnabled = false
                 
@@ -217,7 +217,6 @@ class RedAppleCollectionViewController:
 		session.dateEnd = NSDate()
 		
         println("Result: \(session.score)")
-		println("Result in the Poitns: \(session.success.count)")
     }
     
     func presentPause() {

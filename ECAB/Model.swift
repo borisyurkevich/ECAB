@@ -124,7 +124,7 @@ class Model {
 		}
 	}
 	
-	func addSuccess(row: Int, column: Int, session: Session) {
+	func addMove(row: Int, column: Int, session: Session, isSuccess: Bool, isRepeat: Bool) {
 		
 		// Insert new Success entity into Core Data
 		

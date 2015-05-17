@@ -12,13 +12,7 @@
 		910368051A841BAC00522B2B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368041A841BAC00522B2B /* Game.swift */; };
 		910368071A841C3700522B2B /* RedAppleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368061A841C3700522B2B /* RedAppleGame.swift */; };
 		910368091A841E5900522B2B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368081A841E5900522B2B /* Result.swift */; };
-		913543FF1B03FE9C00041AB6 /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913543FE1B03FE9C00041AB6 /* Failure.swift */; };
-		913544011B03FE9C00041AB6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544001B03FE9C00041AB6 /* Player.swift */; };
-		913544031B03FE9C00041AB6 /* Success.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544021B03FE9C00041AB6 /* Success.swift */; };
-		913544051B03FE9C00041AB6 /* Repeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544041B03FE9C00041AB6 /* Repeat.swift */; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
-		913544091B0408CE00041AB6 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544081B0408CE00041AB6 /* Data.swift */; };
-		9135440B1B040B1D00041AB6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9135440A1B040B1D00041AB6 /* Session.swift */; };
 		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
 		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
 		91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AE3E621B0292ED00871B7A /* CoreDataStack.swift */; };
@@ -34,6 +28,10 @@
 		91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */; };
 		91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* RedAppleBoard.swift */; };
 		91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* GamePeace.swift */; };
+		91F448101B089A100082EB6A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4480F1B089A100082EB6A /* Data.swift */; };
+		91F448121B089A110082EB6A /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F448111B089A110082EB6A /* Player.swift */; };
+		91F448161B089A110082EB6A /* Success.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F448151B089A110082EB6A /* Success.swift */; };
+		91F4481B1B089B170082EB6A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4481A1B089B170082EB6A /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,13 +50,7 @@
 		910368041A841BAC00522B2B /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Game.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		910368061A841C3700522B2B /* RedAppleGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleGame.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		910368081A841E5900522B2B /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		913543FE1B03FE9C00041AB6 /* Failure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
-		913544001B03FE9C00041AB6 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		913544021B03FE9C00041AB6 /* Success.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Success.swift; sourceTree = "<group>"; };
-		913544041B03FE9C00041AB6 /* Repeat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repeat.swift; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
-		913544081B0408CE00041AB6 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		9135440A1B040B1D00041AB6 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
 		91AE3E621B0292ED00871B7A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -78,6 +70,10 @@
 		91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F378461A754EA000D2F77B /* RedAppleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleBoard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F3784A1A75529000D2F77B /* GamePeace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePeace.swift; sourceTree = "<group>"; };
+		91F4480F1B089A100082EB6A /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		91F448111B089A110082EB6A /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		91F448151B089A110082EB6A /* Success.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Success.swift; sourceTree = "<group>"; };
+		91F4481A1B089B170082EB6A /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +116,7 @@
 		91E5C3B01A6BD5C400905752 /* ECAB */ = {
 			isa = PBXGroup;
 			children = (
+				91F448171B089A1C0082EB6A /* Data */,
 				91E5C3DC1A6C205600905752 /* Model */,
 				91E5C3DB1A6C204D00905752 /* View */,
 				91E5C3DA1A6C204500905752 /* Controller */,
@@ -181,13 +178,7 @@
 		91E5C3DC1A6C205600905752 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9135440A1B040B1D00041AB6 /* Session.swift */,
-				913544081B0408CE00041AB6 /* Data.swift */,
 				910367F21A7E3B4900522B2B /* Model.swift */,
-				913544041B03FE9C00041AB6 /* Repeat.swift */,
-				913544021B03FE9C00041AB6 /* Success.swift */,
-				913544001B03FE9C00041AB6 /* Player.swift */,
-				913543FE1B03FE9C00041AB6 /* Failure.swift */,
 				91F378461A754EA000D2F77B /* RedAppleBoard.swift */,
 				910368041A841BAC00522B2B /* Game.swift */,
 				91F3784A1A75529000D2F77B /* GamePeace.swift */,
@@ -197,6 +188,17 @@
 				91AE3E621B0292ED00871B7A /* CoreDataStack.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		91F448171B089A1C0082EB6A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				91F4481A1B089B170082EB6A /* Session.swift */,
+				91F448151B089A110082EB6A /* Success.swift */,
+				91F448111B089A110082EB6A /* Player.swift */,
+				91F4480F1B089A100082EB6A /* Data.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,26 +320,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				913544011B03FE9C00041AB6 /* Player.swift in Sources */,
 				91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */,
 				910368051A841BAC00522B2B /* Game.swift in Sources */,
 				91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */,
-				913544051B03FE9C00041AB6 /* Repeat.swift in Sources */,
-				913543FF1B03FE9C00041AB6 /* Failure.swift in Sources */,
 				91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */,
+				91F448161B089A110082EB6A /* Success.swift in Sources */,
+				91F448121B089A110082EB6A /* Player.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
+				91F448101B089A100082EB6A /* Data.swift in Sources */,
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
 				910368071A841C3700522B2B /* RedAppleGame.swift in Sources */,
-				913544091B0408CE00041AB6 /* Data.swift in Sources */,
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
+				91F4481B1B089B170082EB6A /* Session.swift in Sources */,
 				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
 				910368091A841E5900522B2B /* Result.swift in Sources */,
-				913544031B03FE9C00041AB6 /* Success.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
-				9135440B1B040B1D00041AB6 /* Session.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
 				910367F31A7E3B4900522B2B /* Model.swift in Sources */,

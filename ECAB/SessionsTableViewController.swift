@@ -45,7 +45,7 @@ class SessionsTableViewController: UITableViewController {
 		
 		var detailMoves = ""
 		
-		for move  in pickedSesstion.success {
+		for move  in pickedSesstion.moves {
 			let successMove = move as! Success
 			let append = "Row: \(successMove.row) Column: \(successMove.column) Time: \(successMove.date)\n"
 			detailMoves = detailMoves + append
@@ -55,11 +55,7 @@ class SessionsTableViewController: UITableViewController {
 //		let dateEnded = pickedSesstion.dateEnd.description
 		let name = pickedSesstion.player.name
 		
-		let stringForTheTextView = "Total score = \(pickedSesstion.score), succesfull moves: \(pickedSesstion.success.count)\n\nSession started: \(dateStarted)\n\nPlayer name: \(name)\n\nDetail moves:\n\n\(detailMoves)"
-		
-		
-//		let stringForTheTextView = "Total score = \(pickedSesstion.score), succesfull moves: \(pickedSesstion.success.count)\n\nSession started: \(pickedSesstion.dateStart.description), ended: \(pickedSesstion.dateEnd)\n\nPlayer name: \(pickedSesstion.player.name)\n\n Error moves: \(pickedSesstion.failure.count), repeats: \(pickedSesstion.repeat.count)\n\n Detail moves:\n\n\(detailMoves)"
-		
+		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nSession started: \(dateStarted)\n\nPlayer name: \(name)\n\nDetail moves:\n\n\(detailMoves)"
 		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
 
