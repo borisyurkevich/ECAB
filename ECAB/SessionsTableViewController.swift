@@ -53,10 +53,13 @@ class SessionsTableViewController: UITableViewController {
 		
 		let dateStarted = pickedSesstion.dateStart.description
 //		let dateEnded = pickedSesstion.dateEnd.description
-		let player = pickedSesstion.player
-		let name = player.name
+		var sudoName = "Unknown"
 		
-		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nSession started: \(dateStarted)\n\nPlayer name: \(name)\n\nDetail moves:\n\n\(detailMoves)"
+		if let player = pickedSesstion.player as Player? {
+			sudoName = player.name
+		}
+		
+		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nSession started: \(dateStarted)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
 		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
 
