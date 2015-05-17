@@ -178,7 +178,7 @@ class RedAppleCollectionViewController:
 			if normalizedRow != 0 {
 				normalizedRow -= 1
 			}
-			let columnNumber = indexPath.row - (normalizedRow * 6)
+			let columnNumber = (indexPath.row - (normalizedRow * 10)) + 1
 			
             let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
             
