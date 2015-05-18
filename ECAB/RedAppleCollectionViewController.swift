@@ -15,10 +15,10 @@ class RedAppleCollectionViewController:
     let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
-    let gameSpeed: Double = 20 // Amount of seconds one view is visible
+    let gameSpeed: Double = 4 // Amount of seconds one view is visible, default is 20
 
-    private let cellWidth:CGFloat = 70
-    private let cellHeight:CGFloat = 70
+    private var cellWidth:CGFloat = 190 // only for the first training view - very big
+    private var cellHeight:CGFloat = 190
     private var board = RedAppleBoard(stage: 0)
     private let interSpacing:CGFloat = 27
     
@@ -28,6 +28,12 @@ class RedAppleCollectionViewController:
         static let bottom:CGFloat = 10
         static let right:CGFloat = 10
     };
+	
+	// Inititial insets are very big
+	private var insetTop: CGFloat = 260
+	private var insetLeft: CGFloat = 172
+	private var insetBottom = Insets.bottom
+	private var insetRight: CGFloat = 172
     
     private var pauseButton: UIButton?
     private var boardFlowLayout: UICollectionViewFlowLayout?
@@ -39,9 +45,9 @@ class RedAppleCollectionViewController:
         super.viewDidLoad()
         
         boardFlowLayout = configureFlowLayout()
-        
+		collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
+		
         collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
 		
 		// Instert fresh session entity
 		model.addSession("Apple", player: model.data.currentPlayer)
@@ -74,7 +80,7 @@ class RedAppleCollectionViewController:
     }
     
     func timerDidFire() {
-        
+		        
         UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             
             // animation...
@@ -84,13 +90,46 @@ class RedAppleCollectionViewController:
                 
                 // Here we shoulf set borard with new scene.
                 self.currentView += 1
+				
+				switch (self.currentView) {
+				case 0:
+					self.cellWidth = 190
+					self.cellHeight = 190
+					break;
+				case 1:
+					self.cellWidth = 84
+					self.cellHeight = 84
+					self.insetTop = 220
+					self.insetLeft = 340
+					self.insetRight = 340
+					break;
+				case 2:
+					self.cellWidth = 70
+					self.cellHeight = 70
+					self.insetTop = 230
+					self.insetLeft = 200
+					self.insetRight = 200
+					break;
+				default:
+					self.cellWidth = 70
+					self.cellHeight = 70
+					self.insetTop = Insets.top
+					self.insetLeft = Insets.left
+					self.insetBottom = Insets.bottom
+					self.insetRight = Insets.right
+					break;
+				}
+				
                 self.board = RedAppleBoard(stage: self.currentView)
                 
                 // And reload data
                 self.collectionView?.reloadData()
-                
+				
+				self.boardFlowLayout = self.configureFlowLayout()
+				self.collectionView!.setCollectionViewLayout(self.boardFlowLayout!, animated: false)
+				
                 // Set new timer. No need timer on the last step.
-                if self.currentView != 2 {
+                if self.currentView != 8 {
                     NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
                 } else {
                     NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "quit", userInfo: nil, repeats: false)
@@ -130,6 +169,12 @@ class RedAppleCollectionViewController:
     override func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RedAppleCollectionViewCell
+		
+		// Remove all subviews
+		for subview in cell.subviews {
+			subview.removeFromSuperview()
+		}
+				
         cell.backgroundColor = UIColor.redColor()
         
         let aFruit:GamePeace = self.board.data[indexPath.row]
@@ -156,7 +201,7 @@ class RedAppleCollectionViewController:
     {
         var returnValue = UICollectionViewFlowLayout()
         
-        returnValue.sectionInset = UIEdgeInsetsMake(Insets.top, Insets.left, Insets.bottom, Insets.right)
+        returnValue.sectionInset = UIEdgeInsetsMake(insetTop, insetLeft, insetBottom, insetRight)
         
         returnValue.minimumInteritemSpacing = interSpacing
         returnValue.minimumLineSpacing = interSpacing
