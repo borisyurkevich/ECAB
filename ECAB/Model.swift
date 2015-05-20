@@ -138,6 +138,8 @@ class Model {
 		move.column = column
 		move.session = session
 		move.date = NSDate()
+		move.success = isSuccess
+		move.repeat = isRepeat
 		
 		let allSessions = data.sessions
 		let lastSession = allSessions.lastObject as! Session

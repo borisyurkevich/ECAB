@@ -44,11 +44,13 @@ class SessionsTableViewController: UITableViewController {
 		let pickedSesstion = model.data.sessions[indexPath.row] as! Session
 		
 		var detailMoves = ""
+		var counter = 1
 		
 		for move  in pickedSesstion.moves {
 			let gameMove = move as! Move
-			let append = "Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date)\n"
+			let append = "\(counter). Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date) Success: \(gameMove.success.boolValue) Repeat: \(gameMove.repeat.boolValue)\n"
 			detailMoves = detailMoves + append
+			counter++
 		}
 		
 		let dateStarted = pickedSesstion.dateStart.description
@@ -59,7 +61,7 @@ class SessionsTableViewController: UITableViewController {
 			sudoName = player.name
 		}
 		
-		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nSession started: \(dateStarted)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
+		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStarted)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
 		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
 

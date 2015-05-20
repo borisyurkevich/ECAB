@@ -19,6 +19,7 @@ class RedAppleCollectionViewController:
     let gameSpeed: Double = 4 // Amount of seconds one view is visible, default is 20
 	var player = AVAudioPlayer()
 	var playerFailure = AVAudioPlayer()
+	private var checkedMarks = [-1]
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
@@ -136,6 +137,7 @@ class RedAppleCollectionViewController:
 				}
 				
                 self.board = RedAppleBoard(stage: self.currentView)
+				self.checkedMarks = [-1]
                 
                 // And reload data
                 self.collectionView?.reloadData()
@@ -245,27 +247,45 @@ class RedAppleCollectionViewController:
 			// Prepare sounds
 			
             if cell.fruit.isValuable {
-                
-                let crossImage = UIImage(named: "cross_gray")
-                var cross = UIImageView(image: crossImage)
-                cross.frame = cell.imageView.frame
-                cell.imageView.addSubview(cross)
-                
-                cross.center.x = cell.contentView.center.x
-                cross.center.y = cell.contentView.center.y
 				
-				let times = session.score.integerValue
-				session.score = NSNumber(integer: (times + 1))
+				var isRepeat = false
 				
-				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false)
-                
-                cell.userInteractionEnabled = false
+				for item in checkedMarks {
+					if indexPath.row == item {
+						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true)
+						playerFailure.play()
+						isRepeat = true
+						break
+					}
+				}
 				
-				player.play()
+				if isRepeat == false {
+					let crossImage = UIImage(named: "cross_gray")
+					var cross = UIImageView(image: crossImage)
+					cross.frame = cell.imageView.frame
+					cell.imageView.addSubview(cross)
+					
+					cross.center.x = cell.contentView.center.x
+					cross.center.y = cell.contentView.center.y
+					
+					let times = session.score.integerValue
+					session.score = NSNumber(integer: (times + 1))
+					
+					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false)
+					
+					player.play()
+					
+					checkedMarks.append(indexPath.row)
+				}
 				
             } else {
-                
-                // TODO: Not valuable fruit selected
+				
+                // Not valuable fruit selected
+				let times = session.failureScore.integerValue
+				session.failureScore = NSNumber(integer: (times + 1))
+				
+				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false)
+				
 				playerFailure.play()
             }
     }
