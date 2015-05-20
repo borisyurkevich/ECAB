@@ -16,7 +16,7 @@ class RedAppleCollectionViewController:
     let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
-    let gameSpeed: Double = 4 // Amount of seconds one view is visible, default is 20
+    let gameSpeed: Double = 8 // Amount of seconds one view is visible, default is 20
 	var player = AVAudioPlayer()
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
@@ -26,6 +26,7 @@ class RedAppleCollectionViewController:
     private var cellHeight:CGFloat = 190
     private var board = RedAppleBoard(stage: 0)
     private let interSpacing:CGFloat = 27
+	private var timer = NSTimer()
     
     private struct Insets {
         static let top:CGFloat = 95
@@ -41,6 +42,7 @@ class RedAppleCollectionViewController:
 	private var insetRight: CGFloat = 172
     
     private var pauseButton: UIButton?
+	private var nextButton: UIButton?
     private var boardFlowLayout: UICollectionViewFlowLayout?
     
     var presenter: MenuViewController?
@@ -63,20 +65,25 @@ class RedAppleCollectionViewController:
         
         let labelText: String = "Pause"
         pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
-        let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(14.0)])
+        let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(16.0)])
         let screen: CGSize = UIScreen.mainScreen().bounds.size
         pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
-        pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 4, size.width * 2, size.height)
+        pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width * 2, size.height)
         pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
-        
+		
+		let labelNextText = "Next"
+		nextButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+        nextButton!.setTitle(labelNextText, forState: UIControlState.Normal)
+		nextButton!.frame = CGRectMake(10, 16, size.width * 2, size.height)
+		nextButton!.addTarget(self, action: "timerDidFire", forControlEvents: UIControlEvents.TouchUpInside)
+		
         view.addSubview(pauseButton!)
+		view.addSubview(nextButton!)
         // Add pause button
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
         
-        // Start the game timer
-        NSTimer.scheduledTimerWithTimeInterval(gameSpeed, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
-        
+		
         // Disable scrolling
         collectionView?.scrollEnabled = false;
         
@@ -95,6 +102,13 @@ class RedAppleCollectionViewController:
 		playerFailure = AVAudioPlayer(contentsOfURL: failureSoundURL, error: &errorFailure)
 		playerFailure.prepareToPlay()
     }
+	
+	var isGameStarted = false
+	func startGame() {
+		if !isGameStarted {
+			isGameStarted = true
+		}
+	}
     
     func timerDidFire() {
 		        
@@ -127,7 +141,16 @@ class RedAppleCollectionViewController:
 					self.insetLeft = 200
 					self.insetRight = 200
 					break;
+				case 3 ... 5:
+					self.cellWidth = 70
+					self.cellHeight = 70
+					self.insetTop = Insets.top
+					self.insetLeft = Insets.left
+					self.insetBottom = Insets.bottom
+					self.insetRight = Insets.right
+					break;
 				default:
+					self.startGame()
 					self.cellWidth = 70
 					self.cellHeight = 70
 					self.insetTop = Insets.top
@@ -135,9 +158,10 @@ class RedAppleCollectionViewController:
 					self.insetBottom = Insets.bottom
 					self.insetRight = Insets.right
 					self.isTraining = false
+					self.nextButton?.hidden = true
 					break;
 				}
-				
+				println("Requesting fot the board \(self.currentView)")
                 self.board = RedAppleBoard(stage: self.currentView)
 				self.checkedMarks = [-1]
                 
@@ -147,12 +171,14 @@ class RedAppleCollectionViewController:
 				self.boardFlowLayout = self.configureFlowLayout()
 				self.collectionView!.setCollectionViewLayout(self.boardFlowLayout!, animated: false)
 				
-                // Set new timer. No need timer on the last step.
-                if self.currentView != 8 {
-                    NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
-                } else {
-                    NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "quit", userInfo: nil, repeats: false)
-                }
+				// TODO: It is better move this logic to the Switch statement
+				if (self.isGameStarted && self.currentView == 8) {
+					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "quit", userInfo: nil, repeats: false)
+					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
+				} else if (self.isGameStarted && self.currentView != 8) {
+					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
+					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
+				}
                 
                 UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     
@@ -304,7 +330,8 @@ class RedAppleCollectionViewController:
     }
     
     func quit() {
-			
+		timer.invalidate()
+		
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
 		
