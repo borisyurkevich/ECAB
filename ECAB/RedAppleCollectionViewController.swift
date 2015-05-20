@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RedAppleCollectionViewController:
     UICollectionViewController,
@@ -16,6 +17,8 @@ class RedAppleCollectionViewController:
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
     let gameSpeed: Double = 4 // Amount of seconds one view is visible, default is 20
+	var player = AVAudioPlayer()
+	var playerFailure = AVAudioPlayer()
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
@@ -76,7 +79,19 @@ class RedAppleCollectionViewController:
         collectionView?.scrollEnabled = false;
         
         // Disable player name on to right corner
-        
+		
+		// Sounds
+		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
+		let successSoundURL = NSURL(fileURLWithPath: successSoundPath!)
+		var error: NSError?
+		player = AVAudioPlayer(contentsOfURL: successSoundURL, error: &error)
+		player.prepareToPlay()
+		
+		let failureSoundPath = NSBundle.mainBundle().pathForResource("beep-attention", ofType: "aif")
+		let failureSoundURL = NSURL(fileURLWithPath: failureSoundPath!)
+		var errorFailure: NSError?
+		playerFailure = AVAudioPlayer(contentsOfURL: failureSoundURL, error: &errorFailure)
+		playerFailure.prepareToPlay()
     }
     
     func timerDidFire() {
@@ -226,7 +241,9 @@ class RedAppleCollectionViewController:
 			let columnNumber = (indexPath.row - (normalizedRow * 10)) + 1
 			
             let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
-            
+			
+			// Prepare sounds
+			
             if cell.fruit.isValuable {
                 
                 let crossImage = UIImage(named: "cross_gray")
@@ -243,10 +260,13 @@ class RedAppleCollectionViewController:
 				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false)
                 
                 cell.userInteractionEnabled = false
-                
+				
+				player.play()
+				
             } else {
                 
                 // TODO: Not valuable fruit selected
+				playerFailure.play()
             }
     }
     
