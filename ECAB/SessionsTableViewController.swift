@@ -48,7 +48,7 @@ class SessionsTableViewController: UITableViewController {
 		
 		for move  in pickedSesstion.moves {
 			let gameMove = move as! Move
-			let append = "\(counter). Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date) Success: \(gameMove.success.boolValue) Repeat: \(gameMove.repeat.boolValue)\n"
+			let append = "\(counter). Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date) Success: \(gameMove.success.boolValue) Repeat: \(gameMove.repeat.boolValue) Training: \(gameMove.training.boolValue)\n"
 			detailMoves = detailMoves + append
 			counter++
 		}

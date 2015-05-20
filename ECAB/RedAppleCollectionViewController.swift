@@ -20,6 +20,7 @@ class RedAppleCollectionViewController:
 	var player = AVAudioPlayer()
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
+	private var isTraining = true
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
@@ -133,6 +134,7 @@ class RedAppleCollectionViewController:
 					self.insetLeft = Insets.left
 					self.insetBottom = Insets.bottom
 					self.insetRight = Insets.right
+					self.isTraining = false
 					break;
 				}
 				
@@ -244,15 +246,13 @@ class RedAppleCollectionViewController:
 			
             let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
 			
-			// Prepare sounds
-			
             if cell.fruit.isValuable {
 				
 				var isRepeat = false
 				
 				for item in checkedMarks {
 					if indexPath.row == item {
-						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true)
+						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining)
 						playerFailure.play()
 						isRepeat = true
 						break
@@ -268,10 +268,12 @@ class RedAppleCollectionViewController:
 					cross.center.x = cell.contentView.center.x
 					cross.center.y = cell.contentView.center.y
 					
-					let times = session.score.integerValue
-					session.score = NSNumber(integer: (times + 1))
+					if (!isTraining) {
+						let times = session.score.integerValue
+						session.score = NSNumber(integer: (times + 1))
+					}
 					
-					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false)
+					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining)
 					
 					player.play()
 					
@@ -281,10 +283,12 @@ class RedAppleCollectionViewController:
             } else {
 				
                 // Not valuable fruit selected
-				let times = session.failureScore.integerValue
-				session.failureScore = NSNumber(integer: (times + 1))
+				if (!isTraining) {
+					let times = session.failureScore.integerValue
+					session.failureScore = NSNumber(integer: (times + 1))
+				}
 				
-				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false)
+				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining)
 				
 				playerFailure.play()
             }

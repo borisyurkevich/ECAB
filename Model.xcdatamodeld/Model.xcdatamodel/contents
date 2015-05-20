@@ -12,6 +12,7 @@
         <attribute name="repeat" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="row" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="success" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="training" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="moves" inverseEntity="Session" syncable="YES"/>
     </entity>
     <entity name="Player" representedClassName="ECAB.Player" syncable="YES">
@@ -33,8 +34,8 @@
     </entity>
     <elements>
         <element name="Data" positionX="-432" positionY="-99" width="128" height="105"/>
+        <element name="Move" positionX="-441" positionY="198" width="128" height="150"/>
         <element name="Player" positionX="-72" positionY="-36" width="128" height="105"/>
         <element name="Session" positionX="-261" positionY="-9" width="128" height="178"/>
-        <element name="Move" positionX="-441" positionY="198" width="128" height="133"/>
     </elements>
 </model>

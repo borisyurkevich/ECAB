@@ -17,6 +17,7 @@
 		91658E831B0BECAB00879347 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91658E821B0BECAB00879347 /* AVFoundation.framework */; };
 		91658E921B0D1B5700879347 /* beep-attention.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E911B0D1B5700879347 /* beep-attention.aif */; };
 		91658E941B0D20E800879347 /* slide-magic.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E931B0D20E800879347 /* slide-magic.aif */; };
+		91658E961B0D345C00879347 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91658E951B0D345C00879347 /* Move.swift */; };
 		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
 		91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AE3E621B0292ED00871B7A /* CoreDataStack.swift */; };
 		91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */; };
@@ -33,7 +34,6 @@
 		91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* GamePeace.swift */; };
 		91F448101B089A100082EB6A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4480F1B089A100082EB6A /* Data.swift */; };
 		91F448121B089A110082EB6A /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F448111B089A110082EB6A /* Player.swift */; };
-		91F4481D1B08BA1F0082EB6A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4481C1B08BA1F0082EB6A /* Move.swift */; };
 		91F4481F1B08BA200082EB6A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4481E1B08BA200082EB6A /* Session.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +58,7 @@
 		91658E821B0BECAB00879347 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
 		91658E931B0D20E800879347 /* slide-magic.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "slide-magic.aif"; sourceTree = "<group>"; };
+		91658E951B0D345C00879347 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
 		91AE3E621B0292ED00871B7A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishesAndMiceGame.swift; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		91F3784A1A75529000D2F77B /* GamePeace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePeace.swift; sourceTree = "<group>"; };
 		91F4480F1B089A100082EB6A /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		91F448111B089A110082EB6A /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		91F4481C1B08BA1F0082EB6A /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		91F4481E1B08BA200082EB6A /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,9 +177,9 @@
 				910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */,
 				91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */,
 				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
-				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 				917E878F1AAE466C00470759 /* GamesTableViewController.swift */,
 				913544061B04058D00041AB6 /* SessionsTableViewController.swift */,
+				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -210,8 +210,8 @@
 		91F448171B089A1C0082EB6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				91658E951B0D345C00879347 /* Move.swift */,
 				91F4481E1B08BA200082EB6A /* Session.swift */,
-				91F4481C1B08BA1F0082EB6A /* Move.swift */,
 				91F448111B089A110082EB6A /* Player.swift */,
 				91F4480F1B089A100082EB6A /* Data.swift */,
 				91AE3E621B0292ED00871B7A /* CoreDataStack.swift */,
@@ -347,7 +347,7 @@
 				91F448121B089A110082EB6A /* Player.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
-				91F4481D1B08BA1F0082EB6A /* Move.swift in Sources */,
+				91658E961B0D345C00879347 /* Move.swift in Sources */,
 				91F448101B089A100082EB6A /* Data.swift in Sources */,
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
