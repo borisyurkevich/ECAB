@@ -43,6 +43,7 @@ class RedAppleCollectionViewController:
     
     private var pauseButton: UIButton?
 	private var nextButton: UIButton?
+	private var prevButton: UIButton?
     private var boardFlowLayout: UICollectionViewFlowLayout?
     
     var presenter: MenuViewController?
@@ -71,13 +72,18 @@ class RedAppleCollectionViewController:
         pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width * 2, size.height)
         pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		let labelNextText = "Next"
 		nextButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
-        nextButton!.setTitle(labelNextText, forState: UIControlState.Normal)
-		nextButton!.frame = CGRectMake(10, 16, size.width * 2, size.height)
+        nextButton!.setTitle("Next", forState: UIControlState.Normal)
+		nextButton!.frame = CGRectMake(76, 16, size.width * 2, size.height)
 		nextButton!.addTarget(self, action: "timerDidFire", forControlEvents: UIControlEvents.TouchUpInside)
 		
+		prevButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		prevButton!.setTitle("Previous", forState: UIControlState.Normal)
+		prevButton!.frame = CGRectMake(10, 16, size.width * 2, size.height)
+		prevButton!.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
+		
         view.addSubview(pauseButton!)
+		view.addSubview(prevButton!)
 		view.addSubview(nextButton!)
         // Add pause button
         
@@ -109,6 +115,16 @@ class RedAppleCollectionViewController:
 			isGameStarted = true
 		}
 	}
+	
+	func goBack() {
+		if currentView == 0 {
+			return
+		} else {
+			currentView -= 2
+		}
+		timer.invalidate()
+		timerDidFire()
+	}
     
     func timerDidFire() {
 		        
@@ -126,6 +142,11 @@ class RedAppleCollectionViewController:
 				case 0:
 					self.cellWidth = 190
 					self.cellHeight = 190
+					
+					self.insetTop = 260
+					self.insetLeft = 172
+					self.insetBottom = Insets.bottom
+					self.insetRight = 172
 					break;
 				case 1:
 					self.cellWidth = 84
