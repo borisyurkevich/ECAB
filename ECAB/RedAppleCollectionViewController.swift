@@ -163,6 +163,10 @@ class RedAppleCollectionViewController:
 					self.insetRight = 200
 					break;
 				case 3 ... 5:
+					// Real game starts on motor test
+					// This is three motor screen tests
+					self.startGame()
+					self.nextButton?.hidden = true
 					self.cellWidth = 70
 					self.cellHeight = 70
 					self.insetTop = Insets.top
@@ -171,7 +175,7 @@ class RedAppleCollectionViewController:
 					self.insetRight = Insets.right
 					break;
 				default:
-					self.startGame()
+					// This is normal game mode
 					self.cellWidth = 70
 					self.cellHeight = 70
 					self.insetTop = Insets.top
@@ -179,7 +183,6 @@ class RedAppleCollectionViewController:
 					self.insetBottom = Insets.bottom
 					self.insetRight = Insets.right
 					self.isTraining = false
-					self.nextButton?.hidden = true
 					break;
 				}
 				println("Requesting fot the board \(self.currentView)")
