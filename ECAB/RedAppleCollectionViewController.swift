@@ -16,7 +16,7 @@ class RedAppleCollectionViewController:
     let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
-    let gameSpeed: Double = 8 // Amount of seconds one view is visible, default is 20
+    let gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20
 	var player = AVAudioPlayer()
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
@@ -197,7 +197,7 @@ class RedAppleCollectionViewController:
 					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "quit", userInfo: nil, repeats: false)
 					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
 				} else if (self.isGameStarted && self.currentView != 8) {
-					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "timerDidFire", userInfo: nil, repeats: false)
+					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "showBlankScreen", userInfo: nil, repeats: false)
 					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
 				}
                 
@@ -208,6 +208,21 @@ class RedAppleCollectionViewController:
                 }, completion: nil)
         })
     }
+	
+	func showBlankScreen() {
+		
+		self.board = RedAppleBoard(stage: 10)
+		
+		collectionView!.performBatchUpdates({
+			
+			self.collectionView!.deleteSections(NSIndexSet(index: 0))
+
+			self.collectionView!.insertSections(NSIndexSet(index: 0))
+			
+		}, completion: nil)
+		
+		self.nextButton?.hidden = false
+	}
     
     func guidedAccessNotificationHandler(notification: NSNotification) {
         

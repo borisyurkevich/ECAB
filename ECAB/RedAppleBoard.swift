@@ -287,6 +287,8 @@ class RedAppleBoard {
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
 			break;
+		case 10:
+			break;
         default:
             println("⛔️ Set correct screen. From 0 to 8")
         }
