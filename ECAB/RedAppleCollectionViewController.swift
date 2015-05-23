@@ -21,6 +21,7 @@ class RedAppleCollectionViewController:
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
 	private var isTraining = true
+	private let numberOfTargets = [1, 1, 2, 7, 4, 7, 6, 6, 6]
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
@@ -343,6 +344,15 @@ class RedAppleCollectionViewController:
 					player.play()
 					
 					checkedMarks.append(indexPath.row)
+					
+					if checkedMarks.count == numberOfTargets[currentView] + 1 {
+						// Player finished fast
+						timer.invalidate()
+						showBlankScreen()
+					}
+					
+					println("cm = \(checkedMarks.count) nt = \(numberOfTargets[currentView])")
+					println("\(checkedMarks)")
 				}
 				
             } else {
