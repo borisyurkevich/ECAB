@@ -300,15 +300,38 @@ class RedAppleCollectionViewController:
         didSelectItemAtIndexPath indexPath: NSIndexPath) {
 			
 			// Calculate row and column of the collection view
-			let total: Double = 60
-			let rowCount: Double = total / 6
-			var row: Double = Double(indexPath.row) / rowCount
+			var total = 60
+			var rows = 6
+			
+			switch currentView {
+			case 0:
+				total = 3
+				rows = 1
+				break
+			case 1:
+				total = 9
+				rows = 3
+				break
+			case 2:
+				total = 18
+				rows = 3
+				break
+			default:
+				break
+			}
+			
+			var elementsInOneRow = total / rows
+			
+			var row = Double(indexPath.row) / Double(elementsInOneRow)
+			if elementsInOneRow == 1 || row == 0{
+				row = 1
+			}
 			let rowNumber = ceil(row)
 			var normalizedRow = Int(rowNumber)
 			if normalizedRow != 0 {
 				normalizedRow -= 1
 			}
-			let columnNumber = (indexPath.row - (normalizedRow * 10)) + 1
+			let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1
 			
             let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
 			
