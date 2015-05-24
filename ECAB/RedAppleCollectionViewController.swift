@@ -318,7 +318,7 @@ class RedAppleCollectionViewController:
 				
 				for item in checkedMarks {
 					if indexPath.row == item {
-						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining)
+						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining, screen: currentView)
 						playerFailure.play()
 						isRepeat = true
 						break
@@ -339,7 +339,7 @@ class RedAppleCollectionViewController:
 						session.score = NSNumber(integer: (times + 1))
 					}
 					
-					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining)
+					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining, screen: currentView)
 					
 					player.play()
 					
@@ -363,7 +363,7 @@ class RedAppleCollectionViewController:
 					session.failureScore = NSNumber(integer: (times + 1))
 				}
 				
-				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining)
+				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining, screen: currentView)
 				
 				playerFailure.play()
             }

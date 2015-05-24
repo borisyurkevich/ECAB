@@ -47,8 +47,27 @@ class SessionsTableViewController: UITableViewController {
 		var counter = 1
 		
 		for move  in pickedSesstion.moves {
+			
 			let gameMove = move as! Move
-			let append = "\(counter). Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date) Success: \(gameMove.success.boolValue) Repeat: \(gameMove.repeat.boolValue) Training: \(gameMove.training.boolValue)\n"
+			
+			// Caluculate screen
+			var screenName = ""
+			let screenNum = gameMove.screenNumber.integerValue
+			switch screenNum {
+			case 0 ... 2:
+				screenName = "Training \(screenNum + 1)"
+				break
+			case 3 ... 5:
+				screenName = "Motor \(screenNum + 1)"
+				break
+			case 6 ... 8:
+				screenName = "Search \(screenNum + 1)"
+				break
+			default:
+				break
+			}
+			
+			let append = "\(counter). Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date) Success: \(gameMove.success.boolValue) Repeat: \(gameMove.repeat.boolValue) Training: \(gameMove.training.boolValue) \(screenName)"
 			detailMoves = detailMoves + append
 			counter++
 		}

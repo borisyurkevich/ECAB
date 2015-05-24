@@ -2,7 +2,7 @@
 //  Move.swift
 //  ECAB
 //
-//  Created by Boris Yurkevich on 5/20/15.
+//  Created by Boris Yurkevich on 5/24/15.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
@@ -17,6 +17,7 @@ class Move: NSManagedObject {
     @NSManaged var row: NSNumber
     @NSManaged var success: NSNumber
     @NSManaged var training: NSNumber
+    @NSManaged var screenNumber: NSNumber
     @NSManaged var session: Session
 
 }

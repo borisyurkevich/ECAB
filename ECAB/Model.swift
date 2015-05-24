@@ -126,7 +126,7 @@ class Model {
 		}
 	}
 	
-	func addMove(row: Int, column: Int, session: Session, isSuccess: Bool, isRepeat: Bool, isTraining: Bool) {
+	func addMove(row: Int, column: Int, session: Session, isSuccess: Bool, isRepeat: Bool, isTraining: Bool, screen: Int) {
 		
 		// Insert new Success entity into Core Data
 		
@@ -141,6 +141,7 @@ class Model {
 		move.success = isSuccess
 		move.repeat = isRepeat
 		move.training = isTraining
+		move.screenNumber = screen
 		
 		let allSessions = data.sessions
 		let lastSession = allSessions.lastObject as! Session
