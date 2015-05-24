@@ -67,12 +67,40 @@ class SessionsTableViewController: UITableViewController {
 				break
 			}
 			
-			let append = "\(counter). Row: \(gameMove.row) Column: \(gameMove.column) Time: \(gameMove.date) Success: \(gameMove.success.boolValue) Repeat: \(gameMove.repeat.boolValue) Training: \(gameMove.training.boolValue) \(screenName)"
+			// Success or failure
+			var progress = ""
+			if gameMove.success.boolValue == true {
+				progress = "success"
+			} else {
+				progress = "failure"
+			}
+			
+			var repeat = ""
+			if gameMove.repeat.boolValue == true {
+				repeat = "repeat"
+			} else {
+				repeat = "unique"
+			}
+			
+			// Date
+			let formatter = NSDateFormatter()
+			formatter.locale = NSLocale.autoupdatingCurrentLocale()
+			formatter.dateFormat = "HH:mm:ss"
+			let dateStr = formatter.stringFromDate(gameMove.date)
+			
+			let append = "\(counter)) \(screenName) Row: \(gameMove.row) Column: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
 			detailMoves = detailMoves + append
 			counter++
 		}
 		
 		let dateStarted = pickedSesstion.dateStart.description
+		
+		// Date
+		let formatter = NSDateFormatter()
+		formatter.locale = NSLocale.autoupdatingCurrentLocale()
+		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
+		let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
+		
 //		let dateEnded = pickedSesstion.dateEnd.description
 		var sudoName = "Unknown"
 		
@@ -80,7 +108,7 @@ class SessionsTableViewController: UITableViewController {
 			sudoName = player.name
 		}
 		
-		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStarted)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
+		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
 		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
 
