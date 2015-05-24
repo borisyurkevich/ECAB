@@ -58,10 +58,10 @@ class SessionsTableViewController: UITableViewController {
 				screenName = "Training \(screenNum + 1)"
 				break
 			case 3 ... 5:
-				screenName = "Motor \(screenNum + 1)"
+				screenName = "Motor \(screenNum - 2)"
 				break
 			case 6 ... 8:
-				screenName = "Search \(screenNum + 1)"
+				screenName = "Search \(screenNum - 5)"
 				break
 			default:
 				break
