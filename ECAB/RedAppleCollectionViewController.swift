@@ -67,21 +67,29 @@ class RedAppleCollectionViewController:
         
         let labelText: String = "Pause"
         pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
-        let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(16.0)])
+        let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
         let screen: CGSize = UIScreen.mainScreen().bounds.size
         pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
-        pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width * 2, size.height)
+        pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
         pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		nextButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
         nextButton!.setTitle("Next", forState: UIControlState.Normal)
-		nextButton!.frame = CGRectMake(76, 16, size.width * 2, size.height)
+		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
 		nextButton!.addTarget(self, action: "timerDidFire", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		prevButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
 		prevButton!.setTitle("Previous", forState: UIControlState.Normal)
-		prevButton!.frame = CGRectMake(10, 16, size.width * 2, size.height)
+		prevButton!.frame = CGRectMake(60, 16, size.width + 20, size.height)
 		prevButton!.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
+		
+		pauseButton!.tintColor = UIColor.grayColor()
+		prevButton!.tintColor = UIColor.darkGrayColor()
+		nextButton!.tintColor = UIColor.darkGrayColor()
+		
+		addButtonBorder(pauseButton!)
+		addButtonBorder(prevButton!)
+		addButtonBorder(nextButton!)
 		
         view.addSubview(pauseButton!)
 		view.addSubview(prevButton!)
@@ -246,7 +254,14 @@ class RedAppleCollectionViewController:
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-    
+	
+	func addButtonBorder(button: UIButton) {
+		button.backgroundColor = UIColor.clearColor()
+		button.layer.cornerRadius = 5
+		button.layer.borderWidth = 1
+		button.layer.borderColor = button.tintColor!.CGColor
+	}
+	
     // MARK: UICollectionViewDataSource
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

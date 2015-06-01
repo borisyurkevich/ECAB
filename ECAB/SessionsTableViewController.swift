@@ -129,7 +129,5 @@ class SessionsTableViewController: UITableViewController {
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
 
 		detailVC.textView.text = stringForTheTextView
-		
 	}
-
 }
