@@ -85,12 +85,19 @@ class SessionsTableViewController: UITableViewController {
 			// Date
 			let formatter = NSDateFormatter()
 			formatter.locale = NSLocale.autoupdatingCurrentLocale()
-			formatter.dateFormat = "HH:mm:ss"
+			formatter.dateFormat = "HH:mm:ss:S"
 			let dateStr = formatter.stringFromDate(gameMove.date)
 			
-			let append = "\(counter)) \(screenName) Row: \(gameMove.row) Column: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
+			var append: String
+			
+			if gameMove.empty.boolValue == false {
+				append = "\(counter)) \(screenName) Row: \(gameMove.row) Column: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
+				counter++
+			} else {
+				append = "\(screenName) changed: \(dateStr) \n"
+			}
+			
 			detailMoves = detailMoves + append
-			counter++
 		}
 		
 		let dateStarted = pickedSesstion.dateStart.description

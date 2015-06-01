@@ -211,6 +211,8 @@ class RedAppleCollectionViewController:
                     
                 }, completion: nil)
         })
+		
+		model.addMove(0, column: 0, session: session, isSuccess: false, isRepeat: false, isTraining: false, screen: currentView, isEmpty: true)
     }
 	
 	func showBlankScreen() {
@@ -341,7 +343,7 @@ class RedAppleCollectionViewController:
 				
 				for item in checkedMarks {
 					if indexPath.row == item {
-						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining, screen: currentView)
+						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining, screen: currentView, isEmpty:false)
 						playerFailure.play()
 						isRepeat = true
 						break
@@ -362,7 +364,7 @@ class RedAppleCollectionViewController:
 						session.score = NSNumber(integer: (times + 1))
 					}
 					
-					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining, screen: currentView)
+					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty: false)
 					
 					player.play()
 					
@@ -386,7 +388,7 @@ class RedAppleCollectionViewController:
 					session.failureScore = NSNumber(integer: (times + 1))
 				}
 				
-				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining, screen: currentView)
+				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty:false)
 				
 				playerFailure.play()
             }

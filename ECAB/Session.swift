@@ -17,7 +17,6 @@ class Session: NSManagedObject {
     @NSManaged var gameType: AnyObject
     @NSManaged var repeatCount: NSNumber
     @NSManaged var score: NSNumber
-    @NSManaged var empty: NSNumber
     @NSManaged var data: Data
     @NSManaged var moves: NSOrderedSet
     @NSManaged var player: Player

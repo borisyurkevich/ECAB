@@ -16,10 +16,10 @@
 		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
 		91658E921B0D1B5700879347 /* beep-attention.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E911B0D1B5700879347 /* beep-attention.aif */; };
 		91658E941B0D20E800879347 /* slide-magic.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E931B0D20E800879347 /* slide-magic.aif */; };
-		916B279A1B1C709100A963BB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27991B1C709100A963BB /* Player.swift */; };
-		916B279C1B1C709100A963BB /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B279B1B1C709100A963BB /* Session.swift */; };
-		916B279E1B1C709100A963BB /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B279D1B1C709100A963BB /* Move.swift */; };
-		916B27A01B1C709100A963BB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B279F1B1C709100A963BB /* Data.swift */; };
+		916B27A81B1CA57700A963BB /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27A71B1CA57700A963BB /* Session.swift */; };
+		916B27AA1B1CA57800A963BB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27A91B1CA57800A963BB /* Data.swift */; };
+		916B27AC1B1CA57800A963BB /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27AB1B1CA57800A963BB /* Move.swift */; };
+		916B27AE1B1CA57800A963BB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27AD1B1CA57800A963BB /* Player.swift */; };
 		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
 		91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AE3E621B0292ED00871B7A /* CoreDataStack.swift */; };
 		91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */; };
@@ -56,10 +56,10 @@
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
 		91658E931B0D20E800879347 /* slide-magic.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "slide-magic.aif"; sourceTree = "<group>"; };
-		916B27991B1C709100A963BB /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		916B279B1B1C709100A963BB /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		916B279D1B1C709100A963BB /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
-		916B279F1B1C709100A963BB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		916B27A71B1CA57700A963BB /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		916B27A91B1CA57800A963BB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		916B27AB1B1CA57800A963BB /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		916B27AD1B1CA57800A963BB /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
 		91AE3E621B0292ED00871B7A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishesAndMiceGame.swift; sourceTree = "<group>"; };
@@ -206,10 +206,10 @@
 		91F448171B089A1C0082EB6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				916B279F1B1C709100A963BB /* Data.swift */,
-				916B279D1B1C709100A963BB /* Move.swift */,
-				916B279B1B1C709100A963BB /* Session.swift */,
-				916B27991B1C709100A963BB /* Player.swift */,
+				916B27AD1B1CA57800A963BB /* Player.swift */,
+				916B27AB1B1CA57800A963BB /* Move.swift */,
+				916B27A91B1CA57800A963BB /* Data.swift */,
+				916B27A71B1CA57700A963BB /* Session.swift */,
 				91AE3E621B0292ED00871B7A /* CoreDataStack.swift */,
 			);
 			name = Data;
@@ -340,17 +340,17 @@
 				910368051A841BAC00522B2B /* Game.swift in Sources */,
 				91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */,
 				91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */,
-				916B279A1B1C709100A963BB /* Player.swift in Sources */,
+				916B27AE1B1CA57800A963BB /* Player.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
-				916B27A01B1C709100A963BB /* Data.swift in Sources */,
-				916B279E1B1C709100A963BB /* Move.swift in Sources */,
+				916B27AC1B1CA57800A963BB /* Move.swift in Sources */,
+				916B27AA1B1CA57800A963BB /* Data.swift in Sources */,
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
 				910368071A841C3700522B2B /* RedAppleGame.swift in Sources */,
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
-				916B279C1B1C709100A963BB /* Session.swift in Sources */,
+				916B27A81B1CA57700A963BB /* Session.swift in Sources */,
 				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
 				910368091A841E5900522B2B /* Result.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,

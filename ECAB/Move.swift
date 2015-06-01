@@ -18,6 +18,7 @@ class Move: NSManagedObject {
     @NSManaged var screenNumber: NSNumber
     @NSManaged var success: NSNumber
     @NSManaged var training: NSNumber
+    @NSManaged var empty: NSNumber
     @NSManaged var session: Session
 
 }
