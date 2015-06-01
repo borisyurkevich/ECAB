@@ -28,7 +28,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		
 		let modelReference = model
 		let dataRef = modelReference.data
-		if let playerRef = dataRef.currentPlayer as Player?{
+		if let playerRef = dataRef.selectedPlayer as Player?{
 		
 			// Change button title to display current player name
 //			changePlayerButton.title = "\(playerRef.name)"
@@ -77,6 +77,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     // MARK: <SubjectPickerDelegate>
     
     func pickSubject() {
-        changePlayerButton.title = model.data.currentPlayer.name
+        changePlayerButton.title = model.data.selectedPlayer.name
     }
 }

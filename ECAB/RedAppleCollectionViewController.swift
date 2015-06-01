@@ -59,7 +59,7 @@ class RedAppleCollectionViewController:
         collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Instert fresh session entity
-		model.addSession("Apple", player: model.data.currentPlayer)
+		model.addSession("Apple", player: model.data.selectedPlayer)
         session = model.data.sessions.lastObject as! Session
         
         let whiteColor = UIColor.whiteColor()

@@ -97,7 +97,7 @@ class PlayersTableViewController: UITableViewController {
 		let data = model.data as Data
         let selectedPlayerEntity = data.players[indexPath.row] as! Player
         let name = selectedPlayerEntity.name
-        model.data.currentPlayer = selectedPlayerEntity
+        model.data.selectedPlayer = selectedPlayerEntity
         
         delegate?.pickSubject()
     }

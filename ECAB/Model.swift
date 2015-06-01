@@ -66,13 +66,13 @@ class Model {
 			
 			// If there's no current player,
 			// create new one
-			if let currPl = data?.currentPlayer {
+			if let currPl = data?.selectedPlayer {
 				println("Default player found")
 			} else {
 				if data.players.count == 0 {
 					addPlayer("Default")
 				}
-				data.currentPlayer = data.players.firstObject as! Player
+				data.selectedPlayer = data.players.firstObject as! Player
 			}
 			
 		} else {
