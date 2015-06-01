@@ -28,7 +28,14 @@ class SessionsTableViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
 		
 		let session = model.data.sessions[indexPath.row] as! Session
-		cell.textLabel!.text = session.dateStart.description
+		
+		// Date
+		let formatter = NSDateFormatter()
+		formatter.locale = NSLocale.autoupdatingCurrentLocale()
+		formatter.dateFormat = "dd MMM yyyy HH:mm"
+		let dateStr = formatter.stringFromDate(session.dateStart)
+		let label = "\(indexPath.row+1). \(dateStr)"
+		cell.textLabel!.text = label
 		
 		return cell
 	}
