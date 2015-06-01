@@ -52,6 +52,7 @@ class SessionsTableViewController: UITableViewController {
 		
 		var detailMoves = ""
 		var counter = 1
+		var emptyScreenCounter = 0
 		
 		for move  in pickedSesstion.moves {
 			
@@ -102,6 +103,7 @@ class SessionsTableViewController: UITableViewController {
 				counter++
 			} else {
 				append = "\(screenName) changed: \(dateStr) \n"
+				emptyScreenCounter++
 			}
 			
 			detailMoves = detailMoves + append
@@ -122,7 +124,7 @@ class SessionsTableViewController: UITableViewController {
 			sudoName = player.name
 		}
 		
-		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
+		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
 		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
 
