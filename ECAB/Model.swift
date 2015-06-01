@@ -156,4 +156,14 @@ class Model {
 			println("Could not save new success move: \(error)")
 		}
 	}
+	
+	func updateData() {
+		
+		//Save the managed object context
+		var error: NSError?
+		if !managedContext!.save(&error) {
+			println("Could not save new success move: \(error)")
+		}
+		
+	}
 }
