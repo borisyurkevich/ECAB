@@ -338,16 +338,18 @@ class RedAppleCollectionViewController:
 		
 		var elementsInOneRow = total / rows
 		
-		var row = Double(indexPath.row) / Double(elementsInOneRow)
+		var row = Double(indexPath.row + 1) / Double(elementsInOneRow)
 		if elementsInOneRow == 1 || row == 0{
 			row = 1
 		}
-		let rowNumber = ceil(row)
+		let rowNumber = ceil(row) // This will to go into stats.
 		var normalizedRow = Int(rowNumber)
+		
 		if normalizedRow != 0 {
 			normalizedRow -= 1
 		}
-		let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1
+		
+		let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1 // This will to go into stats.
 		
 		let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
 		
