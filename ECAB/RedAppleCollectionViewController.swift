@@ -312,102 +312,101 @@ class RedAppleCollectionViewController:
     }
     
     // MARK: UICollectionViewDelegate
-    
-    override func collectionView(collectionView: UICollectionView,
-        didSelectItemAtIndexPath indexPath: NSIndexPath) {
+	
+	override func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+		
+		// Calculate row and column of the collection view
+		var total = 60
+		var rows = 6
+		
+		switch currentView {
+		case 0:
+			total = 3
+			rows = 1
+			break
+		case 1:
+			total = 9
+			rows = 3
+			break
+		case 2:
+			total = 18
+			rows = 3
+			break
+		default:
+			break
+		}
+		
+		var elementsInOneRow = total / rows
+		
+		var row = Double(indexPath.row) / Double(elementsInOneRow)
+		if elementsInOneRow == 1 || row == 0{
+			row = 1
+		}
+		let rowNumber = ceil(row)
+		var normalizedRow = Int(rowNumber)
+		if normalizedRow != 0 {
+			normalizedRow -= 1
+		}
+		let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1
+		
+		let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
+		
+		if cell.fruit.isValuable {
 			
-			// Calculate row and column of the collection view
-			var total = 60
-			var rows = 6
+			var isRepeat = false
 			
-			switch currentView {
-			case 0:
-				total = 3
-				rows = 1
-				break
-			case 1:
-				total = 9
-				rows = 3
-				break
-			case 2:
-				total = 18
-				rows = 3
-				break
-			default:
-				break
-			}
-			
-			var elementsInOneRow = total / rows
-			
-			var row = Double(indexPath.row) / Double(elementsInOneRow)
-			if elementsInOneRow == 1 || row == 0{
-				row = 1
-			}
-			let rowNumber = ceil(row)
-			var normalizedRow = Int(rowNumber)
-			if normalizedRow != 0 {
-				normalizedRow -= 1
-			}
-			let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1
-			
-            let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
-			
-            if cell.fruit.isValuable {
-				
-				var isRepeat = false
-				
-				for item in checkedMarks {
-					if indexPath.row == item {
-						model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining, screen: currentView, isEmpty:false)
-						playerFailure.play()
-						isRepeat = true
-						break
-					}
+			for item in checkedMarks {
+				if indexPath.row == item {
+					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining, screen: currentView, isEmpty:false)
+					playerFailure.play()
+					isRepeat = true
+					break
 				}
+			}
+			
+			if isRepeat == false {
+				let crossImage = UIImage(named: "cross_gray")
+				var cross = UIImageView(image: crossImage)
+				cross.frame = cell.imageView.frame
+				cell.imageView.addSubview(cross)
 				
-				if isRepeat == false {
-					let crossImage = UIImage(named: "cross_gray")
-					var cross = UIImageView(image: crossImage)
-					cross.frame = cell.imageView.frame
-					cell.imageView.addSubview(cross)
-					
-					cross.center.x = cell.contentView.center.x
-					cross.center.y = cell.contentView.center.y
-					
-					if (!isTraining) {
-						let times = session.score.integerValue
-						session.score = NSNumber(integer: (times + 1))
-					}
-					
-					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty: false)
-					
-					player.play()
-					
-					checkedMarks.append(indexPath.row)
-					
-					if checkedMarks.count == numberOfTargets[currentView] + 1 {
-						// Player finished fast
-						timer.invalidate()
-						showBlankScreen()
-					}
-					
-					println("cm = \(checkedMarks.count) nt = \(numberOfTargets[currentView])")
-					println("\(checkedMarks)")
-				}
+				cross.center.x = cell.contentView.center.x
+				cross.center.y = cell.contentView.center.y
 				
-            } else {
-				
-                // Not valuable fruit selected
 				if (!isTraining) {
-					let times = session.failureScore.integerValue
-					session.failureScore = NSNumber(integer: (times + 1))
+					let times = session.score.integerValue
+					session.score = NSNumber(integer: (times + 1))
 				}
 				
-				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty:false)
+				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty: false)
 				
-				playerFailure.play()
-            }
-    }
+				player.play()
+				
+				checkedMarks.append(indexPath.row)
+				
+				if checkedMarks.count == numberOfTargets[currentView] + 1 {
+					// Player finished fast
+					timer.invalidate()
+					showBlankScreen()
+				}
+				
+				println("cm = \(checkedMarks.count) nt = \(numberOfTargets[currentView])")
+				println("\(checkedMarks)")
+			}
+			
+		} else {
+			
+			// Not valuable fruit selected
+			if (!isTraining) {
+				let times = session.failureScore.integerValue
+				session.failureScore = NSNumber(integer: (times + 1))
+			}
+			
+			model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty:false)
+			
+			playerFailure.play()
+		}
+	}
     
     // MARK: - Navigation
 
