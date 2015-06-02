@@ -84,8 +84,8 @@ class RedAppleCollectionViewController:
 		prevButton!.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
 		
 		pauseButton!.tintColor = UIColor.grayColor()
-		prevButton!.tintColor = UIColor.darkGrayColor()
-		nextButton!.tintColor = UIColor.darkGrayColor()
+		prevButton!.tintColor = UIColor.grayColor()
+		nextButton!.tintColor = UIColor.grayColor()
 		
 		addButtonBorder(pauseButton!)
 		addButtonBorder(prevButton!)
