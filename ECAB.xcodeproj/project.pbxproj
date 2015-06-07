@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		910367F31A7E3B4900522B2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* Model.swift */; };
 		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
-		910368091A841E5900522B2B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368081A841E5900522B2B /* Result.swift */; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
 		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
 		91658E921B0D1B5700879347 /* beep-attention.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E911B0D1B5700879347 /* beep-attention.aif */; };
@@ -46,7 +45,6 @@
 /* Begin PBXFileReference section */
 		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayersTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		910368081A841E5900522B2B /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 				910367F21A7E3B4900522B2B /* Model.swift */,
 				91F378461A754EA000D2F77B /* RedAppleBoard.swift */,
 				91F3784A1A75529000D2F77B /* GamePeace.swift */,
-				910368081A841E5900522B2B /* Result.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -340,7 +337,6 @@
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
 				916B27A81B1CA57700A963BB /* Session.swift in Sources */,
 				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
-				910368091A841E5900522B2B /* Result.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
