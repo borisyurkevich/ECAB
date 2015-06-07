@@ -52,7 +52,7 @@ class CounterpointingViewController: UIViewController {
 		dogPositionOnLeft = true;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog"))
-		imageView.frame = CGRectMake(150, 260, 281, 197)
+		imageView.frame = CGRectMake(19, 260, 281, 197)
 		
 		view.addSubview(imageView)
 		
@@ -66,8 +66,12 @@ class CounterpointingViewController: UIViewController {
 		dogPositionOnLeft = false;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
+		imageView.frame = CGRectMake(view.bounds.width-300, 260, 281, 197)
 		
 		view.addSubview(imageView)
+		
+		let gesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
+		view.addGestureRecognizer(gesture)
 	}
 	
 	func tapHandler(sender: UITapGestureRecognizer){
@@ -82,11 +86,13 @@ class CounterpointingViewController: UIViewController {
 				failureSound.play()
 			} else {
 				successSound.play()
+				presentDogOnLeft()
 			}
 		} else {
 			// Tap on right
 			if dogPositionOnLeft {
 				successSound.play()
+				presentDogOnRight()
 			} else {
 				failureSound.play()
 			}
