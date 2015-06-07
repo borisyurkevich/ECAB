@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		910367F31A7E3B4900522B2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* Model.swift */; };
 		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
-		910368051A841BAC00522B2B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368041A841BAC00522B2B /* Game.swift */; };
-		910368071A841C3700522B2B /* RedAppleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368061A841C3700522B2B /* RedAppleGame.swift */; };
 		910368091A841E5900522B2B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910368081A841E5900522B2B /* Result.swift */; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
 		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
@@ -22,7 +20,6 @@
 		916B27AE1B1CA57800A963BB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27AD1B1CA57800A963BB /* Player.swift */; };
 		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
 		91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AE3E621B0292ED00871B7A /* CoreDataStack.swift */; };
-		91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */; };
 		91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B31A6BD5C400905752 /* AppDelegate.swift */; };
 		91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3B91A6BD5C400905752 /* Main.storyboard */; };
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
@@ -49,8 +46,6 @@
 /* Begin PBXFileReference section */
 		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayersTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		910368041A841BAC00522B2B /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Game.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		910368061A841C3700522B2B /* RedAppleGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleGame.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		910368081A841E5900522B2B /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -62,7 +57,6 @@
 		916B27AD1B1CA57800A963BB /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
 		91AE3E621B0292ED00871B7A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FishesAndMiceGame.swift; sourceTree = "<group>"; };
 		91E5C3AE1A6BD5C400905752 /* ECAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3B21A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3B31A6BD5C400905752 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,11 +188,8 @@
 			children = (
 				910367F21A7E3B4900522B2B /* Model.swift */,
 				91F378461A754EA000D2F77B /* RedAppleBoard.swift */,
-				910368041A841BAC00522B2B /* Game.swift */,
 				91F3784A1A75529000D2F77B /* GamePeace.swift */,
 				910368081A841E5900522B2B /* Result.swift */,
-				910368061A841C3700522B2B /* RedAppleGame.swift */,
-				91BD64DD1AB0ED1A00130444 /* FishesAndMiceGame.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -337,9 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */,
-				910368051A841BAC00522B2B /* Game.swift in Sources */,
 				91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */,
-				91BD64DE1AB0ED1A00130444 /* FishesAndMiceGame.swift in Sources */,
 				916B27AE1B1CA57800A963BB /* Player.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
@@ -348,7 +337,6 @@
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
-				910368071A841C3700522B2B /* RedAppleGame.swift in Sources */,
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
 				916B27A81B1CA57700A963BB /* Session.swift in Sources */,
 				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
