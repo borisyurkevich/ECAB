@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 
 class Model {
-    let games = ["Visual Search", "Counterpinting"]
+    let games = ["Visual Search", "Counterpointing"]
 	
 	var managedContext: NSManagedObjectContext!
 	

@@ -33,4 +33,14 @@ class GamesTableViewController: UITableViewController {
         
         return cell
     }
+	
+	// MARK: — Table View delegate
+	
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let pickedGameTitle = model.games[indexPath.row]
+		
+		
+		let detailVC = splitViewController!.viewControllers.last?.topViewController as! MenuViewController
+		detailVC.title = pickedGameTitle
+	}
 }

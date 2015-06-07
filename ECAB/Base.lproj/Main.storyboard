@@ -50,7 +50,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="Games Table Cell" editingAccessoryType="checkmark" textLabel="VAj-AV-p7O" style="IBUITableViewCellStyleDefault" id="FjG-yX-bDk">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Games Table Cell" textLabel="VAj-AV-p7O" style="IBUITableViewCellStyleDefault" id="FjG-yX-bDk">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FjG-yX-bDk" id="MbZ-Ho-ifG">
                                     <autoresizingMask key="autoresizingMask"/>
