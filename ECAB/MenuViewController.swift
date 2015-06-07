@@ -54,6 +54,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 				break
 			case model.titles.counterpointing:
+				
+				let gameVC = CounterpointingViewController()
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 				break
 			default:
 				break
