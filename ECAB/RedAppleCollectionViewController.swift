@@ -315,6 +315,14 @@ class RedAppleCollectionViewController:
 	
 	override func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
 		
+		var isRepeat = false
+		for item in checkedMarks {
+			if indexPath.row == item {
+				isRepeat = true
+				break
+			}
+		}
+		
 		// Calculate row and column of the collection view
 		var total = 60
 		var rows = 6
@@ -353,18 +361,10 @@ class RedAppleCollectionViewController:
 		
 		let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
 		
+		model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: cell.fruit.isValuable, isRepeat: isRepeat, isTraining: isTraining, screen: currentView, isEmpty: false)
+		checkedMarks.append(indexPath.row) // For calculating repeat.
+		
 		if cell.fruit.isValuable {
-			
-			var isRepeat = false
-			
-			for item in checkedMarks {
-				if indexPath.row == item {
-					model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: true, isTraining: isTraining, screen: currentView, isEmpty:false)
-					playerFailure.play()
-					isRepeat = true
-					break
-				}
-			}
 			
 			if isRepeat == false {
 				let crossImage = UIImage(named: "cross_gray")
@@ -380,11 +380,8 @@ class RedAppleCollectionViewController:
 					session.score = NSNumber(integer: (times + 1))
 				}
 				
-				model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: true, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty: false)
-				
+				// Play the success sound
 				player.play()
-				
-				checkedMarks.append(indexPath.row)
 				
 				if checkedMarks.count == numberOfTargets[currentView] + 1 {
 					// Player finished fast
@@ -394,18 +391,18 @@ class RedAppleCollectionViewController:
 				
 				println("cm = \(checkedMarks.count) nt = \(numberOfTargets[currentView])")
 				println("\(checkedMarks)")
+			} else {
+				// Repeat
+				playerFailure.play()
 			}
 			
 		} else {
-			
 			// Not valuable fruit selected
+			
 			if (!isTraining) {
 				let times = session.failureScore.integerValue
 				session.failureScore = NSNumber(integer: (times + 1))
 			}
-			
-			model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: false, isRepeat: false, isTraining: isTraining, screen: currentView, isEmpty:false)
-			
 			playerFailure.play()
 		}
 	}
