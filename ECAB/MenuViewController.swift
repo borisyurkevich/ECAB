@@ -45,16 +45,22 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         
         if let detailVC: UISplitViewController = splitViewController {
             // The right way get reference to UISplitViewController, UINavigationController or UITabBarController
-            
-            let flowLayout = UICollectionViewFlowLayout()
-            let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
-
-            detailVC.presentViewController(gameVC, animated: true, completion: nil)
-        }
-        
-//        let presenter: UISplitViewController = self.navigationController!.splitViewController!
-//        
-//        presenter.performSegueWithIdentifier(Segues.startApplesGame, sender: presenter)
+			
+			let gameTitleStruct = Model.GameTitle()
+			
+			switch title! {
+			case gameTitleStruct.visual:
+				let flowLayout = UICollectionViewFlowLayout()
+				let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
+				
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
+				break
+			case gameTitleStruct.counterpointing:
+				break
+			default:
+				break
+			}
+		}
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -167,4 +167,9 @@ class Model {
 		}
 		
 	}
+	
+	struct GameTitle {
+		let visual = "Visual Search"
+		let counterpointing = "Counterpointing"
+	}
 }

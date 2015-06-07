@@ -44,11 +44,13 @@ class GamesTableViewController: UITableViewController {
 		detailVC.title = pickedGameTitle
 		detailVC.gameTitleCenter.text = pickedGameTitle
 		
+		let gameTitleStruct = Model.GameTitle()
+		
 		switch pickedGameTitle {
-			case "Counterpointing":
+			case gameTitleStruct.counterpointing:
 				detailVC.gameIcon.image = UIImage(named: "dog")
 			break
-			case "Visual Search":
+			case gameTitleStruct.visual:
 				detailVC.gameIcon.image = UIImage(named: "red_apple")
 			break
 			default:
