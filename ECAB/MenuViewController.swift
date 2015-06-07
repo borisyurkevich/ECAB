@@ -46,16 +46,14 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         if let detailVC: UISplitViewController = splitViewController {
             // The right way get reference to UISplitViewController, UINavigationController or UITabBarController
 			
-			let gameTitleStruct = Model.GameTitle()
-			
 			switch title! {
-			case gameTitleStruct.visual:
+			case model.titles.visual:
 				let flowLayout = UICollectionViewFlowLayout()
 				let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
 				
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 				break
-			case gameTitleStruct.counterpointing:
+			case model.titles.counterpointing:
 				break
 			default:
 				break

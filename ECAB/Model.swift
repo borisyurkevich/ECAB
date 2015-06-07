@@ -16,6 +16,8 @@ class Model {
 	var managedContext: NSManagedObjectContext!
 	
 	var data: Data!
+	
+	let titles = GameTitle()
     
     init() {
         
