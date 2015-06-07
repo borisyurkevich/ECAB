@@ -14,6 +14,11 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	var managedContext: NSManagedObjectContext!
     
     @IBOutlet weak var changePlayerButton: UIBarButtonItem!
+	@IBOutlet weak var gameTitleCenter: UILabel!
+	@IBOutlet weak var gameIcon: UIImageView!
+	
+	
+	
     let model: Model = Model.sharedInstance
     
     private struct Segues {

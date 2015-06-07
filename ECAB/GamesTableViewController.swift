@@ -42,5 +42,17 @@ class GamesTableViewController: UITableViewController {
 		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! MenuViewController
 		detailVC.title = pickedGameTitle
+		detailVC.gameTitleCenter.text = pickedGameTitle
+		
+		switch pickedGameTitle {
+			case "Counterpointing":
+				detailVC.gameIcon.image = UIImage(named: "dog")
+			break
+			case "Visual Search":
+				detailVC.gameIcon.image = UIImage(named: "red_apple")
+			break
+			default:
+			break
+		}
 	}
 }

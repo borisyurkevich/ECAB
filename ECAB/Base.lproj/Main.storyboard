@@ -165,6 +165,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="changePlayerButton" destination="Bs7-bU-6Lo" id="GM4-dM-FBJ"/>
+                        <outlet property="gameIcon" destination="blY-ho-Ou9" id="u6q-qr-E6o"/>
+                        <outlet property="gameTitleCenter" destination="zEq-FU-wV5" id="Ygk-L5-pet"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
