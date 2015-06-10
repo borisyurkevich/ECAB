@@ -69,6 +69,15 @@ class CounterpointingViewController: UIViewController {
 	func presentDogOnLeft(){
 		cleanView()
 		
+		if currentScreenShowing == transitionPointScreen {
+			gameModeInversed = true
+			viewDidLoad()
+			return
+		}
+		if currentScreenShowing == screensTotal {
+			quit()
+		}
+		
 		dogPositionOnLeft = true;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog"))
@@ -82,6 +91,15 @@ class CounterpointingViewController: UIViewController {
 	
 	func presentDogOnRight(){
 		cleanView()
+		
+		if currentScreenShowing == transitionPointScreen {
+			gameModeInversed = true
+			viewDidLoad()
+			return
+		}
+		if currentScreenShowing == screensTotal {
+			quit()
+		}
 		
 		dogPositionOnLeft = false;
 		
@@ -171,12 +189,6 @@ class CounterpointingViewController: UIViewController {
 		view.addSubview(pauseButton!)
 		
 		currentScreenShowing++
-		if currentScreenShowing == transitionPointScreen {
-			gameModeInversed = true
-		}
-		if currentScreenShowing == screensTotal {
-			quit()
-		}
 	}
 	
 	func presentPause() {
