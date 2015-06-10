@@ -15,7 +15,7 @@ class CounterpointingViewController: UIViewController {
 	private var successSound = AVAudioPlayer()
 	private var failureSound = AVAudioPlayer()
 	private let model: Model = Model.sharedInstance
-
+	private var session: CounterpointingSession!
 	
 	override func viewDidLoad() {
 		
@@ -45,6 +45,7 @@ class CounterpointingViewController: UIViewController {
 		
 		// Data
 		model.addCounterpointingSession(model.data.selectedPlayer)
+		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
 	}
 
 	override func prefersStatusBarHidden() -> Bool {
@@ -108,8 +109,15 @@ class CounterpointingViewController: UIViewController {
 				result = false
 			}
 		}
-		
 		model.addCounterpointingMove(location.x, positionY: location.y, success: result)
+		
+		if result {
+			let errors = session.errors.integerValue
+			session.errors = NSNumber(integer: (errors + 1))
+		} else {
+			let score = session.score.integerValue
+			session.score = NSNumber(integer: (score + 1))
+		}
 	}
 	
 	func cleanView() {

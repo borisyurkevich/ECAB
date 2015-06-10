@@ -27,16 +27,27 @@ class SessionsTableViewController: UITableViewController {
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
 		
-		let session = model.data.sessions[indexPath.row] as! Session
-		
 		// Date
 		let formatter = NSDateFormatter()
 		formatter.locale = NSLocale.autoupdatingCurrentLocale()
 		formatter.dateFormat = "dd MMM yyyy HH:mm"
-		let dateStr = formatter.stringFromDate(session.dateStart)
-		let label = "\(indexPath.row+1). \(dateStr)"
-		cell.textLabel!.text = label
 		
+		switch model.data.selectedGame {
+		case 0:
+			let session = model.data.sessions[indexPath.row] as! Session
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
+		break
+		case 1:
+			let session = model.data.counterpointingSessions[indexPath.row] as! CounterpointingSession
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
+		break
+		default:
+			break;
+		}
 		return cell
 	}
 	
@@ -61,16 +72,22 @@ class SessionsTableViewController: UITableViewController {
 	// MARK: Table view delegate
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
-		println("SG: \(model.data.selectedGame)")
+		
+		let formatter = NSDateFormatter()
+		formatter.locale = NSLocale.autoupdatingCurrentLocale()
+		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
+		let smallFormatter = NSDateFormatter()
+		smallFormatter.locale = NSLocale.autoupdatingCurrentLocale()
+		smallFormatter.dateFormat = "HH:mm:ss:S"
+		
 		switch model.data.selectedGame {
 		case 0:
 			let pickedSesstion = model.data.sessions[indexPath.row] as! Session
 			var detailMoves = ""
 			var counter = 1
 			var emptyScreenCounter = 0
-			for move  in pickedSesstion.moves {
+			for move in pickedSesstion.moves {
 				
 				let gameMove = move as! Move
 				
@@ -106,11 +123,7 @@ class SessionsTableViewController: UITableViewController {
 					repeat = "unique"
 				}
 				
-				// Date
-				let formatter = NSDateFormatter()
-				formatter.locale = NSLocale.autoupdatingCurrentLocale()
-				formatter.dateFormat = "HH:mm:ss:S"
-				let dateStr = formatter.stringFromDate(gameMove.date)
+				let dateStr = smallFormatter.stringFromDate(gameMove.date)
 				
 				var append: String
 				
@@ -125,24 +138,30 @@ class SessionsTableViewController: UITableViewController {
 				detailMoves = detailMoves + append
 			}
 			let dateStarted = pickedSesstion.dateStart.description
-			// Date
-			let formatter = NSDateFormatter()
-			formatter.locale = NSLocale.autoupdatingCurrentLocale()
-			formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
 			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
-			var sudoName = "Unknown"
-			if let player = pickedSesstion.player as Player? {
-				sudoName = player.name
-			}
-			let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
+			let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(pickedSesstion.player.name)\n\nDetail moves:\n\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			break;
 		case 1:
 			let pickedSesstion = model.data.counterpointingSessions[indexPath.row] as! CounterpointingSession
-			let details = ""
-			let dateString = ""
-			let text = "Total score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\n\n Errors = \(pickedSesstion.errors)\n\nSession started: \(dateString)\n\nMoves:\(details)"
-
+			var details = ""
+			var counter = 0
+			var status = "success"
+			for move in pickedSesstion.moves {
+				let actualMove = move as! CounterpointingMove
+				if !actualMove.success.boolValue {
+					status = "mistake"
+				} else {
+					status = "success"
+				}
+				let append = "\(counter)) \(status) \(smallFormatter.stringFromDate(actualMove.date)) x:\(actualMove.poitionX) y:\(actualMove.poitionY) \n"
+				details = details + append
+				counter++
+			}
+			
+			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
+			let text = "Total score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\n\nPlayer: \(pickedSesstion.player.name)\n\nErrors = \(pickedSesstion.errors)\n\nSession started: \(dateString)\n\nMoves:\(details)"
+			detailVC.textView.text = text
 			break;
 		default:
 			break;
