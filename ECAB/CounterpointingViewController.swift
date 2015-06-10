@@ -12,11 +12,15 @@ import AVFoundation
 class CounterpointingViewController: UIViewController {
 	
 	private var dogPositionOnLeft = true
+	private var gameModeInversed = false
 	private var successSound = AVAudioPlayer()
 	private var failureSound = AVAudioPlayer()
 	private let model: Model = Model.sharedInstance
 	private var session: CounterpointingSession!
 	private var pauseButton: UIButton?
+	private let screensTotal = 10
+	private let transitionPointScreen = 5
+	private var currentScreenShowing = 0
 	
 	override func viewDidLoad() {
 		
@@ -99,24 +103,47 @@ class CounterpointingViewController: UIViewController {
 		var result:Bool
 		
 		if location.x < middlePoint {
-			// tap on the left side of the screen
-			if dogPositionOnLeft {
-				failureSound.play()
-				result = false
+			if !gameModeInversed {
+				// tap on the left side of the screen
+				if dogPositionOnLeft {
+					failureSound.play()
+					result = false
+				} else {
+					successSound.play()
+					presentDogOnLeft()
+					result = true
+				}
 			} else {
-				successSound.play()
-				presentDogOnLeft()
-				result = true
+				// tap on the left side of the screen
+				if dogPositionOnLeft {
+					successSound.play()
+					presentDogOnRight()
+					result = true
+				} else {
+					failureSound.play()
+					result = false
+				}
 			}
 		} else {
 			// Tap on right
-			if dogPositionOnLeft {
-				successSound.play()
-				presentDogOnRight()
-				result = true
+			if !gameModeInversed {
+				if dogPositionOnLeft {
+					successSound.play()
+					presentDogOnRight()
+					result = true
+				} else {
+					failureSound.play()
+					result = false
+				}
 			} else {
-				failureSound.play()
-				result = false
+				if dogPositionOnLeft {
+					failureSound.play()
+					result = false
+				} else {
+					successSound.play()
+					presentDogOnLeft()
+					result = true
+				}
 			}
 		}
 		model.addCounterpointingMove(location.x, positionY: location.y, success: result)
@@ -142,6 +169,14 @@ class CounterpointingViewController: UIViewController {
 		pauseButton!.tintColor = UIColor.grayColor()
 		addButtonBorder(pauseButton!)
 		view.addSubview(pauseButton!)
+		
+		currentScreenShowing++
+		if currentScreenShowing == transitionPointScreen {
+			gameModeInversed = true
+		}
+		if currentScreenShowing == screensTotal {
+			quit()
+		}
 	}
 	
 	func presentPause() {
