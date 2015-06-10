@@ -13,13 +13,15 @@
 		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
 		91658E921B0D1B5700879347 /* beep-attention.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E911B0D1B5700879347 /* beep-attention.aif */; };
 		91658E941B0D20E800879347 /* slide-magic.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E931B0D20E800879347 /* slide-magic.aif */; };
-		916B27A81B1CA57700A963BB /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27A71B1CA57700A963BB /* Session.swift */; };
-		916B27AA1B1CA57800A963BB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27A91B1CA57800A963BB /* Data.swift */; };
-		916B27AC1B1CA57800A963BB /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27AB1B1CA57800A963BB /* Move.swift */; };
-		916B27AE1B1CA57800A963BB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B27AD1B1CA57800A963BB /* Player.swift */; };
 		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
 		91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AE3E621B0292ED00871B7A /* CoreDataStack.swift */; };
 		91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */; };
+		91C8A6A41B28511C001F081A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6A31B28511C001F081A /* Session.swift */; };
+		91C8A6A81B28511D001F081A /* CounterpointingMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6A71B28511D001F081A /* CounterpointingMove.swift */; };
+		91C8A6AA1B28511D001F081A /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6A91B28511D001F081A /* Move.swift */; };
+		91C8A6AC1B28511D001F081A /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6AB1B28511D001F081A /* Player.swift */; };
+		91C8A6AE1B28511D001F081A /* CounterpointingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6AD1B28511D001F081A /* CounterpointingSession.swift */; };
+		91C8A6B01B285218001F081A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6AF1B285218001F081A /* Data.swift */; };
 		91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B31A6BD5C400905752 /* AppDelegate.swift */; };
 		91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3B91A6BD5C400905752 /* Main.storyboard */; };
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
@@ -50,13 +52,15 @@
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
 		91658E931B0D20E800879347 /* slide-magic.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "slide-magic.aif"; sourceTree = "<group>"; };
-		916B27A71B1CA57700A963BB /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		916B27A91B1CA57800A963BB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		916B27AB1B1CA57800A963BB /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
-		916B27AD1B1CA57800A963BB /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
 		91AE3E621B0292ED00871B7A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingViewController.swift; sourceTree = "<group>"; };
+		91C8A6A31B28511C001F081A /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		91C8A6A71B28511D001F081A /* CounterpointingMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingMove.swift; sourceTree = "<group>"; };
+		91C8A6A91B28511D001F081A /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		91C8A6AB1B28511D001F081A /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		91C8A6AD1B28511D001F081A /* CounterpointingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingSession.swift; sourceTree = "<group>"; };
+		91C8A6AF1B285218001F081A /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		91E5C3AE1A6BD5C400905752 /* ECAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3B21A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3B31A6BD5C400905752 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -197,10 +201,12 @@
 		91F448171B089A1C0082EB6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				916B27AD1B1CA57800A963BB /* Player.swift */,
-				916B27AB1B1CA57800A963BB /* Move.swift */,
-				916B27A91B1CA57800A963BB /* Data.swift */,
-				916B27A71B1CA57700A963BB /* Session.swift */,
+				91C8A6AF1B285218001F081A /* Data.swift */,
+				91C8A6AD1B28511D001F081A /* CounterpointingSession.swift */,
+				91C8A6AB1B28511D001F081A /* Player.swift */,
+				91C8A6A91B28511D001F081A /* Move.swift */,
+				91C8A6A71B28511D001F081A /* CounterpointingMove.swift */,
+				91C8A6A31B28511C001F081A /* Session.swift */,
 				91AE3E621B0292ED00871B7A /* CoreDataStack.swift */,
 			);
 			name = Data;
@@ -329,20 +335,22 @@
 			files = (
 				91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */,
 				91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */,
-				916B27AE1B1CA57800A963BB /* Player.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
-				916B27AC1B1CA57800A963BB /* Move.swift in Sources */,
-				916B27AA1B1CA57800A963BB /* Data.swift in Sources */,
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
+				91C8A6A41B28511C001F081A /* Session.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
-				916B27A81B1CA57700A963BB /* Session.swift in Sources */,
 				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
+				91C8A6AE1B28511D001F081A /* CounterpointingSession.swift in Sources */,
+				91C8A6B01B285218001F081A /* Data.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
 				91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */,
+				91C8A6A81B28511D001F081A /* CounterpointingMove.swift in Sources */,
+				91C8A6AA1B28511D001F081A /* Move.swift in Sources */,
+				91C8A6AC1B28511D001F081A /* Player.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
 				910367F31A7E3B4900522B2B /* Model.swift in Sources */,
 			);

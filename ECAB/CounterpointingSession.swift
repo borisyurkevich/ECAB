@@ -1,5 +1,5 @@
 //
-//  Session.swift
+//  CounterpointingSession.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 6/10/15.
@@ -9,14 +9,13 @@
 import Foundation
 import CoreData
 
-class Session: NSManagedObject {
+class CounterpointingSession: NSManagedObject {
 
-    @NSManaged var dateStart: NSDate
-    @NSManaged var failureScore: NSNumber
-    @NSManaged var repeatCount: NSNumber
     @NSManaged var score: NSNumber
-    @NSManaged var data: Data
+    @NSManaged var dateStart: NSDate
+    @NSManaged var errors: NSNumber
     @NSManaged var moves: NSOrderedSet
+    @NSManaged var data: Data
     @NSManaged var player: Player
 
 }

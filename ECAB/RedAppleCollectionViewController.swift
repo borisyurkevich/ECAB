@@ -59,7 +59,7 @@ class RedAppleCollectionViewController:
         collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Instert fresh session entity
-		model.addSession("Apple", player: model.data.selectedPlayer)
+		model.addSession(model.data.selectedPlayer)
         session = model.data.sessions.lastObject as! Session
         
         let whiteColor = UIColor.whiteColor()
@@ -421,12 +421,6 @@ class RedAppleCollectionViewController:
 		
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
-		
-		// TODO: Fix this.
-		// Session will not persist this.
-		// I think it is more efficent created filled with data Session obj after game is finished
-		// Right here and not call for the model every move
-		session.dateEnd = NSDate()
 		
         println("Result: \(session.score)")
     }

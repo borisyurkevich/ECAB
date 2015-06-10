@@ -75,6 +75,7 @@ class Model {
 					addPlayer("Default")
 				}
 				data.selectedPlayer = data.players.firstObject as! Player
+				data.selectedGame = 0
 			}
 			
 		} else {
@@ -104,7 +105,7 @@ class Model {
 		}
     }
 	
-	func addSession(type: String, player: Player) {
+	func addSession(player: Player) {
 		
 		// Insert new Session entity into Core Data
 		
@@ -112,7 +113,6 @@ class Model {
 		
 		let session = Session(entity: sessionEntity!, insertIntoManagedObjectContext: managedContext)
 		
-		session.gameType = type
 		session.dateStart = NSDate()
 		session.player = player
 		

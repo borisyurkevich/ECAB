@@ -41,7 +41,20 @@ class SessionsTableViewController: UITableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		let returnValue = model.data.sessions.count
+		
+		var returnValue = 0
+		
+		switch model.data.selectedGame {
+		case 0:
+			returnValue = model.data.sessions.count
+			break
+		case 1:
+			returnValue = model.data.counterpointingSessions.count
+			break
+		default:
+			break
+		}
+		
 		return returnValue
 	}
 	

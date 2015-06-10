@@ -50,15 +50,16 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			case model.titles.visual:
 				let flowLayout = UICollectionViewFlowLayout()
 				let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
-				
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 				break
 			case model.titles.counterpointing:
-				
 				let gameVC = CounterpointingViewController()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 				break
 			default:
+				let flowLayout = UICollectionViewFlowLayout()
+				let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 				break
 			}
 		}

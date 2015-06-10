@@ -38,18 +38,19 @@ class GamesTableViewController: UITableViewController {
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let pickedGameTitle = model.games[indexPath.row]
-		
+		model.data.selectedGame = indexPath.row
 		
 		let detailVC = splitViewController!.viewControllers.last?.topViewController as! MenuViewController
 		detailVC.title = pickedGameTitle
 		detailVC.gameTitleCenter.text = pickedGameTitle
 		
-		switch pickedGameTitle {
-			case model.titles.counterpointing:
-				detailVC.gameIcon.image = UIImage(named: "dog")
-			break
-			case model.titles.visual:
+		switch model.data.selectedGame {
+			case 0:
 				detailVC.gameIcon.image = UIImage(named: "red_apple")
+			break
+			case 1:
+				detailVC.gameIcon.image = UIImage(named: "dog")
+				
 			break
 			default:
 			break
