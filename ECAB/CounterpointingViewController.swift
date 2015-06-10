@@ -145,7 +145,7 @@ class CounterpointingViewController: UIViewController {
 	}
 	
 	func presentPause() {
-		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progress will be lost.", preferredStyle: .Alert)
+		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game.", preferredStyle: .Alert)
 		
 		alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
 			self.quit()
