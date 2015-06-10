@@ -167,11 +167,11 @@ class CounterpointingViewController: UIViewController {
 		model.addCounterpointingMove(location.x, positionY: location.y, success: result)
 		
 		if result {
-			let errors = session.errors.integerValue
-			session.errors = NSNumber(integer: (errors + 1))
-		} else {
 			let score = session.score.integerValue
 			session.score = NSNumber(integer: (score + 1))
+		} else {
+			let errors = session.errors.integerValue
+			session.errors = NSNumber(integer: (errors + 1))
 		}
 	}
 	
