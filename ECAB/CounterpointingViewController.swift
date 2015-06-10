@@ -14,6 +14,8 @@ class CounterpointingViewController: UIViewController {
 	private var dogPositionOnLeft = true
 	private var successSound = AVAudioPlayer()
 	private var failureSound = AVAudioPlayer()
+	private let model: Model = Model.sharedInstance
+
 	
 	override func viewDidLoad() {
 		
@@ -40,6 +42,9 @@ class CounterpointingViewController: UIViewController {
 		var errorFailure: NSError?
 		failureSound = AVAudioPlayer(contentsOfURL: failureSoundURL, error: &errorFailure)
 		failureSound.prepareToPlay()
+		
+		// Data
+		model.addCounterpointingSession(model.data.selectedPlayer)
 	}
 
 	override func prefersStatusBarHidden() -> Bool {
@@ -80,23 +85,31 @@ class CounterpointingViewController: UIViewController {
 		let screenWidth = view.bounds.size.width
 		let middlePoint = screenWidth/2
 		
+		var result:Bool
+		
 		if location.x < middlePoint {
 			// tap on the left side of the screen
 			if dogPositionOnLeft {
 				failureSound.play()
+				result = false
 			} else {
 				successSound.play()
 				presentDogOnLeft()
+				result = true
 			}
 		} else {
 			// Tap on right
 			if dogPositionOnLeft {
 				successSound.play()
 				presentDogOnRight()
+				result = true
 			} else {
 				failureSound.play()
+				result = false
 			}
 		}
+		
+		model.addCounterpointingMove(location.x, positionY: location.y, success: result)
 	}
 	
 	func cleanView() {

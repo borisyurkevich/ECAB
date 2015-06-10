@@ -61,86 +61,91 @@ class SessionsTableViewController: UITableViewController {
 	// MARK: Table view delegate
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let pickedSesstion = model.data.sessions[indexPath.row] as! Session
 		
-		var detailMoves = ""
-		var counter = 1
-		var emptyScreenCounter = 0
-		
-		for move  in pickedSesstion.moves {
-			
-			let gameMove = move as! Move
-			
-			// Caluculate screen
-			var screenName = ""
-			let screenNum = gameMove.screenNumber.integerValue
-			switch screenNum {
-			case 0 ... 2:
-				screenName = "Training \(screenNum + 1)"
-				break
-			case 3 ... 5:
-				screenName = "Motor \(screenNum - 2)"
-				break
-			case 6 ... 8:
-				screenName = "Search \(screenNum - 5)"
-				break
-			default:
-				break
+		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
+		println("SG: \(model.data.selectedGame)")
+		switch model.data.selectedGame {
+		case 0:
+			let pickedSesstion = model.data.sessions[indexPath.row] as! Session
+			var detailMoves = ""
+			var counter = 1
+			var emptyScreenCounter = 0
+			for move  in pickedSesstion.moves {
+				
+				let gameMove = move as! Move
+				
+				// Caluculate screen
+				var screenName = ""
+				let screenNum = gameMove.screenNumber.integerValue
+				switch screenNum {
+				case 0 ... 2:
+					screenName = "Training \(screenNum + 1)"
+					break
+				case 3 ... 5:
+					screenName = "Motor \(screenNum - 2)"
+					break
+				case 6 ... 8:
+					screenName = "Search \(screenNum - 5)"
+					break
+				default:
+					break
+				}
+				
+				// Success or failure
+				var progress = ""
+				if gameMove.success.boolValue == true {
+					progress = "success"
+				} else {
+					progress = "failure"
+				}
+				
+				var repeat = ""
+				if gameMove.repeat.boolValue == true {
+					repeat = "repeat"
+				} else {
+					repeat = "unique"
+				}
+				
+				// Date
+				let formatter = NSDateFormatter()
+				formatter.locale = NSLocale.autoupdatingCurrentLocale()
+				formatter.dateFormat = "HH:mm:ss:S"
+				let dateStr = formatter.stringFromDate(gameMove.date)
+				
+				var append: String
+				
+				if gameMove.empty.boolValue == false {
+					append = "\(counter)) \(screenName) Row: \(gameMove.row) Column: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
+					counter++
+				} else {
+					append = "\(screenName) changed: \(dateStr) \n"
+					emptyScreenCounter++
+				}
+				
+				detailMoves = detailMoves + append
 			}
-			
-			// Success or failure
-			var progress = ""
-			if gameMove.success.boolValue == true {
-				progress = "success"
-			} else {
-				progress = "failure"
-			}
-			
-			var repeat = ""
-			if gameMove.repeat.boolValue == true {
-				repeat = "repeat"
-			} else {
-				repeat = "unique"
-			}
-			
+			let dateStarted = pickedSesstion.dateStart.description
 			// Date
 			let formatter = NSDateFormatter()
 			formatter.locale = NSLocale.autoupdatingCurrentLocale()
-			formatter.dateFormat = "HH:mm:ss:S"
-			let dateStr = formatter.stringFromDate(gameMove.date)
-			
-			var append: String
-			
-			if gameMove.empty.boolValue == false {
-				append = "\(counter)) \(screenName) Row: \(gameMove.row) Column: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
-				counter++
-			} else {
-				append = "\(screenName) changed: \(dateStr) \n"
-				emptyScreenCounter++
+			formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
+			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
+			var sudoName = "Unknown"
+			if let player = pickedSesstion.player as Player? {
+				sudoName = player.name
 			}
-			
-			detailMoves = detailMoves + append
-		}
-		
-		let dateStarted = pickedSesstion.dateStart.description
-		
-		// Date
-		let formatter = NSDateFormatter()
-		formatter.locale = NSLocale.autoupdatingCurrentLocale()
-		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
-		let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
-		
-//		let dateEnded = pickedSesstion.dateEnd.description
-		var sudoName = "Unknown"
-		
-		if let player = pickedSesstion.player as Player? {
-			sudoName = player.name
-		}
-		
-		let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
-		
-		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
+			let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(sudoName)\n\nDetail moves:\n\n\(detailMoves)"
+			detailVC.textView.text = stringForTheTextView
+			break;
+		case 1:
+			let pickedSesstion = model.data.counterpointingSessions[indexPath.row] as! CounterpointingSession
+			let details = ""
+			let dateString = ""
+			let text = "Total score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\n\n Errors = \(pickedSesstion.errors)\n\nSession started: \(dateString)\n\nMoves:\(details)"
 
-		detailVC.textView.text = stringForTheTextView
+			break;
+		default:
+			break;
+		}
 	}
 }

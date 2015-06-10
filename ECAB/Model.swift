@@ -128,12 +128,31 @@ class Model {
 		}
 	}
 	
+	func addCounterpointingSession(player: Player) {
+		let sessionEntity = NSEntityDescription.entityForName("CounterpointingSession", inManagedObjectContext: managedContext)
+		
+		let session = CounterpointingSession(entity: sessionEntity!, insertIntoManagedObjectContext: managedContext)
+		
+		session.dateStart = NSDate()
+		session.player = player
+		
+		// Insert the new Session into the Data set
+		var sessions = data.counterpointingSessions.mutableCopy() as! NSMutableOrderedSet
+		sessions.addObject(session)
+		data.counterpointingSessions = sessions.copy() as! NSOrderedSet
+		
+		//Save the managed object context
+		var error: NSError?
+		if !managedContext!.save(&error) {
+			println("Could not save counter. session: \(error)")
+		}
+	}
+	
 	func addMove(row: Int, column: Int, session: Session, isSuccess: Bool, isRepeat: Bool, isTraining: Bool, screen: Int, isEmpty:Bool) {
 		
 		// Insert new Success entity into Core Data
 		
 		let successMoveEntity = NSEntityDescription.entityForName("Move", inManagedObjectContext: managedContext)
-		
 		let move = Move(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
 		
 		move.row = row
@@ -156,7 +175,30 @@ class Model {
 		//Save the managed object context
 		var error: NSError?
 		if !managedContext!.save(&error) {
-			println("Could not save new success move: \(error)")
+			println("Could not save new visual search move move: \(error)")
+		}
+	}
+	
+	func addCounterpointingMove(positionX: CGFloat, positionY: CGFloat, success: Bool) {
+		let successMoveEntity = NSEntityDescription.entityForName("CounterpointingMove", inManagedObjectContext: managedContext)
+		let move = CounterpointingMove(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
+		
+		move.poitionX = positionX
+		move.poitionY = positionY
+		move.success = success
+		move.date = NSDate()
+		
+		let allSessions = data.counterpointingSessions
+		let lastSession = allSessions.lastObject as! CounterpointingSession
+		
+		var allMoves = lastSession.moves.mutableCopy() as! NSMutableOrderedSet
+		allMoves.addObject(move)
+		lastSession.moves = allMoves.copy() as! NSOrderedSet
+		
+		//Save the managed object context
+		var error: NSError?
+		if !managedContext!.save(&error) {
+			println("Could not save new counterpointing move: \(error)")
 		}
 	}
 	
@@ -165,7 +207,7 @@ class Model {
 		//Save the managed object context
 		var error: NSError?
 		if !managedContext!.save(&error) {
-			println("Could not save new success move: \(error)")
+			println("Could not update the data: \(error)")
 		}
 		
 	}
