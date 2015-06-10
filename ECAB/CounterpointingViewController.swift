@@ -11,7 +11,7 @@ import AVFoundation
 
 class CounterpointingViewController: UIViewController {
 	
-	private var dogPositionOnLeft = true
+	private var dogPositionOnLeft = false // first screen will be with dog on right
 	private var gameModeInversed = false
 	private var successSound = AVAudioPlayer()
 	private var failureSound = AVAudioPlayer()
@@ -25,15 +25,6 @@ class CounterpointingViewController: UIViewController {
 	override func viewDidLoad() {
 		
 		view.backgroundColor = UIColor.whiteColor()
-		
-		let label = UILabel(frame: view.frame)
-		label.text = "Example stimuli…"
-		label.textAlignment = NSTextAlignment.Center
-		label.font = UIFont.systemFontOfSize(44)
-		view.addSubview(label)
-		
-		let gesture = UITapGestureRecognizer(target: self, action: "presentDogOnLeft")
-		view.addGestureRecognizer(gesture)
 		
 		// Sounds
 		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
@@ -60,24 +51,45 @@ class CounterpointingViewController: UIViewController {
 		pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
 		pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
 		pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
-	}
-
-	override func prefersStatusBarHidden() -> Bool {
-		return true
+		
+		presentMessage("Attention!")
 	}
 	
-	func presentDogOnLeft(){
-		cleanView()
+	func presentNextScreen() {
+		currentScreenShowing++
 		
 		if currentScreenShowing == transitionPointScreen {
 			gameModeInversed = true
-			viewDidLoad()
+			cleanView()
+			presentMessage("Inverse order!")
 			return
 		}
 		if currentScreenShowing == screensTotal {
 			quit()
 		}
 		
+		cleanView()
+		
+		if dogPositionOnLeft {
+			presentDogOnRight()
+		} else {
+			presentDogOnLeft()
+		}
+	}
+
+	
+	func presentMessage(message: String){
+		let label = UILabel(frame: view.frame)
+		label.text = message
+		label.textAlignment = NSTextAlignment.Center
+		label.font = UIFont.systemFontOfSize(44)
+		view.addSubview(label)
+		
+		let gesture = UITapGestureRecognizer(target: self, action: "presentNextScreen")
+		view.addGestureRecognizer(gesture)
+	}
+	
+	func presentDogOnLeft(){
 		dogPositionOnLeft = true;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog"))
@@ -90,17 +102,6 @@ class CounterpointingViewController: UIViewController {
 	}
 	
 	func presentDogOnRight(){
-		cleanView()
-		
-		if currentScreenShowing == transitionPointScreen {
-			gameModeInversed = true
-			viewDidLoad()
-			return
-		}
-		if currentScreenShowing == screensTotal {
-			quit()
-		}
-		
 		dogPositionOnLeft = false;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
@@ -128,14 +129,12 @@ class CounterpointingViewController: UIViewController {
 					result = false
 				} else {
 					successSound.play()
-					presentDogOnLeft()
 					result = true
 				}
 			} else {
 				// tap on the left side of the screen
 				if dogPositionOnLeft {
 					successSound.play()
-					presentDogOnRight()
 					result = true
 				} else {
 					failureSound.play()
@@ -147,7 +146,6 @@ class CounterpointingViewController: UIViewController {
 			if !gameModeInversed {
 				if dogPositionOnLeft {
 					successSound.play()
-					presentDogOnRight()
 					result = true
 				} else {
 					failureSound.play()
@@ -159,7 +157,6 @@ class CounterpointingViewController: UIViewController {
 					result = false
 				} else {
 					successSound.play()
-					presentDogOnLeft()
 					result = true
 				}
 			}
@@ -169,6 +166,7 @@ class CounterpointingViewController: UIViewController {
 		if result {
 			let score = session.score.integerValue
 			session.score = NSNumber(integer: (score + 1))
+			presentNextScreen()
 		} else {
 			let errors = session.errors.integerValue
 			session.errors = NSNumber(integer: (errors + 1))
@@ -187,8 +185,6 @@ class CounterpointingViewController: UIViewController {
 		pauseButton!.tintColor = UIColor.grayColor()
 		addButtonBorder(pauseButton!)
 		view.addSubview(pauseButton!)
-		
-		currentScreenShowing++
 	}
 	
 	func presentPause() {
@@ -213,5 +209,9 @@ class CounterpointingViewController: UIViewController {
 		button.layer.cornerRadius = 5
 		button.layer.borderWidth = 1
 		button.layer.borderColor = button.tintColor!.CGColor
+	}
+	
+	override func prefersStatusBarHidden() -> Bool {
+		return true
 	}
 }
