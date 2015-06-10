@@ -16,6 +16,7 @@ class CounterpointingViewController: UIViewController {
 	private var failureSound = AVAudioPlayer()
 	private let model: Model = Model.sharedInstance
 	private var session: CounterpointingSession!
+	private var pauseButton: UIButton?
 	
 	override func viewDidLoad() {
 		
@@ -46,6 +47,15 @@ class CounterpointingViewController: UIViewController {
 		// Data
 		model.addCounterpointingSession(model.data.selectedPlayer)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
+		
+		// Add pause button
+		let labelText: String = "Pause"
+		pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
+		let screen: CGSize = UIScreen.mainScreen().bounds.size
+		pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
+		pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
+		pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 	}
 
 	override func prefersStatusBarHidden() -> Bool {
@@ -129,5 +139,32 @@ class CounterpointingViewController: UIViewController {
 				view.removeGestureRecognizer(recognizer)
 			}
 		}
+		pauseButton!.tintColor = UIColor.grayColor()
+		addButtonBorder(pauseButton!)
+		view.addSubview(pauseButton!)
+	}
+	
+	func presentPause() {
+		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. All progress will be lost.", preferredStyle: .Alert)
+		
+		alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+			self.quit()
+		}))
+		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+		
+		presentViewController(alertView, animated: true, completion: nil)
+	}
+	
+	func quit() {
+		self.dismissViewControllerAnimated(true, completion: nil)
+		
+		println("Result: \(session.score)")
+	}
+	
+	func addButtonBorder(button: UIButton) {
+		button.backgroundColor = UIColor.clearColor()
+		button.layer.cornerRadius = 5
+		button.layer.borderWidth = 1
+		button.layer.borderColor = button.tintColor!.CGColor
 	}
 }

@@ -160,7 +160,7 @@ class SessionsTableViewController: UITableViewController {
 			}
 			
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
-			let text = "Total score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\n\nPlayer: \(pickedSesstion.player.name)\n\nErrors = \(pickedSesstion.errors)\n\nSession started: \(dateString)\n\nMoves:\(details)"
+			let text = "Total score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\n\nPlayer: \(pickedSesstion.player.name)\n\nErrors = \(pickedSesstion.errors)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			break;
 		default:
