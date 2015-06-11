@@ -370,32 +370,13 @@ class RedAppleCollectionViewController:
 			
 			if isRepeat == false {
 				
-				cell.layer.backgroundColor = UIColor.clearColor().CGColor
+				let crossImage = UIImage(named: "cross_gray")
+				var cross = UIImageView(image: crossImage)
+				cross.frame = cell.imageView.frame
+				cell.imageView.addSubview(cross)
 				
-				crossLayer = lineDrawingLayer()
-				crossLayer.strokeColor = UIColor.blackColor().CGColor
-				crossLayer.path = crossPath()
-				cell.layer.addSublayer(crossLayer)
-				
-				CATransaction.begin()
-				
-				var animation: CABasicAnimation = CABasicAnimation()
-				animation.keyPath = "strokeEnd"
-				animation.fillMode = kCAFillModeForwards
-				animation.fromValue = crossLayer.presentationLayer().strokeEnd
-				animation.toValue = 1
-				animation.duration = 1 // CHANGE?
-				crossLayer.strokeEnd = 1
-				crossLayer.addAnimation(animation, forKey: "strokeEnd")
-				CATransaction.commit()
-				
-//				let crossImage = UIImage(named: "cross_gray")
-//				var cross = UIImageView(image: crossImage)
-//				cross.frame = cell.imageView.frame
-//				cell.imageView.addSubview(cross)
-//				
-//				cross.center.x = cell.contentView.center.x
-//				cross.center.y = cell.contentView.center.y
+				cross.center.x = cell.contentView.center.x
+				cross.center.y = cell.contentView.center.y
 				
 				if (!isTraining) {
 					let times = session.score.integerValue

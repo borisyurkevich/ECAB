@@ -80,7 +80,7 @@ class RedAppleBoard {
         let s = GamePeace(type: .🍓) // strawverry
         
         // This is complicated patters copied from PDF file. I separated matrix
-        // of fruits in the files to 4 different sections, 5 rows each, 
+        // of fruits in the files to 4 different sections, 5 rows each,
         // 9 fruits in each row
         
         // Typical game will have 3 screens. Which means we have to devide all fruits on three screens.
@@ -130,7 +130,7 @@ class RedAppleBoard {
 			f.append(t); f.append(w); f.append(w);
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
-			f.append(t);
+			f.append(w);
 			break;
 		case 4:
 			f.append(w); f.append(w); f.append(w);
@@ -150,10 +150,10 @@ class RedAppleBoard {
 			
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
-			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(t); f.append(w);
 			f.append(w);
 			
-			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
@@ -166,7 +166,7 @@ class RedAppleBoard {
 		case 5:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
-			f.append(t); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
 			f.append(w);
 			
 			f.append(w); f.append(w); f.append(w);
