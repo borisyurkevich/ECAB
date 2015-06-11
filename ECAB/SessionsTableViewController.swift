@@ -76,7 +76,7 @@ class SessionsTableViewController: UITableViewController {
 		
 		let formatter = NSDateFormatter()
 		formatter.locale = NSLocale.autoupdatingCurrentLocale()
-		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
+		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss:S"
 		let smallFormatter = NSDateFormatter()
 		smallFormatter.locale = NSLocale.autoupdatingCurrentLocale()
 		smallFormatter.dateFormat = "HH:mm:ss:S"
