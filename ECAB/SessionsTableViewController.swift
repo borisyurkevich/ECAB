@@ -128,7 +128,7 @@ class SessionsTableViewController: UITableViewController {
 				var append: String
 				
 				if gameMove.empty.boolValue == false {
-					append = "\(counter)) \(screenName) Row: \(gameMove.row) Column: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
+					append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
 					counter++
 				} else {
 					append = "\(screenName) on set \(dateStr) \n"
@@ -154,7 +154,7 @@ class SessionsTableViewController: UITableViewController {
 				} else {
 					status = "success"
 				}
-				let append = "\(counter)) \(status) \(smallFormatter.stringFromDate(actualMove.date)) x:\(actualMove.poitionX) y:\(actualMove.poitionY) \n"
+				let append = "\(counter)) \(status) \(smallFormatter.stringFromDate(actualMove.date)) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \n"
 				details = details + append
 				counter++
 			}
