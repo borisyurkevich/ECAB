@@ -54,7 +54,7 @@ class RedAppleCollectionViewController:
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+		
         boardFlowLayout = configureFlowLayout()
 		collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
 		
@@ -142,7 +142,7 @@ class RedAppleCollectionViewController:
 		// Here we shoulf set borard with new scene.
 		currentView += 1
 		
-		if currentView > 8 {
+		if currentView == numberOfTargets.count {
 			quit()
 			return
 		}
@@ -211,15 +211,11 @@ class RedAppleCollectionViewController:
 				self.boardFlowLayout = self.configureFlowLayout()
 				self.collectionView!.setCollectionViewLayout(self.boardFlowLayout!, animated: false)
 				
-				// TODO: It is better move this logic to the Switch statement
-				if (self.isGameStarted && self.currentView == 8) {
-					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "quit", userInfo: nil, repeats: false)
-					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
-				} else if (self.isGameStarted && self.currentView != 8) {
+				if (self.isGameStarted) {
 					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "showBlankScreen", userInfo: nil, repeats: false)
 					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
 				}
-                
+				
                 UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     
                     self.collectionView!.alpha = 1
@@ -231,7 +227,7 @@ class RedAppleCollectionViewController:
 	
 	func showBlankScreen() {
 		
-		if currentView > 8 {
+		if currentView == numberOfTargets.count {
 			quit()
 			return
 		}
@@ -399,7 +395,7 @@ class RedAppleCollectionViewController:
 					// Player finished fast
 					timer.invalidate()
 					
-					if currentView != 8 { // 8 is the last screen, we need to quit on it
+					if currentView != numberOfTargets.count-1 { // the last screen
 						showBlankScreen()
 					} else {
 						quit()
