@@ -139,7 +139,7 @@ class SessionsTableViewController: UITableViewController {
 			}
 			let dateStarted = pickedSesstion.dateStart.description
 			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
-			let stringForTheTextView = "Total score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\n\nFailed attempts: \(pickedSesstion.failureScore)\n\nSession started: \(dateStr)\n\nPlayer name: \(pickedSesstion.player.name)\n\nDetail moves:\n\n\(detailMoves)"
+			let stringForTheTextView = "Player name: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			break;
 		case 1:
