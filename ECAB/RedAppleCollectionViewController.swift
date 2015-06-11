@@ -21,7 +21,7 @@ class RedAppleCollectionViewController:
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
 	private var isTraining = true
-	private let numberOfTargets = [1, 1, 2, 7, 4, 7, 6, 6, 6]
+	private let numberOfTargets = [1, 1, 2, 6, 6, 6, 6, 6, 6]
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
