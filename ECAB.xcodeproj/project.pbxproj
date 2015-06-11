@@ -258,6 +258,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ECAB;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Oliver Braddick and Jan Atkinson";
 				TargetAttributes = {

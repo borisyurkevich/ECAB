@@ -49,6 +49,8 @@ class RedAppleCollectionViewController:
     
     var presenter: MenuViewController?
     var session: Session!
+	
+	private var crossLayer: CAShapeLayer = CAShapeLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -367,13 +369,33 @@ class RedAppleCollectionViewController:
 		if cell.fruit.isValuable {
 			
 			if isRepeat == false {
-				let crossImage = UIImage(named: "cross_gray")
-				var cross = UIImageView(image: crossImage)
-				cross.frame = cell.imageView.frame
-				cell.imageView.addSubview(cross)
 				
-				cross.center.x = cell.contentView.center.x
-				cross.center.y = cell.contentView.center.y
+				cell.layer.backgroundColor = UIColor.clearColor().CGColor
+				
+				crossLayer = lineDrawingLayer()
+				crossLayer.strokeColor = UIColor.blackColor().CGColor
+				crossLayer.path = crossPath()
+				cell.layer.addSublayer(crossLayer)
+				
+				CATransaction.begin()
+				
+				var animation: CABasicAnimation = CABasicAnimation()
+				animation.keyPath = "strokeEnd"
+				animation.fillMode = kCAFillModeForwards
+				animation.fromValue = crossLayer.presentationLayer().strokeEnd
+				animation.toValue = 1
+				animation.duration = 1 // CHANGE?
+				crossLayer.strokeEnd = 1
+				crossLayer.addAnimation(animation, forKey: "strokeEnd")
+				CATransaction.commit()
+				
+//				let crossImage = UIImage(named: "cross_gray")
+//				var cross = UIImageView(image: crossImage)
+//				cross.frame = cell.imageView.frame
+//				cell.imageView.addSubview(cross)
+//				
+//				cross.center.x = cell.contentView.center.x
+//				cross.center.y = cell.contentView.center.y
 				
 				if (!isTraining) {
 					let times = session.score.integerValue
@@ -406,7 +428,41 @@ class RedAppleCollectionViewController:
 			playerFailure.play()
 		}
 	}
-    
+	
+	
+	func lineDrawingLayer() -> CAShapeLayer {
+		var shapeLayer = CAShapeLayer()
+		
+		shapeLayer.strokeEnd = 0
+		shapeLayer.lineWidth = 5
+		shapeLayer.lineCap = kCALineCapRound
+		shapeLayer.lineJoin = kCALineJoinRound
+		shapeLayer.frame = self.view.layer.bounds
+		shapeLayer.backgroundColor = UIColor.clearColor().CGColor
+		shapeLayer.fillColor = nil
+		
+		return shapeLayer
+	}
+	
+	func crossPath() -> CGPathRef {
+		var path = linePath()
+		
+		path.moveToPoint(CGPointMake(45, 78))
+		path.addLineToPoint(CGPointMake(77, 42))
+		path.moveToPoint(CGPointMake(45, 42))
+		path.addLineToPoint(CGPointMake(82, 78))
+		
+		return path.CGPath;
+	}
+	
+	func linePath() -> UIBezierPath {
+		var path = UIBezierPath()
+		path.lineCapStyle = kCGLineCapRound
+		path.lineWidth = 5
+		
+		return path
+	}
+	
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
