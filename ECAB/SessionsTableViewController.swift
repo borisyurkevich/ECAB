@@ -131,7 +131,7 @@ class SessionsTableViewController: UITableViewController {
 					append = "\(counter)) \(screenName) Row: \(gameMove.row) Column: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
 					counter++
 				} else {
-					append = "\(screenName) changed: \(dateStr) \n"
+					append = "\(screenName) on set \(dateStr) \n"
 					emptyScreenCounter++
 				}
 				

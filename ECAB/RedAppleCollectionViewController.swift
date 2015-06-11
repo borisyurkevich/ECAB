@@ -219,10 +219,9 @@ class RedAppleCollectionViewController:
                     
                     self.collectionView!.alpha = 1
                     
-                }, completion: nil)
+					}, completion: { (Bool) in
+						self.model.addMove(0, column: 0, session: self.session, isSuccess: false, isRepeat: false, isTraining: false, screen: self.currentView, isEmpty: true)})
         })
-		
-		model.addMove(0, column: 0, session: session, isSuccess: false, isRepeat: false, isTraining: false, screen: currentView, isEmpty: true)
     }
 	
 	func showBlankScreen() {
