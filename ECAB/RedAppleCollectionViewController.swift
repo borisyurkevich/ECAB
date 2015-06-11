@@ -138,6 +138,14 @@ class RedAppleCollectionViewController:
 	}
     
     func timerDidFire() {
+		
+		// Here we shoulf set borard with new scene.
+		currentView += 1
+		
+		if currentView > 8 {
+			quit()
+			return
+		}
 		        
         UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             
@@ -145,9 +153,6 @@ class RedAppleCollectionViewController:
             self.collectionView!.alpha = 0.0
             
             }, completion: { (fininshed: Bool) -> () in
-                
-                // Here we shoulf set borard with new scene.
-                self.currentView += 1
 				
 				switch (self.currentView) {
 				case 0:
@@ -225,6 +230,11 @@ class RedAppleCollectionViewController:
     }
 	
 	func showBlankScreen() {
+		
+		if currentView > 8 {
+			quit()
+			return
+		}
 		
 		self.board = RedAppleBoard(stage: 10)
 		
@@ -388,7 +398,12 @@ class RedAppleCollectionViewController:
 				if checkedMarks.count == numberOfTargets[currentView] + 1 {
 					// Player finished fast
 					timer.invalidate()
-					showBlankScreen()
+					
+					if currentView != 8 { // 8 is the last screen, we need to quit on it
+						showBlankScreen()
+					} else {
+						quit()
+					}
 				}
 				
 				println("cm = \(checkedMarks.count) nt = \(numberOfTargets[currentView])")
