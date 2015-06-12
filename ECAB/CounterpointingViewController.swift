@@ -125,39 +125,39 @@ class CounterpointingViewController: UIViewController {
 			if !gameModeInversed {
 				// tap on the left side of the screen
 				if dogPositionOnLeft {
-					failureSound.play()
-					result = false
-				} else {
 					successSound.play()
 					result = true
+				} else {
+					failureSound.play()
+					result = false
 				}
 			} else {
 				// tap on the left side of the screen
 				if dogPositionOnLeft {
-					successSound.play()
-					result = true
-				} else {
 					failureSound.play()
 					result = false
+				} else {
+					successSound.play()
+					result = true
 				}
 			}
 		} else {
 			// Tap on right
 			if !gameModeInversed {
 				if dogPositionOnLeft {
-					successSound.play()
-					result = true
-				} else {
 					failureSound.play()
 					result = false
+				} else {
+					successSound.play()
+					result = true
 				}
 			} else {
 				if dogPositionOnLeft {
-					failureSound.play()
-					result = false
-				} else {
 					successSound.play()
 					result = true
+				} else {
+					failureSound.play()
+					result = false
 				}
 			}
 		}
