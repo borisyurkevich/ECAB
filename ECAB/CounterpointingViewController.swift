@@ -228,8 +228,11 @@ class CounterpointingViewController: UIViewController {
 		let dot = UIImageView(image: UIImage(named: "Blue Dot"))
 		dot.center = view.center
 		view.addSubview(dot)
-		
-		// Add next button
+	
+		addNextButton()
+	}
+	
+	func addNextButton() {
 		let labelText: String = "Next"
 		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
 		nextButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
@@ -249,8 +252,7 @@ class CounterpointingViewController: UIViewController {
 		label.font = UIFont.systemFontOfSize(44)
 		view.addSubview(label)
 		
-		let gesture = UITapGestureRecognizer(target: self, action: "presentNextScreen")
-		view.addGestureRecognizer(gesture)
+		addNextButton()
 	}
 	
 	func presentDogOnLeft(){
@@ -345,9 +347,12 @@ class CounterpointingViewController: UIViewController {
 		for v in view.subviews {
 			v.removeFromSuperview()
 		}
-		for g in view.gestureRecognizers! {
-			if let recognizer = g as? UITapGestureRecognizer {
-				view.removeGestureRecognizer(recognizer)
+		
+		if view.gestureRecognizers != nil {
+			for g in view.gestureRecognizers! {
+				if let recognizer = g as? UITapGestureRecognizer {
+					view.removeGestureRecognizer(recognizer)
+				}
 			}
 		}
 		pauseButton!.tintColor = UIColor.grayColor()
