@@ -21,16 +21,16 @@ class RedAppleCollectionViewController:
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
 	private var isTraining = true
-	private let numberOfTargets = [1, 1, 2, 6, 6, 6, 6, 6, 6]
+	private var numberOfTargets = [1, 1, 2, 6, 6, 6, 6, 6, 6]
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
     private var board = RedAppleBoard(stage: 0)
     private let interSpacing:CGFloat = 27
 	private var timer = NSTimer()
-    
+	
     private struct Insets {
-        static let top:CGFloat = 95
+        static var top:CGFloat = 95
         static let left:CGFloat = 10
         static let bottom:CGFloat = 10
         static let right:CGFloat = 10
@@ -54,6 +54,11 @@ class RedAppleCollectionViewController:
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		if !model.visualSearchOnEasy {
+			currentView = 11
+			numberOfTargets = [1, 1, 2, 9, 9, 9, 9]
+		}
 		
         boardFlowLayout = configureFlowLayout()
 		collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
@@ -128,7 +133,7 @@ class RedAppleCollectionViewController:
 	}
 	
 	func goBack() {
-		if currentView == 0 {
+		if currentView == 0 || currentView == 11 {
 			return
 		} else {
 			currentView -= 2
@@ -154,8 +159,14 @@ class RedAppleCollectionViewController:
             
             }, completion: { (fininshed: Bool) -> () in
 				
+				var defaultSize:CGFloat = 70
+				
+				if !self.model.visualSearchOnEasy {
+					defaultSize = 54
+				}
+				
 				switch (self.currentView) {
-				case 0:
+				case 0, 11:
 					self.cellWidth = 190
 					self.cellHeight = 190
 					
@@ -164,27 +175,27 @@ class RedAppleCollectionViewController:
 					self.insetBottom = Insets.bottom
 					self.insetRight = 172
 					break;
-				case 1:
+				case 1, 12:
 					self.cellWidth = 84
 					self.cellHeight = 84
 					self.insetTop = 220
 					self.insetLeft = 340
 					self.insetRight = 340
 					break;
-				case 2:
-					self.cellWidth = 70
+				case 2, 13:
+					self.cellWidth = 70 // always default size
 					self.cellHeight = 70
 					self.insetTop = 230
 					self.insetLeft = 200
 					self.insetRight = 200
 					break;
-				case 3 ... 5:
+				case 3 ... 5, 14 ... 15:
 					// Real game starts on motor test
 					// This is three motor screen tests
 					self.startGame()
 					self.nextButton?.hidden = true
-					self.cellWidth = 70
-					self.cellHeight = 70
+					self.cellWidth = defaultSize
+					self.cellHeight = defaultSize
 					self.insetTop = Insets.top
 					self.insetLeft = Insets.left
 					self.insetBottom = Insets.bottom
@@ -192,8 +203,8 @@ class RedAppleCollectionViewController:
 					break;
 				default:
 					// This is normal game mode
-					self.cellWidth = 70
-					self.cellHeight = 70
+					self.cellWidth = defaultSize
+					self.cellHeight = defaultSize
 					self.insetTop = Insets.top
 					self.insetLeft = Insets.left
 					self.insetBottom = Insets.bottom
@@ -201,6 +212,16 @@ class RedAppleCollectionViewController:
 					self.isTraining = false
 					break;
 				}
+				
+				if !self.model.visualSearchOnEasy {
+					if self.currentView != 11 && self.currentView != 12 && self.currentView != 13 {
+						self.insetLeft = 100
+						self.insetRight = 100
+					}
+					
+					Insets.top = 60
+				}
+				
 				println("Requesting fot the board \(self.currentView)")
                 self.board = RedAppleBoard(stage: self.currentView)
 				self.checkedMarks = [-1]
@@ -335,15 +356,15 @@ class RedAppleCollectionViewController:
 		var rows = 6
 		
 		switch currentView {
-		case 0:
+		case 0, 11:
 			total = 3
 			rows = 1
 			break
-		case 1:
+		case 1, 12:
 			total = 9
 			rows = 3
 			break
-		case 2:
+		case 2, 13:
 			total = 18
 			rows = 3
 			break
@@ -391,18 +412,24 @@ class RedAppleCollectionViewController:
 				// Play the success sound
 				player.play()
 				
-				if checkedMarks.count == numberOfTargets[currentView] + 1 {
+				// Hard mode
+				var gameStage = currentView
+				if !model.visualSearchOnEasy {
+					gameStage -= 11
+				}
+				
+				if checkedMarks.count == numberOfTargets[gameStage] + 1 {
 					// Player finished fast
 					timer.invalidate()
 					
-					if currentView != numberOfTargets.count-1 { // the last screen
+					if gameStage != numberOfTargets.count-1 { // the last screen
 						showBlankScreen()
 					} else {
 						quit()
 					}
 				}
 				
-				println("cm = \(checkedMarks.count) nt = \(numberOfTargets[currentView])")
+				println("cm = \(checkedMarks.count) nt = \(numberOfTargets[gameStage])")
 				println("\(checkedMarks)")
 			} else {
 				// Repeat

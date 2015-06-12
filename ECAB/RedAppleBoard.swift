@@ -90,17 +90,17 @@ class RedAppleBoard {
 			
 		case 0:
 			f.append(s); f.append(w); f.append(t);
-			break;
+			break
 		case 1:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
-			break;
+			break
 		case 2:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
-			break;
+			break
 		case 3:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
@@ -286,11 +286,208 @@ class RedAppleBoard {
 			f.append(t); f.append(w); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
-			break;
+			break
 		case 10:
-			break;
+			break
+		case 11:
+			f.append(s); f.append(w); f.append(t);
+			break
+		case 12:
+			f.append(s); f.append(w); f.append(t);
+			f.append(w); f.append(s); f.append(w);
+			f.append(w); f.append(s); f.append(s);
+			break
+		case 13:
+			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
+			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
+			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
+			break
+		case 14:
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(t);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(t); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(t); f.append(w);
+			f.append(t);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(t); f.append(w); f.append(w);
+			f.append(w); f.append(t); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(t); f.append(w); f.append(w);
+			f.append(w); f.append(t); f.append(w);
+			f.append(w); f.append(w); f.append(t);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			break
+		case 15:
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(t); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(t); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(t); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(t); f.append(w); f.append(w);
+			f.append(t);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(t); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(t); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(t); f.append(w);
+			f.append(w); f.append(t); f.append(w);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w);
+			break
+		case 16:
+			f.append(t); f.append(s); f.append(s);
+			f.append(w); f.append(w); f.append(s);
+			f.append(w); f.append(s); f.append(w);
+			f.append(s);
+			
+			f.append(w); f.append(t); f.append(w);
+			f.append(s); f.append(w); f.append(s);
+			f.append(s); f.append(w); f.append(w);
+			f.append(s);
+			
+			f.append(w); f.append(w); f.append(s);
+			f.append(s); f.append(s); f.append(w);
+			f.append(w); f.append(s); f.append(s);
+			f.append(t);
+			
+			f.append(w); f.append(s); f.append(s);
+			f.append(w); f.append(w); f.append(w);
+			f.append(t); f.append(s); f.append(s);
+			f.append(w);
+			
+			f.append(t); f.append(w); f.append(s);
+			f.append(s); f.append(s); f.append(s);
+			f.append(w); f.append(s); f.append(t);
+			f.append(w);
+			
+			f.append(s); f.append(w); f.append(s);
+			f.append(w); f.append(s); f.append(w);
+			f.append(w); f.append(w); f.append(s);
+			f.append(s);
+			
+			f.append(s); f.append(w); f.append(s);
+			f.append(s); f.append(w); f.append(s);
+			f.append(s); f.append(s); f.append(s);
+			f.append(s);
+			
+			f.append(s);f.append(s); f.append(w);
+			f.append(s); f.append(w); f.append(s);
+			f.append(t); f.append(w); f.append(t);
+			f.append(s);
+			
+			f.append(w); f.append(s); f.append(s);
+			f.append(t); f.append(w); f.append(s);
+			f.append(s); f.append(w); f.append(w);
+			f.append(s);
+			break
+		case 17:
+			f.append(s); f.append(w); f.append(t);
+			f.append(w); f.append(w); f.append(w);
+			f.append(w); f.append(s); f.append(w);
+			f.append(s);
+			
+			f.append(s); f.append(s); f.append(s);
+			f.append(w); f.append(w); f.append(w);
+			f.append(s); f.append(w); f.append(s);
+			f.append(t);
+			
+			f.append(s); f.append(s); f.append(w);
+			f.append(s); f.append(w); f.append(w);
+			f.append(t); f.append(s); f.append(s);
+			f.append(w);
+			
+			f.append(t); f.append(s); f.append(w);
+			f.append(s); f.append(w); f.append(w);
+			f.append(w); f.append(s); f.append(w);
+			f.append(w);
+			
+			f.append(w); f.append(s); f.append(w);
+			f.append(w); f.append(t); f.append(w);
+			f.append(w); f.append(t); f.append(s);
+			f.append(s);
+			
+			f.append(s); f.append(w); f.append(w);
+			f.append(s); f.append(s); f.append(s);
+			f.append(w); f.append(s); f.append(w);
+			f.append(s);
+			
+			f.append(s); f.append(s); f.append(w);
+			f.append(s); f.append(w); f.append(w);
+			f.append(s); f.append(s); f.append(s);
+			f.append(w);
+			
+			f.append(w); f.append(t); f.append(w);
+			f.append(s); f.append(w); f.append(w);
+			f.append(s); f.append(w); f.append(w);
+			f.append(w);
+			
+			f.append(t); f.append(s); f.append(w);
+			f.append(t); f.append(w); f.append(w);
+			f.append(s); f.append(w); f.append(w);
+			f.append(w);
+			break
         default:
-            println("⛔️ Set correct screen. From 0 to 8")
+            println("⛔️ Set correct screen!")
         }
         data = f
     }

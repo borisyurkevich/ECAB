@@ -95,13 +95,13 @@ class SessionsTableViewController: UITableViewController {
 				var screenName = ""
 				let screenNum = gameMove.screenNumber.integerValue
 				switch screenNum {
-				case 0 ... 2:
+				case 0 ... 2, 11 ... 13:
 					screenName = "Training \(screenNum + 1)"
 					break
-				case 3 ... 5:
+				case 3 ... 5, 14 ... 15:
 					screenName = "Motor \(screenNum - 2)"
 					break
-				case 6 ... 8:
+				case 6 ... 8, 16 ... 17:
 					screenName = "Search \(screenNum - 5)"
 					break
 				default:

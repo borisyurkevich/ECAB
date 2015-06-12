@@ -119,7 +119,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="189" y="279" width="222" height="42"/>
+                                <rect key="frame" x="189" y="279" width="221.5" height="41.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Visual Search
 </string>
@@ -136,13 +136,29 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_apple" translatesAutoresizingMaskIntoConstraints="NO" id="blY-ho-Ou9">
                                 <rect key="frame" x="250" y="171" width="100" height="100"/>
                             </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QGC-TC-80M">
+                                <rect key="frame" x="189" y="420" width="221.5" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="221.5" id="bL2-kf-bNU"/>
+                                    <constraint firstAttribute="height" constant="28" id="z21-YD-ma1"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Easy"/>
+                                    <segment title="Hard"/>
+                                </segments>
+                                <connections>
+                                    <action selector="difficultyControlHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="r8o-hd-5AA"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
+                            <constraint firstAttribute="centerX" secondItem="QGC-TC-80M" secondAttribute="centerX" constant="0.25" id="M7G-C9-TNv"/>
                             <constraint firstItem="zEq-FU-wV5" firstAttribute="top" secondItem="blY-ho-Ou9" secondAttribute="bottom" constant="8" symbolic="YES" id="SwT-fc-s6i"/>
                             <constraint firstItem="blY-ho-Ou9" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="WTn-0C-h5k"/>
+                            <constraint firstItem="QGC-TC-80M" firstAttribute="top" secondItem="NDk-cv-Gan" secondAttribute="bottom" constant="74" id="mxo-SW-P2B"/>
                             <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>

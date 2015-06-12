@@ -40,6 +40,14 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 //			changePlayerButton.title = "\(playerRef.name)"
 //		}
 	}
+	
+	@IBAction func difficultyControlHandler(sender: UISegmentedControl) {
+		if sender.selectedSegmentIndex == 0 {
+			model.visualSearchOnEasy = true
+		} else {
+			model.visualSearchOnEasy = false
+		}
+	}
 
     // MARK: - Navigation
 

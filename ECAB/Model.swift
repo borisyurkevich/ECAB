@@ -18,6 +18,8 @@ class Model {
 	var data: Data!
 	
 	let titles = GameTitle()
+	
+	var visualSearchOnEasy = true
     
     init() {
         
