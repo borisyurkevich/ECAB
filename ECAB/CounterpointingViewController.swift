@@ -18,9 +18,11 @@ class CounterpointingViewController: UIViewController {
 	private let model: Model = Model.sharedInstance
 	private var session: CounterpointingSession!
 	private var pauseButton: UIButton?
+	private var nextButton: UIButton?
 	private let screensTotal = 10
 	private let transitionPointScreen = 5
 	private var currentScreenShowing = 0
+	private var trainingMode = true
 	
 	override func viewDidLoad() {
 		
@@ -52,29 +54,191 @@ class CounterpointingViewController: UIViewController {
 		pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
 		pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		presentMessage("Attention!")
+		presentMessage("Example stimuli...")
 	}
 	
 	func presentNextScreen() {
 		currentScreenShowing++
-		
-		if currentScreenShowing == transitionPointScreen {
-			gameModeInversed = true
-			cleanView()
-			presentMessage("Inverse order!")
-			return
-		}
-		if currentScreenShowing == screensTotal {
-			quit()
-		}
-		
+	
 		cleanView()
 		
-		if dogPositionOnLeft {
+		switch currentScreenShowing {
+		case 1:
 			presentDogOnRight()
-		} else {
+			break
+		case 2:
 			presentDogOnLeft()
+			break
+		case 3:
+			presentMessage("Game 1. Ready...")
+			trainingMode = false
+			break
+		case 4:
+			presentDogOnLeft()
+			break
+		case 5:
+			presentDogOnRight()
+			break
+		case 6:
+			presentDogOnLeft()
+			break
+		case 7:
+			presentDogOnLeft()
+			break
+		case 8:
+			presentDogOnRight()
+			break
+		case 9:
+			presentDogOnRight()
+			break
+		case 10:
+			presentDogOnLeft()
+			break
+		case 11:
+			presentDogOnRight()
+			break
+		case 12:
+			presentDogOnLeft()
+			break
+		case 13:
+			presentDogOnLeft()
+			break
+		case 14:
+			presentDogOnLeft()
+			break
+		case 15:
+			presentDogOnRight()
+			break
+		case 16:
+			presentDogOnLeft()
+			break
+		case 17:
+			presentDogOnRight()
+			break
+		case 18:
+			presentDogOnRight()
+			break
+		case 19:
+			presentDogOnRight()
+			break
+		case 20:
+			presentDogOnLeft()
+			break
+		case 21:
+			presentDogOnLeft()
+			break
+		case 22:
+			presentDogOnRight()
+			break
+		case 23:
+			presentDogOnRight()
+			break
+		case 24:
+			presentMessage("...stop")
+			break
+		case 25:
+			presentMessage("Example stimuli...")
+			trainingMode = true
+			gameModeInversed = true
+			break
+		case 26:
+			presentDogOnRight()
+			break
+		case 27:
+			presentDogOnLeft()
+			break
+		case 28:
+			presentMessage("Game 2. Ready...")
+			trainingMode = false
+			break
+		case 29:
+			presentDogOnRight()
+			break
+		case 30:
+			presentDogOnLeft()
+			break
+		case 31:
+			presentDogOnRight()
+			break
+		case 32:
+			presentDogOnLeft()
+			break
+		case 33:
+			presentDogOnRight()
+			break
+		case 34:
+			presentDogOnRight()
+			break
+		case 35:
+			presentDogOnLeft()
+			break
+		case 36:
+			presentDogOnRight()
+			break
+		case 37:
+			presentDogOnRight()
+			break
+		case 38:
+			presentDogOnRight()
+			break
+		case 39:
+			presentDogOnLeft()
+			break
+		case 40:
+			presentDogOnLeft()
+			break
+		case 41:
+			presentDogOnRight()
+			break
+		case 42:
+			presentDogOnRight()
+			break
+		case 43:
+			presentDogOnLeft()
+			break
+		case 44:
+			presentDogOnLeft()
+			break
+		case 45:
+			presentDogOnLeft()
+			break
+		case 46:
+			presentDogOnRight()
+			break
+		case 47:
+			presentDogOnLeft()
+			break
+		case 48:
+			presentDogOnLeft()
+			break
+		case 49:
+			presentMessage("...stop")
+			break
+		case 50:
+			quit()
+			break
+		default:
+			break
 		}
+	}
+	
+	func presentBlueDot() {
+		cleanView()
+		
+		let dot = UIImageView(image: UIImage(named: "Blue Dot"))
+		dot.center = view.center
+		view.addSubview(dot)
+		
+		// Add next button
+		let labelText: String = "Next"
+		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
+		nextButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		nextButton!.setTitle("Next", forState: UIControlState.Normal)
+		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
+		nextButton!.addTarget(self, action: "presentNextScreen", forControlEvents: UIControlEvents.TouchUpInside)
+		nextButton!.tintColor = UIColor.grayColor()
+		addButtonBorder(nextButton!)
+		view.addSubview(nextButton!)
 	}
 
 	
@@ -166,7 +330,11 @@ class CounterpointingViewController: UIViewController {
 		if result {
 			let score = session.score.integerValue
 			session.score = NSNumber(integer: (score + 1))
-			presentNextScreen()
+			if !trainingMode {
+				presentBlueDot()
+			} else {
+				presentNextScreen()
+			}
 		} else {
 			let errors = session.errors.integerValue
 			session.errors = NSNumber(integer: (errors + 1))
