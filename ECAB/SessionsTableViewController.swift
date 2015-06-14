@@ -154,7 +154,8 @@ class SessionsTableViewController: UITableViewController {
 				} else {
 					status = "success"
 				}
-				let append = "\(counter)) \(status) \(smallFormatter.stringFromDate(actualMove.date)) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \n"
+				
+				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms\n"
 				details = details + append
 				counter++
 			}

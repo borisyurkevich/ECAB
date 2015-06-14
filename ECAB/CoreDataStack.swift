@@ -37,8 +37,9 @@ class CoreDataStack
 		let storeURL =
 		documentsURL.URLByAppendingPathComponent("Model")
 		
-		let options =
-		[NSMigratePersistentStoresAutomaticallyOption: true]
+		let options = [NSMigratePersistentStoresAutomaticallyOption: true,
+			NSInferMappingModelAutomaticallyOption: true]
+
 		
 		var error: NSError? = nil
 		store = psc.addPersistentStoreWithType(NSSQLiteStoreType,
