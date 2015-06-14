@@ -23,6 +23,7 @@ class CounterpointingViewController: UIViewController {
 	private let transitionPointScreen = 5
 	private var currentScreenShowing = 0
 	private var trainingMode = true
+	private var screenPresentedDate = NSDate()
 	
 	override func viewDidLoad() {
 		
@@ -61,6 +62,7 @@ class CounterpointingViewController: UIViewController {
 		currentScreenShowing++
 	
 		cleanView()
+		screenPresentedDate = NSDate()
 		
 		switch currentScreenShowing {
 		case 1:
@@ -327,7 +329,11 @@ class CounterpointingViewController: UIViewController {
 				}
 			}
 		}
-		model.addCounterpointingMove(location.x, positionY: location.y, success: result)
+		let currentTime = NSDate()
+		var interval = currentTime.timeIntervalSinceDate(screenPresentedDate) * 1000.0
+		if (!trainingMode) {
+			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: Int(interval))
+		}
 		
 		if result {
 			let score = session.score.integerValue
