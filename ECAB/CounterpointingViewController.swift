@@ -55,7 +55,7 @@ class CounterpointingViewController: UIViewController {
 		pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
 		pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		presentMessage("Example stimuli...")
+		presentMessage("Practice: touch the side with the dog")
 	}
 	
 	func presentNextScreen() {
@@ -72,7 +72,7 @@ class CounterpointingViewController: UIViewController {
 			presentDogOnLeft()
 			break
 		case 3:
-			presentMessage("Game 1. Ready...")
+			presentMessage("Touch the side with the dog as quickly as you can!")
 			trainingMode = false
 			break
 		case 4:
@@ -139,7 +139,7 @@ class CounterpointingViewController: UIViewController {
 			presentMessage("...stop")
 			break
 		case 25:
-			presentMessage("Example stimuli...")
+			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
 			trainingMode = true
 			gameModeInversed = true
 			break
@@ -150,7 +150,7 @@ class CounterpointingViewController: UIViewController {
 			presentDogOnLeft()
 			break
 		case 28:
-			presentMessage("Game 2. Ready...")
+			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
 			trainingMode = false
 			break
 		case 29:
@@ -249,6 +249,7 @@ class CounterpointingViewController: UIViewController {
 	
 	func presentMessage(message: String){
 		let label = UILabel(frame: view.frame)
+		label.numberOfLines = 3
 		label.text = message
 		label.textAlignment = NSTextAlignment.Center
 		label.font = UIFont.systemFontOfSize(44)
