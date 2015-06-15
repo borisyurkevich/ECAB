@@ -16,8 +16,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     @IBOutlet weak var changePlayerButton: UIBarButtonItem!
 	@IBOutlet weak var gameTitleCenter: UILabel!
 	@IBOutlet weak var gameIcon: UIImageView!
-	
-	
+	@IBOutlet weak var difControl: UISegmentedControl!
 	
     let model: Model = Model.sharedInstance
     
@@ -32,13 +31,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		model.setupWithContext(managedContext)
 		
 		changePlayerButton.title = "Pick a player"
-		
-//		let modelReference = model
-//		let dataRef = modelReference.data
-//		if let playerRef = dataRef.selectedPlayer as Player?{
-//			// Change button title to display current player name
-//			changePlayerButton.title = "\(playerRef.name)"
-//		}
 	}
 	
 	@IBAction func difficultyControlHandler(sender: UISegmentedControl) {

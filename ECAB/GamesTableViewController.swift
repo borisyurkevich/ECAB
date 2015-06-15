@@ -47,10 +47,11 @@ class GamesTableViewController: UITableViewController {
 		switch model.data.selectedGame {
 			case 0:
 				detailVC.gameIcon.image = UIImage(named: "red_apple")
+				detailVC.difControl.hidden = false
 			break
 			case 1:
 				detailVC.gameIcon.image = UIImage(named: "dog")
-				
+				detailVC.difControl.hidden = true
 			break
 			default:
 			break

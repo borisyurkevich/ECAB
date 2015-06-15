@@ -181,6 +181,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="changePlayerButton" destination="Bs7-bU-6Lo" id="GM4-dM-FBJ"/>
+                        <outlet property="difControl" destination="QGC-TC-80M" id="ShL-x7-QLC"/>
                         <outlet property="gameIcon" destination="blY-ho-Ou9" id="u6q-qr-E6o"/>
                         <outlet property="gameTitleCenter" destination="zEq-FU-wV5" id="Ygk-L5-pet"/>
                     </connections>
