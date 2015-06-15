@@ -24,6 +24,8 @@ class CounterpointingViewController: UIViewController {
 	private var currentScreenShowing = 0
 	private var trainingMode = true
 	private var screenPresentedDate = NSDate()
+	private var totalOne = 0
+	private var totalTwo = 0
 	
 	override func viewDidLoad() {
 		
@@ -334,6 +336,13 @@ class CounterpointingViewController: UIViewController {
 		var interval = currentTime.timeIntervalSinceDate(screenPresentedDate) * 1000.0
 		if (!trainingMode) {
 			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: Int(interval))
+			if (!gameModeInversed) {
+				totalOne += Int(interval)
+			} else {
+				totalTwo += Int(interval)
+			}
+			session.totalOne = totalOne
+			session.totalTwo = totalTwo
 		}
 		
 		if result {
