@@ -139,7 +139,15 @@ class SessionsTableViewController: UITableViewController {
 			}
 			let dateStarted = pickedSesstion.dateStart.description
 			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
-			let stringForTheTextView = "Player name: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
+			
+			// Difficlulty level
+			let firstMove: Move = pickedSesstion.moves[0] as! Move
+			var difficlulty = "easy"
+			if firstMove.screenNumber.integerValue > 10 {
+				difficlulty = "hard"
+			}
+			
+			let stringForTheTextView = "Player name: \(pickedSesstion.player.name) Difficulty: \(difficlulty)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
 			break;
