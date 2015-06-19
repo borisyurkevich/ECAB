@@ -30,7 +30,7 @@ class RedAppleCollectionViewController:
 	private var timer = NSTimer()
 	
     private struct Insets {
-        static var top:CGFloat = 95
+        static var top:CGFloat = 100
         static let left:CGFloat = 10
         static let bottom:CGFloat = 10
         static let right:CGFloat = 10
@@ -218,8 +218,9 @@ class RedAppleCollectionViewController:
 						self.insetLeft = 100
 						self.insetRight = 100
 					}
-					
 					Insets.top = 60
+				} else {
+					Insets.top = 100
 				}
 				
 				println("Requesting fot the board \(self.currentView)")
