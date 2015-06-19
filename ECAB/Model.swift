@@ -181,7 +181,7 @@ class Model {
 		}
 	}
 	
-	func addCounterpointingMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Int) {
+	func addCounterpointingMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Int, inverted: Bool) {
 		let successMoveEntity = NSEntityDescription.entityForName("CounterpointingMove", inManagedObjectContext: managedContext)
 		let move = CounterpointingMove(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
 		
@@ -190,6 +190,7 @@ class Model {
 		move.success = success
 		move.date = NSDate()
 		move.interval = interval
+		move.inverted = inverted
 		
 		let allSessions = data.counterpointingSessions
 		let lastSession = allSessions.lastObject as! CounterpointingSession

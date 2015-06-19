@@ -131,7 +131,7 @@ class SessionsTableViewController: UITableViewController {
 					append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
 					counter++
 				} else {
-					append = "\(screenName) on set \(dateStr) \n"
+					append = "\n\(screenName) on set \(dateStr) \n"
 					emptyScreenCounter++
 				}
 				
@@ -141,12 +141,14 @@ class SessionsTableViewController: UITableViewController {
 			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
 			let stringForTheTextView = "Player name: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter)\nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
+			detailVC.helpMessage.text = ""
 			break;
 		case 1:
 			let pickedSesstion = model.data.counterpointingSessions[indexPath.row] as! CounterpointingSession
 			var details = ""
 			var counter = 0
 			var status = "success"
+			var spacePrinted = false
 			for move in pickedSesstion.moves {
 				let actualMove = move as! CounterpointingMove
 				if !actualMove.success.boolValue {
@@ -155,8 +157,18 @@ class SessionsTableViewController: UITableViewController {
 					status = "success"
 				}
 				
-				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms\n"
-				details = details + append
+				var inverted = "normal"
+				if actualMove.inverted.boolValue {
+					inverted = "inverted"
+				}
+				
+				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms \(inverted) \n"
+				if actualMove.inverted.boolValue && spacePrinted == false {
+					details = details + "\n" + append
+					spacePrinted = true
+				} else {
+					details = details + append
+				}
 				counter++
 			}
 			

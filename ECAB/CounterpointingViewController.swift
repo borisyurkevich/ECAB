@@ -357,7 +357,7 @@ class CounterpointingViewController: UIViewController {
 		let currentTime = NSDate()
 		var interval = currentTime.timeIntervalSinceDate(screenPresentedDate) * 1000.0
 		if (!trainingMode) {
-			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: Int(interval))
+			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: Int(interval), inverted: gameModeInversed)
 			if (!gameModeInversed) {
 				totalOne += Int(interval)
 			} else {
