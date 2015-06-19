@@ -164,6 +164,7 @@ class SessionsTableViewController: UITableViewController {
 			let ratio = pickedSesstion.totalOne.doubleValue / pickedSesstion.totalTwo.doubleValue
 			let text = "Player: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 1 / total 2) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
+			detailVC.helpMessage.text = ""
 			break;
 		default:
 			break;

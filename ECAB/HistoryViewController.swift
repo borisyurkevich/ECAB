@@ -11,6 +11,7 @@ import UIKit
 class HistoryViewController: UIViewController {
 
 	@IBOutlet weak var textView: UITextView!
+	@IBOutlet weak var helpMessage: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,9 @@ class HistoryViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+		
+		textView.text = ""
+		helpMessage.text = "Select any session from the left."
     }
 
 }
