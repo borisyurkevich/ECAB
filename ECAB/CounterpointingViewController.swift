@@ -19,6 +19,7 @@ class CounterpointingViewController: UIViewController {
 	private var session: CounterpointingSession!
 	private var pauseButton: UIButton?
 	private var nextButton: UIButton?
+	private var backButton: UIButton?
 	private let screensTotal = 10
 	private let transitionPointScreen = 5
 	private var currentScreenShowing = 0
@@ -48,16 +49,32 @@ class CounterpointingViewController: UIViewController {
 		model.addCounterpointingSession(model.data.selectedPlayer)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
 		
-		// Add pause button
+		// Add buttons
 		let labelText: String = "Pause"
 		pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		backButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
 		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
 		let screen: CGSize = UIScreen.mainScreen().bounds.size
 		pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
 		pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
 		pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
+		pauseButton!.tintColor = UIColor.grayColor()
+		addButtonBorder(pauseButton!)
+		let backText = "Restart training"
+		let backLabelSize: CGSize = backText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
+		backButton!.setTitle(backText, forState: UIControlState.Normal)
+		backButton!.frame = CGRectMake(16, 16, 140, backLabelSize.height)
+		backButton!.addTarget(self, action: "presentPreviousScreen", forControlEvents: UIControlEvents.TouchUpInside)
+		backButton!.tintColor = UIColor.grayColor()
+		addButtonBorder(backButton!)
 		
 		presentMessage("Practice: touch the side with the dog")
+	}
+	
+	func presentPreviousScreen() {
+		currentScreenShowing -= 4
+		trainingMode = true
+		presentNextScreen()
 	}
 	
 	func presentNextScreen() {
@@ -67,6 +84,9 @@ class CounterpointingViewController: UIViewController {
 		screenPresentedDate = NSDate()
 		
 		switch currentScreenShowing {
+		case 0:
+			presentMessage("Practice: touch the side with the dog")
+			break
 		case 1:
 			presentDogOnRight()
 			break
@@ -76,6 +96,7 @@ class CounterpointingViewController: UIViewController {
 		case 3:
 			presentMessage("Touch the side with the dog as quickly as you can!")
 			trainingMode = false
+			view.addSubview(backButton!)
 			break
 		case 4:
 			presentDogOnLeft()
@@ -154,6 +175,7 @@ class CounterpointingViewController: UIViewController {
 		case 28:
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
 			trainingMode = false
+			view.addSubview(backButton!)
 			break
 		case 29:
 			presentDogOnRight()
@@ -371,8 +393,6 @@ class CounterpointingViewController: UIViewController {
 				}
 			}
 		}
-		pauseButton!.tintColor = UIColor.grayColor()
-		addButtonBorder(pauseButton!)
 		view.addSubview(pauseButton!)
 	}
 	
