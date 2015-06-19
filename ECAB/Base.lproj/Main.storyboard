@@ -151,15 +151,39 @@
                                     <action selector="difficultyControlHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="r8o-hd-5AA"/>
                                 </connections>
                             </segmentedControl>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="p33-7n-QH8">
+                                <rect key="frame" x="253" y="485" width="94" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="Uwv-P5-sB0"/>
+                                    <constraint firstAttribute="width" constant="94" id="jZT-Mr-YOS"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="speedStepperHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="WGw-by-ZHM"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.5 seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyP-Sh-fUH">
+                                <rect key="frame" x="189" y="456" width="221.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Q36-6m-BK2"/>
+                                    <constraint firstAttribute="width" constant="221.5" id="kyQ-R3-D7e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
                             <constraint firstAttribute="centerX" secondItem="QGC-TC-80M" secondAttribute="centerX" constant="0.25" id="M7G-C9-TNv"/>
+                            <constraint firstItem="yyP-Sh-fUH" firstAttribute="top" secondItem="QGC-TC-80M" secondAttribute="bottom" constant="8" id="OOp-X6-rZo"/>
                             <constraint firstItem="zEq-FU-wV5" firstAttribute="top" secondItem="blY-ho-Ou9" secondAttribute="bottom" constant="8" symbolic="YES" id="SwT-fc-s6i"/>
                             <constraint firstItem="blY-ho-Ou9" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="WTn-0C-h5k"/>
+                            <constraint firstAttribute="centerX" secondItem="p33-7n-QH8" secondAttribute="centerX" id="WwS-15-6II"/>
+                            <constraint firstAttribute="centerX" secondItem="yyP-Sh-fUH" secondAttribute="centerX" id="fdo-Sh-S43"/>
                             <constraint firstItem="QGC-TC-80M" firstAttribute="top" secondItem="NDk-cv-Gan" secondAttribute="bottom" constant="74" id="mxo-SW-P2B"/>
+                            <constraint firstItem="p33-7n-QH8" firstAttribute="top" secondItem="yyP-Sh-fUH" secondAttribute="bottom" constant="8" id="ojS-up-0YU"/>
                             <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>
@@ -185,6 +209,8 @@
                         <outlet property="difControl" destination="QGC-TC-80M" id="ShL-x7-QLC"/>
                         <outlet property="gameIcon" destination="blY-ho-Ou9" id="u6q-qr-E6o"/>
                         <outlet property="gameTitleCenter" destination="zEq-FU-wV5" id="Ygk-L5-pet"/>
+                        <outlet property="speedLabel" destination="yyP-Sh-fUH" id="IZ5-aA-yYJ"/>
+                        <outlet property="speedStepper" destination="p33-7n-QH8" id="ODa-ia-z3H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

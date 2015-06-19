@@ -17,6 +17,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	@IBOutlet weak var gameTitleCenter: UILabel!
 	@IBOutlet weak var gameIcon: UIImageView!
 	@IBOutlet weak var difControl: UISegmentedControl!
+	@IBOutlet weak var speedLabel: UILabel!
+	@IBOutlet weak var speedStepper: UIStepper!
+
 	
     let model: Model = Model.sharedInstance
     
@@ -31,13 +34,35 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		model.setupWithContext(managedContext)
 		
 		changePlayerButton.title = "Pick a player"
+		
+		if (model.visualSearchOnEasy) {
+			speedStepper.value = model.visualSearchSpeedEasy
+			speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
+		} else {
+			speedStepper.value = model.visualSearchSpeedHard
+			speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+		}
 	}
 	
 	@IBAction func difficultyControlHandler(sender: UISegmentedControl) {
 		if sender.selectedSegmentIndex == 0 {
 			model.visualSearchOnEasy = true
+			speedStepper.value = model.visualSearchSpeedEasy
+			speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
 		} else {
 			model.visualSearchOnEasy = false
+			speedStepper.value = model.visualSearchSpeedHard
+			speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+		}
+	}
+	
+	@IBAction func speedStepperHandler(sender: UIStepper) {
+		if model.visualSearchOnEasy {
+			model.visualSearchSpeedEasy = sender.value
+			speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
+		} else {
+			model.visualSearchSpeedHard = sender.value
+			speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
 		}
 	}
 

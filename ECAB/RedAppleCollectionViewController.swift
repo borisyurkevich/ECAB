@@ -16,7 +16,7 @@ class RedAppleCollectionViewController:
     let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
-    let gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20
+    var gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20
 	var player = AVAudioPlayer()
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
@@ -58,6 +58,10 @@ class RedAppleCollectionViewController:
 		if !model.visualSearchOnEasy {
 			currentView = 11
 			numberOfTargets = [1, 1, 2, 9, 9, 9, 9]
+			gameSpeed = model.visualSearchSpeedHard
+		} else {
+			// Easy Mode
+			gameSpeed = model.visualSearchSpeedEasy
 		}
 		
         boardFlowLayout = configureFlowLayout()
