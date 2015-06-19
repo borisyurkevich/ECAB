@@ -161,8 +161,8 @@ class SessionsTableViewController: UITableViewController {
 			}
 			
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
-			let sum = pickedSesstion.totalOne.integerValue + pickedSesstion.totalTwo.integerValue
-			let text = "Player: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Summ = \(sum)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let ratio = pickedSesstion.totalOne.doubleValue / pickedSesstion.totalTwo.doubleValue
+			let text = "Player: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 1 / total 2) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			break;
 		default:
