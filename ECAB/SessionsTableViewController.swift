@@ -21,6 +21,69 @@ class SessionsTableViewController: UITableViewController {
 		// game is finished.
 		tableView.reloadData()
 	}
+	
+	// MARK: - Table view delegate
+	
+	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return true
+	}
+	
+	override func tableView(tableView: UITableView, commitEditingStyle
+		editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		if editingStyle == UITableViewCellEditingStyle.Delete {
+		
+			let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
+		
+			// Session to remove
+			switch model.data.selectedGame {
+			case 0:
+				let session = model.data.sessions[indexPath.row] as! Session
+				model.managedContext.deleteObject(session)
+				var error: NSError?
+				if !model.managedContext.save(&error) {
+					println("Could not save after delete: \(error)")
+				}
+				break
+			case 1:
+				var cSessions = [CounterpointingSession]()
+				for session in model.data.counterpointingSessions {
+					let cSession = session as! CounterpointingSession
+					if cSession.type.integerValue == 0 {
+						cSessions.append(cSession)
+					}
+				}
+				let session = cSessions[indexPath.row]
+				model.managedContext.deleteObject(session)
+				var error: NSError?
+				if !model.managedContext.save(&error) {
+					println("Could not save after delete: \(error)")
+				}
+				break
+			case 2:
+				var fSessions = [CounterpointingSession]()
+				for session in model.data.counterpointingSessions {
+					let fSession = session as! CounterpointingSession
+					if fSession.type.integerValue == 1 {
+						fSessions.append(fSession)
+					}
+				}
+				let session = fSessions[indexPath.row]
+				model.managedContext.deleteObject(session)
+				var error: NSError?
+				if !model.managedContext.save(&error) {
+					println("Could not save after delete: \(error)")
+				}
+				break
+			default:
+			break
+			}
+		
+			// Last step
+			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+			detailVC.textView.text = ""
+			detailVC.helpMessage.text = "Select any session from the left."
+		}
+	}
 
 	// MARK: - Table view data source
 	
