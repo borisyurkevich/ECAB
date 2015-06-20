@@ -12,8 +12,8 @@ import AVFoundation
 class RedAppleCollectionViewController:
     UICollectionViewController,
     UICollectionViewDelegateFlowLayout {
-    
-    let model: Model = Model.sharedInstance
+	
+	let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
     var gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20

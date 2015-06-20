@@ -9,66 +9,25 @@
 import UIKit
 import AVFoundation
 
-class CounterpointingViewController: UIViewController {
+class CounterpointingViewController: GameViewController {
+	
+	var screenPresentedDate = NSDate()
+	var greeingMessage = "Practice: touch the side with the dog"
+	let pictureHeight: CGFloat = 197
+	let pictureWidth: CGFloat = 281
 	
 	private var dogPositionOnLeft = false // first screen will be with dog on right
 	private var gameModeInversed = false
-	private var successSound = AVAudioPlayer()
-	private var failureSound = AVAudioPlayer()
-	private let model: Model = Model.sharedInstance
 	private var session: CounterpointingSession!
-	private var pauseButton: UIButton?
-	private var nextButton: UIButton?
-	private var backButton: UIButton?
-	private let screensTotal = 10
-	private let transitionPointScreen = 5
-	private var currentScreenShowing = 0
-	private var trainingMode = true
-	private var screenPresentedDate = NSDate()
 	private var totalOne = 0
 	private var totalTwo = 0
 	
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		
-		view.backgroundColor = UIColor.whiteColor()
-		
-		// Sounds
-		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
-		let successSoundURL = NSURL(fileURLWithPath: successSoundPath!)
-		var error: NSError?
-		successSound = AVAudioPlayer(contentsOfURL: successSoundURL, error: &error)
-		successSound.prepareToPlay()
-		
-		let failureSoundPath = NSBundle.mainBundle().pathForResource("beep-attention", ofType: "aif")
-		let failureSoundURL = NSURL(fileURLWithPath: failureSoundPath!)
-		var errorFailure: NSError?
-		failureSound = AVAudioPlayer(contentsOfURL: failureSoundURL, error: &errorFailure)
-		failureSound.prepareToPlay()
-		
-		// Data
 		model.addCounterpointingSession(model.data.selectedPlayer)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
-		
-		// Add buttons
-		let labelText: String = "Pause"
-		pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
-		backButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
-		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
-		let screen: CGSize = UIScreen.mainScreen().bounds.size
-		pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
-		pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
-		pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
-		pauseButton!.tintColor = UIColor.grayColor()
-		addButtonBorder(pauseButton!)
-		let backText = "Restart training"
-		let backLabelSize: CGSize = backText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
-		backButton!.setTitle(backText, forState: UIControlState.Normal)
-		backButton!.frame = CGRectMake(16, 16, 140, backLabelSize.height)
-		backButton!.addTarget(self, action: "presentPreviousScreen", forControlEvents: UIControlEvents.TouchUpInside)
-		backButton!.tintColor = UIColor.grayColor()
-		addButtonBorder(backButton!)
-		
-		presentMessage("Practice: touch the side with the dog")
+		presentMessage(greeingMessage)
 	}
 	
 	func presentPreviousScreen() {
@@ -85,7 +44,7 @@ class CounterpointingViewController: UIViewController {
 		
 		switch currentScreenShowing {
 		case 0:
-			presentMessage("Practice: touch the side with the dog")
+			presentMessage(greeingMessage)
 			break
 		case 1:
 			presentDogOnRight()
@@ -286,7 +245,7 @@ class CounterpointingViewController: UIViewController {
 		dogPositionOnLeft = true;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog"))
-		imageView.frame = CGRectMake(19, 260, 281, 197)
+		imageView.frame = CGRectMake(19, 260, pictureWidth, pictureHeight)
 		
 		view.addSubview(imageView)
 		
@@ -298,7 +257,7 @@ class CounterpointingViewController: UIViewController {
 		dogPositionOnLeft = false;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
-		imageView.frame = CGRectMake(view.bounds.width-300, 260, 281, 197)
+		imageView.frame = CGRectMake(view.bounds.width-300, 260, pictureWidth, pictureHeight)
 		
 		view.addSubview(imageView)
 		
@@ -379,45 +338,6 @@ class CounterpointingViewController: UIViewController {
 			let errors = session.errors.integerValue
 			session.errors = NSNumber(integer: (errors + 1))
 		}
-	}
-	
-	func cleanView() {
-		for v in view.subviews {
-			v.removeFromSuperview()
-		}
-		
-		if view.gestureRecognizers != nil {
-			for g in view.gestureRecognizers! {
-				if let recognizer = g as? UITapGestureRecognizer {
-					view.removeGestureRecognizer(recognizer)
-				}
-			}
-		}
-		view.addSubview(pauseButton!)
-	}
-	
-	func presentPause() {
-		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game.", preferredStyle: .Alert)
-		
-		alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
-			self.quit()
-		}))
-		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-		
-		presentViewController(alertView, animated: true, completion: nil)
-	}
-	
-	func quit() {
-		self.dismissViewControllerAnimated(true, completion: nil)
-		
-		println("Result: \(session.score)")
-	}
-	
-	func addButtonBorder(button: UIButton) {
-		button.backgroundColor = UIColor.clearColor()
-		button.layer.cornerRadius = 5
-		button.layer.borderWidth = 1
-		button.layer.borderColor = button.tintColor!.CGColor
 	}
 	
 	override func prefersStatusBarHidden() -> Bool {

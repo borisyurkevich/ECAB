@@ -83,6 +83,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 				let gameVC = CounterpointingViewController()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 				break
+			case model.titles.flanker:
+				let gameVC = FlankerViewController()
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
+				break
 			default:
 				let flowLayout = UICollectionViewFlowLayout()
 				let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
