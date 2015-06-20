@@ -132,13 +132,14 @@ class Model {
 		}
 	}
 	
-	func addCounterpointingSession(player: Player) {
+	func addCounterpointingSession(player: Player, type: Int) {
 		let sessionEntity = NSEntityDescription.entityForName("CounterpointingSession", inManagedObjectContext: managedContext)
 		
 		let session = CounterpointingSession(entity: sessionEntity!, insertIntoManagedObjectContext: managedContext)
 		
 		session.dateStart = NSDate()
 		session.player = player
+		session.type = type
 		
 		// Insert the new Session into the Data set
 		var sessions = data.counterpointingSessions.mutableCopy() as! NSMutableOrderedSet

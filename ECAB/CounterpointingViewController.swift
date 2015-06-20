@@ -13,6 +13,7 @@ class CounterpointingViewController: GameViewController {
 	
 	var screenPresentedDate = NSDate()
 	var greeingMessage = "Practice: touch the side with the dog"
+	var sessionType = 0
 	let pictureHeight: CGFloat = 197
 	let pictureWidth: CGFloat = 281
 	
@@ -25,7 +26,7 @@ class CounterpointingViewController: GameViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		model.addCounterpointingSession(model.data.selectedPlayer)
+		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
 		presentMessage(greeingMessage)
 	}

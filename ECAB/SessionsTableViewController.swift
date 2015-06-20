@@ -40,11 +40,35 @@ class SessionsTableViewController: UITableViewController {
 			cell.textLabel!.text = label
 		break
 		case 1:
-			let session = model.data.counterpointingSessions[indexPath.row] as! CounterpointingSession
+			
+			var cSessions = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 0 {
+					cSessions.append(cSession)
+				}
+			}
+			
+			let session = cSessions[indexPath.row]
 			let dateStr = formatter.stringFromDate(session.dateStart)
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
 		break
+		case 2:
+			var fSessions = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let fSession = session as! CounterpointingSession
+				if fSession.type.integerValue == 1 {
+					fSessions.append(fSession)
+				}
+			}
+			
+			let session = fSessions[indexPath.row]
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
+			
+			break
 		default:
 			break;
 		}
@@ -60,7 +84,20 @@ class SessionsTableViewController: UITableViewController {
 			returnValue = model.data.sessions.count
 			break
 		case 1:
-			returnValue = model.data.counterpointingSessions.count
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 0 {
+					returnValue++
+				}
+			}
+			break
+		case 2:
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 1 {
+					returnValue++
+				}
+			}
 			break
 		default:
 			break
