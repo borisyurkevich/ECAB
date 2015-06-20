@@ -188,7 +188,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
 			break;
-		case 1:
+		case 1, 2:
 			let pickedSesstion = model.data.counterpointingSessions[indexPath.row] as! CounterpointingSession
 			var details = ""
 			var counter = 0
