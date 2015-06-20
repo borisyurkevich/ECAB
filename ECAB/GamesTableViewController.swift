@@ -48,10 +48,20 @@ class GamesTableViewController: UITableViewController {
 			case 0:
 				detailVC.gameIcon.image = UIImage(named: "red_apple")
 				detailVC.difControl.hidden = false
+				detailVC.speedLabel.hidden = false
+				detailVC.speedStepper.hidden = false
 			break
 			case 1:
 				detailVC.gameIcon.image = UIImage(named: "dog")
 				detailVC.difControl.hidden = true
+				detailVC.speedLabel.hidden = true
+				detailVC.speedStepper.hidden = true
+			break
+			case 2:
+				detailVC.gameIcon.image = UIImage(named: "fish")
+				detailVC.difControl.hidden = true
+				detailVC.speedLabel.hidden = true
+				detailVC.speedStepper.hidden = true
 			break
 			default:
 			break
