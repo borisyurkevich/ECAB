@@ -17,7 +17,7 @@ class CounterpointingViewController: GameViewController {
 	let pictureHeight: CGFloat = 197
 	let pictureWidth: CGFloat = 281
 	
-	private var dogPositionOnLeft = false // first screen will be with dog on right
+	var leftTarget = false // first screen will be with dog on right
 	private var gameModeInversed = false
 	private var session: CounterpointingSession!
 	private var totalOne = 0
@@ -243,7 +243,7 @@ class CounterpointingViewController: GameViewController {
 	}
 	
 	func presentDogOnLeft(){
-		dogPositionOnLeft = true;
+		leftTarget = true;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog"))
 		imageView.frame = CGRectMake(19, 260, pictureWidth, pictureHeight)
@@ -255,7 +255,7 @@ class CounterpointingViewController: GameViewController {
 	}
 	
 	func presentDogOnRight(){
-		dogPositionOnLeft = false;
+		leftTarget = false;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
 		imageView.frame = CGRectMake(view.bounds.width-300, 260, pictureWidth, pictureHeight)
@@ -277,7 +277,7 @@ class CounterpointingViewController: GameViewController {
 		if location.x < middlePoint {
 			if !gameModeInversed {
 				// tap on the left side of the screen
-				if dogPositionOnLeft {
+				if leftTarget {
 					successSound.play()
 					result = true
 				} else {
@@ -286,7 +286,7 @@ class CounterpointingViewController: GameViewController {
 				}
 			} else {
 				// tap on the left side of the screen
-				if dogPositionOnLeft {
+				if leftTarget {
 					failureSound.play()
 					result = false
 				} else {
@@ -297,7 +297,7 @@ class CounterpointingViewController: GameViewController {
 		} else {
 			// Tap on right
 			if !gameModeInversed {
-				if dogPositionOnLeft {
+				if leftTarget {
 					failureSound.play()
 					result = false
 				} else {
@@ -305,7 +305,7 @@ class CounterpointingViewController: GameViewController {
 					result = true
 				}
 			} else {
-				if dogPositionOnLeft {
+				if leftTarget {
 					successSound.play()
 					result = true
 				} else {
