@@ -96,4 +96,8 @@ class GameViewController: UIViewController {
 		button.layer.borderWidth = 1
 		button.layer.borderColor = button.tintColor!.CGColor
 	}
+	
+	override func prefersStatusBarHidden() -> Bool {
+		return true
+	}
 }

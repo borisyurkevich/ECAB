@@ -188,8 +188,15 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
 			break;
-		case 1, 2:
-			let pickedSesstion = model.data.counterpointingSessions[indexPath.row] as! CounterpointingSession
+		case 1: // Counterpointing
+			var array = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 0 {
+					array.append(cSession)
+				}
+			}
+			let pickedSesstion = array[indexPath.row]
 			var details = ""
 			var counter = 0
 			var status = "success"
@@ -222,9 +229,51 @@ class SessionsTableViewController: UITableViewController {
 			let text = "Player: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 1 / total 2) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
-			break;
+			break
+		case 2: // Flanker - exact copy of Counterpointing
+			var array = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 1 {
+					array.append(cSession)
+				}
+			}
+			let pickedSesstion = array[indexPath.row]
+			var details = ""
+			var counter = 0
+			var status = "success"
+			var spacePrinted = false
+			for move in pickedSesstion.moves {
+				let actualMove = move as! CounterpointingMove
+				if !actualMove.success.boolValue {
+					status = "mistake"
+				} else {
+					status = "success"
+				}
+				
+				var inverted = "normal"
+				if actualMove.inverted.boolValue {
+					inverted = "inverted"
+				}
+				
+				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms \(inverted) \n"
+				if actualMove.inverted.boolValue && spacePrinted == false {
+					details = details + "\n" + append
+					spacePrinted = true
+				} else {
+					details = details + append
+				}
+				counter++
+			}
+			
+			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
+			let ratio = pickedSesstion.totalOne.doubleValue / pickedSesstion.totalTwo.doubleValue
+			let text = "Player: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 1 / total 2) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			detailVC.textView.text = text
+			detailVC.helpMessage.text = ""
+			break
 		default:
-			break;
+			break
 		}
 	}
 }

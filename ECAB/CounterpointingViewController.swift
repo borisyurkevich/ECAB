@@ -16,9 +16,10 @@ class CounterpointingViewController: GameViewController {
 	var sessionType = 0
 	let pictureHeight: CGFloat = 197
 	let pictureWidth: CGFloat = 281
+	var gameModeInversed = false
+
 	
 	var leftTarget = false // first screen will be with dog on right
-	private var gameModeInversed = false
 	private var session: CounterpointingSession!
 	private var totalOne = 0
 	private var totalTwo = 0
@@ -339,9 +340,5 @@ class CounterpointingViewController: GameViewController {
 			let errors = session.errors.integerValue
 			session.errors = NSNumber(integer: (errors + 1))
 		}
-	}
-	
-	override func prefersStatusBarHidden() -> Bool {
-		return true
 	}
 }
