@@ -188,8 +188,8 @@ class RedAppleCollectionViewController:
 					self.insetRight = 340
 					break;
 				case 2, 13:
-					self.cellWidth = 70 // always default size
-					self.cellHeight = 70
+					self.cellWidth = defaultSize
+					self.cellHeight = defaultSize
 					self.insetTop = 230
 					self.insetLeft = 200
 					self.insetRight = 200
@@ -223,6 +223,12 @@ class RedAppleCollectionViewController:
 						self.insetLeft = 100
 						self.insetRight = 100
 					}
+					
+					if self.currentView == 13 {
+						self.insetLeft = 245
+						self.insetRight = 245
+					}
+					
 					Insets.top = 60
 				} else {
 					Insets.top = 100
