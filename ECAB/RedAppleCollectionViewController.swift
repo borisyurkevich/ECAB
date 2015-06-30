@@ -17,6 +17,7 @@ class RedAppleCollectionViewController:
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
     var gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20
+	let transitionSpeed = 0.4
 	var player = AVAudioPlayer()
 	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
@@ -156,7 +157,7 @@ class RedAppleCollectionViewController:
 			return
 		}
 		        
-        UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+        UIView.transitionWithView(view, duration: transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             
             // animation...
             self.collectionView!.alpha = 0.0
@@ -242,7 +243,7 @@ class RedAppleCollectionViewController:
 					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
 				}
 				
-                UIView.transitionWithView(self.view, duration: 1.5, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                UIView.transitionWithView(self.view, duration: self.transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     
                     self.collectionView!.alpha = 1
                     
