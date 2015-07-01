@@ -116,222 +116,150 @@ class FlankerViewController: CounterpointingViewController {
 		switch currentScreenShowing {
 		case 0:
 			presentMessage(greeingMessage)
-			break
 		case 1:
 			updateScreen(.Empty, middle: .Fish, right: .Empty)
-			break
 		case 2:
 			updateScreen(.Empty, middle: .FishInverted, right: .Empty)
-			break
 		case 3:
 			updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
-			break
 		case 4:
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-			break
 		case 5:
 			updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-			break
 		case 6:
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-			break
 		case 7:
 			presentMessage("Practice 1. Ready...")
 			view.addSubview(backButton!)
-			break
 		case 8:
 			updateScreen(.Fish, middle: .Mouse, right: .Mouse)
-			break
 		case 9:
 			updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
-			break
 		case 10:
 			updateScreen(.Fish, middle: .Mouse, right: .Mouse)
-			break
 		case 11:
 			updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
-			break
 		case 12:
 			updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
-			break
 		case 13:
 			updateScreen(.Fish, middle: .Mouse, right: .Mouse)
-			break
 		case 14:
 			presentMessage("...stop")
-			break
 		case 15:
 			presentMessage("Practice 2. Ready")
-			break
 		case 16:
 			updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-			break
 		case 17:
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-			break
 		case 18:
 			updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-			break
 		case 19:
 			updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
-			break
 		case 20:
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-			break
 		case 21:
 			updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
-			break
 		case 22:
 			presentMessage("...stop")
-			break
 		case 23:
 			presentMessage("Game 1. Ready...")
 			trainingMode = false
-			break
-		case 24:
+		case 24: // 0
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-			break
-		case 25:
+		case 25: // 1
 			updateScreen(.Mouse, middle: .Fish, right: .Mouse)
-			break
-		case 26:
+		case 26: // 2
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
-			break
-		case 27:
+		case 27: // 3
 			updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
-			break
-		case 28:
+		case 28: // 4
 			updateScreen(.Mouse, middle: .Fish, right: .Mouse)
-			break
-		case 29:
+		case 29: // 5
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-			break
-		case 30:
+		case 30: // 6
 			updateScreen(.Mouse, middle: .Fish, right: .Mouse)
-			break
-		case 31:
+		case 31: // 7
 			updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
-			break
-		case 32:
+		case 32: // 8
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-			break
-		case 33:
+		case 33: // 9
 			updateScreen(.Fish, middle: .Mouse, right: .Mouse)
-			break
 		case 34:
 			presentMessage("...stop")
-			break
 		case 35:
 			presentMessage("Game 2. Ready...")
-			break
-		case 36:
+		case 36: // 10
 			updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
-			break
-		case 37:
+		case 37: // 11
 			updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-			break
-		case 38:
+		case 38: // 12
 			updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-			break
-		case 39:
+		case 39: // 13
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-			break
-		case 40:
+		case 40: // 14
 			updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-			break
-		case 41:
+		case 41: // 15
 			updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
-			break
-		case 42:
+		case 42: // 16
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-			break
-		case 43:
+		case 43: // 17
 			updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
-			break
-		case 44:
+		case 44: // 18
 			updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
-			break
-		case 45:
+		case 45: // 19
 			updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-			break
 		case 46:
 			presentMessage("...stop")
-			break
 		case 47:
 			presentMessage("Game 3. Ready...")
-			break
-		case 48:
+		case 48: // 20
 			updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
-			break
-		case 49:
+		case 49: // 21
 			updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-			break
-		case 50:
+		case 50: // 22
 			updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-			break
-		case 51:
+		case 51: // 23
 			updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
-			break
-		case 52:
+		case 52: // 24
 			updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-			break
-		case 53:
+		case 53: // 25
 			updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
-			break
-		case 54:
+		case 54: // 26
 			updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
-			break
-		case 55:
+		case 55: // 27
 			updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
-			break
-		case 56:
+		case 56: // 28
 			updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-			break
-		case 57:
+		case 57: // 29
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-			break
 		case 58:
 			presentMessage("...stop")
-			break
 		case 59:
 			presentMessage("Game 4. Ready")
-			break
-		case 60:
+		case 60: // 30
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
-			break
-		case 61:
+		case 61: // 31
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-			break
-		case 62:
+		case 62: // 32
 			updateScreen(.Mouse, middle: .Fish, right: .Mouse)
-			break
-		case 63:
+		case 63: // 33
 			updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
-			break
-		case 64:
+		case 64: // 34
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
-			break
-		case 65:
+		case 65: // 35
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-			break
-		case 66:
+		case 66: // 36
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
-			break
-		case 67:
+		case 67: // 37
 			updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
-			break
-		case 68:
+		case 68: // 38
 			updateScreen(.Fish, middle: .Mouse, right: .Mouse)
-			break
-		case 69:
+		case 69: // 39
 			updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
-			break
 		case 70:
 			presentMessage("...stop")
-			break
 		case 71:
 			quit()
-			break
 		default:
 			break
 		}

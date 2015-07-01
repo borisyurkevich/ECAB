@@ -320,9 +320,8 @@ class SessionsTableViewController: UITableViewController {
 				}
 				
 				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms \(inverted) \n"
-				if actualMove.inverted.boolValue && spacePrinted == false {
+				if counter == 9 || counter == 19 || counter == 29 {
 					details = details + "\n" + append
-					spacePrinted = true
 				} else {
 					details = details + append
 				}
