@@ -34,8 +34,31 @@ class FlankerViewController: CounterpointingViewController {
 		addImage(middle, x: 402, y: 328)
 		addImage(right, x: 717, y: 328)
 		
+		
+		
 		let gesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
 		view.addGestureRecognizer(gesture)
+		
+		let barWidth: CGFloat = 72
+		
+		let leftBarView = UIView(frame: CGRectMake(0, 0, barWidth, UIScreen.mainScreen().bounds.size.height))
+		leftBarView.backgroundColor = UIColor.orangeColor()
+		view.addSubview(leftBarView)
+		
+		let star = UIImage(named: "star")
+		let starImg = UIImageView(image: star)
+		starImg.center = leftBarView.center
+		leftBarView.addSubview(starImg)
+		
+		let rightBarView = UIView(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width - barWidth, 0, barWidth, UIScreen.mainScreen().bounds.size.height))
+		rightBarView.backgroundColor = UIColor.greenColor()
+		view.addSubview(rightBarView)
+		
+		let rightStarImg = UIImageView(image: star)
+		rightStarImg.center = CGPointMake(rightBarView.bounds.size.width/2, rightBarView.bounds.size.height/2)
+		println("RS center \(rightBarView.center)")
+				println("Star center \(rightStarImg.center)")
+		rightBarView.addSubview(rightStarImg)
 	}
 	
 	func addImage(image: Picture, x: CGFloat, y: CGFloat) {
