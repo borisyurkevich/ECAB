@@ -12,6 +12,7 @@ import AVFoundation
 class CounterpointingViewController: GameViewController {
 	
 	var screenPresentedDate = NSDate()
+	var lastMistakeDate = NSDate().dateByAddingTimeInterval(0)
 	var greeingMessage = "Practice: touch the side with the dog"
 	var sessionType = 0
 	let pictureHeight: CGFloat = 197
@@ -318,9 +319,17 @@ class CounterpointingViewController: GameViewController {
 			}
 		}
 		let currentTime = NSDate()
-		var interval = currentTime.timeIntervalSinceDate(screenPresentedDate) * 1000.0
+		
+		var startPoint = screenPresentedDate
+		
+		if !result {
+			startPoint = screenPresentedDate.laterDate(lastMistakeDate)
+			lastMistakeDate = currentTime
+		}
+		
+		var interval = currentTime.timeIntervalSinceDate(startPoint) * 1000.0
 		if (!trainingMode) {
-			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: Int(interval), inverted: gameModeInversed)
+			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: abs(Int(interval)), inverted: gameModeInversed)
 			if (!gameModeInversed) {
 				totalOne += Int(interval)
 			} else {
