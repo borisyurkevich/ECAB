@@ -8,9 +8,11 @@
 
 import UIKit
 
-class VisualSustainViewController: GameViewController {
+class VisualSustainViewController: CounterpointingViewController {
 
     override func viewDidLoad() {
+		sessionType = 2
+		greeingMessage = "Find an animal"
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

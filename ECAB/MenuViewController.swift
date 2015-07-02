@@ -71,26 +71,26 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     @IBAction func playButtonHandler(sender: UIBarButtonItem) {
         
         if let detailVC: UISplitViewController = splitViewController {
-            // The right way get reference to UISplitViewController, UINavigationController or UITabBarController
-			
-			var gameVC = UIViewController()
 			
 			switch title! {
 			case model.titles.visual:
 				let flowLayout = UICollectionViewFlowLayout()
-				gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
+				let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			case model.titles.counterpointing:
 				let gameVC = CounterpointingViewController()
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			case model.titles.flanker:
 				let gameVC = FlankerViewController()
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			case model.titles.visualSust:
 				let gameVC = VisualSustainViewController()
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			default:
 				let flowLayout = UICollectionViewFlowLayout()
 				let gameVC = RedAppleCollectionViewController(collectionViewLayout: flowLayout)
+				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			}
-			
-			detailVC.presentViewController(gameVC, animated: true, completion: nil)
 		}
     }
     
