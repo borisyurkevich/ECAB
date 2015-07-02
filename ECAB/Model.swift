@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 
 class Model {
-    let games = ["Visual Search", "Counterpointing", "Flanker"]
+    let games = ["Visual Search", "Counterpointing", "Flanker", "Visual Sustained"]
 	
 	var managedContext: NSManagedObjectContext!
 	
@@ -223,5 +223,6 @@ class Model {
 		let visual = "Visual Search"
 		let counterpointing = "Counterpointing"
 		let flanker = "Flanker"
+		let visualSust = "Visual Sustained"
 	}
 }

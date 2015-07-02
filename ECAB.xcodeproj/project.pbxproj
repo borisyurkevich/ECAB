@@ -12,6 +12,7 @@
 		91253DE91B2E1EF700773099 /* CounterpointingMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91253DE81B2E1EF700773099 /* CounterpointingMove.swift */; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
 		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
+		91619A551B45CE80006E1AFC /* VisualSustainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */; };
 		91658E921B0D1B5700879347 /* beep-attention.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E911B0D1B5700879347 /* beep-attention.aif */; };
 		91658E941B0D20E800879347 /* slide-magic.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E931B0D20E800879347 /* slide-magic.aif */; };
 		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
@@ -54,6 +55,7 @@
 		91253DE81B2E1EF700773099 /* CounterpointingMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingMove.swift; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualSustainViewController.swift; sourceTree = "<group>"; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
 		91658E931B0D20E800879347 /* slide-magic.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "slide-magic.aif"; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				91B494861B3598B100FAEE8A /* GameViewController.swift */,
 				91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */,
 				91B494841B35981D00FAEE8A /* FlankerViewController.swift */,
+				91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91253DE91B2E1EF700773099 /* CounterpointingMove.swift in Sources */,
+				91619A551B45CE80006E1AFC /* VisualSustainViewController.swift in Sources */,
 				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91C8A6A41B28511C001F081A /* Session.swift in Sources */,
