@@ -81,8 +81,6 @@ class FlankerViewController: CounterpointingViewController {
 		case .Fish:
 			let imageView = UIImageView(image: fishImage)
 			imageView.frame = CGRectMake(x, y, fishImage!.size.width*2, fishImage!.size.height*2)
-//			println("View center x: \(view.center.x) y: \(view.center.y)")
-//			println("Img view center x: \(imageView.center.x) y: \(imageView.center.y)")
 			view.addSubview(imageView)
 			leftTarget = false
 			break
@@ -103,7 +101,19 @@ class FlankerViewController: CounterpointingViewController {
 	}
 	
 	override func presentPreviousScreen() { // Restarts the practice
-		currentScreenShowing -= 8
+		
+		println("Called on screen number: \(currentScreenShowing)")
+		switch currentScreenShowing {
+		case 7:
+			currentScreenShowing -= 8
+		case 15:
+			currentScreenShowing -= 16
+		case 23:
+			currentScreenShowing -= 24
+		default:
+			break
+		}
+		
 		trainingMode = true
 		presentNextScreen()
 	}
@@ -147,6 +157,7 @@ class FlankerViewController: CounterpointingViewController {
 			presentMessage("...stop")
 		case 15:
 			presentMessage("Practice 2. Ready")
+			view.addSubview(backButton!)
 		case 16:
 			updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
 		case 17:
@@ -163,6 +174,7 @@ class FlankerViewController: CounterpointingViewController {
 			presentMessage("...stop")
 		case 23:
 			presentMessage("Game 1. Ready...")
+			view.addSubview(backButton!)
 			trainingMode = false
 		case 24: // 0
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)
