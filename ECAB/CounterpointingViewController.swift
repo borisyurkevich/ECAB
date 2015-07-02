@@ -17,6 +17,7 @@ class CounterpointingViewController: GameViewController {
 	let pictureHeight: CGFloat = 197
 	let pictureWidth: CGFloat = 281
 	var gameModeInversed = false
+	var touchModeInverserd = false
 
 	
 	var leftTarget = false // first screen will be with dog on right
@@ -126,6 +127,7 @@ class CounterpointingViewController: GameViewController {
 			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
 			trainingMode = true
 			gameModeInversed = true
+			touchModeInverserd = true
 			break
 		case 26:
 			presentDogOnRight()
@@ -276,7 +278,7 @@ class CounterpointingViewController: GameViewController {
 		var result:Bool
 		
 		if location.x < middlePoint {
-			if !gameModeInversed {
+			if !touchModeInverserd {
 				// tap on the left side of the screen
 				if leftTarget {
 					successSound.play()
@@ -297,7 +299,7 @@ class CounterpointingViewController: GameViewController {
 			}
 		} else {
 			// Tap on right
-			if !gameModeInversed {
+			if !touchModeInverserd {
 				if leftTarget {
 					failureSound.play()
 					result = false

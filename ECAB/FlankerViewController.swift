@@ -102,7 +102,6 @@ class FlankerViewController: CounterpointingViewController {
 	
 	override func presentPreviousScreen() { // Restarts the practice
 		
-		println("Called on screen number: \(currentScreenShowing)")
 		switch currentScreenShowing {
 		case 7:
 			currentScreenShowing -= 8
@@ -174,6 +173,7 @@ class FlankerViewController: CounterpointingViewController {
 			presentMessage("...stop")
 		case 23:
 			presentMessage("Game 1. Ready...")
+			gameModeInversed = false
 			view.addSubview(backButton!)
 			trainingMode = false
 		case 24: // 0
@@ -200,6 +200,7 @@ class FlankerViewController: CounterpointingViewController {
 			presentMessage("...stop")
 		case 35:
 			presentMessage("Game 2. Ready...")
+			gameModeInversed = true
 		case 36: // 10
 			updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
 		case 37: // 11
@@ -224,6 +225,7 @@ class FlankerViewController: CounterpointingViewController {
 			presentMessage("...stop")
 		case 47:
 			presentMessage("Game 3. Ready...")
+			gameModeInversed = true
 		case 48: // 20
 			updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
 		case 49: // 21
@@ -248,6 +250,7 @@ class FlankerViewController: CounterpointingViewController {
 			presentMessage("...stop")
 		case 59:
 			presentMessage("Game 4. Ready")
+			gameModeInversed = false
 		case 60: // 30
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
 		case 61: // 31
