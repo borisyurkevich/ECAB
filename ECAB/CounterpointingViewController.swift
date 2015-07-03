@@ -273,8 +273,8 @@ class CounterpointingViewController: GameViewController {
 	func tapHandler(sender: UITapGestureRecognizer){
 		// Determine Success or failure
 		let location = sender.locationInView(view)
-		let screenWidth = view.bounds.size.width
-		let middlePoint = screenWidth/2
+		let screenWidth = UIScreen.mainScreen().bounds.width
+		let middlePoint = screenWidth / 2
 		
 		var result:Bool
 		
@@ -318,17 +318,18 @@ class CounterpointingViewController: GameViewController {
 				}
 			}
 		}
-		let currentTime = NSDate()
 		
-		var startPoint = screenPresentedDate
+		if !trainingMode {
 		
-		if !result {
-			startPoint = screenPresentedDate.laterDate(lastMistakeDate)
-			lastMistakeDate = currentTime
-		}
-		
-		var interval = currentTime.timeIntervalSinceDate(startPoint) * 1000.0
-		if (!trainingMode) {
+			let currentTime = NSDate()
+			var startPoint = screenPresentedDate
+			if !result {
+				startPoint = screenPresentedDate.laterDate(lastMistakeDate)
+				lastMistakeDate = currentTime
+			}
+			
+			var interval = currentTime.timeIntervalSinceDate(startPoint) * 1000.0
+			
 			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: abs(Int(interval)), inverted: gameModeInversed)
 			if (!gameModeInversed) {
 				totalOne += Int(interval)
@@ -337,19 +338,22 @@ class CounterpointingViewController: GameViewController {
 			}
 			session.totalOne = totalOne
 			session.totalTwo = totalTwo
+			
+			if result {
+				let score = session.score.integerValue
+				session.score = NSNumber(integer: (score + 1))
+			} else {
+				let errors = session.errors.integerValue
+				session.errors = NSNumber(integer: (errors + 1))
+			}
 		}
 		
 		if result {
-			let score = session.score.integerValue
-			session.score = NSNumber(integer: (score + 1))
 			if !trainingMode {
 				presentBlueDot()
 			} else {
 				presentNextScreen()
 			}
-		} else {
-			let errors = session.errors.integerValue
-			session.errors = NSNumber(integer: (errors + 1))
 		}
 	}
 }
