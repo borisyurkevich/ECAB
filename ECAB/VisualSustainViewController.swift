@@ -24,7 +24,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case Pig = "pig"
 		case Dog = "dog"
 		case HorseInverse = "horse_inverse"
-		case Cat = "cat_inverse"
+		case CatInverse = "cat_inverse"
 	}
 	
 	func updateView(pic: Picture) {
@@ -42,7 +42,31 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	func showFirstView() {
-		updateView(.Cat)
+		updateView(.CatInverse)
+		
+		let pig = UIImage(named: Picture.Pig.rawValue)
+		let dog = UIImage(named: Picture.Dog.rawValue)
+		let fish = UIImage(named: Picture.FishInverse.rawValue)
+		let horse = UIImage(named: Picture.HorseInverse.rawValue)
+		
+		let pigImage = UIImageView(image: pig)
+		let dogImage = UIImageView(image: dog)
+		let fishImage = UIImageView(image: fish)
+		let horseImage = UIImageView(image: horse)
+		
+		let images: [UIImageView] = [pigImage, dogImage, fishImage, horseImage]
+		for image in images {
+			image.frame = CGRectMake(0, 0, image.frame.width * 2, image.frame.height * 2)
+		}
+		
+		pigImage.center = CGPointMake(200, 200)
+		dogImage.center = CGPointMake(800, 200)
+		fishImage.center = CGPointMake(200, 600)
+		horseImage.center = CGPointMake(800, 600)
+		
+		for image in images {
+			view.addSubview(image)
+		}
 	}
 	
 	override func tapHandler(sender: UITapGestureRecognizer) {
