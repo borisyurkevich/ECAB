@@ -10,7 +10,7 @@ import UIKit
 
 class VisualSustainViewController: CounterpointingViewController {
 	
-	private var screenCountSinceAnimalAppeared = -1
+	private var screenCountSinceAnimalAppeared = 100
 	private var timer = NSTimer()
 	private var gameSpeed = 2.0
 
@@ -30,7 +30,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case Boot = "boot"
 		case Bus = "bus"
 		case Cake = "cake"
-		case CarInv = "car_inverse"
+		case CarInverse = "car_inverse"
 		case CatInverse = "cat_inverse"
 		case Chair = "chair"
 		case Clock = "clock"
@@ -44,6 +44,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case Pig = "pig"
 		case Sock = "sock"
 		case Spoon = "spoon"
+		case Sun = "sun"
 		case Star = "star_yellow"
 		case TrainInverse = "train_inverse"
 		case Tree = "tree"
@@ -102,6 +103,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		if screenCountSinceAnimalAppeared < 3 {
 			result = true
 			successSound.play()
+			screenCountSinceAnimalAppeared = 100
 		} else {
 			failureSound.play()
 		}
@@ -112,16 +114,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	override func presentPreviousScreen() { // Restarts the practice
-		
-		switch currentScreenShowing {
-		case 2:
-			currentScreenShowing -= 1
-		case 15:
-			currentScreenShowing -= 16
-		default:
-			break
-		}
-		
+		currentScreenShowing = 0
 		trainingMode = true
 		presentNextScreen()
 	}
@@ -136,7 +129,6 @@ class VisualSustainViewController: CounterpointingViewController {
 			presentMessage(greeingMessage)
 		case 1:
 			showFirstView()
-			screenCountSinceAnimalAppeared = 0
 		case 2:
 			presentMessage("Practice 2. Ready")
 			view.addSubview(backButton!)
@@ -149,6 +141,48 @@ class VisualSustainViewController: CounterpointingViewController {
 			updateView(.Boot)
 		case 6:
 			updateView(.Pig)
+			screenCountSinceAnimalAppeared = 0
+		case 7:
+			updateView(.Sun)
+		case 8:
+			updateView(.Star)
+		case 9:
+			updateView(.Leaf)
+		case 10:
+			updateView(.Key)
+		case 11:
+			updateView(.CatInverse)
+			screenCountSinceAnimalAppeared = 0
+		case 12:
+			updateView(.BadInverse)
+		case 13:
+			updateView(.Sock)
+		case 14:
+			updateView(.HorseInverse)
+			screenCountSinceAnimalAppeared = 0
+		case 15:
+			updateView(.Cake)
+		case 16:
+			updateView(.BoatInverse)
+		case 17:
+			updateView(.Book)
+		case 18:
+			updateView(.Dog)
+			screenCountSinceAnimalAppeared = 0
+		case 19:
+			updateView(.CarInverse)
+			screenCountSinceAnimalAppeared = 0
+		case 20:
+			updateView(.Clock)
+		case 21:
+			updateView(.FishInverse)
+			screenCountSinceAnimalAppeared = 0
+		case 22:
+			updateView(.TrainInverse)
+		case 23:
+			presentMessage("Game!")
+			trainingMode = false
+			view.addSubview(backButton!)
 		default:
 			break
 		}
