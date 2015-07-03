@@ -27,9 +27,7 @@ class FlankerViewController: CounterpointingViewController {
 	}
 	
 	func updateScreen(left: Picture, middle: Picture, right: Picture) {
-		// Add image to the left
 
-		
 		addImage(left, x: 95, y: 328)
 		addImage(middle, x: 402, y: 328)
 		addImage(right, x: 717, y: 328)
