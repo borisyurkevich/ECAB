@@ -22,7 +22,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	enum Picture: String {
 		case Empty = ""
-		case Bad = "bad_inverse"
+		case Bed = "bed_inverse"
 		case Ball = "ball"
 		case Bike = "bike_inverse"
 		case Boat = "boat_inverse"
@@ -154,7 +154,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			updateView(.Cat)
 			screenCountSinceAnimalAppeared = 0
 		case 12:
-			updateView(.Bad)
+			updateView(.Bed)
 		case 13:
 			updateView(.Sock)
 		case 14:
@@ -210,7 +210,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 35:
 			updateView(.Ball)
 		case 36:
-			updateView(.Bad)
+			updateView(.Bed)
 		case 37:
 			updateView(.Bus)
 		case 38:
@@ -252,7 +252,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 54:
 			updateView(.Spoon)
 		case 55:
-			updateView(.Bad)
+			updateView(.Bed)
 		case 56:
 			updateView(.Boot)
 		case 57:
@@ -292,7 +292,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 72:
 			updateView(.Bus)
 		case 73:
-			updateView(.Bad)
+			updateView(.Bed)
 		case 74:
 			updateView(.Sun)
 		case 75:
@@ -386,7 +386,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 115:
 			updateView(.Sun)
 		case 116:
-			updateView(.Bad)
+			updateView(.Bed)
 		case 117:
 			updateView(.Fish)
 			screenCountSinceAnimalAppeared = 0
@@ -417,7 +417,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 129:
 			updateView(.Leaf)
 		case 130:
-			updateView(.Bad)
+			updateView(.Bed)
 		case 131:
 			updateView(.Dog)
 			screenCountSinceAnimalAppeared = 0
@@ -461,7 +461,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			updateView(.Fish)
 			screenCountSinceAnimalAppeared = 0
 		case 150:
-			updateView(.Bad)
+			updateView(.Bed)
 		case 151:
 			updateView(.Boot)
 		case 152:
