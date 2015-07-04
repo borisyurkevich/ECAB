@@ -43,7 +43,6 @@ class SessionsTableViewController: UITableViewController {
 				if !model.managedContext.save(&error) {
 					println("Could not save after delete: \(error)")
 				}
-				break
 			case 1:
 				var cSessions = [CounterpointingSession]()
 				for session in model.data.counterpointingSessions {
@@ -58,7 +57,6 @@ class SessionsTableViewController: UITableViewController {
 				if !model.managedContext.save(&error) {
 					println("Could not save after delete: \(error)")
 				}
-				break
 			case 2:
 				var fSessions = [CounterpointingSession]()
 				for session in model.data.counterpointingSessions {
@@ -73,7 +71,20 @@ class SessionsTableViewController: UITableViewController {
 				if !model.managedContext.save(&error) {
 					println("Could not save after delete: \(error)")
 				}
-				break
+			case 3:
+				var fSessions = [CounterpointingSession]()
+				for session in model.data.counterpointingSessions {
+					let fSession = session as! CounterpointingSession
+					if fSession.type.integerValue == 2 {
+						fSessions.append(fSession)
+					}
+				}
+				let session = fSessions[indexPath.row]
+				model.managedContext.deleteObject(session)
+				var error: NSError?
+				if !model.managedContext.save(&error) {
+					println("Could not save after delete: \(error)")
+				}
 			default:
 			break
 			}
@@ -131,7 +142,19 @@ class SessionsTableViewController: UITableViewController {
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
 			
-			break
+		case 3:
+			var fSessions = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let fSession = session as! CounterpointingSession
+				if fSession.type.integerValue == 2 {
+					fSessions.append(fSession)
+				}
+			}
+			
+			let session = fSessions[indexPath.row]
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
 		default:
 			break;
 		}
@@ -161,7 +184,13 @@ class SessionsTableViewController: UITableViewController {
 					returnValue++
 				}
 			}
-			break
+		case 3:
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 2 {
+					returnValue++
+				}
+			}
 		default:
 			break
 		}
@@ -246,11 +275,10 @@ class SessionsTableViewController: UITableViewController {
 			if firstMove.screenNumber.integerValue > 10 {
 				difficlulty = "hard"
 			}
-			
-			let stringForTheTextView = "Visual Search\n\nPlayer name: \(pickedSesstion.player.name) Difficulty: \(difficlulty)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
+			let gameName = model.games[Int(model.data.selectedGame)]
+			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name) Difficulty: \(difficlulty)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
-			break;
 		case 1: // Counterpointing
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -289,10 +317,10 @@ class SessionsTableViewController: UITableViewController {
 			
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
-			let text = "Counterpointing\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 2 / total 1) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let gameName = model.games[Int(model.data.selectedGame)]
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 2 / total 1) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
-			break
 		case 2: // Flanker - exact copy of Counterpointing
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -330,10 +358,58 @@ class SessionsTableViewController: UITableViewController {
 			
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
-			let text = "Flanker\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (game 2 + game 3 / game 1 + game 4) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let gameName = model.games[Int(model.data.selectedGame)]
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (game 2 + game 3 / game 1 + game 4) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
-			break
+		case 3: // Visual Sustained
+			var array = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 2 {
+					array.append(cSession)
+				}
+			}
+			let pickedSesstion = array[indexPath.row]
+			var details = ""
+			var counter = 0
+			var status = "success"
+			var spacePrinted = false
+			for move in pickedSesstion.moves {
+				let actualMove = move as! CounterpointingMove
+				if !actualMove.success.boolValue {
+					status = "mistake"
+				} else {
+					status = "success"
+				}
+				
+				var inverted = "normal"
+				if actualMove.inverted.boolValue {
+					inverted = "inverted"
+				}
+				
+				var append = ""
+				if actualMove.success.boolValue {
+					append = "\(counter)) \(status) delay: \(actualMove.interval.integerValue) screens \n"
+				} else {
+					append = "\(counter)) \(status)\n"
+				}
+				
+				if !spacePrinted && !actualMove.inverted.boolValue { // Not training
+					details = details + "\n" + append
+					spacePrinted = true
+				} else {
+					details = details + append
+				}
+				counter++
+			}
+			
+			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
+			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
+			let gameName = model.games[Int(model.data.selectedGame)]
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			detailVC.textView.text = text
+			detailVC.helpMessage.text = ""
 		default:
 			break
 		}

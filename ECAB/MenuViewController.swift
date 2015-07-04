@@ -35,12 +35,17 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		
 		changePlayerButton.title = "Pick a player"
 		
-		if (model.visualSearchOnEasy) {
-			speedStepper.value = model.visualSearchSpeedEasy
-			speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
-		} else {
-			speedStepper.value = model.visualSearchSpeedHard
-			speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+		if model.data.selectedGame == 0 {
+			if (model.visualSearchOnEasy) {
+				speedStepper.value = model.visualSearchSpeedEasy
+				speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
+			} else {
+				speedStepper.value = model.visualSearchSpeedHard
+				speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+			}
+		} else if model.data.selectedGame == 3 {
+			speedStepper.value = model.visualSustSpeed
+			speedLabel.text = "\(model.visualSustSpeed) seconds"
 		}
 	}
 	
@@ -57,12 +62,17 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	@IBAction func speedStepperHandler(sender: UIStepper) {
-		if model.visualSearchOnEasy {
-			model.visualSearchSpeedEasy = sender.value
-			speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
-		} else {
-			model.visualSearchSpeedHard = sender.value
-			speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+		if model.data.selectedGame == 0 {
+			if model.visualSearchOnEasy {
+				model.visualSearchSpeedEasy = sender.value
+				speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
+			} else {
+				model.visualSearchSpeedHard = sender.value
+				speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+			}
+		} else if model.data.selectedGame == 3 {
+			model.visualSustSpeed = sender.value
+			speedLabel.text = "\(model.visualSustSpeed) seconds"
 		}
 	}
 

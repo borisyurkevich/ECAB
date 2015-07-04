@@ -18,6 +18,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		sessionType = 2
 		greeingMessage = "Practice 1. Ready..."
         super.viewDidLoad()
+		gameSpeed = model.visualSustSpeed
     }
 	
 	enum Picture: String {
@@ -103,13 +104,22 @@ class VisualSustainViewController: CounterpointingViewController {
 		if screenCountSinceAnimalAppeared < 3 {
 			result = true
 			successSound.play()
+			model.addCounterpointingMove(0, positionY: 0, success: result, interval: screenCountSinceAnimalAppeared, inverted: trainingMode)
 			screenCountSinceAnimalAppeared = 100
 		} else {
 			failureSound.play()
+			model.addCounterpointingMove(0, positionY: 0, success: result, interval: 0, inverted: trainingMode)
 		}
 		
+		// Count scores
 		if !trainingMode {
-			model.addCounterpointingMove(0, positionY: 0, success: result, interval: screenCountSinceAnimalAppeared, inverted: false)
+			if result {
+				let score = session.score.integerValue
+				session.score = NSNumber(integer: (score + 1))
+			} else {
+				let errors = session.errors.integerValue
+				session.errors = NSNumber(integer: (errors + 1))
+			}
 		}
 	}
 	
@@ -180,11 +190,13 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 22:
 			updateView(.Train)
 		case 23:
+			timer.invalidate()
 			presentMessage("Game!")
 			trainingMode = false
 			view.addSubview(backButton!)
 		case 24:
 			updateView(.Sun)
+			startTheGame()
 		case 25:
 			updateView(.Key)
 		case 26:

@@ -22,6 +22,7 @@ class Model {
 	var visualSearchOnEasy = true
 	var visualSearchSpeedEasy = 20.0 // seconds per screen
 	var visualSearchSpeedHard = 30.0
+	var visualSustSpeed = 2.0
 	
     init() {
         

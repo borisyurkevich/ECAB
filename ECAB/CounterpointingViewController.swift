@@ -22,7 +22,7 @@ class CounterpointingViewController: GameViewController {
 
 	
 	var leftTarget = false // first screen will be with dog on right
-	private var session: CounterpointingSession!
+	var session: CounterpointingSession!
 	private var totalOne = 0
 	private var totalTwo = 0
 	

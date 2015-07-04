@@ -63,8 +63,8 @@ class GamesTableViewController: UITableViewController {
 			case 3:
 				detailVC.gameIcon.image = UIImage(named: "pig")
 				detailVC.difControl.hidden = true
-				detailVC.speedLabel.hidden = true
-				detailVC.speedStepper.hidden = true
+				detailVC.speedLabel.hidden = false
+				detailVC.speedStepper.hidden = false
 			default:
 			break
 		}
