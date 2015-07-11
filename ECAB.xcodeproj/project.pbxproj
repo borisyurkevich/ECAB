@@ -54,6 +54,7 @@
 		91253DE71B2E1EC600773099 /* Model v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v2.xcdatamodel"; sourceTree = "<group>"; };
 		91253DE81B2E1EF700773099 /* CounterpointingMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingMove.swift; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
+		91379BC51B516CB300E3C293 /* Model v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v4.xcdatamodel"; sourceTree = "<group>"; };
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualSustainViewController.swift; sourceTree = "<group>"; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
@@ -586,11 +587,12 @@
 		914346891AFE8A65000FCF3A /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				91379BC51B516CB300E3C293 /* Model v4.xcdatamodel */,
 				91B494831B34987100FAEE8A /* Model v3.xcdatamodel */,
 				91253DE71B2E1EC600773099 /* Model v2.xcdatamodel */,
 				9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */,
 			);
-			currentVersion = 91B494831B34987100FAEE8A /* Model v3.xcdatamodel */;
+			currentVersion = 91379BC51B516CB300E3C293 /* Model v4.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
