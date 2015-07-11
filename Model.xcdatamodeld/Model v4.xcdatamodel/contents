@@ -10,9 +10,11 @@
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CounterpointingSession" inverseName="moves" inverseEntity="CounterpointingSession" syncable="YES"/>
     </entity>
     <entity name="CounterpointingSession" representedClassName="ECAB.CounterpointingSession" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="errors" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
         <attribute name="totalOne" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="totalTwo" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -23,6 +25,9 @@
     <entity name="Data" representedClassName="ECAB.Data" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selectedGame" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="visualSearchDifficultyEasy" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="visualSearchSpeed" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="visualSustSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="counterpointingSessions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CounterpointingSession" inverseName="data" inverseEntity="CounterpointingSession" syncable="YES"/>
         <relationship name="players" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Player" inverseName="data" inverseEntity="Player" syncable="YES"/>
         <relationship name="selectedPlayer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="selected" inverseEntity="Player" syncable="YES"/>
@@ -47,6 +52,7 @@
         <relationship name="selected" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="selectedPlayer" inverseEntity="Data" syncable="YES"/>
     </entity>
     <entity name="Session" representedClassName="ECAB.Session" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="extraMode" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="extraSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -54,16 +60,17 @@
         <attribute name="normalSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="repeatCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="sessions" inverseEntity="Data" syncable="YES"/>
         <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Move" inverseName="session" inverseEntity="Move" syncable="YES"/>
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedSessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
         <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="150"/>
-        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="30"/>
-        <element name="Data" positionX="-432" positionY="-99" width="128" height="133"/>
+        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="210"/>
+        <element name="Data" positionX="-432" positionY="-99" width="128" height="180"/>
         <element name="Move" positionX="-450" positionY="254" width="128" height="178"/>
         <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
-        <element name="Session" positionX="-441" positionY="50" width="128" height="195"/>
+        <element name="Session" positionX="-441" positionY="50" width="128" height="225"/>
     </elements>
 </model>
