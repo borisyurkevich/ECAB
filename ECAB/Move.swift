@@ -2,7 +2,7 @@
 //  Move.swift
 //  ECAB
 //
-//  Created by Boris Yurkevich on 6/10/15.
+//  Created by Boris Yurkevich on 11/07/2015.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 

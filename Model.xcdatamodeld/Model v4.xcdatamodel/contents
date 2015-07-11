@@ -13,6 +13,7 @@
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="errors" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="falsePositives" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
         <attribute name="totalOne" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -67,7 +68,7 @@
     </entity>
     <elements>
         <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="150"/>
-        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="210"/>
+        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="225"/>
         <element name="Data" positionX="-432" positionY="-99" width="128" height="180"/>
         <element name="Move" positionX="-450" positionY="254" width="128" height="178"/>
         <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
