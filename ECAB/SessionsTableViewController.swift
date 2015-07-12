@@ -276,6 +276,11 @@ class SessionsTableViewController: UITableViewController {
 				difficlulty = "hard"
 			}
 			let gameName = model.games[Int(model.data.selectedGame)]
+			
+			// V4
+			let comment = pickedSesstion.comment
+			println("Comment: \(comment)")
+			
 			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name) Difficulty: \(difficlulty)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
