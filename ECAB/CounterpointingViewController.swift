@@ -356,4 +356,13 @@ class CounterpointingViewController: GameViewController {
 			}
 		}
 	}
+	
+	override func addComment(alert: UIAlertController) {
+		let textField = alert.textFields![0] as! UITextField
+		self.session.comment = textField.text
+	}
+	
+	override  func getComment() -> String {
+		return session.comment
+	}
 }

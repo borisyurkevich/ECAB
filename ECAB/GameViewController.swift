@@ -79,13 +79,29 @@ class GameViewController: UIViewController {
 		view.addSubview(pauseButton!)
 	}
 	
+	func addComment(alert: UIAlertController) {
+		// Implement in subclassws
+	}
+	
+	func getComment() -> String {
+		return "No comment"
+	}
+	
 	func presentPause() {
-		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game.", preferredStyle: .Alert)
+		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. Add any comment", preferredStyle: .Alert)
 		
 		alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+			self.addComment(alertView)
 			self.quit()
 		}))
-		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
+			(okAction) -> Void in
+			self.addComment(alertView)
+		}))
+		alertView.addTextFieldWithConfigurationHandler {
+			(textField: UITextField!) -> Void in
+			textField.text = self.getComment()
+		}
 		
 		presentViewController(alertView, animated: true, completion: nil)
 	}

@@ -270,18 +270,18 @@ class SessionsTableViewController: UITableViewController {
 			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
 			
 			// Difficlulty level
-			let firstMove: Move = pickedSesstion.moves[0] as! Move
-			var difficlulty = "easy"
-			if firstMove.screenNumber.integerValue > 10 {
-				difficlulty = "hard"
+			var difficlulty = "unknown"
+			if let firstMove = pickedSesstion.moves.firstObject as? Move {
+				if firstMove.screenNumber.integerValue > 10 {
+					difficlulty = "hard"
+				} else {
+					difficlulty = "easy"
+				}
 			}
 			let gameName = model.games[Int(model.data.selectedGame)]
 			
-			// V4
 			let comment = pickedSesstion.comment
-			println("Comment: \(comment)")
-			
-			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name) Difficulty: \(difficlulty)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
+			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name) Difficulty: \(difficlulty)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
 		case 1: // Counterpointing
@@ -323,7 +323,8 @@ class SessionsTableViewController: UITableViewController {
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
 			let gameName = model.games[Int(model.data.selectedGame)]
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 2 / total 1) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let comment = pickedSesstion.comment
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (total 2 / total 1) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		case 2: // Flanker - exact copy of Counterpointing
@@ -364,7 +365,8 @@ class SessionsTableViewController: UITableViewController {
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
 			let gameName = model.games[Int(model.data.selectedGame)]
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (game 2 + game 3 / game 1 + game 4) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let comment = pickedSesstion.comment
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue) Ratio (game 2 + game 3 / game 1 + game 4) = \(ratio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		case 3: // Visual Sustained
@@ -412,7 +414,8 @@ class SessionsTableViewController: UITableViewController {
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
 			let gameName = model.games[Int(model.data.selectedGame)]
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let comment = pickedSesstion.comment
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		default:
