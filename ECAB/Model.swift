@@ -74,14 +74,24 @@ class Model {
 			// If there's no current player,
 			// create new one
 			if let currPl = data?.selectedPlayer {
-				println("Default player found")
+				println("Selected player found")
+				println("Player \(currPl.name) selected")
+				println("Check: player \(data.selectedPlayer.name) selected")
 			} else {
 				if data.players.count == 0 {
 					addPlayer("Default")
+					println("Default player added")
+					data.selectedPlayer = data.players.firstObject as! Player
+					println("Player \(data.selectedPlayer.name) selected")
 				}
+				println("Players exist, but default not selected.")
 				data.selectedPlayer = data.players.firstObject as! Player
+				println("Player \(data.selectedPlayer.name) selected")
 				data.selectedGame = 0
 			}
+			
+			// NSNotificationCenter.defaultCenter().addObserver(self, selector: "dataLoaded", name: "dataLoaded", object: nil)
+			NSNotificationCenter.defaultCenter().postNotificationName("dataLoaded", object: nil)
 			
 		} else {
 			println("Could not fetch: \(error)")

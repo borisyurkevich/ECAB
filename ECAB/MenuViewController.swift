@@ -30,11 +30,13 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     
     override func viewDidLoad() {
         super.viewDidLoad()
-		
+		changePlayerButton.title = "Loading..."
+		// Subscribe from notifications from Model
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "dataLoaded", name: "dataLoaded", object: nil)
 		model.setupWithContext(managedContext)
-		
-		changePlayerButton.title = "Pick a player"
-		
+	}
+	
+	func dataLoaded() {
 		if model.data.selectedGame == 0 {
 			if (model.visualSearchOnEasy) {
 				speedStepper.value = model.visualSearchSpeedEasy
@@ -47,6 +49,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			speedStepper.value = model.visualSustSpeed
 			speedLabel.text = "\(model.visualSustSpeed) seconds"
 		}
+		
+		changePlayerButton.title = model.data.selectedPlayer.name
+		println("Selected player from Menu")
 	}
 	
 	@IBAction func difficultyControlHandler(sender: UISegmentedControl) {
