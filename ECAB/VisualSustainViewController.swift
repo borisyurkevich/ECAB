@@ -18,7 +18,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		sessionType = 2
 		greeingMessage = "Practice 1. Ready..."
         super.viewDidLoad()
-		gameSpeed = model.visualSustSpeed
+		gameSpeed = model.data.visSustSpeed.doubleValue
     }
 	
 	enum Picture: String {

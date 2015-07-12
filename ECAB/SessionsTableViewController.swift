@@ -270,6 +270,8 @@ class SessionsTableViewController: UITableViewController {
 			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
 			
 			// Difficlulty level
+			// You also can look into difficulty int attribute, I added it in case you would need
+			// more than two difficulty levels. 0 - is easy...
 			var difficlulty = "unknown"
 			if let firstMove = pickedSesstion.moves.firstObject as? Move {
 				if firstMove.screenNumber.integerValue > 10 {
@@ -281,7 +283,7 @@ class SessionsTableViewController: UITableViewController {
 			let gameName = model.games[Int(model.data.selectedGame)]
 			
 			let comment = pickedSesstion.comment
-			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name) Difficulty: \(difficlulty)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
+			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name); difficulty: \(difficlulty); speed: \(pickedSesstion.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
 		case 1: // Counterpointing
@@ -415,7 +417,7 @@ class SessionsTableViewController: UITableViewController {
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
 			let gameName = model.games[Int(model.data.selectedGame)]
 			let comment = pickedSesstion.comment
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name); speed: \(pickedSesstion.speed.doubleValue)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		default:

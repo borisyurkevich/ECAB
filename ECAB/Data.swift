@@ -16,6 +16,7 @@ class Data: NSManagedObject {
     @NSManaged var visSearchDifficulty: NSNumber
     @NSManaged var visSearchSpeed: NSNumber
     @NSManaged var visSustSpeed: NSNumber
+    @NSManaged var visSearchSpeedHard: NSNumber
     @NSManaged var counterpointingSessions: NSOrderedSet
     @NSManaged var players: NSOrderedSet
     @NSManaged var selectedPlayer: Player

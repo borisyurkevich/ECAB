@@ -50,6 +50,14 @@ class GamesTableViewController: UITableViewController {
 				detailVC.difControl.hidden = false
 				detailVC.speedLabel.hidden = false
 				detailVC.speedStepper.hidden = false
+				
+				if model.data.visSearchDifficulty.integerValue == 0 {
+					detailVC.speedStepper.value = model.data.visSearchSpeed.doubleValue
+					detailVC.speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) seconds"
+				} else {
+					detailVC.speedStepper.value = model.data.visSearchSpeedHard.doubleValue
+					detailVC.speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) seconds"
+				}
 			case 1:
 				detailVC.gameIcon.image = UIImage(named: "dog")
 				detailVC.difControl.hidden = true
@@ -65,6 +73,9 @@ class GamesTableViewController: UITableViewController {
 				detailVC.difControl.hidden = true
 				detailVC.speedLabel.hidden = false
 				detailVC.speedStepper.hidden = false
+			
+				detailVC.speedStepper.value = model.data.visSustSpeed.doubleValue
+				detailVC.speedLabel.text = "\(model.data.visSustSpeed.doubleValue) seconds"
 			default:
 			break
 		}

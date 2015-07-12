@@ -11,11 +11,11 @@
 		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
 		91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */; };
-		91379BE81B52A4A300E3C293 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE71B52A4A300E3C293 /* Data.swift */; };
 		91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE91B52A4A400E3C293 /* CounterpointingMove.swift */; };
 		91379BEC1B52A4A400E3C293 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BEB1B52A4A400E3C293 /* Move.swift */; };
 		91379BEE1B52A4A400E3C293 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BED1B52A4A400E3C293 /* Session.swift */; };
 		91379BF01B52A4A400E3C293 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BEF1B52A4A400E3C293 /* Player.swift */; };
+		91379BF21B52FEA600E3C293 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BF11B52FEA600E3C293 /* Data.swift */; };
 		9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 914346891AFE8A65000FCF3A /* Model.xcdatamodeld */; };
 		91619A551B45CE80006E1AFC /* VisualSustainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */; };
 		91658E921B0D1B5700879347 /* beep-attention.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E911B0D1B5700879347 /* beep-attention.aif */; };
@@ -55,11 +55,11 @@
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		91379BD41B528C9C00E3C293 /* Model v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v4.xcdatamodel"; sourceTree = "<group>"; };
 		91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingSession.swift; sourceTree = "<group>"; };
-		91379BE71B52A4A300E3C293 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		91379BE91B52A4A400E3C293 /* CounterpointingMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingMove.swift; sourceTree = "<group>"; };
 		91379BEB1B52A4A400E3C293 /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		91379BED1B52A4A400E3C293 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		91379BEF1B52A4A400E3C293 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		91379BF11B52FEA600E3C293 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualSustainViewController.swift; sourceTree = "<group>"; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
@@ -213,11 +213,11 @@
 		91F448171B089A1C0082EB6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				91379BF11B52FEA600E3C293 /* Data.swift */,
 				91379BEF1B52A4A400E3C293 /* Player.swift */,
 				91379BED1B52A4A400E3C293 /* Session.swift */,
 				91379BEB1B52A4A400E3C293 /* Move.swift */,
 				91379BE91B52A4A400E3C293 /* CounterpointingMove.swift */,
-				91379BE71B52A4A300E3C293 /* Data.swift */,
 				91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */,
 				91AE3E621B0292ED00871B7A /* CoreDataStack.swift */,
 			);
@@ -358,8 +358,8 @@
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
 				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
 				91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */,
-				91379BE81B52A4A300E3C293 /* Data.swift in Sources */,
 				91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */,
+				91379BF21B52FEA600E3C293 /* Data.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
 				91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */,

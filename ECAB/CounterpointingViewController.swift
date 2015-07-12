@@ -31,6 +31,7 @@ class CounterpointingViewController: GameViewController {
 		
 		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
+		session.speed = model.data.visSustSpeed.doubleValue
 		presentMessage(greeingMessage)
 	}
 	

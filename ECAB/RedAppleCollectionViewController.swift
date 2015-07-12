@@ -56,13 +56,13 @@ class RedAppleCollectionViewController:
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		if !model.visualSearchOnEasy {
+		if model.data.visSearchDifficulty == 1 { // Hard Mode
 			currentView = 11
 			numberOfTargets = [1, 1, 2, 9, 9, 9, 9]
-			gameSpeed = model.visualSearchSpeedHard
+			gameSpeed = model.data.visSearchSpeedHard.doubleValue
 		} else {
 			// Easy Mode
-			gameSpeed = model.visualSearchSpeedEasy
+			gameSpeed = model.data.visSearchSpeed.doubleValue
 		}
 		
         boardFlowLayout = configureFlowLayout()
@@ -73,6 +73,8 @@ class RedAppleCollectionViewController:
 		// Instert fresh session entity
 		model.addSession(model.data.selectedPlayer)
         session = model.data.sessions.lastObject as! Session
+		session.speed = gameSpeed
+		session.difficulty = model.data.visSearchDifficulty
         
         let whiteColor = UIColor.whiteColor()
         collectionView?.backgroundColor = whiteColor
@@ -166,7 +168,7 @@ class RedAppleCollectionViewController:
 				
 				var defaultSize:CGFloat = 70
 				
-				if !self.model.visualSearchOnEasy {
+				if self.model.data.visSearchDifficulty == 1 { // Hard mode
 					defaultSize = 54
 				}
 				
@@ -218,7 +220,7 @@ class RedAppleCollectionViewController:
 					break;
 				}
 				
-				if !self.model.visualSearchOnEasy {
+				if self.model.data.visSearchDifficulty == 1 {  // Hard mode.
 					if self.currentView != 11 && self.currentView != 12 && self.currentView != 13 {
 						self.insetLeft = 100
 						self.insetRight = 100
@@ -426,7 +428,7 @@ class RedAppleCollectionViewController:
 				
 				// Hard mode
 				var gameStage = currentView
-				if !model.visualSearchOnEasy {
+				if model.data.visSearchDifficulty == 1 { // Hard mode.
 					gameStage -= 11
 				}
 				

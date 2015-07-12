@@ -34,50 +34,66 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		// Subscribe from notifications from Model
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "dataLoaded", name: "dataLoaded", object: nil)
 		model.setupWithContext(managedContext)
+		
+		switch model.data.selectedGame {
+		case 0:
+			if model.data.visSearchDifficulty.integerValue == 0 {
+				speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) seconds"
+			} else {
+				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) seconds"
+			}
+		case 3:
+			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) seconds"
+		default:
+			break
+		}
 	}
 	
 	func dataLoaded() {
-		if model.data.selectedGame == 0 {
-			if (model.visualSearchOnEasy) {
-				speedStepper.value = model.visualSearchSpeedEasy
-				speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
+		
+		switch model.data.selectedGame {
+		case 0:
+			if model.data.visSearchDifficulty.integerValue == 0 {
+				speedStepper.value = model.data.visSearchSpeed.doubleValue
+				speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) seconds"
 			} else {
-				speedStepper.value = model.visualSearchSpeedHard
-				speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+				speedStepper.value = model.data.visSearchSpeedHard.doubleValue
+				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) seconds"
 			}
-		} else if model.data.selectedGame == 3 {
-			speedStepper.value = model.visualSustSpeed
-			speedLabel.text = "\(model.visualSustSpeed) seconds"
+		case 3:
+			speedStepper.value = model.data.visSustSpeed.doubleValue
+			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) seconds"
+		default:
+			break
 		}
 		
 		changePlayerButton.title = model.data.selectedPlayer.name
-		println("Selected player from Menu")
 	}
 	
 	@IBAction func difficultyControlHandler(sender: UISegmentedControl) {
 		if sender.selectedSegmentIndex == 0 {
-			model.visualSearchOnEasy = true
-			speedStepper.value = model.visualSearchSpeedEasy
-			speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
+			model.data.visSearchDifficulty = 0
+			speedStepper.value = model.data.visSearchSpeed.doubleValue
+			speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) seconds"
 		} else {
-			model.visualSearchOnEasy = false
-			speedStepper.value = model.visualSearchSpeedHard
-			speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+			model.data.visSearchDifficulty = 1
+			speedStepper.value = model.data.visSearchSpeedHard.doubleValue
+			speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) seconds"
 		}
 	}
 	
 	@IBAction func speedStepperHandler(sender: UIStepper) {
 		if model.data.selectedGame == 0 {
-			if model.visualSearchOnEasy {
-				model.visualSearchSpeedEasy = sender.value
-				speedLabel.text = "\(model.visualSearchSpeedEasy) seconds"
+			if model.data.visSearchDifficulty.integerValue == 0 {
+				model.data.visSearchSpeed = sender.value
+				speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) seconds"
 			} else {
-				model.visualSearchSpeedHard = sender.value
-				speedLabel.text = "\(model.visualSearchSpeedHard) seconds"
+				model.data.visSearchSpeedHard = sender.value
+				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) seconds"
 			}
 		} else if model.data.selectedGame == 3 {
-			model.visualSustSpeed = sender.value
-			speedLabel.text = "\(model.visualSustSpeed) seconds"
+			model.data.visSustSpeed = sender.value
+			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) seconds"
 		}
 	}
 

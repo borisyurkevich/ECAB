@@ -19,11 +19,6 @@ class Model {
 	
 	let titles = GameTitle()
 	
-	var visualSearchOnEasy = true
-	var visualSearchSpeedEasy = 20.0 // seconds per screen
-	var visualSearchSpeedHard = 30.0
-	var visualSustSpeed = 2.0
-	
     init() {
         
         // To configure call the setupWithContext function from VC
