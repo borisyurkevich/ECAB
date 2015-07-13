@@ -330,8 +330,8 @@ class CounterpointingViewController: GameViewController {
 			}
 			
 			var interval = currentTime.timeIntervalSinceDate(startPoint) * 1000.0
-			
-			model.addCounterpointingMove(location.x, positionY: location.y, success: result, interval: abs(Int(interval)), inverted: gameModeInversed)
+			let screen: CGFloat = CGFloat(currentScreenShowing)
+			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: abs(Int(interval)), inverted: gameModeInversed)
 			if (!gameModeInversed) {
 				totalOne += Int(interval)
 			} else {

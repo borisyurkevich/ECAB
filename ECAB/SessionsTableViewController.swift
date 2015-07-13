@@ -311,7 +311,7 @@ class SessionsTableViewController: UITableViewController {
 					inverted = "inverted"
 				}
 				
-				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms \(inverted) \n"
+				let append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
 				if actualMove.inverted.boolValue && spacePrinted == false {
 					details = details + "\n" + append
 					spacePrinted = true
@@ -355,7 +355,7 @@ class SessionsTableViewController: UITableViewController {
 					inverted = "inverted"
 				}
 				
-				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms \(inverted) \n"
+				let append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
 				if counter == 9 || counter == 19 || counter == 29 {
 					details = details + append + "\n"
 				} else {
@@ -400,9 +400,9 @@ class SessionsTableViewController: UITableViewController {
 				
 				var append = ""
 				if actualMove.success.boolValue {
-					append = "\(counter)) \(status) delay: \(actualMove.interval.integerValue) screens \n"
+					append = "\(counter)) screen: \(actualMove.poitionX) \(status) delay: \(actualMove.interval.integerValue) screens \n"
 				} else {
-					append = "\(counter)) \(status)\n"
+					append = "\(counter)) screen: \(actualMove.poitionX) \(status)\n"
 				}
 				
 				if !spacePrinted && !actualMove.inverted.boolValue { // Not training

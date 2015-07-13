@@ -100,15 +100,16 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func tapHandler(sender: UITapGestureRecognizer) {
 		
+		let screen: CGFloat = CGFloat(currentScreenShowing)
 		var result = false
 		if screenCountSinceAnimalAppeared < 3 {
 			result = true
 			successSound.play()
-			model.addCounterpointingMove(0, positionY: 0, success: result, interval: screenCountSinceAnimalAppeared, inverted: trainingMode)
+			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: screenCountSinceAnimalAppeared, inverted: trainingMode)
 			screenCountSinceAnimalAppeared = 100
 		} else {
 			failureSound.play()
-			model.addCounterpointingMove(0, positionY: 0, success: result, interval: 0, inverted: trainingMode)
+			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0, inverted: trainingMode)
 		}
 		
 		// Count scores
