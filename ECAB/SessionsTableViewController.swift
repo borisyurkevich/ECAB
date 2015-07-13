@@ -357,7 +357,7 @@ class SessionsTableViewController: UITableViewController {
 				
 				let append = "\(counter)) \(status) across:\(actualMove.poitionX) down:\(actualMove.poitionY) \(actualMove.interval.integerValue) ms \(inverted) \n"
 				if counter == 9 || counter == 19 || counter == 29 {
-					details = details + "\n" + append
+					details = details + append + "\n"
 				} else {
 					details = details + append
 				}
