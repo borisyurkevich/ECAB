@@ -64,7 +64,7 @@ class RedAppleBoard {
     }
     
     func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let countNumber = count(list)
+        let countNumber = list.count
         for i in 0..<(countNumber - 1) {
             let j = Int(arc4random_uniform(UInt32(countNumber - i))) + i
             swap(&list[i], &list[j])
@@ -487,7 +487,7 @@ class RedAppleBoard {
 			f.append(w);
 			break
         default:
-            println("⛔️ Set correct screen!")
+            print("⛔️ Set correct screen!")
         }
         data = f
     }

@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     let controlsRestrictionId = "net.borisy.ecab.ControlsRestrictionId"
     let notificationId = "kECABGuidedAccessNotification"
     
-    func guidedAccessRestrictionIdentifiers() -> [AnyObject] {
+    func guidedAccessRestrictionIdentifiers() -> [String] {
         return [controlsRestrictionId]
     }
     
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
             
             if restrictionIdentifier == controlsRestrictionId
             {
-                var enabled = newRestrictionState != UIGuidedAccessRestrictionState.Deny
+                let enabled = newRestrictionState != UIGuidedAccessRestrictionState.Deny
                 NSNotificationCenter.defaultCenter().postNotificationName(notificationId, object: nil, userInfo: ["restriction":enabled])
             }
     }

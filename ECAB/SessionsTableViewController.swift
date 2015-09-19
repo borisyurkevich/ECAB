@@ -40,8 +40,11 @@ class SessionsTableViewController: UITableViewController {
 				let session = model.data.sessions[indexPath.row] as! Session
 				model.managedContext.deleteObject(session)
 				var error: NSError?
-				if !model.managedContext.save(&error) {
-					println("Could not save after delete: \(error)")
+				do {
+					try model.managedContext.save()
+				} catch var error1 as NSError {
+					error = error1
+					print("Could not save after delete: \(error)")
 				}
 			case 1:
 				var cSessions = [CounterpointingSession]()
@@ -54,8 +57,11 @@ class SessionsTableViewController: UITableViewController {
 				let session = cSessions[indexPath.row]
 				model.managedContext.deleteObject(session)
 				var error: NSError?
-				if !model.managedContext.save(&error) {
-					println("Could not save after delete: \(error)")
+				do {
+					try model.managedContext.save()
+				} catch var error1 as NSError {
+					error = error1
+					print("Could not save after delete: \(error)")
 				}
 			case 2:
 				var fSessions = [CounterpointingSession]()
@@ -68,8 +74,11 @@ class SessionsTableViewController: UITableViewController {
 				let session = fSessions[indexPath.row]
 				model.managedContext.deleteObject(session)
 				var error: NSError?
-				if !model.managedContext.save(&error) {
-					println("Could not save after delete: \(error)")
+				do {
+					try model.managedContext.save()
+				} catch var error1 as NSError {
+					error = error1
+					print("Could not save after delete: \(error)")
 				}
 			case 3:
 				var fSessions = [CounterpointingSession]()
@@ -82,8 +91,11 @@ class SessionsTableViewController: UITableViewController {
 				let session = fSessions[indexPath.row]
 				model.managedContext.deleteObject(session)
 				var error: NSError?
-				if !model.managedContext.save(&error) {
-					println("Could not save after delete: \(error)")
+				do {
+					try model.managedContext.save()
+				} catch var error1 as NSError {
+					error = error1
+					print("Could not save after delete: \(error)")
 				}
 			default:
 			break
@@ -99,7 +111,7 @@ class SessionsTableViewController: UITableViewController {
 	// MARK: - Table view data source
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) 
 		
 		// Date
 		let formatter = NSDateFormatter()
@@ -245,11 +257,11 @@ class SessionsTableViewController: UITableViewController {
 					progress = "failure"
 				}
 				
-				var repeat = ""
-				if gameMove.repeat.boolValue == true {
-					repeat = "repeat"
+				var `repeat` = ""
+				if gameMove.`repeat`.boolValue == true {
+					`repeat` = "repeat"
 				} else {
-					repeat = "unique"
+					`repeat` = "unique"
 				}
 				
 				let dateStr = smallFormatter.stringFromDate(gameMove.date)
@@ -257,7 +269,7 @@ class SessionsTableViewController: UITableViewController {
 				var append: String
 				
 				if gameMove.empty.boolValue == false {
-					append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(repeat) \n"
+					append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) \n"
 					counter++
 				} else {
 					append = "\n\(screenName) on set \(dateStr) \n"

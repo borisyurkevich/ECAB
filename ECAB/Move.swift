@@ -14,7 +14,7 @@ class Move: NSManagedObject {
     @NSManaged var column: NSNumber
     @NSManaged var date: NSDate
     @NSManaged var empty: NSNumber
-    @NSManaged var repeat: NSNumber
+    @NSManaged var `repeat`: NSNumber
     @NSManaged var row: NSNumber
     @NSManaged var screenNumber: NSNumber
     @NSManaged var success: NSNumber

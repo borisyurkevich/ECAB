@@ -80,19 +80,19 @@ class RedAppleCollectionViewController:
         collectionView?.backgroundColor = whiteColor
         
         let labelText: String = "Pause"
-        pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+        pauseButton = UIButton(type: UIButtonType.System) as? UIButton
         let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
         let screen: CGSize = UIScreen.mainScreen().bounds.size
         pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
         pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
         pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		nextButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		nextButton = UIButton(type: UIButtonType.System) as? UIButton
         nextButton!.setTitle("Next", forState: UIControlState.Normal)
 		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
 		nextButton!.addTarget(self, action: "timerDidFire", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		prevButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		prevButton = UIButton(type: UIButtonType.System) as? UIButton
 		prevButton!.setTitle("Previous", forState: UIControlState.Normal)
 		prevButton!.frame = CGRectMake(60, 16, size.width + 20, size.height)
 		prevButton!.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
@@ -122,13 +122,23 @@ class RedAppleCollectionViewController:
 		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
 		let successSoundURL = NSURL(fileURLWithPath: successSoundPath!)
 		var error: NSError?
-		player = AVAudioPlayer(contentsOfURL: successSoundURL, error: &error)
+		do {
+			player = try AVAudioPlayer(contentsOfURL: successSoundURL)
+		} catch var error1 as NSError {
+			error = error1
+			player = nil
+		}
 		player.prepareToPlay()
 		
 		let failureSoundPath = NSBundle.mainBundle().pathForResource("beep-attention", ofType: "aif")
 		let failureSoundURL = NSURL(fileURLWithPath: failureSoundPath!)
 		var errorFailure: NSError?
-		playerFailure = AVAudioPlayer(contentsOfURL: failureSoundURL, error: &errorFailure)
+		do {
+			playerFailure = try AVAudioPlayer(contentsOfURL: failureSoundURL)
+		} catch var error as NSError {
+			errorFailure = error
+			playerFailure = nil
+		}
 		playerFailure.prepareToPlay()
     }
 	
@@ -236,7 +246,7 @@ class RedAppleCollectionViewController:
 					Insets.top = 100
 				}
 				
-				println("Requesting fot the board \(self.currentView)")
+				print("Requesting fot the board \(self.currentView)")
                 self.board = RedAppleBoard(stage: self.currentView)
 				self.checkedMarks = [-1]
                 
@@ -343,7 +353,7 @@ class RedAppleCollectionViewController:
     
     func configureFlowLayout() -> UICollectionViewFlowLayout
     {
-        var returnValue = UICollectionViewFlowLayout()
+        let returnValue = UICollectionViewFlowLayout()
         
         returnValue.sectionInset = UIEdgeInsetsMake(insetTop, insetLeft, insetBottom, insetRight)
         
@@ -386,7 +396,7 @@ class RedAppleCollectionViewController:
 			break
 		}
 		
-		var elementsInOneRow = total / rows
+		let elementsInOneRow = total / rows
 		
 		var row = Double(indexPath.row + 1) / Double(elementsInOneRow)
 		if elementsInOneRow == 1 || row == 0{
@@ -411,7 +421,7 @@ class RedAppleCollectionViewController:
 			if isRepeat == false {
 				
 				let crossImage = UIImage(named: "cross_gray")
-				var cross = UIImageView(image: crossImage)
+				let cross = UIImageView(image: crossImage)
 				cross.frame = cell.imageView.frame
 				cell.imageView.addSubview(cross)
 				
@@ -443,8 +453,8 @@ class RedAppleCollectionViewController:
 					}
 				}
 				
-				println("cm = \(checkedMarks.count) nt = \(numberOfTargets[gameStage])")
-				println("\(checkedMarks)")
+				print("cm = \(checkedMarks.count) nt = \(numberOfTargets[gameStage])")
+				print("\(checkedMarks)")
 			} else {
 				// Repeat
 				playerFailure.play()
@@ -463,7 +473,7 @@ class RedAppleCollectionViewController:
 	
 	
 	func lineDrawingLayer() -> CAShapeLayer {
-		var shapeLayer = CAShapeLayer()
+		let shapeLayer = CAShapeLayer()
 		
 		shapeLayer.strokeEnd = 0
 		shapeLayer.lineWidth = 5
@@ -477,7 +487,7 @@ class RedAppleCollectionViewController:
 	}
 	
 	func crossPath() -> CGPathRef {
-		var path = linePath()
+		let path = linePath()
 		
 		path.moveToPoint(CGPointMake(45, 78))
 		path.addLineToPoint(CGPointMake(77, 42))
@@ -488,8 +498,8 @@ class RedAppleCollectionViewController:
 	}
 	
 	func linePath() -> UIBezierPath {
-		var path = UIBezierPath()
-		path.lineCapStyle = kCGLineCapRound
+		let path = UIBezierPath()
+		path.lineCapStyle = CGLineCap.Round
 		path.lineWidth = 5
 		
 		return path
@@ -499,7 +509,7 @@ class RedAppleCollectionViewController:
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.destinationViewController.isKindOfClass(MenuViewController) {
-            var dest = segue.destinationViewController as! MenuViewController
+            let dest = segue.destinationViewController as! MenuViewController
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }
@@ -510,20 +520,20 @@ class RedAppleCollectionViewController:
         self.presenter?.setNeedsStatusBarAppearanceUpdate()
         self.dismissViewControllerAnimated(true, completion: nil)
 		
-        println("Result: \(session.score)")
+        print("Result: \(session.score)")
     }
     
     func presentPause() {
         let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. Add any comment", preferredStyle: .Alert)
         
         alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
-			let textField = alertView.textFields![0] as! UITextField
+			let textField = alertView.textFields![0] 
 			self.session.comment = textField.text
             self.quit()
         }))
 		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
 			(okAction) -> Void in
-			let textField = alertView.textFields![0] as! UITextField
+			let textField = alertView.textFields![0] 
 			self.session.comment = textField.text
 		}))
 		alertView.addTextFieldWithConfigurationHandler {

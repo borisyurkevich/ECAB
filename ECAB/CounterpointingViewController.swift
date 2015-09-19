@@ -226,7 +226,7 @@ class CounterpointingViewController: GameViewController {
 	func addNextButton() {
 		let labelText: String = "Next"
 		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
-		nextButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		nextButton = UIButton(type: UIButtonType.System) as? UIButton
 		nextButton!.setTitle("Next", forState: UIControlState.Normal)
 		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
 		nextButton!.addTarget(self, action: "presentNextScreen", forControlEvents: UIControlEvents.TouchUpInside)
@@ -329,7 +329,7 @@ class CounterpointingViewController: GameViewController {
 				lastMistakeDate = currentTime
 			}
 			
-			var interval = currentTime.timeIntervalSinceDate(startPoint) * 1000.0
+			let interval = currentTime.timeIntervalSinceDate(startPoint) * 1000.0
 			let screen: CGFloat = CGFloat(currentScreenShowing)
 			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: abs(Int(interval)), inverted: gameModeInversed)
 			if (!gameModeInversed) {
@@ -359,7 +359,7 @@ class CounterpointingViewController: GameViewController {
 	}
 	
 	override func addComment(alert: UIAlertController) {
-		let textField = alert.textFields![0] as! UITextField
+		let textField = alert.textFields![0] 
 		self.session.comment = textField.text
 	}
 	

@@ -50,7 +50,7 @@ class Model {
 		
 		var error: NSError?
 		
-		let result = managedContext.executeFetchRequest(dataFetch, error: &error) as! [Data]?
+		let result = managedContext.executeFetchRequest(dataFetch) as! [Data]?
 		
 		if let fetchedData = result {
 			
@@ -59,8 +59,11 @@ class Model {
 				data = Data(entity: dataEntity!, insertIntoManagedObjectContext: managedContext)
 				data!.id = dataIdentifier
 				
-				if !managedContext.save(&error) {
-					println("Could not save the Data: \(error)")
+				do {
+					try managedContext.save()
+				} catch var error1 as NSError {
+					error = error1
+					print("Could not save the Data: \(error)")
 				}
 			} else {
 				data = fetchedData[0]
@@ -69,19 +72,19 @@ class Model {
 			// If there's no current player,
 			// create new one
 			if let currPl = data?.selectedPlayer {
-				println("Selected player found")
-				println("Player \(currPl.name) selected")
-				println("Check: player \(data.selectedPlayer.name) selected")
+				print("Selected player found")
+				print("Player \(currPl.name) selected")
+				print("Check: player \(data.selectedPlayer.name) selected")
 			} else {
 				if data.players.count == 0 {
 					addPlayer("Default")
-					println("Default player added")
+					print("Default player added")
 					data.selectedPlayer = data.players.firstObject as! Player
-					println("Player \(data.selectedPlayer.name) selected")
+					print("Player \(data.selectedPlayer.name) selected")
 				}
-				println("Players exist, but default not selected.")
+				print("Players exist, but default not selected.")
 				data.selectedPlayer = data.players.firstObject as! Player
-				println("Player \(data.selectedPlayer.name) selected")
+				print("Player \(data.selectedPlayer.name) selected")
 				data.selectedGame = 0
 			}
 			
@@ -89,7 +92,7 @@ class Model {
 			NSNotificationCenter.defaultCenter().postNotificationName("dataLoaded", object: nil)
 			
 		} else {
-			println("Could not fetch: \(error)")
+			print("Could not fetch: \(error)")
 		}
     }
     
@@ -104,14 +107,17 @@ class Model {
 		player.name = playerName
 		
 		// Insert the new Player into the Data set
-		var players = data.players.mutableCopy() as! NSMutableOrderedSet
+		let players = data.players.mutableCopy() as! NSMutableOrderedSet
 		players.addObject(player)
 		data.players = players.copy() as! NSOrderedSet
 		
 		//Save the managed object context
 		var error: NSError?
-		if !managedContext!.save(&error) {
-			println("Could not save player: \(error)")
+		do {
+			try managedContext!.save()
+		} catch let error1 as NSError {
+			error = error1
+			print("Could not save player: \(error)")
 		}
     }
 	
@@ -127,14 +133,17 @@ class Model {
 		session.player = player
 		
 		// Insert the new Session into the Data set
-		var sessions = data.sessions.mutableCopy() as! NSMutableOrderedSet
+		let sessions = data.sessions.mutableCopy() as! NSMutableOrderedSet
 		sessions.addObject(session)
 		data.sessions = sessions.copy() as! NSOrderedSet
 		
 		//Save the managed object context
 		var error: NSError?
-		if !managedContext!.save(&error) {
-			println("Could not save session: \(error)")
+		do {
+			try managedContext!.save()
+		} catch let error1 as NSError {
+			error = error1
+			print("Could not save session: \(error)")
 		}
 	}
 	
@@ -148,14 +157,17 @@ class Model {
 		session.type = type
 		
 		// Insert the new Session into the Data set
-		var sessions = data.counterpointingSessions.mutableCopy() as! NSMutableOrderedSet
+		let sessions = data.counterpointingSessions.mutableCopy() as! NSMutableOrderedSet
 		sessions.addObject(session)
 		data.counterpointingSessions = sessions.copy() as! NSOrderedSet
 		
 		//Save the managed object context
 		var error: NSError?
-		if !managedContext!.save(&error) {
-			println("Could not save counter. session: \(error)")
+		do {
+			try managedContext!.save()
+		} catch let error1 as NSError {
+			error = error1
+			print("Could not save counter. session: \(error)")
 		}
 	}
 	
@@ -171,7 +183,7 @@ class Model {
 		move.session = session
 		move.date = NSDate()
 		move.success = isSuccess
-		move.repeat = isRepeat
+		move.`repeat` = isRepeat
 		move.training = isTraining
 		move.screenNumber = screen
 		move.empty = isEmpty
@@ -185,8 +197,11 @@ class Model {
 		
 		//Save the managed object context
 		var error: NSError?
-		if !managedContext!.save(&error) {
-			println("Could not save new visual search move move: \(error)")
+		do {
+			try managedContext!.save()
+		} catch var error1 as NSError {
+			error = error1
+			print("Could not save new visual search move move: \(error)")
 		}
 	}
 	
@@ -204,14 +219,17 @@ class Model {
 		let allSessions = data.counterpointingSessions
 		let lastSession = allSessions.lastObject as! CounterpointingSession
 		
-		var allMoves = lastSession.moves.mutableCopy() as! NSMutableOrderedSet
+		let allMoves = lastSession.moves.mutableCopy() as! NSMutableOrderedSet
 		allMoves.addObject(move)
 		lastSession.moves = allMoves.copy() as! NSOrderedSet
 		
 		//Save the managed object context
 		var error: NSError?
-		if !managedContext!.save(&error) {
-			println("Could not save new counterpointing move: \(error)")
+		do {
+			try managedContext!.save()
+		} catch let error1 as NSError {
+			error = error1
+			print("Could not save new counterpointing move: \(error)")
 		}
 	}
 	
@@ -219,8 +237,11 @@ class Model {
 		
 		//Save the managed object context
 		var error: NSError?
-		if !managedContext!.save(&error) {
-			println("Could not update the data: \(error)")
+		do {
+			try managedContext!.save()
+		} catch let error1 as NSError {
+			error = error1
+			print("Could not update the data: \(error)")
 		}
 		
 	}

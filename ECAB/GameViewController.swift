@@ -32,18 +32,28 @@ class GameViewController: UIViewController {
 		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
 		let successSoundURL = NSURL(fileURLWithPath: successSoundPath!)
 		var error: NSError?
-		successSound = AVAudioPlayer(contentsOfURL: successSoundURL, error: &error)
+		do {
+			successSound = try AVAudioPlayer(contentsOfURL: successSoundURL)
+		} catch var error1 as NSError {
+			error = error1
+			successSound = nil
+		}
 		successSound.prepareToPlay()
 		let failureSoundPath = NSBundle.mainBundle().pathForResource("beep-attention", ofType: "aif")
 		let failureSoundURL = NSURL(fileURLWithPath: failureSoundPath!)
 		var errorFailure: NSError?
-		failureSound = AVAudioPlayer(contentsOfURL: failureSoundURL, error: &errorFailure)
+		do {
+			failureSound = try AVAudioPlayer(contentsOfURL: failureSoundURL)
+		} catch var error as NSError {
+			errorFailure = error
+			failureSound = nil
+		}
 		failureSound.prepareToPlay()
 		
 		// Buttons
 		let labelText: String = "Pause"
-		pauseButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
-		backButton = UIButton.buttonWithType(UIButtonType.System) as? UIButton
+		pauseButton = UIButton(type: UIButtonType.System) as? UIButton
+		backButton = UIButton(type: UIButtonType.System) as? UIButton
 		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
 		let screen: CGSize = UIScreen.mainScreen().bounds.size
 		pauseButton!.setTitle(labelText, forState: UIControlState.Normal)

@@ -21,14 +21,14 @@ class PlayersTableViewController: UITableViewController {
     
     @IBAction func addPlayerHandler(sender: UIBarButtonItem) {
         
-        var alert = UIAlertController(title: "New player",
+        let alert = UIAlertController(title: "New player",
             message: "Add a name for a new player",
             preferredStyle: .Alert)
         
         let saveAction = UIAlertAction(title: "Save",
-            style: .Default) { (action: UIAlertAction!) -> Void in
+            style: .Default) { (action: UIAlertAction) -> Void in
                 
-                let textField = alert.textFields![0] as! UITextField
+                let textField = alert.textFields![0] 
                 
                 self.model.addPlayer(textField.text)
                 
@@ -36,7 +36,7 @@ class PlayersTableViewController: UITableViewController {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
-            style: .Cancel) { (action: UIAlertAction!) -> Void in
+            style: .Cancel) { (action: UIAlertAction) -> Void in
         }
         
         alert.addTextFieldWithConfigurationHandler {
