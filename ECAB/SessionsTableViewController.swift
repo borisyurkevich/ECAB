@@ -32,7 +32,8 @@ class SessionsTableViewController: UITableViewController {
 		editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if editingStyle == UITableViewCellEditingStyle.Delete {
 		
-			let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
+			let navVC = splitViewController!.viewControllers.last as! UINavigationController
+			let detailVC = navVC.topViewController as! HistoryViewController
 		
 			// Session to remove
 			switch model.data.selectedGame {
@@ -42,7 +43,7 @@ class SessionsTableViewController: UITableViewController {
 				var error: NSError?
 				do {
 					try model.managedContext.save()
-				} catch var error1 as NSError {
+				} catch let error1 as NSError {
 					error = error1
 					print("Could not save after delete: \(error)")
 				}
@@ -59,7 +60,7 @@ class SessionsTableViewController: UITableViewController {
 				var error: NSError?
 				do {
 					try model.managedContext.save()
-				} catch var error1 as NSError {
+				} catch let error1 as NSError {
 					error = error1
 					print("Could not save after delete: \(error)")
 				}
@@ -76,7 +77,7 @@ class SessionsTableViewController: UITableViewController {
 				var error: NSError?
 				do {
 					try model.managedContext.save()
-				} catch var error1 as NSError {
+				} catch let error1 as NSError {
 					error = error1
 					print("Could not save after delete: \(error)")
 				}
@@ -93,7 +94,7 @@ class SessionsTableViewController: UITableViewController {
 				var error: NSError?
 				do {
 					try model.managedContext.save()
-				} catch var error1 as NSError {
+				} catch let error1 as NSError {
 					error = error1
 					print("Could not save after delete: \(error)")
 				}
@@ -213,7 +214,8 @@ class SessionsTableViewController: UITableViewController {
 	// MARK: Table view delegate
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let detailVC = splitViewController!.viewControllers.last?.topViewController as! HistoryViewController
+		let navVC = splitViewController!.viewControllers.last as! UINavigationController!
+		let detailVC = navVC.topViewController as! HistoryViewController
 		
 		let formatter = NSDateFormatter()
 		formatter.locale = NSLocale.autoupdatingCurrentLocale()
@@ -278,7 +280,7 @@ class SessionsTableViewController: UITableViewController {
 				
 				detailMoves = detailMoves + append
 			}
-			let dateStarted = pickedSesstion.dateStart.description
+			_ = pickedSesstion.dateStart.description
 			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
 			
 			// Difficlulty level
@@ -353,7 +355,6 @@ class SessionsTableViewController: UITableViewController {
 			var details = ""
 			var counter = 0
 			var status = "success"
-			var spacePrinted = false
 			for move in pickedSesstion.moves {
 				let actualMove = move as! CounterpointingMove
 				if !actualMove.success.boolValue {
@@ -403,11 +404,6 @@ class SessionsTableViewController: UITableViewController {
 					status = "mistake"
 				} else {
 					status = "success"
-				}
-				
-				var inverted = "normal"
-				if actualMove.inverted.boolValue {
-					inverted = "inverted"
 				}
 				
 				var append = ""

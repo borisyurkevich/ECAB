@@ -40,7 +40,8 @@ class GamesTableViewController: UITableViewController {
 		let pickedGameTitle = model.games[indexPath.row]
 		model.data.selectedGame = indexPath.row
 		
-		let detailVC = splitViewController!.viewControllers.last?.topViewController as! MenuViewController
+		let navVC = splitViewController!.viewControllers.last as! UINavigationController
+		let detailVC = navVC.topViewController as! MenuViewController
 		detailVC.title = pickedGameTitle
 		detailVC.gameTitleCenter.text = pickedGameTitle
 		

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
 		let tabBarController = self.window!.rootViewController as! UITabBarController
 		let allTabs: Array = tabBarController.viewControllers!;
 		let splitController = allTabs[0] as! UISplitViewController
-		let navigationController = splitController.viewControllers[1] as! UINavigationController
+		let navigationController = splitController.viewControllers.last as! UINavigationController
 		let viewController = navigationController.topViewController  as! MenuViewController
 		viewController.managedContext = coreDataStack.context
 		
@@ -41,18 +41,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     let controlsRestrictionId = "net.borisy.ecab.ControlsRestrictionId"
     let notificationId = "kECABGuidedAccessNotification"
     
-    func guidedAccessRestrictionIdentifiers() -> [String] {
+    func guidedAccessRestrictionIdentifiers() -> [String]? {
         return [controlsRestrictionId]
     }
     
-    func textForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String! {
+    func textForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String? {
         if restrictionIdentifier == controlsRestrictionId {
             return "Pause button"
         }
         return nil
     }
     
-    func detailTextForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String! {
+    func detailTextForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String? {
         if restrictionIdentifier == controlsRestrictionId {
             return "Pause and quit game at any time"
         }

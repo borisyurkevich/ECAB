@@ -30,7 +30,7 @@ class PlayersTableViewController: UITableViewController {
                 
                 let textField = alert.textFields![0] 
                 
-                self.model.addPlayer(textField.text)
+                self.model.addPlayer(textField.text!)
                 
                 self.tableView.reloadData()
         }
@@ -75,8 +75,7 @@ class PlayersTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath
                             indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)
-            as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as UITableViewCell!
         
 		let data = model.data as Data
 		let players = data.players
@@ -96,7 +95,7 @@ class PlayersTableViewController: UITableViewController {
         // Make selected player current player
 		let data = model.data as Data
         let selectedPlayerEntity = data.players[indexPath.row] as! Player
-        let name = selectedPlayerEntity.name
+//        let name = selectedPlayerEntity.name
         model.data.selectedPlayer = selectedPlayerEntity
 		
 		model.updateData()

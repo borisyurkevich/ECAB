@@ -80,19 +80,19 @@ class RedAppleCollectionViewController:
         collectionView?.backgroundColor = whiteColor
         
         let labelText: String = "Pause"
-        pauseButton = UIButton(type: UIButtonType.System) as? UIButton
+        pauseButton = UIButton(type: UIButtonType.System)
         let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
         let screen: CGSize = UIScreen.mainScreen().bounds.size
         pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
         pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
         pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		nextButton = UIButton(type: UIButtonType.System) as? UIButton
+		nextButton = UIButton(type: UIButtonType.System)
         nextButton!.setTitle("Next", forState: UIControlState.Normal)
 		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
 		nextButton!.addTarget(self, action: "timerDidFire", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		prevButton = UIButton(type: UIButtonType.System) as? UIButton
+		prevButton = UIButton(type: UIButtonType.System)
 		prevButton!.setTitle("Previous", forState: UIControlState.Normal)
 		prevButton!.frame = CGRectMake(60, 16, size.width + 20, size.height)
 		prevButton!.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
@@ -124,9 +124,9 @@ class RedAppleCollectionViewController:
 		var error: NSError?
 		do {
 			player = try AVAudioPlayer(contentsOfURL: successSoundURL)
-		} catch var error1 as NSError {
+		} catch let error1 as NSError {
 			error = error1
-			player = nil
+			print("Erorr \(error)")
 		}
 		player.prepareToPlay()
 		
@@ -135,9 +135,9 @@ class RedAppleCollectionViewController:
 		var errorFailure: NSError?
 		do {
 			playerFailure = try AVAudioPlayer(contentsOfURL: failureSoundURL)
-		} catch var error as NSError {
+		} catch let error as NSError {
 			errorFailure = error
-			playerFailure = nil
+			print("Erorr \(errorFailure)")
 		}
 		playerFailure.prepareToPlay()
     }
@@ -528,13 +528,13 @@ class RedAppleCollectionViewController:
         
         alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
 			let textField = alertView.textFields![0] 
-			self.session.comment = textField.text
+			self.session.comment = textField.text!
             self.quit()
         }))
 		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
 			(okAction) -> Void in
 			let textField = alertView.textFields![0] 
-			self.session.comment = textField.text
+			self.session.comment = textField.text!
 		}))
 		alertView.addTextFieldWithConfigurationHandler {
 			(textField: UITextField!) -> Void in

@@ -50,10 +50,11 @@ class Model {
 		
 		var error: NSError?
 		
-		let result = managedContext.executeFetchRequest(dataFetch) as! [Data]?
+		do {
+			let result = try managedContext.executeFetchRequest(dataFetch)
+			// Success
+			let fetchedData = result
 		
-		if let fetchedData = result {
-			
 			if fetchedData.count == 0 {
 				
 				data = Data(entity: dataEntity!, insertIntoManagedObjectContext: managedContext)
@@ -61,12 +62,12 @@ class Model {
 				
 				do {
 					try managedContext.save()
-				} catch var error1 as NSError {
+				} catch let error1 as NSError {
 					error = error1
 					print("Could not save the Data: \(error)")
 				}
 			} else {
-				data = fetchedData[0]
+				data = fetchedData[0] as! Data
 			}
 			
 			// If there's no current player,
@@ -91,8 +92,9 @@ class Model {
 			// NSNotificationCenter.defaultCenter().addObserver(self, selector: "dataLoaded", name: "dataLoaded", object: nil)
 			NSNotificationCenter.defaultCenter().postNotificationName("dataLoaded", object: nil)
 			
-		} else {
-			print("Could not fetch: \(error)")
+		
+		} catch let fetchError as NSError {
+			 print("Fetch failed: \(fetchError.localizedDescription)")
 		}
     }
     
@@ -191,7 +193,7 @@ class Model {
 		let allSessions = data.sessions
 		let lastSession = allSessions.lastObject as! Session
 		
-		var allMoves = lastSession.moves.mutableCopy() as! NSMutableOrderedSet
+		let allMoves = lastSession.moves.mutableCopy() as! NSMutableOrderedSet
 		allMoves.addObject(move)
 		lastSession.moves = allMoves.copy() as! NSOrderedSet
 		
@@ -199,7 +201,7 @@ class Model {
 		var error: NSError?
 		do {
 			try managedContext!.save()
-		} catch var error1 as NSError {
+		} catch let error1 as NSError {
 			error = error1
 			print("Could not save new visual search move move: \(error)")
 		}

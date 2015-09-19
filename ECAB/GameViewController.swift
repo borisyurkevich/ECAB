@@ -34,26 +34,24 @@ class GameViewController: UIViewController {
 		var error: NSError?
 		do {
 			successSound = try AVAudioPlayer(contentsOfURL: successSoundURL)
-		} catch var error1 as NSError {
+		} catch let error1 as NSError {
 			error = error1
-			successSound = nil
+			print("Error \(error)")
 		}
 		successSound.prepareToPlay()
 		let failureSoundPath = NSBundle.mainBundle().pathForResource("beep-attention", ofType: "aif")
 		let failureSoundURL = NSURL(fileURLWithPath: failureSoundPath!)
-		var errorFailure: NSError?
 		do {
 			failureSound = try AVAudioPlayer(contentsOfURL: failureSoundURL)
-		} catch var error as NSError {
-			errorFailure = error
-			failureSound = nil
+		} catch let error as NSError {
+			print("Error \(error)")
 		}
 		failureSound.prepareToPlay()
 		
 		// Buttons
 		let labelText: String = "Pause"
-		pauseButton = UIButton(type: UIButtonType.System) as? UIButton
-		backButton = UIButton(type: UIButtonType.System) as? UIButton
+		pauseButton = UIButton(type: UIButtonType.System)
+		backButton = UIButton(type: UIButtonType.System)
 		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
 		let screen: CGSize = UIScreen.mainScreen().bounds.size
 		pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
