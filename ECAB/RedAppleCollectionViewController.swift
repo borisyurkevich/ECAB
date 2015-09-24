@@ -7,22 +7,18 @@
 //
 
 import UIKit
-import AVFoundation
 
-class RedAppleCollectionViewController:
-    UICollectionViewController,
-    UICollectionViewDelegateFlowLayout {
+class RedAppleCollectionViewController: GameViewController,
+    UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
 	
-	let model: Model = Model.sharedInstance
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
     var gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20
 	let transitionSpeed = 0.4
-	var player = AVAudioPlayer()
-	var playerFailure = AVAudioPlayer()
 	private var checkedMarks = [-1]
 	private var isTraining = true
 	private var numberOfTargets = [1, 1, 2, 6, 6, 6, 6, 6, 6]
+	private var collectionView: UICollectionView
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
@@ -42,19 +38,33 @@ class RedAppleCollectionViewController:
 	private var insetLeft: CGFloat = 172
 	private var insetBottom = Insets.bottom
 	private var insetRight: CGFloat = 172
-    
-    private var pauseButton: UIButton?
-	private var nextButton: UIButton?
-	private var prevButton: UIButton?
+	
     private var boardFlowLayout: UICollectionViewFlowLayout?
     
     var presenter: MenuViewController?
     var session: Session!
 	
 	private var crossLayer: CAShapeLayer = CAShapeLayer()
-    
+	
+	init() {
+		let flowLayout = UICollectionViewFlowLayout()
+		collectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: flowLayout)
+		
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		collectionView.frame = view.frame
+		view.addSubview(collectionView)
+		
+		collectionView.delegate = self
+		collectionView.dataSource = self
 		
 		if model.data.visSearchDifficulty == 1 { // Hard Mode
 			currentView = 11
@@ -66,81 +76,35 @@ class RedAppleCollectionViewController:
 		}
 		
         boardFlowLayout = configureFlowLayout()
-		collectionView!.setCollectionViewLayout(boardFlowLayout!, animated: true)
+		collectionView.setCollectionViewLayout(boardFlowLayout!, animated: true)
 		
-        collectionView!.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Instert fresh session entity
 		model.addSession(model.data.selectedPlayer)
         session = model.data.sessions.lastObject as! Session
 		session.speed = gameSpeed
 		session.difficulty = model.data.visSearchDifficulty
-        
-        let whiteColor = UIColor.whiteColor()
-        collectionView?.backgroundColor = whiteColor
-        
-        let labelText: String = "Pause"
-        pauseButton = UIButton(type: UIButtonType.System)
-        let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
-        let screen: CGSize = UIScreen.mainScreen().bounds.size
-        pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
-        pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
-        pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
 		
-		nextButton = UIButton(type: UIButtonType.System)
-        nextButton!.setTitle("Next", forState: UIControlState.Normal)
-		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
-		nextButton!.addTarget(self, action: "timerDidFire", forControlEvents: UIControlEvents.TouchUpInside)
-		
-		prevButton = UIButton(type: UIButtonType.System)
-		prevButton!.setTitle("Previous", forState: UIControlState.Normal)
-		prevButton!.frame = CGRectMake(60, 16, size.width + 20, size.height)
-		prevButton!.addTarget(self, action: "goBack", forControlEvents: UIControlEvents.TouchUpInside)
-		
-		pauseButton!.tintColor = UIColor.grayColor()
-		prevButton!.tintColor = UIColor.grayColor()
-		nextButton!.tintColor = UIColor.grayColor()
-		
-		addButtonBorder(pauseButton!)
-		addButtonBorder(prevButton!)
-		addButtonBorder(nextButton!)
-		
-        view.addSubview(pauseButton!)
-		view.addSubview(prevButton!)
-		view.addSubview(nextButton!)
-        // Add pause button
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
-        
+        collectionView.backgroundColor = UIColor.whiteColor()
 		
         // Disable scrolling
-        collectionView?.scrollEnabled = false;
-        
-        // Disable player name on to right corner
+        collectionView.scrollEnabled = false;
 		
-		// Sounds
-		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
-		let successSoundURL = NSURL(fileURLWithPath: successSoundPath!)
-		var error: NSError?
-		do {
-			player = try AVAudioPlayer(contentsOfURL: successSoundURL)
-		} catch let error1 as NSError {
-			error = error1
-			print("Erorr \(error)")
-		}
-		player.prepareToPlay()
+		view.addSubview(pauseButton!)
+		view.addSubview(nextButton!)
+		view.addSubview(backButton!)
 		
-		let failureSoundPath = NSBundle.mainBundle().pathForResource("beep-attention", ofType: "aif")
-		let failureSoundURL = NSURL(fileURLWithPath: failureSoundPath!)
-		var errorFailure: NSError?
-		do {
-			playerFailure = try AVAudioPlayer(contentsOfURL: failureSoundURL)
-		} catch let error as NSError {
-			errorFailure = error
-			print("Erorr \(errorFailure)")
-		}
-		playerFailure.prepareToPlay()
-    }
+		backButton?.setTitle("Back", forState: UIControlState.Normal)
+	}
+	
+	func presentNextScreen() {
+		timerDidFire()
+	}
+	
+	func presentPreviousScreen() {
+		goBack()
+	}
 	
 	var isGameStarted = false
 	func startGame() {
@@ -172,7 +136,7 @@ class RedAppleCollectionViewController:
         UIView.transitionWithView(view, duration: transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             
             // animation...
-            self.collectionView!.alpha = 0.0
+            self.collectionView.alpha = 0.0
             
             }, completion: { (fininshed: Bool) -> () in
 				
@@ -251,10 +215,10 @@ class RedAppleCollectionViewController:
 				self.checkedMarks = [-1]
                 
                 // And reload data
-                self.collectionView?.reloadData()
+                self.collectionView.reloadData()
 				
 				self.boardFlowLayout = self.configureFlowLayout()
-				self.collectionView!.setCollectionViewLayout(self.boardFlowLayout!, animated: false)
+				self.collectionView.setCollectionViewLayout(self.boardFlowLayout!, animated: false)
 				
 				if (self.isGameStarted) {
 					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "showBlankScreen", userInfo: nil, repeats: false)
@@ -263,7 +227,7 @@ class RedAppleCollectionViewController:
 				
                 UIView.transitionWithView(self.view, duration: self.transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
                     
-                    self.collectionView!.alpha = 1
+                    self.collectionView.alpha = 1
                     
 					}, completion: { (Bool) in
 						self.model.addMove(0, column: 0, session: self.session, isSuccess: false, isRepeat: false, isTraining: false, screen: self.currentView, isEmpty: true)})
@@ -279,48 +243,24 @@ class RedAppleCollectionViewController:
 		
 		self.board = RedAppleBoard(stage: 10)
 		
-		collectionView!.performBatchUpdates({
+		collectionView.performBatchUpdates({
 			
-			self.collectionView!.deleteSections(NSIndexSet(index: 0))
+			self.collectionView.deleteSections(NSIndexSet(index: 0))
 
-			self.collectionView!.insertSections(NSIndexSet(index: 0))
+			self.collectionView.insertSections(NSIndexSet(index: 0))
 			
 		}, completion: nil)
 		
 		self.nextButton?.hidden = false
 	}
-    
-    func guidedAccessNotificationHandler(notification: NSNotification) {
-        
-        let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
-        pauseButton?.enabled = enabled
-        
-        if pauseButton?.enabled == true {
-           pauseButton?.hidden = false
-        } else {
-            pauseButton?.hidden = true
-        }
-        // Hide button completly
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-	
-	func addButtonBorder(button: UIButton) {
-		button.backgroundColor = UIColor.clearColor()
-		button.layer.cornerRadius = 5
-		button.layer.borderWidth = 1
-		button.layer.borderColor = button.tintColor!.CGColor
-	}
 	
     // MARK: UICollectionViewDataSource
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.board.numberOfCells
     }
 
-    override func collectionView(collectionView: UICollectionView,
+    func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RedAppleCollectionViewCell
 		
@@ -365,7 +305,7 @@ class RedAppleCollectionViewController:
     
     // MARK: UICollectionViewDelegate
 	
-	override func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+	func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
 		
 		var isRepeat = false
 		for item in checkedMarks {
@@ -411,7 +351,7 @@ class RedAppleCollectionViewController:
 		
 		let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1 // This will to go into stats.
 		
-		let cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
+		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
 		
 		model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: cell.fruit.isValuable, isRepeat: isRepeat, isTraining: isTraining, screen: currentView, isEmpty: false)
 		checkedMarks.append(indexPath.row) // For calculating repeat.
@@ -434,7 +374,7 @@ class RedAppleCollectionViewController:
 				}
 				
 				// Play the success sound
-				player.play()
+				successSound.play()
 				
 				// Hard mode
 				var gameStage = currentView
@@ -457,7 +397,7 @@ class RedAppleCollectionViewController:
 				print("\(checkedMarks)")
 			} else {
 				// Repeat
-				playerFailure.play()
+				failureSound.play()
 			}
 			
 		} else {
@@ -467,7 +407,7 @@ class RedAppleCollectionViewController:
 				let times = session.failureScore.integerValue
 				session.failureScore = NSNumber(integer: (times + 1))
 			}
-			playerFailure.play()
+			failureSound.play()
 		}
 	}
 	
@@ -513,34 +453,5 @@ class RedAppleCollectionViewController:
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }
-    
-    func quit() {
-		timer.invalidate()
-		
-        self.presenter?.setNeedsStatusBarAppearanceUpdate()
-        self.dismissViewControllerAnimated(true, completion: nil)
-		
-        print("Result: \(session.score)")
-    }
-    
-    func presentPause() {
-        let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. Add any comment", preferredStyle: .Alert)
-        
-        alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
-			let textField = alertView.textFields![0] 
-			self.session.comment = textField.text!
-            self.quit()
-        }))
-		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
-			(okAction) -> Void in
-			let textField = alertView.textFields![0] 
-			self.session.comment = textField.text!
-		}))
-		alertView.addTextFieldWithConfigurationHandler {
-			(textField: UITextField!) -> Void in
-			textField.text = self.session.comment
-		}
-		
-        presentViewController(alertView, animated: true, completion: nil)
-    }
+
 }

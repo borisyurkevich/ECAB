@@ -94,7 +94,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			view.addSubview(image)
 		}
 		
-		addNextButton()
+		view.addSubview(nextButton!)
 		view.addSubview(backButton!)
 	}
 	

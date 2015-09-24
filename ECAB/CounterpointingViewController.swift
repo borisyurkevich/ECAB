@@ -220,21 +220,8 @@ class CounterpointingViewController: GameViewController {
 		dot.center = view.center
 		view.addSubview(dot)
 	
-		addNextButton()
-	}
-	
-	func addNextButton() {
-		let labelText: String = "Next"
-		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
-		nextButton = UIButton(type: UIButtonType.System)
-		nextButton!.setTitle("Next", forState: UIControlState.Normal)
-		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
-		nextButton!.addTarget(self, action: "presentNextScreen", forControlEvents: UIControlEvents.TouchUpInside)
-		nextButton!.tintColor = UIColor.grayColor()
-		addButtonBorder(nextButton!)
 		view.addSubview(nextButton!)
 	}
-
 	
 	func presentMessage(message: String){
 		let label = UILabel(frame: view.frame)
@@ -244,7 +231,7 @@ class CounterpointingViewController: GameViewController {
 		label.font = UIFont.systemFontOfSize(44)
 		view.addSubview(label)
 		
-		addNextButton()
+		view.addSubview(nextButton!)
 	}
 	
 	func presentDogOnLeft(){

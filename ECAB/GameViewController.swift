@@ -66,6 +66,15 @@ class GameViewController: UIViewController {
 		backButton!.addTarget(self, action: "presentPreviousScreen", forControlEvents: UIControlEvents.TouchUpInside)
 		backButton!.tintColor = UIColor.grayColor()
 		addButtonBorder(backButton!)
+
+		nextButton = UIButton(type: UIButtonType.System)
+		nextButton!.setTitle("Next", forState: UIControlState.Normal)
+		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
+		nextButton!.addTarget(self, action: "presentNextScreen", forControlEvents: UIControlEvents.TouchUpInside)
+		nextButton!.tintColor = UIColor.grayColor()
+		addButtonBorder(nextButton!)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
     }
 
 	func quit() {
@@ -119,6 +128,19 @@ class GameViewController: UIViewController {
 		button.layer.cornerRadius = 5
 		button.layer.borderWidth = 1
 		button.layer.borderColor = button.tintColor!.CGColor
+	}
+	
+	func guidedAccessNotificationHandler(notification: NSNotification) {
+		
+		let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
+		pauseButton?.enabled = enabled
+		
+		if pauseButton?.enabled == true {
+			pauseButton?.hidden = false
+		} else {
+			pauseButton?.hidden = true
+		}
+		// Hide button completly
 	}
 	
 	override func prefersStatusBarHidden() -> Bool {
