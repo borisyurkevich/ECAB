@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GamePeace {
+class TestItem {
     
     enum Fruit {
         case 🍎, 🍏, 🍓

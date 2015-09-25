@@ -22,7 +22,7 @@ class VisualSearch: TestViewController,
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
-    private var board = RedAppleBoard(stage: 0)
+    private var board = VisualSearchBoard(stage: 0)
     private let interSpacing:CGFloat = 27
 	private var timer = NSTimer()
 	
@@ -78,7 +78,7 @@ class VisualSearch: TestViewController,
         boardFlowLayout = configureFlowLayout()
 		collectionView.setCollectionViewLayout(boardFlowLayout!, animated: true)
 		
-        collectionView.registerClass(RedAppleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.registerClass(VisualSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Instert fresh session entity
 		model.addSession(model.data.selectedPlayer)
@@ -211,7 +211,7 @@ class VisualSearch: TestViewController,
 				}
 				
 				print("Requesting fot the board \(self.currentView)")
-                self.board = RedAppleBoard(stage: self.currentView)
+                self.board = VisualSearchBoard(stage: self.currentView)
 				self.checkedMarks = [-1]
                 
                 // And reload data
@@ -241,7 +241,7 @@ class VisualSearch: TestViewController,
 			return
 		}
 		
-		self.board = RedAppleBoard(stage: 10)
+		self.board = VisualSearchBoard(stage: 10)
 		
 		collectionView.performBatchUpdates({
 			
@@ -262,7 +262,7 @@ class VisualSearch: TestViewController,
 
     func collectionView(collectionView: UICollectionView,
                cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RedAppleCollectionViewCell
+        let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! VisualSearchCell
 		
 		// Remove all subviews
 		for subview in cell.subviews {
@@ -271,7 +271,7 @@ class VisualSearch: TestViewController,
 				
         cell.backgroundColor = UIColor.redColor()
         
-        let aFruit:GamePeace = self.board.data[indexPath.row]
+        let aFruit:TestItem = self.board.data[indexPath.row]
         cell.imageView = UIImageView(frame: CGRectMake(0, 0, cellWidth, cellHeight));
         cell.imageView.image = aFruit.image
         cell.addSubview(cell.imageView)
@@ -351,7 +351,7 @@ class VisualSearch: TestViewController,
 		
 		let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1 // This will to go into stats.
 		
-		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! RedAppleCollectionViewCell
+		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
 		
 		model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: cell.fruit.isValuable, isRepeat: isRepeat, isTraining: isTraining, screen: currentView, isEmpty: false)
 		checkedMarks.append(indexPath.row) // For calculating repeat.

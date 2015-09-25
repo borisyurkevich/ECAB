@@ -8,8 +8,8 @@
 
 import UIKit
 
-class RedAppleCollectionViewCell: UICollectionViewCell
+class VisualSearchCell: UICollectionViewCell
 {
-    var fruit: GamePeace!
+    var fruit: TestItem!
     var imageView  = UIImageView()
 }

@@ -33,9 +33,9 @@
 		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */; };
 		91E5C4161A6C6CEC00905752 /* VisualSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* VisualSearch.swift */; };
-		91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */; };
-		91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* RedAppleBoard.swift */; };
-		91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* GamePeace.swift */; };
+		91E5C41A1A6C6F5400905752 /* VisualSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* VisualSearchCell.swift */; };
+		91F378471A754EA000D2F77B /* VisualSearchBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* VisualSearchBoard.swift */; };
+		91F3784B1A75529000D2F77B /* TestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* TestItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,9 +82,9 @@
 		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MenuViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		91E5C4151A6C6CEC00905752 /* VisualSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		91F378461A754EA000D2F77B /* RedAppleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleBoard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		91F3784A1A75529000D2F77B /* GamePeace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePeace.swift; sourceTree = "<group>"; };
+		91E5C4191A6C6F5400905752 /* VisualSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearchCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		91F378461A754EA000D2F77B /* VisualSearchBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearchBoard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		91F3784A1A75529000D2F77B /* TestItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				91E5C3B91A6BD5C400905752 /* Main.storyboard */,
-				91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */,
+				91E5C4191A6C6F5400905752 /* VisualSearchCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -204,8 +204,8 @@
 			isa = PBXGroup;
 			children = (
 				910367F21A7E3B4900522B2B /* Model.swift */,
-				91F378461A754EA000D2F77B /* RedAppleBoard.swift */,
-				91F3784A1A75529000D2F77B /* GamePeace.swift */,
+				91F378461A754EA000D2F77B /* VisualSearchBoard.swift */,
+				91F3784A1A75529000D2F77B /* TestItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -347,17 +347,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */,
+				91E5C41A1A6C6F5400905752 /* VisualSearchCell.swift in Sources */,
 				91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,
 				91619A551B45CE80006E1AFC /* VisualSustainViewController.swift in Sources */,
 				91379BF01B52A4A400E3C293 /* Player.swift in Sources */,
-				91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */,
+				91F378471A754EA000D2F77B /* VisualSearchBoard.swift in Sources */,
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
 				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
-				91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */,
+				91F3784B1A75529000D2F77B /* TestItem.swift in Sources */,
 				91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */,
 				91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */,
 				91379BF21B52FEA600E3C293 /* Data.swift in Sources */,

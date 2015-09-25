@@ -8,10 +8,10 @@
 
 import Foundation
 
-class RedAppleBoard {
+class VisualSearchBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
-    var data = Array<GamePeace>()
+    var data = Array<TestItem>()
     private var apples = 0
     private var whiteApples = 0
     private var strawberries = 0
@@ -42,20 +42,20 @@ class RedAppleBoard {
     
     func generateDifferentFruits(){
 
-        var fruits = Array<GamePeace>()
+        var fruits = Array<TestItem>()
         
         for var i = 0; i < apples; i++ {
-            let freshApple = GamePeace(type: GamePeace.Fruit.🍎)
+            let freshApple = TestItem(type: TestItem.Fruit.🍎)
             fruits.append(freshApple)
         }
         
         for var i = 0; i < whiteApples; i++ {
-            let freshWhiteApple = GamePeace(type: GamePeace.Fruit.🍏)
+            let freshWhiteApple = TestItem(type: TestItem.Fruit.🍏)
             fruits.append(freshWhiteApple)
         }
         
         for var i = 0; i < strawberries; i++ {
-            let strawberry = GamePeace(type: GamePeace.Fruit.🍓)
+            let strawberry = TestItem(type: TestItem.Fruit.🍓)
             fruits.append(strawberry)
         }
         // Added all 3 types of fruits to the fruits collection
@@ -74,10 +74,10 @@ class RedAppleBoard {
     // http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift
     
     func generateDefaultPattern(forScreen section: Int){
-        var f = [GamePeace]()
-        let t = GamePeace(type: .🍎) // target (red apple)
-        let w = GamePeace(type: .🍏) // white apple
-        let s = GamePeace(type: .🍓) // strawverry
+        var f = [TestItem]()
+        let t = TestItem(type: .🍎) // target (red apple)
+        let w = TestItem(type: .🍏) // white apple
+        let s = TestItem(type: .🍓) // strawverry
         
         // This is complicated patters copied from PDF file. I separated matrix
         // of fruits in the files to 4 different sections, 5 rows each,
