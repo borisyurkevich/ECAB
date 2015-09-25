@@ -65,7 +65,6 @@
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
 		91658E931B0D20E800879347 /* slide-magic.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "slide-magic.aif"; sourceTree = "<group>"; };
 		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
-		919022871BB53B1D006F0C38 /* Model v5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v5.xcdatamodel"; sourceTree = "<group>"; };
 		91AE3E621B0292ED00871B7A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		91B494831B34987100FAEE8A /* Model v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v3.xcdatamodel"; sourceTree = "<group>"; };
 		91B494841B35981D00FAEE8A /* FlankerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlankerViewController.swift; sourceTree = "<group>"; };
@@ -586,13 +585,12 @@
 		914346891AFE8A65000FCF3A /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				919022871BB53B1D006F0C38 /* Model v5.xcdatamodel */,
 				91379BD41B528C9C00E3C293 /* Model v4.xcdatamodel */,
 				91B494831B34987100FAEE8A /* Model v3.xcdatamodel */,
 				91253DE71B2E1EC600773099 /* Model v2.xcdatamodel */,
 				9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */,
 			);
-			currentVersion = 919022871BB53B1D006F0C38 /* Model v5.xcdatamodel */;
+			currentVersion = 91379BD41B528C9C00E3C293 /* Model v4.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
