@@ -13,6 +13,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	private var screenCountSinceAnimalAppeared = 100
 	private var timer = NSTimer()
 	private var gameSpeed = 2.0
+	private let transitionSpeed = 0.9
 
     override func viewDidLoad() {
 		sessionType = 2
@@ -132,398 +133,421 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func presentNextScreen() {
 		currentScreenShowing++
-		cleanView()
-		screenCountSinceAnimalAppeared += 1
+		let coverView = UIView()
+		coverView.frame = view.frame
+		coverView.backgroundColor = UIColor.clearColor()
+		view.addSubview(coverView)
 		
-		switch currentScreenShowing {
-		case 0:
-			presentMessage(greeingMessage)
-		case 1:
-			showFirstView()
-		case 2:
-			presentMessage("Practice 2. Ready")
-			view.addSubview(backButton!)
-		case 3:
-			updateView(.Ball)
-			startTheGame()
-		case 4:
-			updateView(.Bus)
-		case 5:
-			updateView(.Boot)
-		case 6:
-			updateView(.Pig)
-			screenCountSinceAnimalAppeared = 0
-		case 7:
-			updateView(.Sun)
-		case 8:
-			updateView(.Star)
-		case 9:
-			updateView(.Leaf)
-		case 10:
-			updateView(.Key)
-		case 11:
-			updateView(.Cat)
-			screenCountSinceAnimalAppeared = 0
-		case 12:
-			updateView(.Bed)
-		case 13:
-			updateView(.Sock)
-		case 14:
-			updateView(.Horse)
-			screenCountSinceAnimalAppeared = 0
-		case 15:
-			updateView(.Cake)
-		case 16:
-			updateView(.Boat)
-		case 17:
-			updateView(.Book)
-		case 18:
-			updateView(.Dog)
-			screenCountSinceAnimalAppeared = 0
-		case 19:
-			updateView(.Car)
-			screenCountSinceAnimalAppeared = 0
-		case 20:
-			updateView(.Clock)
-		case 21:
-			updateView(.Fish)
-			screenCountSinceAnimalAppeared = 0
-		case 22:
-			updateView(.Train)
-		case 23:
-			timer.invalidate()
-			presentMessage("Game!")
-			trainingMode = false
-			view.addSubview(backButton!)
-		case 24:
-			updateView(.Sun)
-			startTheGame()
-		case 25:
-			updateView(.Key)
-		case 26:
-			updateView(.Sock)
-		case 27:
-			updateView(.Boat)
-		case 28:
-			updateView(.Boot)
-		case 29:
-			updateView(.Pig)
-			screenCountSinceAnimalAppeared = 0
-		case 30:
-			updateView(.Clock)
-		case 31:
-			updateView(.Car)
-		case 32:
-			updateView(.Book)
-		case 33:
-			updateView(.Door)
-		case 34:
-			updateView(.Cat)
-			screenCountSinceAnimalAppeared = 0
-		case 35:
-			updateView(.Ball)
-		case 36:
-			updateView(.Bed)
-		case 37:
-			updateView(.Bus)
-		case 38:
-			updateView(.Horse)
-			screenCountSinceAnimalAppeared = 0
-		case 39:
-			updateView(.Train)
-		case 40:
-			updateView(.Cake)
-		case 41:
-			updateView(.Leaf)
-		case 42:
-			updateView(.Dog)
-			screenCountSinceAnimalAppeared = 0
-		case 43:
-			updateView(.Star)
-		case 44:
-			updateView(.Spoon)
-		case 45:
-			updateView(.Chair)
-		case 46:
-			updateView(.Bike)
-		case 47:
-			updateView(.Tree)
-		case 48:
-			updateView(.Fish)
-			screenCountSinceAnimalAppeared = 0
-		case 49:
-			updateView(.Door)
-		case 50:
-			updateView(.Bus)
-		case 51:
-			updateView(.Ball)
-		case 52:
-			updateView(.Sun)
-		case 53:
-			updateView(.Horse)
-			screenCountSinceAnimalAppeared = 0
-		case 54:
-			updateView(.Spoon)
-		case 55:
-			updateView(.Bed)
-		case 56:
-			updateView(.Boot)
-		case 57:
-			updateView(.Fish)
-			screenCountSinceAnimalAppeared = 0
-		case 58:
-			updateView(.Star)
-		case 59:
-			updateView(.Cake)
-		case 60:
-			updateView(.Tree)
-		case 61:
-			updateView(.Sock)
-		case 62:
-			updateView(.Sock)
-		case 63:
-			updateView(.Book)
-		case 64:
-			updateView(.Cat)
-			screenCountSinceAnimalAppeared = 0
-		case 65:
-			updateView(.Key)
-		case 66:
-			updateView(.Train)
-		case 67:
-			updateView(.Chair)
-		case 68:
-			updateView(.Pig)
-			screenCountSinceAnimalAppeared = 0
-		case 69:
-			updateView(.Boat)
-		case 70:
-			updateView(.Bike)
-		case 71:
-			updateView(.Dog)
-			screenCountSinceAnimalAppeared = 0
-		case 72:
-			updateView(.Bus)
-		case 73:
-			updateView(.Bed)
-		case 74:
-			updateView(.Sun)
-		case 75:
-			updateView(.Chair)
-		case 76:
-			updateView(.Dog)
-		case 77:
-			updateView(.Train)
-		case 78:
-			updateView(.Ball)
-		case 79:
-			updateView(.Horse)
-			screenCountSinceAnimalAppeared = 0
-		case 80:
-			updateView(.Bike)
-		case 81:
-			updateView(.Sock)
-		case 82:
-			updateView(.Cake)
-		case 83:
-			updateView(.Boat)
-		case 84:
-			updateView(.Cat)
-			screenCountSinceAnimalAppeared = 0
-		case 85:
-			updateView(.Key)
-		case 86:
-			updateView(.Door)
-		case 87:
-			updateView(.Tree)
-		case 88:
-			updateView(.Pig)
-			screenCountSinceAnimalAppeared = 0
-		case 89:
-			updateView(.Spoon)
-		case 90:
-			updateView(.Clock)
-		case 91:
-			updateView(.Boot)
-		case 92:
-			updateView(.Book)
-		case 93:
-			updateView(.Fish)
-			screenCountSinceAnimalAppeared = 0
-		case 94:
-			updateView(.Star)
-		case 95:
-			updateView(.Bike)
-		case 96:
-			updateView(.Clock)
-		case 97:
-			updateView(.Car)
-		case 98:
-			updateView(.Pig)
-			screenCountSinceAnimalAppeared = 0
-		case 99:
-			updateView(.Boat)
-		case 100:
-			updateView(.Cake)
-		case 101:
-			updateView(.Sock)
-		case 102:
-			updateView(.Bus)
-		case 103:
-			updateView(.Star)
-		case 104:
-			updateView(.Door)
-		case 105:
-			updateView(.Horse)
-			screenCountSinceAnimalAppeared = 0
-		case 106:
-			updateView(.Spoon)
-		case 107:
-			updateView(.Ball)
-		case 108:
-			updateView(.Dog)
-			screenCountSinceAnimalAppeared = 0
-		case 109:
-			updateView(.Boot)
-		case 110:
-			updateView(.Key)
-		case 111:
-			updateView(.Leaf)
-		case 112:
-			updateView(.Train)
-		case 113:
-			updateView(.Cat)
-			screenCountSinceAnimalAppeared = 0
-		case 114:
-			updateView(.Chair)
-		case 115:
-			updateView(.Sun)
-		case 116:
-			updateView(.Bed)
-		case 117:
-			updateView(.Fish)
-			screenCountSinceAnimalAppeared = 0
-		case 118:
-			updateView(.Book)
-		case 119:
-			updateView(.Cake)
-		case 120:
-			updateView(.Ball)
-		case 121:
-			updateView(.Star)
-		case 122:
-			updateView(.Bus)
-		case 123:
-			updateView(.Pig)
-			screenCountSinceAnimalAppeared = 0
-		case 124:
-			updateView(.Train)
-		case 125:
-			updateView(.Boat)
-		case 126:
-			updateView(.Sun)
-		case 127:
-			updateView(.Fish)
-			screenCountSinceAnimalAppeared = 0
-		case 128:
-			updateView(.Spoon)
-		case 129:
-			updateView(.Leaf)
-		case 130:
-			updateView(.Bed)
-		case 131:
-			updateView(.Dog)
-			screenCountSinceAnimalAppeared = 0
-		case 132:
-			updateView(.Tree)
-		case 133:
-			updateView(.Door)
-		case 134:
-			updateView(.Boot)
-		case 135:
-			updateView(.Bike)
-		case 136:
-			updateView(.Cat)
-			screenCountSinceAnimalAppeared = 0
-		case 137:
-			updateView(.Car)
-		case 138:
-			updateView(.Sock)
-		case 139:
-			updateView(.Chair)
-		case 140:
-			updateView(.Key)
-		case 141:
-			updateView(.Clock)
-		case 142:
-			updateView(.Book)
-		case 143:
-			updateView(.Horse)
-			screenCountSinceAnimalAppeared = 0
-		case 144:
-			updateView(.Door)
-		case 145:
-			updateView(.Bike)
-		case 146:
-			updateView(.Car)
-		case 147:
-			updateView(.Leaf)
-		case 148:
-			updateView(.Cake)
-		case 149:
-			updateView(.Fish)
-			screenCountSinceAnimalAppeared = 0
-		case 150:
-			updateView(.Bed)
-		case 151:
-			updateView(.Boot)
-		case 152:
-			updateView(.Horse)
-			screenCountSinceAnimalAppeared = 0
-		case 153:
-			updateView(.Bus)
-		case 154:
-			updateView(.Sun)
-		case 155:
-			updateView(.Sock)
-		case 156:
-			updateView(.Sock)
-		case 157:
-			updateView(.Dog)
-			screenCountSinceAnimalAppeared = 0
-		case 158:
-			updateView(.Star)
-		case 159:
-			updateView(.Ball)
-		case 160:
-			updateView(.Tree)
-		case 161:
-			updateView(.Pig)
-			screenCountSinceAnimalAppeared = 0
-		case 162:
-			updateView(.Key)
-		case 163:
-			updateView(.Clock)
-		case 164:
-			updateView(.Spoon)
-		case 165:
-			updateView(.Book)
-		case 166:
-			updateView(.Cat)
-			screenCountSinceAnimalAppeared = 0
-		case 167:
-			updateView(.Boat)
-		case 168:
-			presentMessage("...stop")
-		case 169:
-			quit()
-		default:
-			break
-		}
+		UIView.transitionWithView(view, duration: transitionSpeed, options: .AllowUserInteraction, animations: {
+			
+			coverView.backgroundColor = UIColor.whiteColor()
+			
+		}, completion: { (fininshed: Bool) -> () in
+			
+			self.cleanView()
+			
+			self.screenCountSinceAnimalAppeared += 1
+			
+			switch self.currentScreenShowing {
+			case 0:
+				self.presentMessage(self.greeingMessage)
+			case 1:
+				self.showFirstView()
+			case 2:
+				self.presentMessage("Practice 2. Ready")
+				self.view.addSubview(self.backButton!)
+			case 3:
+				self.updateView(.Ball)
+				self.startTheGame()
+			case 4:
+				self.updateView(.Bus)
+			case 5:
+				self.updateView(.Boot)
+			case 6:
+				self.updateView(.Pig)
+				self.screenCountSinceAnimalAppeared = 0
+			case 7:
+				self.updateView(.Sun)
+			case 8:
+				self.updateView(.Star)
+			case 9:
+				self.updateView(.Leaf)
+			case 10:
+				self.updateView(.Key)
+			case 11:
+				self.updateView(.Cat)
+				self.screenCountSinceAnimalAppeared = 0
+			case 12:
+				self.updateView(.Bed)
+			case 13:
+				self.updateView(.Sock)
+			case 14:
+				self.updateView(.Horse)
+				self.screenCountSinceAnimalAppeared = 0
+			case 15:
+				self.updateView(.Cake)
+			case 16:
+				self.updateView(.Boat)
+			case 17:
+				self.updateView(.Book)
+			case 18:
+				self.updateView(.Dog)
+				self.screenCountSinceAnimalAppeared = 0
+			case 19:
+				self.updateView(.Car)
+				self.screenCountSinceAnimalAppeared = 0
+			case 20:
+				self.updateView(.Clock)
+			case 21:
+				self.updateView(.Fish)
+				self.screenCountSinceAnimalAppeared = 0
+			case 22:
+				self.updateView(.Train)
+			case 23:
+				self.timer.invalidate()
+				self.presentMessage("Game!")
+				self.trainingMode = false
+				self.view.addSubview(self.backButton!)
+			case 24:
+				self.updateView(.Sun)
+				self.startTheGame()
+			case 25:
+				self.updateView(.Key)
+			case 26:
+				self.updateView(.Sock)
+			case 27:
+				self.updateView(.Boat)
+			case 28:
+				self.updateView(.Boot)
+			case 29:
+				self.updateView(.Pig)
+				self.screenCountSinceAnimalAppeared = 0
+			case 30:
+				self.updateView(.Clock)
+			case 31:
+				self.updateView(.Car)
+			case 32:
+				self.updateView(.Book)
+			case 33:
+				self.updateView(.Door)
+			case 34:
+				self.updateView(.Cat)
+				self.screenCountSinceAnimalAppeared = 0
+			case 35:
+				self.updateView(.Ball)
+			case 36:
+				self.updateView(.Bed)
+			case 37:
+				self.updateView(.Bus)
+			case 38:
+				self.updateView(.Horse)
+				self.screenCountSinceAnimalAppeared = 0
+			case 39:
+				self.updateView(.Train)
+			case 40:
+				self.updateView(.Cake)
+			case 41:
+				self.updateView(.Leaf)
+			case 42:
+				self.updateView(.Dog)
+				self.screenCountSinceAnimalAppeared = 0
+			case 43:
+				self.updateView(.Star)
+			case 44:
+				self.updateView(.Spoon)
+			case 45:
+				self.updateView(.Chair)
+			case 46:
+				self.updateView(.Bike)
+			case 47:
+				self.updateView(.Tree)
+			case 48:
+				self.updateView(.Fish)
+				self.screenCountSinceAnimalAppeared = 0
+			case 49:
+				self.updateView(.Door)
+			case 50:
+				self.updateView(.Bus)
+			case 51:
+				self.updateView(.Ball)
+			case 52:
+				self.updateView(.Sun)
+			case 53:
+				self.updateView(.Horse)
+				self.screenCountSinceAnimalAppeared = 0
+			case 54:
+				self.updateView(.Spoon)
+			case 55:
+				self.updateView(.Bed)
+			case 56:
+				self.updateView(.Boot)
+			case 57:
+				self.updateView(.Fish)
+				self.screenCountSinceAnimalAppeared = 0
+			case 58:
+				self.updateView(.Star)
+			case 59:
+				self.updateView(.Cake)
+			case 60:
+				self.updateView(.Tree)
+			case 61:
+				self.updateView(.Sock)
+			case 62:
+				self.updateView(.Sock)
+			case 63:
+				self.updateView(.Book)
+			case 64:
+				self.updateView(.Cat)
+				self.screenCountSinceAnimalAppeared = 0
+			case 65:
+				self.updateView(.Key)
+			case 66:
+				self.updateView(.Train)
+			case 67:
+				self.updateView(.Chair)
+			case 68:
+				self.updateView(.Pig)
+				self.screenCountSinceAnimalAppeared = 0
+			case 69:
+				self.updateView(.Boat)
+			case 70:
+				self.updateView(.Bike)
+			case 71:
+				self.updateView(.Dog)
+				self.screenCountSinceAnimalAppeared = 0
+			case 72:
+				self.updateView(.Bus)
+			case 73:
+				self.updateView(.Bed)
+			case 74:
+				self.updateView(.Sun)
+			case 75:
+				self.updateView(.Chair)
+			case 76:
+				self.updateView(.Dog)
+			case 77:
+				self.updateView(.Train)
+			case 78:
+				self.updateView(.Ball)
+			case 79:
+				self.updateView(.Horse)
+				self.screenCountSinceAnimalAppeared = 0
+			case 80:
+				self.updateView(.Bike)
+			case 81:
+				self.updateView(.Sock)
+			case 82:
+				self.updateView(.Cake)
+			case 83:
+				self.updateView(.Boat)
+			case 84:
+				self.updateView(.Cat)
+				self.screenCountSinceAnimalAppeared = 0
+			case 85:
+				self.updateView(.Key)
+			case 86:
+				self.updateView(.Door)
+			case 87:
+				self.updateView(.Tree)
+			case 88:
+				self.updateView(.Pig)
+				self.screenCountSinceAnimalAppeared = 0
+			case 89:
+				self.updateView(.Spoon)
+			case 90:
+				self.updateView(.Clock)
+			case 91:
+				self.updateView(.Boot)
+			case 92:
+				self.updateView(.Book)
+			case 93:
+				self.updateView(.Fish)
+				self.screenCountSinceAnimalAppeared = 0
+			case 94:
+				self.updateView(.Star)
+			case 95:
+				self.updateView(.Bike)
+			case 96:
+				self.updateView(.Clock)
+			case 97:
+				self.updateView(.Car)
+			case 98:
+				self.updateView(.Pig)
+				self.screenCountSinceAnimalAppeared = 0
+			case 99:
+				self.updateView(.Boat)
+			case 100:
+				self.updateView(.Cake)
+			case 101:
+				self.updateView(.Sock)
+			case 102:
+				self.updateView(.Bus)
+			case 103:
+				self.updateView(.Star)
+			case 104:
+				self.updateView(.Door)
+			case 105:
+				self.updateView(.Horse)
+				self.screenCountSinceAnimalAppeared = 0
+			case 106:
+				self.updateView(.Spoon)
+			case 107:
+				self.updateView(.Ball)
+			case 108:
+				self.updateView(.Dog)
+				self.screenCountSinceAnimalAppeared = 0
+			case 109:
+				self.updateView(.Boot)
+			case 110:
+				self.updateView(.Key)
+			case 111:
+				self.updateView(.Leaf)
+			case 112:
+				self.updateView(.Train)
+			case 113:
+				self.updateView(.Cat)
+				self.screenCountSinceAnimalAppeared = 0
+			case 114:
+				self.updateView(.Chair)
+			case 115:
+				self.updateView(.Sun)
+			case 116:
+				self.updateView(.Bed)
+			case 117:
+				self.updateView(.Fish)
+				self.screenCountSinceAnimalAppeared = 0
+			case 118:
+				self.updateView(.Book)
+			case 119:
+				self.updateView(.Cake)
+			case 120:
+				self.updateView(.Ball)
+			case 121:
+				self.updateView(.Star)
+			case 122:
+				self.updateView(.Bus)
+			case 123:
+				self.updateView(.Pig)
+				self.screenCountSinceAnimalAppeared = 0
+			case 124:
+				self.updateView(.Train)
+			case 125:
+				self.updateView(.Boat)
+			case 126:
+				self.updateView(.Sun)
+			case 127:
+				self.updateView(.Fish)
+				self.screenCountSinceAnimalAppeared = 0
+			case 128:
+				self.updateView(.Spoon)
+			case 129:
+				self.updateView(.Leaf)
+			case 130:
+				self.updateView(.Bed)
+			case 131:
+				self.updateView(.Dog)
+				self.screenCountSinceAnimalAppeared = 0
+			case 132:
+				self.updateView(.Tree)
+			case 133:
+				self.updateView(.Door)
+			case 134:
+				self.updateView(.Boot)
+			case 135:
+				self.updateView(.Bike)
+			case 136:
+				self.updateView(.Cat)
+				self.screenCountSinceAnimalAppeared = 0
+			case 137:
+				self.updateView(.Car)
+			case 138:
+				self.updateView(.Sock)
+			case 139:
+				self.updateView(.Chair)
+			case 140:
+				self.updateView(.Key)
+			case 141:
+				self.updateView(.Clock)
+			case 142:
+				self.updateView(.Book)
+			case 143:
+				self.updateView(.Horse)
+				self.screenCountSinceAnimalAppeared = 0
+			case 144:
+				self.updateView(.Door)
+			case 145:
+				self.updateView(.Bike)
+			case 146:
+				self.updateView(.Car)
+			case 147:
+				self.updateView(.Leaf)
+			case 148:
+				self.updateView(.Cake)
+			case 149:
+				self.updateView(.Fish)
+				self.screenCountSinceAnimalAppeared = 0
+			case 150:
+				self.updateView(.Bed)
+			case 151:
+				self.updateView(.Boot)
+			case 152:
+				self.updateView(.Horse)
+				self.screenCountSinceAnimalAppeared = 0
+			case 153:
+				self.updateView(.Bus)
+			case 154:
+				self.updateView(.Sun)
+			case 155:
+				self.updateView(.Sock)
+			case 156:
+				self.updateView(.Sock)
+			case 157:
+				self.updateView(.Dog)
+				self.screenCountSinceAnimalAppeared = 0
+			case 158:
+				self.updateView(.Star)
+			case 159:
+				self.updateView(.Ball)
+			case 160:
+				self.updateView(.Tree)
+			case 161:
+				self.updateView(.Pig)
+				self.screenCountSinceAnimalAppeared = 0
+			case 162:
+				self.updateView(.Key)
+			case 163:
+				self.updateView(.Clock)
+			case 164:
+				self.updateView(.Spoon)
+			case 165:
+				self.updateView(.Book)
+			case 166:
+				self.updateView(.Cat)
+				self.screenCountSinceAnimalAppeared = 0
+			case 167:
+				self.updateView(.Boat)
+			case 168:
+				self.presentMessage("...stop")
+			case 169:
+				self.quit()
+			default:
+				break
+			}
+			
+			self.view.addSubview(coverView)
+			
+			UIView.transitionWithView(self.view, duration: self.transitionSpeed, options: .AllowUserInteraction, animations: {
+				
+				coverView.backgroundColor = UIColor.clearColor()
+			
+			}, completion: { (fininshed: Bool) -> () in
+				coverView.removeFromSuperview()
+			})
+		})
 	}
 	
 	func startTheGame() {
-		timer = NSTimer(timeInterval: gameSpeed, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
+		timer = NSTimer(timeInterval: gameSpeed + 1.8, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
 	}
 	
