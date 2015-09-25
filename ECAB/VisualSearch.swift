@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RedAppleCollectionViewController: GameViewController,
+class VisualSearch: TestViewController,
     UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
 	
     var currentView = 0

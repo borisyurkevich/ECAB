@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class GameViewController: UIViewController {
+class TestViewController: UIViewController {
 	
 	let model: Model = Model.sharedInstance
 	

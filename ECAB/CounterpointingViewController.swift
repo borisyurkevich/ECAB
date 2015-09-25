@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class CounterpointingViewController: GameViewController {
+class CounterpointingViewController: TestViewController {
 	
 	var screenPresentedDate = NSDate()
 	var lastMistakeDate = NSDate().dateByAddingTimeInterval(0)

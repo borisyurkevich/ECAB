@@ -32,7 +32,7 @@
 		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
 		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */; };
-		91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */; };
+		91E5C4161A6C6CEC00905752 /* VisualSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* VisualSearch.swift */; };
 		91E5C41A1A6C6F5400905752 /* RedAppleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */; };
 		91F378471A754EA000D2F77B /* RedAppleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* RedAppleBoard.swift */; };
 		91F3784B1A75529000D2F77B /* GamePeace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* GamePeace.swift */; };
@@ -81,7 +81,7 @@
 		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
 		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MenuViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		91E5C4151A6C6CEC00905752 /* VisualSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C4191A6C6F5400905752 /* RedAppleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleCollectionViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F378461A754EA000D2F77B /* RedAppleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RedAppleBoard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F3784A1A75529000D2F77B /* GamePeace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePeace.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 				913544061B04058D00041AB6 /* SessionsTableViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 				91B494861B3598B100FAEE8A /* GameViewController.swift */,
-				91E5C4151A6C6CEC00905752 /* RedAppleCollectionViewController.swift */,
+				91E5C4151A6C6CEC00905752 /* VisualSearch.swift */,
 				91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */,
 				91B494841B35981D00FAEE8A /* FlankerViewController.swift */,
 				91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */,
@@ -362,7 +362,7 @@
 				91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */,
 				91379BF21B52FEA600E3C293 /* Data.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
-				91E5C4161A6C6CEC00905752 /* RedAppleCollectionViewController.swift in Sources */,
+				91E5C4161A6C6CEC00905752 /* VisualSearch.swift in Sources */,
 				91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */,
 				91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,

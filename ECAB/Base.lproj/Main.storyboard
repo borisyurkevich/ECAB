@@ -99,11 +99,11 @@
             </objects>
             <point key="canvasLocation" x="1458" y="-1088"/>
         </scene>
-        <!--Games-->
+        <!--Tests-->
         <scene sceneID="X1g-Oz-Cvj">
             <objects>
-                <splitViewController id="54u-Sh-hfo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Games" image="brick" id="N7p-p5-KLl" userLabel="Menu"/>
+                <splitViewController id="54u-Sh-hfo" userLabel="Tests" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Tests" image="brick" id="N7p-p5-KLl" userLabel="Menu"/>
                     <connections>
                         <segue destination="hJ0-ho-1Vr" kind="relationship" relationship="masterViewController" id="Lmv-Fl-atF"/>
                         <segue destination="GcY-sq-jJv" kind="relationship" relationship="detailViewController" id="pjE-6V-y8X"/>

@@ -105,7 +105,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			
 			switch title! {
 			case model.titles.visual:
-				let gameVC = RedAppleCollectionViewController()
+				let gameVC = VisualSearch()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			case model.titles.counterpointing:
 				let gameVC = CounterpointingViewController()
@@ -117,7 +117,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 				let gameVC = VisualSustainViewController()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			default:
-				let gameVC = RedAppleCollectionViewController()
+				let gameVC = VisualSearch()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			}
 		}
@@ -135,7 +135,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                     tvc.delegate = self
                 }
             case Segues.startApplesGame:
-                if let cvc = segue.destinationViewController as? RedAppleCollectionViewController {
+                if let cvc = segue.destinationViewController as? VisualSearch {
                     cvc.presenter = self
                 }
             default: break;
