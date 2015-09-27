@@ -407,10 +407,14 @@ class SessionsTableViewController: UITableViewController {
 				}
 				
 				var append = ""
+				var fourMistakes = ""
+				if actualMove.poitionY == -100 {
+					fourMistakes = "[4 mistaken taps in a row]"
+				}
 				if actualMove.success.boolValue {
-					append = "\(counter)) screen: \(actualMove.poitionX) \(status) delay: \(actualMove.interval.integerValue) screens \n"
+					append = "\(counter)) screen: \(actualMove.poitionX) \(status) delay: \(actualMove.interval.integerValue) screens \(fourMistakes)\n"
 				} else {
-					append = "\(counter)) screen: \(actualMove.poitionX) \(status)\n"
+					append = "\(counter)) screen: \(actualMove.poitionX) \(status) \(fourMistakes)\n"
 				}
 				
 				if !spacePrinted && !actualMove.inverted.boolValue { // Not training

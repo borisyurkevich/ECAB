@@ -49,6 +49,7 @@ class CounterpointingViewController: TestViewController {
 		
 		switch currentScreenShowing {
 		case 0:
+			// This is needed when practice is restarted.
 			presentMessage(greeingMessage)
 			break
 		case 1:
