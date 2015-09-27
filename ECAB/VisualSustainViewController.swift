@@ -58,8 +58,8 @@ class VisualSustainViewController: CounterpointingViewController {
 		case Tree = "tree"
 	}
 	
-	private let practiceSequence: [Picture] = [.Empty, .Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train];
-	private let gameSequence: [Picture] = [.Sun, .Key, .Sock, .Boat, .Boot, .Pig, .Clock, .Car, .Book, .Door, .Cat, .Ball, .Bed, .Bus, .Horse, .Train, .Cake, .Leaf, .Dog, .Star, .Spoon, .Chair, .Bike, .Tree, .Fish, .Door, .Bus, .Ball, .Sun, .Horse, .Spoon, .Bed, .Leaf, .Boot, .Fish, .Star, .Cake, .Tree, .Sock, .Clock, .Book, .Cat, .Key, .Train, .Chair, .Pig,. Boat, .Car, .Bike, .Dog, .Bus, .Bed, .Sun, .Chair, .Dog, .Train, .Ball, .Horse, .Bike, .Leaf, .Sock, .Cake, .Boat, .Cat, .Key, .Door, .Tree, .Pig, .Spoon, .Clock, .Car, .Boot, .Book, .Fish, .Star, .Bike, .Clock, .Car, .Pig, .Boat, .Tree, .Cake, .Sock, .Bus, .Star, .Door, .Horse, .Spoon, .Ball, .Dog, .Boot, .Key, .Leaf, .Train, .Cat, .Chair, .Sun, .Bed, .Fish, .Book, .Cake, .Ball, .Star, .Bus, .Pig, .Train, .Boat, .Sun, .Fish, .Spoon, .Leaf, .Bed, .Dog, .Tree, .Door, .Boot, .Bike, .Cat, .Car, .Sock, .Chair, .Key, .Clock, .Book, .Horse, .Door,.Bike, .Car, .Leaf, .Cake, .Fish, .Bed, .Boot, .Horse, .Bus, .Train, .Sun, .Sock, .Chair, .Dog, .Star, .Ball, .Train, .Pig, .Key, .Clock, .Spoon, .Book, .Cat, .Boat]
+	private let practiceSequence: [Picture] = [.Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train, .Empty];
+	private let gameSequence: [Picture] = [.Sun, .Key, .Sock, .Boat, .Boot, .Pig, .Clock, .Car, .Book, .Door, .Cat, .Ball, .Bed, .Bus, .Horse, .Train, .Cake, .Leaf, .Dog, .Star, .Spoon, .Chair, .Bike, .Tree, .Fish, .Door, .Bus, .Ball, .Sun, .Horse, .Spoon, .Bed, .Leaf, .Boot, .Fish, .Star, .Cake, .Tree, .Sock, .Clock, .Book, .Cat, .Key, .Train, .Chair, .Pig,. Boat, .Car, .Bike, .Dog, .Bus, .Bed, .Sun, .Chair, .Dog, .Train, .Ball, .Horse, .Bike, .Leaf, .Sock, .Cake, .Boat, .Cat, .Key, .Door, .Tree, .Pig, .Spoon, .Clock, .Car, .Boot, .Book, .Fish, .Star, .Bike, .Clock, .Car, .Pig, .Boat, .Tree, .Cake, .Sock, .Bus, .Star, .Door, .Horse, .Spoon, .Ball, .Dog, .Boot, .Key, .Leaf, .Train, .Cat, .Chair, .Sun, .Bed, .Fish, .Book, .Cake, .Ball, .Star, .Bus, .Pig, .Train, .Boat, .Sun, .Fish, .Spoon, .Leaf, .Bed, .Dog, .Tree, .Door, .Boot, .Bike, .Cat, .Car, .Sock, .Chair, .Key, .Clock, .Book, .Horse, .Door,.Bike, .Car, .Leaf, .Cake, .Fish, .Bed, .Boot, .Horse, .Bus, .Train, .Sun, .Sock, .Chair, .Dog, .Star, .Ball, .Train, .Pig, .Key, .Clock, .Spoon, .Book, .Cat, .Boat, .Empty]
 	
 	func updateView(pic: Picture) {
 		
@@ -70,17 +70,22 @@ class VisualSustainViewController: CounterpointingViewController {
 		view.addSubview(self.testItem)
 		
 		// Add Image
-		let image = UIImage(named: pic.rawValue)
+		let newImage = UIImage(named: pic.rawValue)
+		let middleImage = UIImage(named: Picture.Empty.rawValue)
 		
-		UIView.transitionWithView(testItem, duration: transitionSpeed, options: .TransitionCrossDissolve, animations: {
+		UIView.transitionWithView(testItem, duration: transitionSpeed/2, options: .TransitionCrossDissolve, animations: {
 			
-			self.testItem.image = image
-			let newFrame = UIImageView(image: image)
+			self.testItem.image = middleImage
+			let newFrame = UIImageView(image: newImage)
 			
 			self.testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
 			self.testItem.center = self.view.center;
 			
-		} , completion: nil)
+			} , completion: {(sucess: Bool) in
+				UIView.transitionWithView(self.testItem, duration: self.transitionSpeed/2, options: .TransitionCrossDissolve, animations: {
+					self.testItem.image = newImage
+				}, completion: nil)
+		})
 	}
 	
 	func showFirstView() {
@@ -118,7 +123,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func tapHandler(sender: UITapGestureRecognizer) {
 		
-		let screen: CGFloat = CGFloat(index)
+		let screen: CGFloat = CGFloat(index + 1)
 		var result = false
 		if screenCountSinceAnimalAppeared < 3 {
 			mistakeCounter = 0
@@ -191,7 +196,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			self.presentMessage("Game!")
 			self.trainingMode = false
 			self.view.addSubview(self.backButton!)
-		case 25 ... 174:
+		case 25 ... 175:
 		
 			if !self.gameStarted {
 				self.startTheGame()
@@ -205,11 +210,11 @@ class VisualSustainViewController: CounterpointingViewController {
 				self.screenCountSinceAnimalAppeared = 0
 			}
 			
-		case 174:
+		case 176:
 			self.presentMessage("...stop")
 			self.timer.invalidate()
 			self.gameStarted = false
-		case 175:
+		case 177:
 			self.quit()
 		default:
 			break
