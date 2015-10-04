@@ -240,11 +240,9 @@ class CounterpointingViewController: TestViewController {
 		
 		let imageView = UIImageView(image: UIImage(named: "dog"))
 		imageView.frame = CGRectMake(19, 260, pictureWidth, pictureHeight)
-		
 		view.addSubview(imageView)
-		
-		let gesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		view.addGestureRecognizer(gesture)
+
+		addGestures()
 	}
 	
 	func presentDogOnRight(){
@@ -252,11 +250,17 @@ class CounterpointingViewController: TestViewController {
 		
 		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
 		imageView.frame = CGRectMake(view.bounds.width-300, 260, pictureWidth, pictureHeight)
-		
 		view.addSubview(imageView)
 		
-		let gesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		view.addGestureRecognizer(gesture)
+		addGestures()
+	}
+	
+	func addGestures() {
+		let tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
+		view.addGestureRecognizer(tapGesture)
+		
+		let swipeGesture = UISwipeGestureRecognizer(target: self, action: "tapHandler:")
+		view.addGestureRecognizer(swipeGesture)
 	}
 	
 	func tapHandler(sender: UITapGestureRecognizer){

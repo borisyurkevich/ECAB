@@ -63,9 +63,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	func updateView(pic: Picture) {
 		
-		// Gesture
-		let gesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		self.view.addGestureRecognizer(gesture)
+		addGestures()
 		
 		view.addSubview(self.testItem)
 		

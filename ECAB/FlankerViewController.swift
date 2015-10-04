@@ -57,10 +57,14 @@ class FlankerViewController: CounterpointingViewController {
 		let rightTapView = UIView(frame: rightStarImg.frame)
 		rightBarView.addSubview(rightTapView)
 		
-		let gesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		leftTapView.addGestureRecognizer(gesture)
-		let otherGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		rightTapView.addGestureRecognizer(otherGesture)
+		let leftTap = UITapGestureRecognizer(target: self, action: "tapHandler:")
+		let rightTap = UITapGestureRecognizer(target: self, action: "tapHandler:")
+		let leftSwipe = UISwipeGestureRecognizer(target: self, action: "tapHandler:")
+		let rightSwipe = UISwipeGestureRecognizer(target: self, action: "tapHandler:")
+		leftTapView.addGestureRecognizer(leftTap)
+		leftTapView.addGestureRecognizer(leftSwipe)
+		rightTapView.addGestureRecognizer(rightTap)
+		rightTapView.addGestureRecognizer(rightSwipe)
 	}
 	
 	func addImage(image: Picture, x: CGFloat, y: CGFloat) {
