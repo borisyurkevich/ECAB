@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GamesTableViewController: UITableViewController {
+class TestsTableViewController: UITableViewController {
     
     let model = Model.sharedInstance
     

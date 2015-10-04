@@ -12,7 +12,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	private var screenCountSinceAnimalAppeared = 100
 	private var timer = NSTimer()
-	private var gameSpeed = 2.0
+	private var gameSpeed = 0.2
 	private let transitionSpeed = 1.8
 	private var mistakeCounter = 0
 	private var gameStarted = false
@@ -26,6 +26,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		gameSpeed = model.data.visSustSpeed.doubleValue
 		self.testItem.frame = CGRectMake(0, 0, self.testItem.frame.size.width * 2, self.testItem.frame.size.height * 2)
 		self.testItem.center = self.view.center;
+		session.speed = model.data.visSustSpeed.doubleValue
 	}
 	
 	enum Picture: String {
@@ -70,20 +71,16 @@ class VisualSustainViewController: CounterpointingViewController {
 		// Add Image
 		let newImage = UIImage(named: pic.rawValue)
 		let middleImage = UIImage(named: Picture.Empty.rawValue)
+			
+		self.testItem.image = middleImage
+		let newFrame = UIImageView(image: newImage)
 		
-		UIView.transitionWithView(testItem, duration: transitionSpeed/2, options: .TransitionCrossDissolve, animations: {
-			
-			self.testItem.image = middleImage
-			let newFrame = UIImageView(image: newImage)
-			
-			self.testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
-			self.testItem.center = self.view.center;
-			
-			} , completion: {(sucess: Bool) in
-				UIView.transitionWithView(self.testItem, duration: self.transitionSpeed/2, options: .TransitionCrossDissolve, animations: {
-					self.testItem.image = newImage
-				}, completion: nil)
-		})
+		self.testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
+		self.testItem.center = self.view.center;
+		
+		delay(transitionSpeed) {
+			self.testItem.image = newImage
+		}
 	}
 	
 	func showFirstView() {

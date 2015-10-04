@@ -48,7 +48,7 @@
         <!--Tests-->
         <scene sceneID="vyR-Ug-JPp">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="TA3-rz-yeh" customClass="GamesTableViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="TA3-rz-yeh" customClass="TestsTableViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="7iI-ce-5h4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -157,7 +157,7 @@
                                     <action selector="difficultyControlHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="r8o-hd-5AA"/>
                                 </connections>
                             </segmentedControl>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="p33-7n-QH8">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="0.10000000000000001" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="p33-7n-QH8">
                                 <rect key="frame" x="253" y="485" width="94" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="Uwv-P5-sB0"/>

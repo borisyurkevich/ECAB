@@ -20,10 +20,10 @@
 		91619A551B45CE80006E1AFC /* VisualSustainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */; };
 		91658E921B0D1B5700879347 /* beep-attention.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E911B0D1B5700879347 /* beep-attention.aif */; };
 		91658E941B0D20E800879347 /* slide-magic.aif in Resources */ = {isa = PBXBuildFile; fileRef = 91658E931B0D20E800879347 /* slide-magic.aif */; };
-		917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* GamesTableViewController.swift */; };
+		917E87901AAE466C00470759 /* TestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917E878F1AAE466C00470759 /* TestsTableViewController.swift */; };
 		91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AE3E621B0292ED00871B7A /* CoreDataStack.swift */; };
 		91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B494841B35981D00FAEE8A /* FlankerViewController.swift */; };
-		91B494871B3598B100FAEE8A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B494861B3598B100FAEE8A /* GameViewController.swift */; };
+		91B494871B3598B100FAEE8A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B494861B3598B100FAEE8A /* TestViewController.swift */; };
 		91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */; };
 		91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B31A6BD5C400905752 /* AppDelegate.swift */; };
 		91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3B91A6BD5C400905752 /* Main.storyboard */; };
@@ -64,11 +64,11 @@
 		91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualSustainViewController.swift; sourceTree = "<group>"; };
 		91658E911B0D1B5700879347 /* beep-attention.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-attention.aif"; sourceTree = "<group>"; };
 		91658E931B0D20E800879347 /* slide-magic.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "slide-magic.aif"; sourceTree = "<group>"; };
-		917E878F1AAE466C00470759 /* GamesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
+		917E878F1AAE466C00470759 /* TestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestsTableViewController.swift; sourceTree = "<group>"; };
 		91AE3E621B0292ED00871B7A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		91B494831B34987100FAEE8A /* Model v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v3.xcdatamodel"; sourceTree = "<group>"; };
 		91B494841B35981D00FAEE8A /* FlankerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlankerViewController.swift; sourceTree = "<group>"; };
-		91B494861B3598B100FAEE8A /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		91B494861B3598B100FAEE8A /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingViewController.swift; sourceTree = "<group>"; };
 		91E5C3AE1A6BD5C400905752 /* ECAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3B21A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -179,10 +179,10 @@
 			children = (
 				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
 				910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */,
-				917E878F1AAE466C00470759 /* GamesTableViewController.swift */,
+				917E878F1AAE466C00470759 /* TestsTableViewController.swift */,
 				913544061B04058D00041AB6 /* SessionsTableViewController.swift */,
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
-				91B494861B3598B100FAEE8A /* GameViewController.swift */,
+				91B494861B3598B100FAEE8A /* TestViewController.swift */,
 				91E5C4151A6C6CEC00905752 /* VisualSearch.swift */,
 				91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */,
 				91B494841B35981D00FAEE8A /* FlankerViewController.swift */,
@@ -356,7 +356,7 @@
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
-				917E87901AAE466C00470759 /* GamesTableViewController.swift in Sources */,
+				917E87901AAE466C00470759 /* TestsTableViewController.swift in Sources */,
 				91F3784B1A75529000D2F77B /* TestItem.swift in Sources */,
 				91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */,
 				91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */,
@@ -367,7 +367,7 @@
 				91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
 				91379BEE1B52A4A400E3C293 /* Session.swift in Sources */,
-				91B494871B3598B100FAEE8A /* GameViewController.swift in Sources */,
+				91B494871B3598B100FAEE8A /* TestViewController.swift in Sources */,
 				910367F31A7E3B4900522B2B /* Model.swift in Sources */,
 				91379BEC1B52A4A400E3C293 /* Move.swift in Sources */,
 			);
