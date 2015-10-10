@@ -10,6 +10,17 @@ import Foundation
 import CoreData
 import UIKit
 
+enum GamesIndex: NSNumber {
+	case VisualSearch = 0
+	case Counterpointing = 1
+	case Flanker = 2
+	case VisualSust = 3
+}
+
+struct MenuConstants {
+	static let second = "s"
+}
+
 class Model {
     let games = ["Visual Search", "Counterpointing", "Flanker", "Visual Sustained"]
 	

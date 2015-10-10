@@ -46,37 +46,14 @@ class TestsTableViewController: UITableViewController {
 		detailVC.gameTitleCenter.text = pickedGameTitle
 		
 		switch model.data.selectedGame {
-			case 0:
-				detailVC.gameIcon.image = UIImage(named: "red_apple")
-				detailVC.difControl.hidden = false
-				detailVC.speedLabel.hidden = false
-				detailVC.speedStepper.hidden = false
-				
-				if model.data.visSearchDifficulty.integerValue == 0 {
-					detailVC.speedStepper.value = model.data.visSearchSpeed.doubleValue
-					detailVC.speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) seconds"
-				} else {
-					detailVC.speedStepper.value = model.data.visSearchSpeedHard.doubleValue
-					detailVC.speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) seconds"
-				}
-			case 1:
-				detailVC.gameIcon.image = UIImage(named: "dog")
-				detailVC.difControl.hidden = true
-				detailVC.speedLabel.hidden = true
-				detailVC.speedStepper.hidden = true
-			case 2:
-				detailVC.gameIcon.image = UIImage(named: "fish")
-				detailVC.difControl.hidden = true
-				detailVC.speedLabel.hidden = true
-				detailVC.speedStepper.hidden = true
-			case 3:
-				detailVC.gameIcon.image = UIImage(named: "pig")
-				detailVC.difControl.hidden = true
-				detailVC.speedLabel.hidden = false
-				detailVC.speedStepper.hidden = false
-			
-				detailVC.speedStepper.value = model.data.visSustSpeed.doubleValue
-				detailVC.speedLabel.text = "\(model.data.visSustSpeed.doubleValue) seconds"
+			case GamesIndex.VisualSearch.rawValue:
+				detailVC.showTheGame(.VisualSearch);
+			case GamesIndex.Counterpointing.rawValue:
+				detailVC.showTheGame(.Counterpointing)
+			case GamesIndex.Flanker.rawValue:
+				detailVC.showTheGame(.Flanker)
+			case GamesIndex.VisualSust.rawValue:
+				detailVC.showTheGame(.VisualSust)
 			default:
 			break
 		}
