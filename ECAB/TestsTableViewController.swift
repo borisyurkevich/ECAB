@@ -13,10 +13,6 @@ class TestsTableViewController: UITableViewController {
     let model = Model.sharedInstance
     
     private let reuseIdentifier = "Games Table Cell"
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 
     // MARK: - Table view data source
 
@@ -37,24 +33,28 @@ class TestsTableViewController: UITableViewController {
 	// MARK: — Table View delegate
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let pickedGameTitle = model.games[indexPath.row]
+		
 		model.data.selectedGame = indexPath.row
+		model.save()
+		
+		selectGame()
+	}
+	
+	func selectGame() {
 		
 		let navVC = splitViewController!.viewControllers.last as! UINavigationController
 		let detailVC = navVC.topViewController as! MenuViewController
-		detailVC.title = pickedGameTitle
-		detailVC.gameTitleCenter.text = pickedGameTitle
 		
 		switch model.data.selectedGame {
-			case GamesIndex.VisualSearch.rawValue:
-				detailVC.showTheGame(.VisualSearch);
-			case GamesIndex.Counterpointing.rawValue:
-				detailVC.showTheGame(.Counterpointing)
-			case GamesIndex.Flanker.rawValue:
-				detailVC.showTheGame(.Flanker)
-			case GamesIndex.VisualSust.rawValue:
-				detailVC.showTheGame(.VisualSust)
-			default:
+		case GamesIndex.VisualSearch.rawValue:
+			detailVC.showTheGame(.VisualSearch);
+		case GamesIndex.Counterpointing.rawValue:
+			detailVC.showTheGame(.Counterpointing)
+		case GamesIndex.Flanker.rawValue:
+			detailVC.showTheGame(.Flanker)
+		case GamesIndex.VisualSust.rawValue:
+			detailVC.showTheGame(.VisualSust)
+		default:
 			break
 		}
 	}

@@ -23,7 +23,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	@IBOutlet weak var secondSpeedLabel: UILabel!
 	@IBOutlet weak var speedLabelDescription: UILabel!
 	@IBOutlet weak var secondSpeedLabelDescription: UILabel!
-
 	
     let model: Model = Model.sharedInstance
     
@@ -60,6 +59,11 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	func showTheGame(game: GamesIndex) {
+		
+		let currentTitle = model.games[model.data.selectedGame.integerValue]
+		title = currentTitle
+		gameTitleCenter.text = currentTitle
+		
 		switch game {
 		case .VisualSearch:
 			gameIcon.image = UIImage(named: "red_apple")
