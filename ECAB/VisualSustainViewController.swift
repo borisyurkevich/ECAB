@@ -33,6 +33,10 @@ class VisualSustainViewController: CounterpointingViewController {
 		session.speed = model.data.visSustSpeed.doubleValue
 	}
 	
+	struct Constants {
+		static let kTolerateMistakes = 3
+	}
+	
 	enum Picture: String {
 		case Empty = "white_rect"
 		case Bed = "bed_inverse"
@@ -84,7 +88,23 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		delay(transitionSpeed) {
 			self.testItem.image = newImage
-			if self.isAnimal(self.practiceSequence[self.index]) {
+			
+			var currentSuequence: [Picture]
+			if self.trainingMode {
+				currentSuequence = self.practiceSequence
+			} else {
+				currentSuequence = self.gameSequence
+			}
+			if self.isAnimal(currentSuequence[self.index]) {
+				
+				let timePassed = self.screenCountSinceAnimalAppeared
+				let acceptedDelay = self.model.data.visSustAcceptedDelay!.doubleValue + 1
+				
+				if timePassed != acceptedDelay {
+					// New animal appeared on the screen and player didn't reset the counter
+					// by tapping on the screen
+					self.noteMistake()
+				}
 				self.startDelayTimer()
 			}
 		}
@@ -135,29 +155,33 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 			// Prevents following taps to be sucesfull
 			screenCountSinceAnimalAppeared = Double(model.data.visSustAcceptedDelay!) + 1
-		} else {
-			mistakeCounter += 1
-
-			if mistakeCounter > 4 {
-				// -100 is special indicator, player skipped 4 turns, not has to be added to the log, 
-				// positionX is reserved for the screen number
-				model.addCounterpointingMove(screen, positionY: -100, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
-				mistakeCounter = 0
-				attentionSound.play()
-			} else {
-				model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
-			}
-		}
-		
-		// Count scores
-		if !trainingMode {
-			if result {
+			
+			if !trainingMode {
 				let score = session.score.integerValue
 				session.score = NSNumber(integer: (score + 1))
-			} else {
-				let errors = session.errors.integerValue
-				session.errors = NSNumber(integer: (errors + 1))
 			}
+		} else {
+			noteMistake()
+		}
+	}
+	
+	func noteMistake() {
+		let screen: CGFloat = CGFloat(index + 1)
+		mistakeCounter += 1
+		
+		if mistakeCounter > Constants.kTolerateMistakes {
+			// -100 is special indicator, player skipped 4 turns, not has to be added to the log,
+			// positionX is reserved for the screen number
+			model.addCounterpointingMove(screen, positionY: -100, success: false, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
+			mistakeCounter = 0
+			attentionSound.play()
+		} else {
+			model.addCounterpointingMove(screen, positionY: 0, success: false, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
+		}
+		
+		if !trainingMode {
+			let errors = session.errors.integerValue
+			session.errors = NSNumber(integer: (errors + 1))
 		}
 	}
 	
@@ -194,6 +218,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			self.timer.invalidate()
 			self.gameStarted = false
 			self.presentMessage("Game!")
+			mistakeCounter = 0
 			self.trainingMode = false
 			self.view.addSubview(self.backButton!)
 		case 25 ... 175:
@@ -216,7 +241,6 @@ class VisualSustainViewController: CounterpointingViewController {
 		default:
 			break
 		}
-		print("present next screen")
 	}
 	
 	func startDelayTimer() {
@@ -231,6 +255,10 @@ class VisualSustainViewController: CounterpointingViewController {
 		screenCountSinceAnimalAppeared = abs(timePassedAfterAnimal)
 		print("Delay = \(screenCountSinceAnimalAppeared)")
 		if screenCountSinceAnimalAppeared > Double(model.data.visSustAcceptedDelay!) {
+			
+			//self.noteMistake()
+			print("stopwatch invalidate")
+			
 			stopwatch.invalidate()
 		}
 	}
