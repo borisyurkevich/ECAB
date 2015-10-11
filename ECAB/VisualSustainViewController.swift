@@ -137,7 +137,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			screenCountSinceAnimalAppeared = Double(model.data.visSustAcceptedDelay!) + 1
 		} else {
 			mistakeCounter += 1
-			failureSound.play()
+
 			if mistakeCounter > 4 {
 				// -100 is special indicator, player skipped 4 turns, not has to be added to the log, 
 				// positionX is reserved for the screen number
