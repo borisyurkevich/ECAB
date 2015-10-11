@@ -143,6 +143,7 @@ class VisualSustainViewController: CounterpointingViewController {
 				// positionX is reserved for the screen number
 				model.addCounterpointingMove(screen, positionY: -100, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
 				mistakeCounter = 0
+				attentionSound.play()
 			} else {
 				model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
 			}

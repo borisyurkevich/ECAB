@@ -19,6 +19,7 @@ class TestViewController: UIViewController {
 	
 	var successSound = AVAudioPlayer()
 	var failureSound = AVAudioPlayer()
+	var attentionSound = AVAudioPlayer()
 	
 	var currentScreenShowing = 0
 	var trainingMode = true
@@ -47,6 +48,13 @@ class TestViewController: UIViewController {
 			print("Error \(error)")
 		}
 		failureSound.prepareToPlay()
+		let attentionSoundPath = NSBundle.mainBundle().pathForResource("beep-piano", ofType: "aif")
+		let attentionSoundIRL = NSURL(fileURLWithPath: attentionSoundPath!)
+		do {
+			attentionSound = try AVAudioPlayer(contentsOfURL: attentionSoundIRL)
+		} catch let error as NSError {
+			print("Error \(error)")
+		}
 		
 		// Buttons
 		let labelText: String = "Pause"

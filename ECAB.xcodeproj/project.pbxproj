@@ -11,6 +11,7 @@
 		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
 		9130B7991BC94D5100D26708 /* Data+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B7981BC94D5100D26708 /* Data+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		9130B79D1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		9130B79F1BCAC83400D26708 /* beep-piano.aif in Resources */ = {isa = PBXBuildFile; fileRef = 9130B79E1BCAC83400D26708 /* beep-piano.aif */; settings = {ASSET_TAGS = (); }; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
 		91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */; };
 		91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE91B52A4A400E3C293 /* CounterpointingMove.swift */; };
@@ -57,6 +58,7 @@
 		9130B7971BC94BD700D26708 /* Model v5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v5.xcdatamodel"; sourceTree = "<group>"; };
 		9130B7981BC94D5100D26708 /* Data+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CounterpointingMove+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9130B79E1BCAC83400D26708 /* beep-piano.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-piano.aif"; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		91379BD41B528C9C00E3C293 /* Model v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v4.xcdatamodel"; sourceTree = "<group>"; };
 		91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingSession.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		91658E7F1B0BE3E400879347 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				9130B79E1BCAC83400D26708 /* beep-piano.aif */,
 				91658E931B0D20E800879347 /* slide-magic.aif */,
 				91658E911B0D1B5700879347 /* beep-attention.aif */,
 			);
@@ -318,6 +321,7 @@
 			files = (
 				91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */,
 				91E5C3C01A6BD5C400905752 /* LaunchScreen.xib in Resources */,
+				9130B79F1BCAC83400D26708 /* beep-piano.aif in Resources */,
 				91658E941B0D20E800879347 /* slide-magic.aif in Resources */,
 				91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */,
 				91658E921B0D1B5700879347 /* beep-attention.aif in Resources */,
