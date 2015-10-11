@@ -95,10 +95,9 @@ class PlayersTableViewController: UITableViewController {
         // Make selected player current player
 		let data = model.data as Data
         let selectedPlayerEntity = data.players[indexPath.row] as! Player
-//        let name = selectedPlayerEntity.name
         model.data.selectedPlayer = selectedPlayerEntity
 		
-		model.updateData()
+		model.save()
 		
         delegate?.pickSubject()
     }

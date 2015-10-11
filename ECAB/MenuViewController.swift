@@ -72,16 +72,11 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			speedLabelDescription.hidden = false
 			
 			if model.data.visSearchDifficulty.integerValue == 0 {
-				speedStepper.value = model.data.visSearchSpeed.doubleValue
 				speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
+				speedStepper.value = model.data.visSustSpeed.doubleValue
 			} else {
+				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
 				speedStepper.value = model.data.visSearchSpeedHard.doubleValue
-				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
-			}
-			if model.data.visSearchDifficulty.integerValue == 0 {
-				speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
-			} else {
-				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
 			}
 			
 		case .Flanker:
@@ -115,8 +110,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			speedStepper.value = model.data.visSustSpeed.doubleValue
 			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) \(MenuConstants.second)"
 			
-			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) \(MenuConstants.second)"
 			secondSpeedLabel.text = "\(model.data.visSustAcceptedDelay!.doubleValue) \(MenuConstants.second)"
+			secondSpeedStepper.value = model.data.visSustAcceptedDelay!.doubleValue
 		}
 	}
 	
@@ -130,23 +125,37 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			speedStepper.value = model.data.visSearchSpeedHard.doubleValue
 			speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
 		}
+		
+		model.save()
 	}
 	
 	@IBAction func speedStepperHandler(sender: UIStepper) {
+		
+		let formattedValue = NSString(format: "%.01f", sender.value)
+		let number = Double(formattedValue as String)
+		
 		if model.data.selectedGame == GamesIndex.VisualSearch.rawValue {
 			if model.data.visSearchDifficulty.integerValue == 0 {
-				model.data.visSearchSpeed = sender.value
-				speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
+				model.data.visSearchSpeed = number!
 			} else {
-				model.data.visSearchSpeedHard = sender.value
-				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
+				model.data.visSearchSpeedHard = number!
 			}
-		} else if model.data.selectedGame == 3 {
-			model.data.visSustSpeed = sender.value
-			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) \(MenuConstants.second)"
+		} else if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
+			model.data.visSustSpeed = number!
 		}
+		
+		speedLabel.text = "\(formattedValue) \(MenuConstants.second)"
+		model.save()
 	}
 
+	@IBAction func delayHandler(sender: UIStepper) {
+
+		let formattedValue = NSString(format: "%.01f", sender.value)
+		let number = Double(formattedValue as String)
+		model.data.visSustAcceptedDelay = number
+		secondSpeedLabel.text = "\(formattedValue) \(MenuConstants.second)"
+		model.save()
+	}
     // MARK: - Navigation
 
     @IBAction func playButtonHandler(sender: UIBarButtonItem) {
@@ -154,16 +163,16 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         if let detailVC: UISplitViewController = splitViewController {
 			
 			switch title! {
-			case model.titles.visual:
+			case GameTitle.visual:
 				let gameVC = VisualSearch()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
-			case model.titles.counterpointing:
+			case GameTitle.counterpointing:
 				let gameVC = CounterpointingViewController()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
-			case model.titles.flanker:
+			case GameTitle.flanker:
 				let gameVC = FlankerViewController()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
-			case model.titles.visualSust:
+			case GameTitle.visualSust:
 				let gameVC = VisualSustainViewController()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			default:

@@ -21,8 +21,15 @@ struct MenuConstants {
 	static let second = "s"
 }
 
+struct GameTitle {
+	static let visual = "Visual Search"
+	static let counterpointing = "Counterpointing"
+	static let flanker = "Flanker"
+	static let visualSust = "Visual Sustained"
+}
+
 class Model {
-    let games = ["Visual Search", "Counterpointing", "Flanker", "Visual Sustained"]
+    let games = [GameTitle.visual, GameTitle.counterpointing, GameTitle.flanker, GameTitle.visualSust]
 	
 	var managedContext: NSManagedObjectContext!
 	
@@ -124,14 +131,7 @@ class Model {
 		players.addObject(player)
 		data.players = players.copy() as! NSOrderedSet
 		
-		//Save the managed object context
-		var error: NSError?
-		do {
-			try managedContext!.save()
-		} catch let error1 as NSError {
-			error = error1
-			print("Could not save player: \(error)")
-		}
+		save()
     }
 	
 	func addSession(player: Player) {
@@ -150,14 +150,7 @@ class Model {
 		sessions.addObject(session)
 		data.sessions = sessions.copy() as! NSOrderedSet
 		
-		//Save the managed object context
-		var error: NSError?
-		do {
-			try managedContext!.save()
-		} catch let error1 as NSError {
-			error = error1
-			print("Could not save session: \(error)")
-		}
+		save()
 	}
 	
 	func addCounterpointingSession(player: Player, type: Int) {
@@ -174,6 +167,10 @@ class Model {
 		sessions.addObject(session)
 		data.counterpointingSessions = sessions.copy() as! NSOrderedSet
 		
+		save()
+	}
+	
+	func save() {
 		//Save the managed object context
 		var error: NSError?
 		do {
@@ -208,17 +205,10 @@ class Model {
 		allMoves.addObject(move)
 		lastSession.moves = allMoves.copy() as! NSOrderedSet
 		
-		//Save the managed object context
-		var error: NSError?
-		do {
-			try managedContext!.save()
-		} catch let error1 as NSError {
-			error = error1
-			print("Could not save new visual search move move: \(error)")
-		}
+		save()
 	}
 	
-	func addCounterpointingMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Int, inverted: Bool) {
+	func addCounterpointingMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Double, inverted: Bool, delay:Double) {
 		let successMoveEntity = NSEntityDescription.entityForName("CounterpointingMove", inManagedObjectContext: managedContext)
 		let move = CounterpointingMove(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
 		
@@ -228,6 +218,7 @@ class Model {
 		move.date = NSDate()
 		move.interval = interval
 		move.inverted = inverted
+		move.delay = delay
 		
 		let allSessions = data.counterpointingSessions
 		let lastSession = allSessions.lastObject as! CounterpointingSession
@@ -236,33 +227,6 @@ class Model {
 		allMoves.addObject(move)
 		lastSession.moves = allMoves.copy() as! NSOrderedSet
 		
-		//Save the managed object context
-		var error: NSError?
-		do {
-			try managedContext!.save()
-		} catch let error1 as NSError {
-			error = error1
-			print("Could not save new counterpointing move: \(error)")
-		}
-	}
-	
-	func updateData() {
-		
-		//Save the managed object context
-		var error: NSError?
-		do {
-			try managedContext!.save()
-		} catch let error1 as NSError {
-			error = error1
-			print("Could not update the data: \(error)")
-		}
-		
-	}
-	
-	struct GameTitle {
-		let visual = "Visual Search"
-		let counterpointing = "Counterpointing"
-		let flanker = "Flanker"
-		let visualSust = "Visual Sustained"
+		save()
 	}
 }

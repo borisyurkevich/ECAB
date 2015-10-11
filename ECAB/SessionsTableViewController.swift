@@ -37,7 +37,7 @@ class SessionsTableViewController: UITableViewController {
 		
 			// Session to remove
 			switch model.data.selectedGame {
-			case 0:
+			case GamesIndex.VisualSearch.rawValue:
 				let session = model.data.sessions[indexPath.row] as! Session
 				model.managedContext.deleteObject(session)
 				var error: NSError?
@@ -47,7 +47,7 @@ class SessionsTableViewController: UITableViewController {
 					error = error1
 					print("Could not save after delete: \(error)")
 				}
-			case 1:
+			case GamesIndex.Counterpointing.rawValue:
 				var cSessions = [CounterpointingSession]()
 				for session in model.data.counterpointingSessions {
 					let cSession = session as! CounterpointingSession
@@ -64,7 +64,7 @@ class SessionsTableViewController: UITableViewController {
 					error = error1
 					print("Could not save after delete: \(error)")
 				}
-			case 2:
+			case GamesIndex.Flanker.rawValue:
 				var fSessions = [CounterpointingSession]()
 				for session in model.data.counterpointingSessions {
 					let fSession = session as! CounterpointingSession
@@ -81,7 +81,7 @@ class SessionsTableViewController: UITableViewController {
 					error = error1
 					print("Could not save after delete: \(error)")
 				}
-			case 3:
+			case GamesIndex.VisualSust.rawValue:
 				var fSessions = [CounterpointingSession]()
 				for session in model.data.counterpointingSessions {
 					let fSession = session as! CounterpointingSession
@@ -120,13 +120,13 @@ class SessionsTableViewController: UITableViewController {
 		formatter.dateFormat = "dd MMM yyyy HH:mm"
 		
 		switch model.data.selectedGame {
-		case 0:
+		case GamesIndex.VisualSearch.rawValue:
 			let session = model.data.sessions[indexPath.row] as! Session
 			let dateStr = formatter.stringFromDate(session.dateStart)
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
-		break
-		case 1:
+
+		case GamesIndex.Counterpointing.rawValue:
 			
 			var cSessions = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -140,8 +140,8 @@ class SessionsTableViewController: UITableViewController {
 			let dateStr = formatter.stringFromDate(session.dateStart)
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
-		break
-		case 2:
+
+		case GamesIndex.Flanker.rawValue:
 			var fSessions = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let fSession = session as! CounterpointingSession
@@ -155,7 +155,7 @@ class SessionsTableViewController: UITableViewController {
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
 			
-		case 3:
+		case GamesIndex.VisualSust.rawValue:
 			var fSessions = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let fSession = session as! CounterpointingSession
@@ -179,10 +179,10 @@ class SessionsTableViewController: UITableViewController {
 		var returnValue = 0
 		
 		switch model.data.selectedGame {
-		case 0:
+		case GamesIndex.VisualSearch.rawValue:
 			returnValue = model.data.sessions.count
 			break
-		case 1:
+		case GamesIndex.Counterpointing.rawValue:
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
 				if cSession.type.integerValue == 0 {
@@ -190,14 +190,14 @@ class SessionsTableViewController: UITableViewController {
 				}
 			}
 			break
-		case 2:
+		case GamesIndex.Flanker.rawValue:
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
 				if cSession.type.integerValue == 1 {
 					returnValue++
 				}
 			}
-		case 3:
+		case GamesIndex.VisualSust.rawValue:
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
 				if cSession.type.integerValue == 2 {
@@ -225,7 +225,7 @@ class SessionsTableViewController: UITableViewController {
 		smallFormatter.dateFormat = "HH:mm:ss:S"
 		
 		switch model.data.selectedGame {
-		case 0:
+		case GamesIndex.VisualSearch.rawValue:
 			let pickedSesstion = model.data.sessions[indexPath.row] as! Session
 			var detailMoves = ""
 			var counter = 1
@@ -299,7 +299,7 @@ class SessionsTableViewController: UITableViewController {
 			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name); difficulty: \(difficlulty); speed: \(pickedSesstion.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
 			detailVC.helpMessage.text = ""
-		case 1: // Counterpointing
+		case GamesIndex.Counterpointing.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
@@ -343,7 +343,7 @@ class SessionsTableViewController: UITableViewController {
 			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue); ratio (total 2 / total 1) = \(roundRatio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
-		case 2: // Flanker - exact copy of Counterpointing
+		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
@@ -385,7 +385,7 @@ class SessionsTableViewController: UITableViewController {
 			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue); ratio (game 2 + game 3 / game 1 + game 4) = \(roundRatio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
-		case 3: // Visual Sustained
+		case GamesIndex.VisualSust.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
@@ -412,7 +412,10 @@ class SessionsTableViewController: UITableViewController {
 					fourMistakes = "[4 mistaken taps in a row]"
 				}
 				if actualMove.success.boolValue {
-					append = "\(counter)) screen: \(actualMove.poitionX) \(status) delay: \(actualMove.interval.integerValue) screens \(fourMistakes)\n"
+					
+					let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
+					
+					append = "\(counter)) screen: \(actualMove.poitionX) \(status) delay: \(formattedDelay) seconds \(fourMistakes)\n"
 				} else {
 					append = "\(counter)) screen: \(actualMove.poitionX) \(status) \(fourMistakes)\n"
 				}

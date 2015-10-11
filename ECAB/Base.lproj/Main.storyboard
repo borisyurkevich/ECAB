@@ -167,7 +167,7 @@
                                     <action selector="difficultyControlHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="r8o-hd-5AA"/>
                                 </connections>
                             </segmentedControl>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="0.10000000000000001" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="p33-7n-QH8" userLabel="stepper1">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="p33-7n-QH8" userLabel="stepper1">
                                 <rect key="frame" x="189" y="434" width="94" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="94" id="tsK-se-7iz"/>
@@ -182,11 +182,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="0.10000000000000001" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Boy-Rm-I1H" userLabel="stepper2">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Boy-Rm-I1H" userLabel="stepper2">
                                 <rect key="frame" x="317" y="434" width="94" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="94" id="KAT-Hz-1On"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="delayHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="dey-x3-hNU"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bar-GU-NJl" userLabel="speed2">
                                 <rect key="frame" x="317" y="406" width="94" height="20.5"/>

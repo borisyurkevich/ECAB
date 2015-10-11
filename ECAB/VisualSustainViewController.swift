@@ -10,7 +10,7 @@ import UIKit
 
 class VisualSustainViewController: CounterpointingViewController {
 	
-	private var screenCountSinceAnimalAppeared = 100
+	private var screenCountSinceAnimalAppeared = 0.0
 	private var timer = NSTimer()
 	private var gameSpeed = 0.2
 	private let transitionSpeed = 1.8
@@ -18,8 +18,12 @@ class VisualSustainViewController: CounterpointingViewController {
 	private var gameStarted = false
 	private var index = 0
 	private var testItem = UIImageView(image: UIImage(named: "white_rect"))
+	private var stopwatch = NSTimer()
+	private let stopwatchScale = 0.1
+	private var stopwatchStartDate = NSDate()
 
     override func viewDidLoad() {
+		screenCountSinceAnimalAppeared = Double(model.data.visSustAcceptedDelay!) + 1
 		sessionType = 2
 		greeingMessage = "Practice 1. Ready..."
         super.viewDidLoad()
@@ -80,6 +84,9 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		delay(transitionSpeed) {
 			self.testItem.image = newImage
+			if self.isAnimal(self.practiceSequence[self.index]) {
+				self.startDelayTimer()
+			}
 		}
 	}
 	
@@ -120,22 +127,24 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		let screen: CGFloat = CGFloat(index + 1)
 		var result = false
-		if screenCountSinceAnimalAppeared < 3 {
+		if screenCountSinceAnimalAppeared <= Double(model.data.visSustAcceptedDelay!) {
 			mistakeCounter = 0
 			result = true
 			successSound.play()
-			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: screenCountSinceAnimalAppeared, inverted: trainingMode)
-			screenCountSinceAnimalAppeared = 100
+			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay:screenCountSinceAnimalAppeared)
+			
+			// Prevents following taps to be sucesfull
+			screenCountSinceAnimalAppeared = Double(model.data.visSustAcceptedDelay!) + 1
 		} else {
 			mistakeCounter += 1
 			failureSound.play()
 			if mistakeCounter > 4 {
 				// -100 is special indicator, player skipped 4 turns, not has to be added to the log, 
 				// positionX is reserved for the screen number
-				model.addCounterpointingMove(screen, positionY: -100, success: result, interval: 0, inverted: trainingMode)
+				model.addCounterpointingMove(screen, positionY: -100, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
 				mistakeCounter = 0
 			} else {
-				model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0, inverted: trainingMode)
+				model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
 			}
 		}
 		
@@ -162,8 +171,6 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		self.cleanView()
 		
-		self.screenCountSinceAnimalAppeared += 1
-		
 		switch self.currentScreenShowing {
 		case 0:
 			// This is needed when practice is restarted.
@@ -179,11 +186,8 @@ class VisualSustainViewController: CounterpointingViewController {
 				self.gameStarted = true
 			}
 			self.index = self.currentScreenShowing - 3
-						print("practice idnex = \(self.index)")
+			
 			self.updateView(self.practiceSequence[self.index])
-			if self.isAnimal(self.practiceSequence[self.index]) {
-				self.screenCountSinceAnimalAppeared = 0
-			}
 			
 		case 24:
 			self.timer.invalidate()
@@ -201,9 +205,6 @@ class VisualSustainViewController: CounterpointingViewController {
 			self.index = self.currentScreenShowing - 25
 				print("game idnex = \(self.index)")
 			self.updateView(self.gameSequence[self.index])
-			if self.isAnimal(self.gameSequence[self.index]) {
-				self.screenCountSinceAnimalAppeared = 0
-			}
 			
 		case 176:
 			self.presentMessage("...stop")
@@ -213,6 +214,23 @@ class VisualSustainViewController: CounterpointingViewController {
 			self.quit()
 		default:
 			break
+		}
+		print("present next screen")
+	}
+	
+	func startDelayTimer() {
+		stopwatch.invalidate()
+		stopwatchStartDate = NSDate()
+		stopwatch = NSTimer.scheduledTimerWithTimeInterval(stopwatchScale, target: self, selector: "updateDelayTimer", userInfo: nil, repeats: true)
+		self.screenCountSinceAnimalAppeared = 0
+	}
+	
+	func updateDelayTimer() {
+		let timePassedAfterAnimal: NSTimeInterval = stopwatchStartDate.timeIntervalSinceNow
+		screenCountSinceAnimalAppeared = abs(timePassedAfterAnimal)
+		print("Delay = \(screenCountSinceAnimalAppeared)")
+		if screenCountSinceAnimalAppeared > Double(model.data.visSustAcceptedDelay!) {
+			stopwatch.invalidate()
 		}
 	}
 	
@@ -232,6 +250,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func quit() {
 		super.quit()
 		timer.invalidate()
+		stopwatch.invalidate()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
