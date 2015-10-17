@@ -179,16 +179,25 @@ class VisualSustainViewController: CounterpointingViewController {
 		let result = false
 		mistakeCounter += 1
 		
-		if mistakeCounter > Constants.kTolerateMistakes {
-			// -100 is special indicator, player skipped 4 turns, not has to be added to the log,
-			// positionX is reserved for the screen number
-			model.addCounterpointingMove(screen, positionY: -100, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
-			mistakeCounter = 0
-			attentionSound.play()
-		} else {
-			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
+		//To avoid changing data model we will use interval to store mistake type
+		var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
+		if (mistakeType == .Miss) {
+			codedMistakeType = VisualSustainMistakeType.Miss.rawValue
+		} else if (mistakeType == .FalsePositive) {
+			codedMistakeType = VisualSustainMistakeType.FalsePositive.rawValue
 		}
 		
+		// -100 is special indicator, player skipped 4 turns, not has to be added to the log
+		var codedSkipWarning = VisualSustainSkip.NoSkip.rawValue
+		if mistakeCounter > Constants.kTolerateMistakes {
+			codedSkipWarning = VisualSustainSkip.FourSkips.rawValue
+			attentionSound.play()
+			mistakeCounter = 0
+		}
+
+		model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: result, interval: codedMistakeType, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
+			
+
 		if !trainingMode {
 			let errors = session.errors.integerValue
 			session.errors = NSNumber(integer: (errors + 1))

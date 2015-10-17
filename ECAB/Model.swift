@@ -28,6 +28,17 @@ struct GameTitle {
 	static let visualSust = "Visual Sustained"
 }
 
+enum VisualSustainMistakeType: Double {
+	case Miss = 100
+	case FalsePositive = 200
+	case Unknown = 0
+}
+
+enum VisualSustainSkip: CGFloat {
+	case NoSkip = 0
+	case FourSkips = -100
+}
+
 class Model {
     let games = [GameTitle.visual, GameTitle.counterpointing, GameTitle.flanker, GameTitle.visualSust]
 	

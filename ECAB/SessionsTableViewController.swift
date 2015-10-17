@@ -408,7 +408,7 @@ class SessionsTableViewController: UITableViewController {
 				
 				var append = ""
 				var fourMistakes = ""
-				if actualMove.poitionY == -100 {
+				if actualMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
 					fourMistakes = "[4 mistaken taps in a row]"
 				}
 				if actualMove.success.boolValue {
