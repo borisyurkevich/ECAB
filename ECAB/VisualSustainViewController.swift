@@ -164,6 +164,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 			// Prevents following taps to be sucesfull
 			screenCountSinceAnimalAppeared = resetTimerValue
+			stopwatch.invalidate()
 			
 			if !trainingMode {
 				let score = session.score.integerValue
@@ -252,7 +253,6 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 			
 			self.index = self.currentScreenShowing - 25
-				print("game idnex = \(self.index)")
 			self.updateView(self.gameSequence[self.index])
 			
 		case 176:
@@ -276,11 +276,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	func updateDelayTimer() {
 		let timePassedAfterAnimal: NSTimeInterval = stopwatchStartDate.timeIntervalSinceNow
 		screenCountSinceAnimalAppeared = abs(timePassedAfterAnimal)
-		print("Delay = \(screenCountSinceAnimalAppeared)")
 		if screenCountSinceAnimalAppeared > Double(model.data.visSustAcceptedDelay!) {
-			
-			print("stopwatch invalidate")
-			
 			stopwatch.invalidate()
 		}
 	}
