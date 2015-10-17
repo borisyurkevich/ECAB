@@ -20,7 +20,6 @@
         <attribute name="totalOne" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="totalTwo" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="vsustMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="counterpointingSessions" inverseEntity="Data" syncable="YES"/>
         <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CounterpointingMove" inverseName="session" inverseEntity="CounterpointingMove" syncable="YES"/>
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedCounterpointingSessions" inverseEntity="Player" syncable="YES"/>
@@ -70,7 +69,7 @@
     </entity>
     <elements>
         <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="165"/>
-        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="240"/>
+        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="225"/>
         <element name="Data" positionX="-432" positionY="-99" width="128" height="210"/>
         <element name="Move" positionX="-450" positionY="254" width="128" height="178"/>
         <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
