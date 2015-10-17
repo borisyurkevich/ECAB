@@ -21,16 +21,20 @@ class VisualSustainViewController: CounterpointingViewController {
 	private var stopwatch = NSTimer()
 	private let stopwatchScale = 0.1
 	private var stopwatchStartDate = NSDate()
+	private var resetTimerValue = 0.0
 
     override func viewDidLoad() {
-		screenCountSinceAnimalAppeared = Double(model.data.visSustAcceptedDelay!) + 1
 		sessionType = 2
 		greeingMessage = "Practice 1. Ready..."
         super.viewDidLoad()
+		
 		gameSpeed = model.data.visSustSpeed.doubleValue
-		self.testItem.frame = CGRectMake(0, 0, self.testItem.frame.size.width * 2, self.testItem.frame.size.height * 2)
-		self.testItem.center = self.view.center;
+		testItem.frame = CGRectMake(0, 0, testItem.frame.size.width * 2, testItem.frame.size.height * 2)
+		testItem.center = view.center;
 		session.speed = model.data.visSustSpeed.doubleValue
+		
+		resetTimerValue = Double(model.data.visSustAcceptedDelay!) + 1
+		screenCountSinceAnimalAppeared = resetTimerValue
 	}
 	
 	struct Constants {
@@ -65,6 +69,11 @@ class VisualSustainViewController: CounterpointingViewController {
 		case Star = "star_yellow"
 		case Train = "train_inverse"
 		case Tree = "tree"
+	}
+	
+	enum Mistake {
+		case Miss
+		case FalsePositive
 	}
 	
 	private let practiceSequence: [Picture] = [.Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train, .Empty];
@@ -103,7 +112,7 @@ class VisualSustainViewController: CounterpointingViewController {
 				if timePassed != acceptedDelay {
 					// New animal appeared on the screen and player didn't reset the counter
 					// by tapping on the screen
-					self.noteMistake()
+					self.noteMistake(.Miss)
 				}
 				self.startDelayTimer()
 			}
@@ -146,37 +155,38 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func tapHandler(sender: UITapGestureRecognizer) {
 		
 		let screen: CGFloat = CGFloat(index + 1)
-		var result = false
+		let result = true
 		if screenCountSinceAnimalAppeared <= Double(model.data.visSustAcceptedDelay!) {
 			mistakeCounter = 0
-			result = true
+			
 			successSound.play()
 			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay:screenCountSinceAnimalAppeared)
 			
 			// Prevents following taps to be sucesfull
-			screenCountSinceAnimalAppeared = Double(model.data.visSustAcceptedDelay!) + 1
+			screenCountSinceAnimalAppeared = resetTimerValue
 			
 			if !trainingMode {
 				let score = session.score.integerValue
 				session.score = NSNumber(integer: (score + 1))
 			}
 		} else {
-			noteMistake()
+			noteMistake(.FalsePositive)
 		}
 	}
 	
-	func noteMistake() {
+	func noteMistake(mistakeType: Mistake) {
 		let screen: CGFloat = CGFloat(index + 1)
+		let result = false
 		mistakeCounter += 1
 		
 		if mistakeCounter > Constants.kTolerateMistakes {
 			// -100 is special indicator, player skipped 4 turns, not has to be added to the log,
 			// positionX is reserved for the screen number
-			model.addCounterpointingMove(screen, positionY: -100, success: false, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
+			model.addCounterpointingMove(screen, positionY: -100, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
 			mistakeCounter = 0
 			attentionSound.play()
 		} else {
-			model.addCounterpointingMove(screen, positionY: 0, success: false, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
+			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
 		}
 		
 		if !trainingMode {
@@ -256,7 +266,6 @@ class VisualSustainViewController: CounterpointingViewController {
 		print("Delay = \(screenCountSinceAnimalAppeared)")
 		if screenCountSinceAnimalAppeared > Double(model.data.visSustAcceptedDelay!) {
 			
-			//self.noteMistake()
 			print("stopwatch invalidate")
 			
 			stopwatch.invalidate()
@@ -277,6 +286,12 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	override func quit() {
+		
+		if screenCountSinceAnimalAppeared != resetTimerValue {
+			// Last animal was missed
+			noteMistake(.Miss)
+		}
+		
 		super.quit()
 		timer.invalidate()
 		stopwatch.invalidate()
