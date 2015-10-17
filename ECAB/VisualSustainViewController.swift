@@ -22,6 +22,9 @@ class VisualSustainViewController: CounterpointingViewController {
 	private let stopwatchScale = 0.1
 	private var stopwatchStartDate = NSDate()
 	private var resetTimerValue = 0.0
+	
+	let attentionLabelTag = 1
+	let secondsAttentionLabelRemainingOnScreen = 3.0
 
     override func viewDidLoad() {
 		sessionType = 2
@@ -194,6 +197,21 @@ class VisualSustainViewController: CounterpointingViewController {
 			codedSkipWarning = VisualSustainSkip.FourSkips.rawValue
 			attentionSound.play()
 			mistakeCounter = 0
+			let label = UILabel()
+			label.text = "Remember, touch the screen every time you see an animal"
+			label.font = UIFont.systemFontOfSize(32.0)
+			label.frame = CGRectMake(120, 480, 0, 0)
+			label.sizeToFit()
+			label.tag = attentionLabelTag
+			view.addSubview(label)
+			
+			delay(secondsAttentionLabelRemainingOnScreen) {
+				for v in self.view.subviews {
+					if v.tag == self.attentionLabelTag  {
+						v.removeFromSuperview()
+					}
+				}
+			}
 		}
 
 		model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: result, interval: codedMistakeType, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
@@ -309,6 +327,23 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
 		timer.invalidate()
+	}
+	
+	override func cleanView() {
+		for v in view.subviews {
+			if v.tag != attentionLabelTag  {
+				v.removeFromSuperview()
+			}
+		}
+		
+		if view.gestureRecognizers != nil {
+			for g in view.gestureRecognizers! {
+				if let recognizer = g as? UITapGestureRecognizer {
+					view.removeGestureRecognizer(recognizer)
+				}
+			}
+		}
+		view.addSubview(pauseButton!)
 	}
 
 }
