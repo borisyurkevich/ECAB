@@ -196,11 +196,15 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 
 		model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: result, interval: codedMistakeType, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
-			
 
 		if !trainingMode {
-			let errors = session.errors.integerValue
-			session.errors = NSNumber(integer: (errors + 1))
+			if mistakeType == .FalsePositive {
+				let errors = session.errors.integerValue
+				session.errors = NSNumber(integer: (errors + 1))
+			} else if mistakeType == .Miss {
+				let errors = session.vsustMiss!.integerValue
+				session.vsustMiss = NSNumber(integer: (errors + 1))
+			}
 		}
 	}
 	

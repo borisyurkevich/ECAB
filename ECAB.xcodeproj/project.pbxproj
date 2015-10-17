@@ -12,6 +12,7 @@
 		9130B7991BC94D5100D26708 /* Data+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B7981BC94D5100D26708 /* Data+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		9130B79D1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		9130B79F1BCAC83400D26708 /* beep-piano.aif in Resources */ = {isa = PBXBuildFile; fileRef = 9130B79E1BCAC83400D26708 /* beep-piano.aif */; settings = {ASSET_TAGS = (); }; };
+		9130B7A11BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B7A01BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
 		91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */; };
 		91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE91B52A4A400E3C293 /* CounterpointingMove.swift */; };
@@ -59,6 +60,7 @@
 		9130B7981BC94D5100D26708 /* Data+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CounterpointingMove+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9130B79E1BCAC83400D26708 /* beep-piano.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-piano.aif"; sourceTree = "<group>"; };
+		9130B7A01BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CounterpointingSession+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		91379BD41B528C9C00E3C293 /* Model v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v4.xcdatamodel"; sourceTree = "<group>"; };
 		91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingSession.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 		91F448171B089A1C0082EB6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9130B7A01BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift */,
 				9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */,
 				9130B7981BC94D5100D26708 /* Data+CoreDataProperties.swift */,
 				91379BF11B52FEA600E3C293 /* Data.swift */,
@@ -375,6 +378,7 @@
 				91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */,
 				91379BF21B52FEA600E3C293 /* Data.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
+				9130B7A11BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* VisualSearch.swift in Sources */,
 				91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */,
 				91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */,
