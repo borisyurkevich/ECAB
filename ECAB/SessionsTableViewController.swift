@@ -396,15 +396,10 @@ class SessionsTableViewController: UITableViewController {
 			let pickedSesstion = array[indexPath.row]
 			var details = ""
 			var counter = 0
-			var status = "success"
+
 			var spacePrinted = false
 			for move in pickedSesstion.moves {
 				let actualMove = move as! CounterpointingMove
-				if !actualMove.success.boolValue {
-					status = "mistake"
-				} else {
-					status = "success"
-				}
 				
 				var append = ""
 				var fourMistakes = ""
@@ -415,9 +410,15 @@ class SessionsTableViewController: UITableViewController {
 					
 					let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
 					
-					append = "\(counter)) screen: \(actualMove.poitionX) \(status) delay: \(formattedDelay) seconds \(fourMistakes)\n"
+					append = "\(counter)) screen: \(actualMove.poitionX) Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
 				} else {
-					append = "\(counter)) screen: \(actualMove.poitionX) \(status) \(fourMistakes)\n"
+					// Two mistakes type
+					if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+						append = "\(counter)) screen: \(actualMove.poitionX) Fasle Positive \(fourMistakes)\n"
+					} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
+						append = "\(counter)) screen: \(actualMove.poitionX) Miss \(fourMistakes)\n"
+					}
+					
 				}
 				
 				if !spacePrinted && !actualMove.inverted.boolValue { // Not training
@@ -432,7 +433,7 @@ class SessionsTableViewController: UITableViewController {
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let gameName = model.games[Int(model.data.selectedGame)]
 			let comment = pickedSesstion.comment
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name); speed: \(pickedSesstion.speed.doubleValue)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name); speed: \(pickedSesstion.speed.doubleValue)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nFalse positives = \(pickedSesstion.errors) Misses = \(pickedSesstion.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		default:
