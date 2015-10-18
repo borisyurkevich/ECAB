@@ -414,7 +414,7 @@ class SessionsTableViewController: UITableViewController {
 				} else {
 					// Two mistakes type
 					if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-						append = "\(counter)) screen: \(actualMove.poitionX) Fasle Positive \(fourMistakes)\n"
+						append = "\(counter)) screen: \(actualMove.poitionX) False Positive \(fourMistakes)\n"
 					} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
 						append = "\(counter)) screen: \(actualMove.poitionX) Miss \(fourMistakes)\n"
 					}
