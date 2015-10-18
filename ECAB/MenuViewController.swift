@@ -175,7 +175,20 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)
 			case GameTitle.flanker:
 				let gameVC = FlankerViewController()
-				detailVC.presentViewController(gameVC, animated: true, completion: nil)
+				
+				let alert = UIAlertController(title: "Small Images.", message: "Enable small images?", preferredStyle:.Alert)
+				let okayAction = UIAlertAction(title: "Normal images", style: .Cancel, handler: { (alertAction) -> Void in
+					detailVC.presentViewController(gameVC, animated: true, completion: nil)
+				})
+				let smallImageAction = UIAlertAction(title: "Small images", style: .Default, handler: { (alertAction) -> Void in
+					gameVC.smallImages = true
+					detailVC.presentViewController(gameVC, animated: true, completion: nil)
+				})
+				alert.addAction(okayAction)
+				alert.addAction(smallImageAction)
+				
+				self.presentViewController(alert, animated: true, completion: nil)
+				
 			case GameTitle.visualSust:
 				let gameVC = VisualSustainViewController()
 				detailVC.presentViewController(gameVC, animated: true, completion: nil)

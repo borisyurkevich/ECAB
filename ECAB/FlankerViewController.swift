@@ -10,12 +10,13 @@ import UIKit
 import AVFoundation
 
 class FlankerViewController: CounterpointingViewController {
+	
+	var smallImages = false
 
     override func viewDidLoad() {
 		greeingMessage = "Example stimuli..."
 		sessionType = 1
         super.viewDidLoad()
-
     }
 	
 	enum Picture {
@@ -26,11 +27,17 @@ class FlankerViewController: CounterpointingViewController {
 		case FishInverted
 	}
 	
+	enum Position {
+		case Left
+		case Middle
+		case Right
+	}
+	
 	func updateScreen(left: Picture, middle: Picture, right: Picture) {
-
-		addImage(left, x: 95, y: 328)
-		addImage(middle, x: 402, y: 328)
-		addImage(right, x: 717, y: 328)
+		
+		addImage(left, position: Position.Left)
+		addImage(middle, position: Position.Middle)
+		addImage(right, position: Position.Right)
 		
 		let barWidth: CGFloat = 72
 		
@@ -67,39 +74,49 @@ class FlankerViewController: CounterpointingViewController {
 		rightTapView.addGestureRecognizer(rightSwipe)
 	}
 	
-	func addImage(image: Picture, x: CGFloat, y: CGFloat) {
+	func addImage(image: Picture, position:Position) {
 		
 		let fishImage = UIImage(named: "fish")
 		let mouseImage = UIImage(named: "mouse")
 		let fishInvertedImage = UIImage(named: "fish_iverse")
 		let mouseInvertedImage = UIImage(named: "mouse_inverse")
 		
+		var scaleFactor:CGFloat = 2.0
+		if (smallImages) {
+			scaleFactor = 1.5
+		}
+		
+		var imageView = UIImageView()
+		
 		switch image {
 		case .Mouse:
-			let imageView = UIImageView(image: mouseImage)
-			imageView.frame = CGRectMake(x, y, mouseImage!.size.width*2, mouseImage!.size.height*2)
-			view.addSubview(imageView)
-			break
+			imageView = UIImageView(image: mouseImage)
+			imageView.frame = CGRectMake(0, 0, mouseImage!.size.width*scaleFactor, mouseImage!.size.height*scaleFactor)
 		case .Fish:
-			let imageView = UIImageView(image: fishImage)
-			imageView.frame = CGRectMake(x, y, fishImage!.size.width*2, fishImage!.size.height*2)
-			view.addSubview(imageView)
+			imageView = UIImageView(image: fishImage)
+			imageView.frame = CGRectMake(0, 0, fishImage!.size.width*scaleFactor, fishImage!.size.height*scaleFactor)
 			leftTarget = false
-			break
 		case .MouseInverted:
-			let imageView = UIImageView(image: mouseInvertedImage)
-			imageView.frame = CGRectMake(x, y, mouseImage!.size.width*2, mouseImage!.size.height*2)
-			view.addSubview(imageView)
-			break
+			imageView = UIImageView(image: mouseInvertedImage)
+			imageView.frame = CGRectMake(0, 0, mouseImage!.size.width*scaleFactor, mouseImage!.size.height*scaleFactor)
 		case .FishInverted:
-			let imageView = UIImageView(image: fishInvertedImage)
-			imageView.frame = CGRectMake(x, y, fishImage!.size.width*2, fishImage!.size.height*2)
-			view.addSubview(imageView)
+			imageView = UIImageView(image: fishInvertedImage)
+			imageView.frame = CGRectMake(0, 0, fishImage!.size.width*scaleFactor, fishImage!.size.height*scaleFactor)
 			leftTarget = true
-			break
 		default:
 			break
 		}
+		
+		switch position {
+		case .Left:
+			imageView.center = CGPointMake(view.center.x - view.frame.size.width / 4, view.center.y)
+		case .Middle:
+			imageView.center = CGPointMake(view.center.x, view.center.y)
+		case .Right:
+			imageView.center = CGPointMake(view.center.x + view.frame.size.width / 4, view.center.y)
+		}
+		
+		view.addSubview(imageView)
 	}
 	
 	override func presentPreviousScreen() { // Restarts the practice
