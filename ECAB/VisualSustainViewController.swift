@@ -235,7 +235,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	override func skip() {
-		currentScreenShowing = 2
+		currentScreenShowing = 23
 		presentNextScreen()
 	}
 	

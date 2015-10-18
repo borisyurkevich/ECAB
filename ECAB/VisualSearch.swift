@@ -93,6 +93,9 @@ class VisualSearch: TestViewController,
 		
 		view.addSubview(pauseButton!)
 		view.addSubview(nextButton!)
+		view.addSubview(skipTrainingButton!)
+		
+		backButton?.setTitle("Back", forState: UIControlState.Normal)
 	}
 	
 	func presentNextScreen() {
