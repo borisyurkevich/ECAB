@@ -93,9 +93,6 @@ class VisualSearch: TestViewController,
 		
 		view.addSubview(pauseButton!)
 		view.addSubview(nextButton!)
-		view.addSubview(backButton!)
-		
-		backButton?.setTitle("Back", forState: UIControlState.Normal)
 	}
 	
 	func presentNextScreen() {
@@ -122,8 +119,16 @@ class VisualSearch: TestViewController,
 		timer.invalidate()
 		timerDidFire()
 	}
+	
+	override func skip() {
+		currentView = 2
+		timerDidFire()
+	}
     
     func timerDidFire() {
+		
+		self.skipTrainingButton?.hidden = true
+		self.view.addSubview(backButton!)
 		
 		// Here we shoulf set borard with new scene.
 		currentView += 1

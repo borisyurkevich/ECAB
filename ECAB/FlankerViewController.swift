@@ -117,12 +117,21 @@ class FlankerViewController: CounterpointingViewController {
 		
 		trainingMode = true
 		presentNextScreen()
+		
+		skipTrainingButton?.hidden = false
+	}
+	
+	override func skip() {
+		currentScreenShowing = 22
+		presentNextScreen()
 	}
 	
 	override func presentNextScreen() {
 		currentScreenShowing++
 		cleanView()
 		screenPresentedDate = NSDate()
+		
+		skipTrainingButton?.hidden = true
 		
 		switch currentScreenShowing {
 		case 0:

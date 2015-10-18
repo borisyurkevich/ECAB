@@ -231,10 +231,18 @@ class VisualSustainViewController: CounterpointingViewController {
 		currentScreenShowing = -1
 		trainingMode = true
 		presentNextScreen()
+		skipTrainingButton?.hidden = false
+	}
+	
+	override func skip() {
+		currentScreenShowing = 2
+		presentNextScreen()
 	}
 	
 	override func presentNextScreen() {
 		currentScreenShowing++
+		
+		skipTrainingButton?.hidden = true
 		
 		self.cleanView()
 		

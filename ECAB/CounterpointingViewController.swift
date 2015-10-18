@@ -34,14 +34,23 @@ class CounterpointingViewController: TestViewController {
 		presentMessage(greeingMessage)
 	}
 	
+	// Restarts the practice
 	func presentPreviousScreen() {
 		currentScreenShowing -= 4
 		trainingMode = true
+		presentNextScreen()
+		skipTrainingButton?.hidden = false
+	}
+	
+	override func skip() {
+		currentScreenShowing = 27
 		presentNextScreen()
 	}
 	
 	func presentNextScreen() {
 		currentScreenShowing++
+		
+		skipTrainingButton?.hidden = true
 	
 		cleanView()
 		screenPresentedDate = NSDate()

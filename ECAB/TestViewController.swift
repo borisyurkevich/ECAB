@@ -16,6 +16,7 @@ class TestViewController: UIViewController {
 	var pauseButton: UIButton?
 	var nextButton: UIButton?
 	var backButton: UIButton?
+	var skipTrainingButton: UIButton?
 	
 	var successSound = AVAudioPlayer()
 	var failureSound = AVAudioPlayer()
@@ -82,7 +83,16 @@ class TestViewController: UIViewController {
 		nextButton!.tintColor = UIColor.grayColor()
 		addButtonBorder(nextButton!)
 		
+		skipTrainingButton = UIButton(type: UIButtonType.System)
+		skipTrainingButton?.setTitle("Skip", forState: UIControlState.Normal)
+		skipTrainingButton?.frame = backButton!.frame
+		skipTrainingButton?.tintColor = UIColor.grayColor()
+		skipTrainingButton?.addTarget(self, action: "skip", forControlEvents: UIControlEvents.TouchUpInside)
+		addButtonBorder(skipTrainingButton!)
+		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
+		
+		view.addSubview(skipTrainingButton!)
     }
 
 	func quit() {
@@ -129,6 +139,11 @@ class TestViewController: UIViewController {
 		}
 		
 		presentViewController(alertView, animated: true, completion: nil)
+	}
+	
+	func skip() {
+		// To be implemented in subclasses
+		print("Please implement skip() in this class")
 	}
 	
 	func addButtonBorder(button: UIButton) {
