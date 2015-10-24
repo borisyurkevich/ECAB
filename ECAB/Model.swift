@@ -156,6 +156,11 @@ class Model {
 		session.dateStart = NSDate()
 		session.player = player
 		
+		// Build number
+		let bundleInfo = NSBundle.mainBundle().infoDictionary
+		let bundleVersion = bundleInfo!["CFBundleVersion"]
+		session.bundleVersion = bundleVersion! as? String
+		
 		// Insert the new Session into the Data set
 		let sessions = data.sessions.mutableCopy() as! NSMutableOrderedSet
 		sessions.addObject(session)
@@ -172,6 +177,11 @@ class Model {
 		session.dateStart = NSDate()
 		session.player = player
 		session.type = type
+		
+		// Build number
+		let bundleInfo = NSBundle.mainBundle().infoDictionary
+		let bundleVersion = bundleInfo!["CFBundleVersion"]
+		session.bundleVersion = bundleVersion! as? String
 		
 		// Insert the new Session into the Data set
 		let sessions = data.counterpointingSessions.mutableCopy() as! NSMutableOrderedSet

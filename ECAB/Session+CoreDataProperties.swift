@@ -1,5 +1,5 @@
 //
-//  CounterpointingSession+CoreDataProperties.swift
+//  Session+CoreDataProperties.swift
 //  ECAB
 //
 //  Created by Boris Yurkevich on 24/10/2015.
@@ -12,8 +12,8 @@
 import Foundation
 import CoreData
 
-extension CounterpointingSession {
+extension Session {
 
     @NSManaged var bundleVersion: String?
-	@NSManaged var vsustMiss: NSNumber?
+
 }

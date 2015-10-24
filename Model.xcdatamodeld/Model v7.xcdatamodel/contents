@@ -11,6 +11,7 @@
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CounterpointingSession" inverseName="moves" inverseEntity="CounterpointingSession" syncable="YES"/>
     </entity>
     <entity name="CounterpointingSession" representedClassName="ECAB.CounterpointingSession" syncable="YES">
+        <attribute name="bundleVersion" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="comment" attributeType="String" defaultValueString="no comment" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="errors" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -57,6 +58,7 @@
         <relationship name="selected" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="selectedPlayer" inverseEntity="Data" syncable="YES"/>
     </entity>
     <entity name="Session" representedClassName="ECAB.Session" syncable="YES">
+        <attribute name="bundleVersion" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="comment" attributeType="String" defaultValueString="no comment" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="difficulty" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -70,10 +72,10 @@
     </entity>
     <elements>
         <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="165"/>
-        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="240"/>
+        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="255"/>
         <element name="Data" positionX="-432" positionY="-99" width="128" height="210"/>
         <element name="Move" positionX="-450" positionY="254" width="128" height="178"/>
         <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
-        <element name="Session" positionX="-441" positionY="50" width="128" height="195"/>
+        <element name="Session" positionX="-441" positionY="50" width="128" height="210"/>
     </elements>
 </model>
