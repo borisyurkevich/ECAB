@@ -319,15 +319,12 @@ class VisualSearch: TestViewController,
 		case 0, 11:
 			total = 3
 			rows = 1
-			break
 		case 1, 12:
 			total = 9
 			rows = 3
-			break
 		case 2, 13:
 			total = 18
 			rows = 3
-			break
 		default:
 			break
 		}
