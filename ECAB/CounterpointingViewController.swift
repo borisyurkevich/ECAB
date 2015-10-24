@@ -49,162 +49,111 @@ class CounterpointingViewController: TestViewController {
 		case 0:
 			// This is needed when practice is restarted.
 			presentMessage(greeingMessage)
-			break
 		case 1:
 			presentDogOnRight()
-			break
 		case 2:
 			presentDogOnLeft()
-			break
 		case 3:
 			presentMessage("Touch the side with the dog as quickly as you can!")
 			trainingMode = false
-			break
 		case 4:
 			presentDogOnLeft()
-			break
 		case 5:
 			presentDogOnRight()
-			break
 		case 6:
 			presentDogOnLeft()
-			break
 		case 7:
 			presentDogOnLeft()
-			break
 		case 8:
 			presentDogOnRight()
-			break
 		case 9:
 			presentDogOnRight()
-			break
 		case 10:
 			presentDogOnLeft()
-			break
 		case 11:
 			presentDogOnRight()
-			break
 		case 12:
 			presentDogOnLeft()
-			break
 		case 13:
 			presentDogOnLeft()
-			break
 		case 14:
 			presentDogOnLeft()
-			break
 		case 15:
 			presentDogOnRight()
-			break
 		case 16:
 			presentDogOnLeft()
-			break
 		case 17:
 			presentDogOnRight()
-			break
 		case 18:
 			presentDogOnRight()
-			break
 		case 19:
 			presentDogOnRight()
-			break
 		case 20:
 			presentDogOnLeft()
-			break
 		case 21:
 			presentDogOnLeft()
-			break
 		case 22:
 			presentDogOnRight()
-			break
 		case 23:
 			presentDogOnRight()
-			break
 		case 24:
 			presentMessage("...stop")
-			break
 		case 25:
 			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
 			trainingMode = true
 			gameModeInversed = true
 			touchModeInverserd = true
-			break
 		case 26:
 			presentDogOnRight()
-			break
 		case 27:
 			presentDogOnLeft()
-			break
 		case 28:
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
 			trainingMode = false
-			break
 		case 29:
 			presentDogOnRight()
-			break
 		case 30:
 			presentDogOnLeft()
-			break
 		case 31:
 			presentDogOnRight()
-			break
 		case 32:
 			presentDogOnLeft()
-			break
 		case 33:
 			presentDogOnRight()
-			break
 		case 34:
 			presentDogOnRight()
-			break
 		case 35:
 			presentDogOnLeft()
-			break
 		case 36:
 			presentDogOnRight()
-			break
 		case 37:
 			presentDogOnRight()
-			break
 		case 38:
 			presentDogOnRight()
-			break
 		case 39:
 			presentDogOnLeft()
-			break
 		case 40:
 			presentDogOnLeft()
-			break
 		case 41:
 			presentDogOnRight()
-			break
 		case 42:
 			presentDogOnRight()
-			break
 		case 43:
 			presentDogOnLeft()
-			break
 		case 44:
 			presentDogOnLeft()
-			break
 		case 45:
 			presentDogOnLeft()
-			break
 		case 46:
 			presentDogOnRight()
-			break
 		case 47:
 			presentDogOnLeft()
-			break
 		case 48:
 			presentDogOnLeft()
-			break
 		case 49:
 			presentMessage("...stop")
-			break
 		case 50:
 			quit()
-			break
 		default:
 			break
 		}
