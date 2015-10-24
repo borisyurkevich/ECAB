@@ -150,9 +150,6 @@ class VisualSustainViewController: CounterpointingViewController {
 		for image in images {
 			view.addSubview(image)
 		}
-		
-		view.addSubview(nextButton!)
-		view.addSubview(backButton!)
 	}
 	
 	override func tapHandler(sender: UITapGestureRecognizer) {
@@ -231,7 +228,6 @@ class VisualSustainViewController: CounterpointingViewController {
 		currentScreenShowing = -1
 		trainingMode = true
 		presentNextScreen()
-		skipTrainingButton?.hidden = false
 	}
 	
 	override func skip() {
@@ -241,8 +237,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func presentNextScreen() {
 		currentScreenShowing++
-		
-		skipTrainingButton?.hidden = true
 		
 		self.cleanView()
 		
@@ -254,7 +248,6 @@ class VisualSustainViewController: CounterpointingViewController {
 			self.showFirstView()
 		case 2:
 			self.presentMessage("Practice 2. Ready")
-			self.view.addSubview(self.backButton!)
 		case 3 ... 23:
 			if !self.gameStarted {
 				self.startTheGame()
@@ -270,7 +263,6 @@ class VisualSustainViewController: CounterpointingViewController {
 			self.presentMessage("Game!")
 			mistakeCounter = 0
 			self.trainingMode = false
-			self.view.addSubview(self.backButton!)
 		case 25 ... 175:
 		
 			if !self.gameStarted {
@@ -351,7 +343,6 @@ class VisualSustainViewController: CounterpointingViewController {
 				}
 			}
 		}
-		view.addSubview(pauseButton!)
 	}
 
 }

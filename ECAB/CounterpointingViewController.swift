@@ -39,7 +39,6 @@ class CounterpointingViewController: TestViewController {
 		currentScreenShowing -= 4
 		trainingMode = true
 		presentNextScreen()
-		skipTrainingButton?.hidden = false
 	}
 	
 	override func skip() {
@@ -49,8 +48,6 @@ class CounterpointingViewController: TestViewController {
 	
 	func presentNextScreen() {
 		currentScreenShowing++
-		
-		skipTrainingButton?.hidden = true
 	
 		cleanView()
 		screenPresentedDate = NSDate()
@@ -69,7 +66,6 @@ class CounterpointingViewController: TestViewController {
 		case 3:
 			presentMessage("Touch the side with the dog as quickly as you can!")
 			trainingMode = false
-			view.addSubview(backButton!)
 			break
 		case 4:
 			presentDogOnLeft()
@@ -149,7 +145,6 @@ class CounterpointingViewController: TestViewController {
 		case 28:
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
 			trainingMode = false
-			view.addSubview(backButton!)
 			break
 		case 29:
 			presentDogOnRight()
@@ -228,8 +223,6 @@ class CounterpointingViewController: TestViewController {
 		let dot = UIImageView(image: UIImage(named: "Blue Dot"))
 		dot.center = view.center
 		view.addSubview(dot)
-	
-		view.addSubview(nextButton!)
 	}
 	
 	func presentMessage(message: String){
@@ -239,8 +232,6 @@ class CounterpointingViewController: TestViewController {
 		label.textAlignment = NSTextAlignment.Center
 		label.font = UIFont.systemFontOfSize(44)
 		view.addSubview(label)
-		
-		view.addSubview(nextButton!)
 	}
 	
 	func presentDogOnLeft(){

@@ -91,11 +91,14 @@ class VisualSearch: TestViewController,
         // Disable scrolling
         collectionView.scrollEnabled = false;
 		
-		view.addSubview(pauseButton!)
-		view.addSubview(nextButton!)
-		view.addSubview(skipTrainingButton!)
+		// Need to readd all the buttons
+		// Superclass buttons is not visible (probably because it is a collection view?
+		view.addSubview(backButton) // restart
+		view.addSubview(nextButton)
+		view.addSubview(skipTrainingButton)
+		view.addSubview(pauseButton)
 		
-		backButton?.setTitle("Back", forState: UIControlState.Normal)
+		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
 	
 	func presentNextScreen() {
@@ -129,9 +132,6 @@ class VisualSearch: TestViewController,
 	}
     
     func timerDidFire() {
-		
-		self.skipTrainingButton?.hidden = true
-		self.view.addSubview(backButton!)
 		
 		// Here we shoulf set borard with new scene.
 		currentView += 1
@@ -182,7 +182,6 @@ class VisualSearch: TestViewController,
 					// Real game starts on motor test
 					// This is three motor screen tests
 					self.startGame()
-					self.nextButton?.hidden = true
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
 					self.insetTop = Insets.top
@@ -258,8 +257,6 @@ class VisualSearch: TestViewController,
 			self.collectionView.insertSections(NSIndexSet(index: 0))
 			
 		}, completion: nil)
-		
-		self.nextButton?.hidden = false
 	}
 	
     // MARK: UICollectionViewDataSource

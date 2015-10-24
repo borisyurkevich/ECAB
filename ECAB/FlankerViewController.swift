@@ -136,8 +136,6 @@ class FlankerViewController: CounterpointingViewController {
 		
 		trainingMode = true
 		presentNextScreen()
-		
-		skipTrainingButton?.hidden = false
 	}
 	
 	override func skip() {
@@ -149,8 +147,6 @@ class FlankerViewController: CounterpointingViewController {
 		currentScreenShowing++
 		cleanView()
 		screenPresentedDate = NSDate()
-		
-		skipTrainingButton?.hidden = true
 		
 		switch currentScreenShowing {
 		case 0:
@@ -169,7 +165,6 @@ class FlankerViewController: CounterpointingViewController {
 			updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
 		case 7:
 			presentMessage("Practice 1. Ready...")
-			view.addSubview(backButton!)
 		case 8:
 			updateScreen(.Fish, middle: .Mouse, right: .Mouse)
 		case 9:
@@ -186,7 +181,6 @@ class FlankerViewController: CounterpointingViewController {
 			presentMessage("...stop")
 		case 15:
 			presentMessage("Practice 2. Ready")
-			view.addSubview(backButton!)
 		case 16:
 			updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
 		case 17:
@@ -204,7 +198,6 @@ class FlankerViewController: CounterpointingViewController {
 		case 23:
 			presentMessage("Game 1. Ready...")
 			gameModeInversed = false
-			view.addSubview(backButton!)
 			trainingMode = false
 		case 24: // 0
 			updateScreen(.Mouse, middle: .Mouse, right: .Fish)

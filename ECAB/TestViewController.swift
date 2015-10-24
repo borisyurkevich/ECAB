@@ -13,10 +13,10 @@ class TestViewController: UIViewController {
 	
 	let model: Model = Model.sharedInstance
 	
-	var pauseButton: UIButton?
-	var nextButton: UIButton?
-	var backButton: UIButton?
-	var skipTrainingButton: UIButton?
+	var pauseButton = UIButton(type: UIButtonType.System)
+	var nextButton = UIButton(type: UIButtonType.System)
+	var backButton = UIButton(type: UIButtonType.System)
+	var skipTrainingButton = UIButton(type: UIButtonType.System)
 	
 	var successSound = AVAudioPlayer()
 	var failureSound = AVAudioPlayer()
@@ -58,41 +58,51 @@ class TestViewController: UIViewController {
 		}
 		
 		// Buttons
-		let labelText: String = "Pause"
-		pauseButton = UIButton(type: UIButtonType.System)
-		backButton = UIButton(type: UIButtonType.System)
-		let size: CGSize = labelText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
-		let screen: CGSize = UIScreen.mainScreen().bounds.size
-		pauseButton!.setTitle(labelText, forState: UIControlState.Normal)
-		pauseButton!.frame = CGRectMake(screen.width - (size.width*2), 16, size.width + 2, size.height)
-		pauseButton!.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
-		pauseButton!.tintColor = UIColor.grayColor()
-		addButtonBorder(pauseButton!)
-		let backText = "Restart training"
-		let backLabelSize: CGSize = backText.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(28.0)])
-		backButton!.setTitle(backText, forState: UIControlState.Normal)
-		backButton!.frame = CGRectMake(16, 16, 140, backLabelSize.height)
-		backButton!.addTarget(self, action: "presentPreviousScreen", forControlEvents: UIControlEvents.TouchUpInside)
-		backButton!.tintColor = UIColor.grayColor()
-		addButtonBorder(backButton!)
+		let screenSize: CGSize = UIScreen.mainScreen().bounds.size
+		let marginTop:CGFloat = 16
+		let margin:CGFloat = 16
+		let buttonWidth:CGFloat = 100
+		
+		backButton.setTitle("Restart", forState: UIControlState.Normal)
+		backButton.frame = CGRectMake(marginTop, marginTop, 0, 0)
+		backButton.sizeToFit()
+		backButton.frame.size.width = buttonWidth
+		backButton.addTarget(self, action: "presentPreviousScreen", forControlEvents: UIControlEvents.TouchUpInside)
+		backButton.tintColor = UIColor.grayColor()
+		addButtonBorder(backButton)
 
 		nextButton = UIButton(type: UIButtonType.System)
-		nextButton!.setTitle("Next", forState: UIControlState.Normal)
-		nextButton!.frame = CGRectMake(160, 16, size.width + 2, size.height)
-		nextButton!.addTarget(self, action: "presentNextScreen", forControlEvents: UIControlEvents.TouchUpInside)
-		nextButton!.tintColor = UIColor.grayColor()
-		addButtonBorder(nextButton!)
+		nextButton.setTitle("  Next  ", forState: UIControlState.Normal)
+		nextButton.frame = CGRectMake(backButton.frame.maxX + margin, marginTop, 0, 0)
+		nextButton.sizeToFit()
+		nextButton.frame.size.width = buttonWidth
+		nextButton.addTarget(self, action: "presentNextScreen", forControlEvents: UIControlEvents.TouchUpInside)
+		nextButton.tintColor = UIColor.grayColor()
+		addButtonBorder(nextButton)
 		
 		skipTrainingButton = UIButton(type: UIButtonType.System)
-		skipTrainingButton?.setTitle("Skip", forState: UIControlState.Normal)
-		skipTrainingButton?.frame = backButton!.frame
-		skipTrainingButton?.tintColor = UIColor.grayColor()
-		skipTrainingButton?.addTarget(self, action: "skip", forControlEvents: UIControlEvents.TouchUpInside)
-		addButtonBorder(skipTrainingButton!)
+		skipTrainingButton.setTitle("  Skip  ", forState: UIControlState.Normal)
+		skipTrainingButton.frame = CGRectMake(nextButton.frame.maxX + margin, marginTop, 0, 0)
+		skipTrainingButton.sizeToFit()
+		skipTrainingButton.frame.size.width = buttonWidth
+		skipTrainingButton.tintColor = UIColor.grayColor()
+		skipTrainingButton.addTarget(self, action: "skip", forControlEvents: UIControlEvents.TouchUpInside)
+		addButtonBorder(skipTrainingButton)
+		
+		pauseButton.setTitle(" Pause ", forState: UIControlState.Normal)
+		pauseButton.frame = CGRectMake(screenSize.width - (backButton.frame.size.width + marginTop), marginTop, 0, 0)
+		pauseButton.sizeToFit()
+		pauseButton.frame.size.width = buttonWidth
+		pauseButton.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
+		pauseButton.tintColor = UIColor.grayColor()
+		addButtonBorder(pauseButton)
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
 		
-		view.addSubview(skipTrainingButton!)
+		view.addSubview(backButton)
+		view.addSubview(nextButton)
+		view.addSubview(skipTrainingButton)
+		view.addSubview(pauseButton)
     }
 
 	func quit() {
@@ -111,7 +121,6 @@ class TestViewController: UIViewController {
 				}
 			}
 		}
-		view.addSubview(pauseButton!)
 	}
 	
 	func addComment(alert: UIAlertController) {
@@ -156,12 +165,12 @@ class TestViewController: UIViewController {
 	func guidedAccessNotificationHandler(notification: NSNotification) {
 		
 		let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
-		pauseButton?.enabled = enabled
+		pauseButton.enabled = enabled
 		
-		if pauseButton?.enabled == true {
-			pauseButton?.hidden = false
+		if pauseButton.enabled == true {
+			pauseButton.hidden = false
 		} else {
-			pauseButton?.hidden = true
+			pauseButton.hidden = true
 		}
 		// Hide button completly
 	}
