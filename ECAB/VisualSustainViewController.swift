@@ -204,8 +204,10 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 			delay(secondsAttentionLabelRemainingOnScreen) {
 				for v in self.view.subviews {
-					if v.tag == self.attentionLabelTag  {
-						v.removeFromSuperview()
+					if v.tag == self.attentionLabelTag {
+						if !v.isKindOfClass(UIButton) {
+							v.removeFromSuperview()
+						}
 					}
 				}
 			}
@@ -222,12 +224,6 @@ class VisualSustainViewController: CounterpointingViewController {
 				session.vsustMiss = NSNumber(integer: (errors + 1))
 			}
 		}
-	}
-	
-	override func presentPreviousScreen() { // Restarts the practice
-		currentScreenShowing = -1
-		trainingMode = true
-		presentNextScreen()
 	}
 	
 	override func skip() {
@@ -330,16 +326,20 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	override func cleanView() {
-		for v in view.subviews {
-			if v.tag != attentionLabelTag  {
-				v.removeFromSuperview()
-			}
-		}
 		
 		if view.gestureRecognizers != nil {
 			for g in view.gestureRecognizers! {
 				if let recognizer = g as? UITapGestureRecognizer {
 					view.removeGestureRecognizer(recognizer)
+				}
+			}
+		}
+		
+		for v in view.subviews {
+		
+			if v.tag != attentionLabelTag {
+				if !v.isKindOfClass(UIButton) {
+					v.removeFromSuperview()
 				}
 			}
 		}

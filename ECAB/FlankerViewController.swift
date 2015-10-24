@@ -121,23 +121,6 @@ class FlankerViewController: CounterpointingViewController {
 		view.addSubview(imageView)
 	}
 	
-	override func presentPreviousScreen() { // Restarts the practice
-		
-		switch currentScreenShowing {
-		case 7:
-			currentScreenShowing -= 8
-		case 15:
-			currentScreenShowing -= 16
-		case 23:
-			currentScreenShowing -= 24
-		default:
-			break
-		}
-		
-		trainingMode = true
-		presentNextScreen()
-	}
-	
 	override func skip() {
 		currentScreenShowing = 22
 		presentNextScreen()

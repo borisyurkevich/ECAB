@@ -101,12 +101,18 @@ class VisualSearch: TestViewController,
 		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
 	
-	func presentNextScreen() {
+	override func presentNextScreen() {
 		timerDidFire()
 	}
 	
-	func presentPreviousScreen() {
-		goBack()
+	override func presentPreviousScreen() {
+		if currentView == 0 {
+			return
+		} else {
+			currentView -= 2
+		}
+		timer.invalidate()
+		timerDidFire()
 	}
 	
 	var isGameStarted = false
@@ -114,16 +120,6 @@ class VisualSearch: TestViewController,
 		if !isGameStarted {
 			isGameStarted = true
 		}
-	}
-	
-	func goBack() {
-		if currentView == 0 || currentView == 11 {
-			return
-		} else {
-			currentView -= 2
-		}
-		timer.invalidate()
-		timerDidFire()
 	}
 	
 	override func skip() {

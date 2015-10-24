@@ -34,19 +34,12 @@ class CounterpointingViewController: TestViewController {
 		presentMessage(greeingMessage)
 	}
 	
-	// Restarts the practice
-	func presentPreviousScreen() {
-		currentScreenShowing -= 4
-		trainingMode = true
-		presentNextScreen()
-	}
-	
 	override func skip() {
 		currentScreenShowing = 27
 		presentNextScreen()
 	}
 	
-	func presentNextScreen() {
+	override func presentNextScreen() {
 		currentScreenShowing++
 	
 		cleanView()

@@ -109,7 +109,9 @@ class TestViewController: UIViewController {
 	
 	func cleanView() {
 		for v in view.subviews {
-			v.removeFromSuperview()
+			if !v.isKindOfClass(UIButton) {
+				v.removeFromSuperview()
+			}
 		}
 		
 		if view.gestureRecognizers != nil {
@@ -146,6 +148,17 @@ class TestViewController: UIViewController {
 		}
 		
 		presentViewController(alertView, animated: true, completion: nil)
+	}
+	
+	func presentPreviousScreen() {
+		// This typically restarts the game
+		currentScreenShowing = -1
+		trainingMode = true
+		presentNextScreen()
+	}
+	
+	func presentNextScreen() {
+		print("Please implement presentNextScreen() in this class")
 	}
 	
 	func skip() {
