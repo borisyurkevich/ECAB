@@ -311,6 +311,9 @@ class VisualSearch: TestViewController,
 				break
 			}
 		}
+		if !isRepeat {
+			checkedMarks.append(indexPath.row) // For calculating repeat.
+		}
 		
 		// Calculate row and column of the collection view
 		var total = 60
@@ -348,7 +351,6 @@ class VisualSearch: TestViewController,
 		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
 		
 		model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: cell.fruit.isValuable, isRepeat: isRepeat, isTraining: isTraining, screen: currentView, isEmpty: false)
-		checkedMarks.append(indexPath.row) // For calculating repeat.
 		
 		if cell.fruit.isValuable {
 			
