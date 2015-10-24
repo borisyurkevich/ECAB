@@ -124,6 +124,7 @@ class VisualSearch: TestViewController,
 	
 	override func skip() {
 		currentView = 2
+		timer.invalidate()
 		timerDidFire()
 	}
     
@@ -332,7 +333,7 @@ class VisualSearch: TestViewController,
 		let elementsInOneRow = total / rows
 		
 		var row = Double(indexPath.row + 1) / Double(elementsInOneRow)
-		if elementsInOneRow == 1 || row == 0{
+		if elementsInOneRow == 1 || row == 0 {
 			row = 1
 		}
 		let rowNumber = ceil(row) // This will to go into stats.
@@ -379,14 +380,14 @@ class VisualSearch: TestViewController,
 					// Player finished fast
 					timer.invalidate()
 					
-					if gameStage != numberOfTargets.count-1 { // the last screen
+					if gameStage != numberOfTargets.count - 1 { // the last screen
 						showBlankScreen()
 					} else {
 						quit()
 					}
 				}
 				
-				print("cm = \(checkedMarks.count) nt = \(numberOfTargets[gameStage])")
+				print("checkedMarks.count = \(checkedMarks.count) numberOfTargets[screen] = \(numberOfTargets[gameStage])")
 				print("\(checkedMarks)")
 			} else {
 				// Repeat
