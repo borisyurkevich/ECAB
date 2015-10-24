@@ -38,6 +38,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		// Subscribe from notifications from Model
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "dataLoaded", name: "dataLoaded", object: nil)
 		model.setupWithContext(managedContext)
+		
+		difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
 	}
 	
 	func dataLoaded() {
@@ -120,7 +122,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	@IBAction func difficultyControlHandler(sender: UISegmentedControl) {
-		if sender.selectedSegmentIndex == GamesIndex.VisualSearch.rawValue {
+		if sender.selectedSegmentIndex == 0 {
 			model.data.visSearchDifficulty = 0
 			speedStepper.value = model.data.visSearchSpeed.doubleValue
 			speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
