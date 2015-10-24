@@ -400,11 +400,16 @@ class SessionsTableViewController: UITableViewController {
 			let comment = pickedSesstion.comment
 			
 			var build = "unknown"
-			if let canonicBuild = pickedSesstion.bundleVersion as String? {
-				build = canonicBuild
+			if let definedBuild = pickedSesstion.bundleVersion as String? {
+				build = definedBuild
 			}
 			
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue); ratio (game 2 + game 3 / game 1 + game 4) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nMoves:\n\n\(details)"
+			var imageInfo = "uknown"
+			if let definedImageInfo = pickedSesstion.imageSizeComment as String? {
+				imageInfo = definedImageInfo
+			}
+			
+			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue); ratio (game 2 + game 3 / game 1 + game 4) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nImages: \(imageInfo)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		case GamesIndex.VisualSust.rawValue:

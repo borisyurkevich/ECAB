@@ -17,6 +17,12 @@ class FlankerViewController: CounterpointingViewController {
 		greeingMessage = "Example stimuli..."
 		sessionType = 1
         super.viewDidLoad()
+		
+		if (smallImages) {
+			session.imageSizeComment = "Small images (1.5x)"
+		} else {
+			session.imageSizeComment = "Normal images (2x)"
+		}
     }
 	
 	enum Picture {

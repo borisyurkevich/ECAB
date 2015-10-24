@@ -14,6 +14,8 @@ import CoreData
 
 extension CounterpointingSession {
 
+    @NSManaged var vsustMiss: NSNumber?
     @NSManaged var bundleVersion: String?
-	@NSManaged var vsustMiss: NSNumber?
+    @NSManaged var imageSizeComment: String?
+
 }
