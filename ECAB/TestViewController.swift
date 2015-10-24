@@ -72,7 +72,7 @@ class TestViewController: UIViewController {
 		addButtonBorder(backButton)
 
 		nextButton = UIButton(type: UIButtonType.System)
-		nextButton.setTitle("  Next  ", forState: UIControlState.Normal)
+		nextButton.setTitle("Next", forState: UIControlState.Normal)
 		nextButton.frame = CGRectMake(backButton.frame.maxX + margin, marginTop, 0, 0)
 		nextButton.sizeToFit()
 		nextButton.frame.size.width = buttonWidth
@@ -81,7 +81,7 @@ class TestViewController: UIViewController {
 		addButtonBorder(nextButton)
 		
 		skipTrainingButton = UIButton(type: UIButtonType.System)
-		skipTrainingButton.setTitle("  Skip  ", forState: UIControlState.Normal)
+		skipTrainingButton.setTitle("Skip", forState: UIControlState.Normal)
 		skipTrainingButton.frame = CGRectMake(nextButton.frame.maxX + margin, marginTop, 0, 0)
 		skipTrainingButton.sizeToFit()
 		skipTrainingButton.frame.size.width = buttonWidth
@@ -89,7 +89,7 @@ class TestViewController: UIViewController {
 		skipTrainingButton.addTarget(self, action: "skip", forControlEvents: UIControlEvents.TouchUpInside)
 		addButtonBorder(skipTrainingButton)
 		
-		pauseButton.setTitle(" Pause ", forState: UIControlState.Normal)
+		pauseButton.setTitle("Pause", forState: UIControlState.Normal)
 		pauseButton.frame = CGRectMake(screenSize.width - (backButton.frame.size.width + marginTop), marginTop, 0, 0)
 		pauseButton.sizeToFit()
 		pauseButton.frame.size.width = buttonWidth
