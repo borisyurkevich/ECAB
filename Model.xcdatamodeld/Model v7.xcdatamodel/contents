@@ -44,6 +44,7 @@
         <attribute name="column" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="empty" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="extraTimeLeft" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="repeat" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="row" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="screenNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -75,7 +76,7 @@
         <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="165"/>
         <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="270"/>
         <element name="Data" positionX="-432" positionY="-99" width="128" height="210"/>
-        <element name="Move" positionX="-450" positionY="254" width="128" height="178"/>
+        <element name="Move" positionX="-450" positionY="254" width="128" height="195"/>
         <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
         <element name="Session" positionX="-441" positionY="50" width="128" height="210"/>
     </elements>

@@ -265,9 +265,9 @@ class SessionsTableViewController: UITableViewController {
 				
 				var `repeat` = ""
 				if gameMove.`repeat`.boolValue == true {
-					`repeat` = "repeat"
+					`repeat` = "(repeat)"
 				} else {
-					`repeat` = "unique"
+					`repeat` = "(unique)"
 				}
 				
 				let dateStr = smallFormatter.stringFromDate(gameMove.date)
@@ -275,7 +275,13 @@ class SessionsTableViewController: UITableViewController {
 				var append: String
 				
 				if gameMove.empty.boolValue == false {
-					append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) \n"
+					
+					var extraTime = "unknwon"
+					if let definedExtraTime = gameMove.extraTimeLeft {
+						extraTime = String(format: "%.02f", definedExtraTime.doubleValue)
+					}
+					
+					append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) Extra time left: \(extraTime)\n"
 					counter++
 				} else {
 					append = "\n\(screenName) on set \(dateStr) \n"

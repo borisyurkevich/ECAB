@@ -41,6 +41,7 @@
 		91F378471A754EA000D2F77B /* VisualSearchBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* VisualSearchBoard.swift */; };
 		91F3784B1A75529000D2F77B /* TestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* TestItem.swift */; };
 		91FB39B21BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FB39B11BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift */; };
+		91FB39B41BDC406000CB2ABA /* Move+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FB39B31BDC406000CB2ABA /* Move+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		91F3784A1A75529000D2F77B /* TestItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestItem.swift; sourceTree = "<group>"; };
 		91FB39B01BDBC84B00CB2ABA /* Model v7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v7.xcdatamodel"; sourceTree = "<group>"; };
 		91FB39B11BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		91FB39B31BDC406000CB2ABA /* Move+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Move+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 		91F448171B089A1C0082EB6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				91FB39B31BDC406000CB2ABA /* Move+CoreDataProperties.swift */,
 				91FB39B11BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift */,
 				9130B7A01BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift */,
 				9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */,
@@ -368,6 +371,7 @@
 			files = (
 				91FB39B21BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift in Sources */,
 				91E5C41A1A6C6F5400905752 /* VisualSearchCell.swift in Sources */,
+				91FB39B41BDC406000CB2ABA /* Move+CoreDataProperties.swift in Sources */,
 				91AE3E631B0292ED00871B7A /* CoreDataStack.swift in Sources */,
 				9130B79D1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift in Sources */,
 				91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */,

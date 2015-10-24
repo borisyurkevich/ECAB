@@ -25,6 +25,7 @@ class VisualSearch: TestViewController,
     private var board = VisualSearchBoard(stage: 0)
     private let interSpacing:CGFloat = 27
 	private var timer = NSTimer()
+	private var timerLastStarted = NSDate()
 	
     private struct Insets {
         static var top:CGFloat = 100
@@ -130,6 +131,8 @@ class VisualSearch: TestViewController,
     
     func timerDidFire() {
 		
+		timerLastStarted = NSDate()
+		
 		// Here we shoulf set borard with new scene.
 		currentView += 1
 		
@@ -222,6 +225,7 @@ class VisualSearch: TestViewController,
 				if (self.isGameStarted) {
 					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "showBlankScreen", userInfo: nil, repeats: false)
 					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
+					self.timerLastStarted = NSDate()
 				}
 				
                 UIView.transitionWithView(self.view, duration: self.transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
@@ -229,7 +233,7 @@ class VisualSearch: TestViewController,
                     self.collectionView.alpha = 1
                     
 					}, completion: { (Bool) in
-						self.model.addMove(0, column: 0, session: self.session, isSuccess: false, isRepeat: false, isTraining: false, screen: self.currentView, isEmpty: true)})
+						self.model.addMove(0, column: 0, session: self.session, isSuccess: false, isRepeat: false, isTraining: false, screen: self.currentView, isEmpty: true, extraTime: 0)})
         })
     }
 	
@@ -350,7 +354,11 @@ class VisualSearch: TestViewController,
 		
 		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
 		
-		model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: cell.fruit.isValuable, isRepeat: isRepeat, isTraining: isTraining, screen: currentView, isEmpty: false)
+		let timePassed: Double = abs(timerLastStarted.timeIntervalSinceNow)
+		let interval: Double = gameSpeed
+		let timeLeft: Double = interval - timePassed
+		
+		model.addMove(Int(rowNumber), column: columnNumber, session: session, isSuccess: cell.fruit.isValuable, isRepeat: isRepeat, isTraining: isTraining, screen: currentView, isEmpty: false, extraTime: timeLeft)
 		
 		if cell.fruit.isValuable {
 			
