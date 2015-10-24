@@ -82,8 +82,10 @@ class FlankerViewController: CounterpointingViewController {
 		let mouseInvertedImage = UIImage(named: "mouse_inverse")
 		
 		var scaleFactor:CGFloat = 2.0
+		var mouseOffset = (view.frame.size.width / 4)
 		if (smallImages) {
 			scaleFactor = 1.5
+			mouseOffset = (view.frame.size.width / 4) * 0.75
 		}
 		
 		var imageView = UIImageView()
@@ -109,11 +111,11 @@ class FlankerViewController: CounterpointingViewController {
 		
 		switch position {
 		case .Left:
-			imageView.center = CGPointMake(view.center.x - view.frame.size.width / 4, view.center.y)
+			imageView.center = CGPointMake(view.center.x - mouseOffset, view.center.y)
 		case .Middle:
 			imageView.center = CGPointMake(view.center.x, view.center.y)
 		case .Right:
-			imageView.center = CGPointMake(view.center.x + view.frame.size.width / 4, view.center.y)
+			imageView.center = CGPointMake(view.center.x + mouseOffset, view.center.y)
 		}
 		
 		view.addSubview(imageView)
