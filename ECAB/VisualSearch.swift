@@ -159,21 +159,18 @@ class VisualSearch: TestViewController,
 					self.insetLeft = 172
 					self.insetBottom = Insets.bottom
 					self.insetRight = 172
-					break;
 				case 1, 12:
 					self.cellWidth = 84
 					self.cellHeight = 84
 					self.insetTop = 220
 					self.insetLeft = 340
 					self.insetRight = 340
-					break;
 				case 2, 13:
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
 					self.insetTop = 230
 					self.insetLeft = 200
 					self.insetRight = 200
-					break;
 				case 3 ... 5, 14 ... 15:
 					// Real game starts on motor test
 					// This is three motor screen tests
@@ -184,7 +181,6 @@ class VisualSearch: TestViewController,
 					self.insetLeft = Insets.left
 					self.insetBottom = Insets.bottom
 					self.insetRight = Insets.right
-					break;
 				default:
 					// This is normal game mode
 					self.cellWidth = defaultSize
@@ -194,7 +190,6 @@ class VisualSearch: TestViewController,
 					self.insetBottom = Insets.bottom
 					self.insetRight = Insets.right
 					self.isTraining = false
-					break;
 				}
 				
 				if self.model.data.visSearchDifficulty == 1 {  // Hard mode.
