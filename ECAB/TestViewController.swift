@@ -13,10 +13,10 @@ class TestViewController: UIViewController {
 	
 	let model: Model = Model.sharedInstance
 	
-	var pauseButton = UIButton(type: UIButtonType.System)
-	var nextButton = UIButton(type: UIButtonType.System)
-	var backButton = UIButton(type: UIButtonType.System)
-	var skipTrainingButton = UIButton(type: UIButtonType.System)
+	let pauseButton = UIButton(type: UIButtonType.System)
+	let nextButton = UIButton(type: UIButtonType.System)
+	let backButton = UIButton(type: UIButtonType.System)
+	let skipTrainingButton = UIButton(type: UIButtonType.System)
 	
 	var successSound = AVAudioPlayer()
 	var failureSound = AVAudioPlayer()
@@ -71,7 +71,6 @@ class TestViewController: UIViewController {
 		backButton.tintColor = UIColor.grayColor()
 		addButtonBorder(backButton)
 
-		nextButton = UIButton(type: UIButtonType.System)
 		nextButton.setTitle("Next", forState: UIControlState.Normal)
 		nextButton.frame = CGRectMake(backButton.frame.maxX + margin, marginTop, 0, 0)
 		nextButton.sizeToFit()
@@ -80,7 +79,6 @@ class TestViewController: UIViewController {
 		nextButton.tintColor = UIColor.grayColor()
 		addButtonBorder(nextButton)
 		
-		skipTrainingButton = UIButton(type: UIButtonType.System)
 		skipTrainingButton.setTitle("Skip", forState: UIControlState.Normal)
 		skipTrainingButton.frame = CGRectMake(nextButton.frame.maxX + margin, marginTop, 0, 0)
 		skipTrainingButton.sizeToFit()
