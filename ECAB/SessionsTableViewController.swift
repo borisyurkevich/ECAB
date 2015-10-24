@@ -17,6 +17,8 @@ class SessionsTableViewController: UITableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
+		title = model.games[Int(model.data.selectedGame)]
+		
 		// For some reason there's delay and table is not updated streight after
 		// game is finished.
 		tableView.reloadData()
@@ -224,6 +226,8 @@ class SessionsTableViewController: UITableViewController {
 		smallFormatter.locale = NSLocale.autoupdatingCurrentLocale()
 		smallFormatter.dateFormat = "HH:mm:ss:S"
 		
+		let gameName = model.games[Int(model.data.selectedGame)]
+		
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
 			let pickedSesstion = model.data.sessions[indexPath.row] as! Session
@@ -294,7 +298,7 @@ class SessionsTableViewController: UITableViewController {
 					difficlulty = "easy"
 				}
 			}
-			let gameName = model.games[Int(model.data.selectedGame)]
+			
 			let comment = pickedSesstion.comment
 			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name); difficulty: \(difficlulty); speed: \(pickedSesstion.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\n\(detailMoves)"
 			detailVC.textView.text = stringForTheTextView
@@ -338,7 +342,7 @@ class SessionsTableViewController: UITableViewController {
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
 			let roundRatio = Double(round(100 * ratio) / 100)
-			let gameName = model.games[Int(model.data.selectedGame)]
+
 			let comment = pickedSesstion.comment
 			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue); ratio (total 2 / total 1) = \(roundRatio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
@@ -380,7 +384,7 @@ class SessionsTableViewController: UITableViewController {
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
 			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
 			let roundRatio = Double(round(100 * ratio) / 100)
-			let gameName = model.games[Int(model.data.selectedGame)]
+			
 			let comment = pickedSesstion.comment
 			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nTotal 1 = \(pickedSesstion.totalOne.integerValue) Total 2 = \(pickedSesstion.totalTwo.integerValue); ratio (game 2 + game 3 / game 1 + game 4) = \(roundRatio)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
@@ -431,7 +435,7 @@ class SessionsTableViewController: UITableViewController {
 			}
 			
 			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
-			let gameName = model.games[Int(model.data.selectedGame)]
+			
 			let comment = pickedSesstion.comment
 			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name); speed: \(pickedSesstion.speed.doubleValue)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nFalse positives = \(pickedSesstion.errors) Misses = \(pickedSesstion.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\nMoves:\n\n\(details)"
 			detailVC.textView.text = text
