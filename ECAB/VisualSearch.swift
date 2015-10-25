@@ -103,10 +103,6 @@ class VisualSearch: TestViewController,
 		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
 	
-	override func presentNextScreen() {
-		timerDidFire()
-	}
-	
 	override func presentPreviousScreen() {
 		if currentView == 0 {
 			return
@@ -114,7 +110,7 @@ class VisualSearch: TestViewController,
 			currentView -= 2
 		}
 		timer.invalidate()
-		timerDidFire()
+		presentNextScreen()
 	}
 	
 	var isGameStarted = false
@@ -127,10 +123,10 @@ class VisualSearch: TestViewController,
 	override func skip() {
 		currentView = 2
 		timer.invalidate()
-		timerDidFire()
+		presentNextScreen()
 	}
     
-    func timerDidFire() {
+    override func presentNextScreen() {
 		
 		timerLastStarted = NSDate()
 		
@@ -143,7 +139,6 @@ class VisualSearch: TestViewController,
 		}
 		        
         UIView.transitionWithView(view, duration: transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-            
             // animation...
             self.collectionView.alpha = 0.0
             
