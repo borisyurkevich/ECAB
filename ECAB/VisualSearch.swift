@@ -15,7 +15,8 @@ class VisualSearch: TestViewController,
     let reuseIdentifier = "ApplesCell"
     var gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20
 	let transitionSpeed = 0.4
-	private var checkedMarks = [-1]
+	private var checkedMarks = [Int]() // Every tapped target
+	private var checkedTargets = [Int]() // Only red appples
 	private var isTraining = true
 	private var numberOfTargets = [1, 1, 2, 6, 6, 6, 6, 6, 6]
 	private var collectionView: UICollectionView
@@ -214,7 +215,8 @@ class VisualSearch: TestViewController,
 				
 				print("Requesting fot the board \(self.currentView)")
                 self.board = VisualSearchBoard(stage: self.currentView)
-				self.checkedMarks = [-1]
+				self.checkedMarks = []
+				self.checkedTargets = []
                 
                 // And reload data
                 self.collectionView.reloadData()
@@ -308,6 +310,8 @@ class VisualSearch: TestViewController,
 	
 	func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
 		
+		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
+		
 		var isRepeat = false
 		for item in checkedMarks {
 			if indexPath.row == item {
@@ -317,6 +321,9 @@ class VisualSearch: TestViewController,
 		}
 		if !isRepeat {
 			checkedMarks.append(indexPath.row) // For calculating repeat.
+			if cell.fruit.isValuable {
+				checkedTargets.append(indexPath.row)
+			}
 		}
 		
 		// Calculate row and column of the collection view
@@ -352,8 +359,6 @@ class VisualSearch: TestViewController,
 		
 		let columnNumber = (indexPath.row - (normalizedRow * elementsInOneRow)) + 1 // This will to go into stats.
 		
-		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
-		
 		let timePassed: Double = abs(timerLastStarted.timeIntervalSinceNow)
 		let interval: Double = gameSpeed
 		let timeLeft: Double = interval - timePassed
@@ -386,7 +391,7 @@ class VisualSearch: TestViewController,
 					gameStage -= 11
 				}
 				
-				if checkedMarks.count == numberOfTargets[gameStage] + 1 {
+				if checkedTargets.count == numberOfTargets[gameStage] {
 					// Player finished fast
 					timer.invalidate()
 					
@@ -397,8 +402,9 @@ class VisualSearch: TestViewController,
 					}
 				}
 				
-				print("checkedMarks.count = \(checkedMarks.count) numberOfTargets[screen] = \(numberOfTargets[gameStage])")
-				print("\(checkedMarks)")
+//				print("checkedMarks.count = \(checkedMarks.count) numberOfTargets[screen] = \(numberOfTargets[gameStage])")
+//				print("\(checkedMarks)")
+//				print("targets = \(checkedTargets)")
 			} else {
 				// Repeat
 				failureSound.play()
