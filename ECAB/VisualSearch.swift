@@ -112,7 +112,6 @@ class VisualSearch: TestViewController,
 	
 	override func skip() {
 		currentView = 2
-		timer.invalidate()
 		presentNextScreen()
 	}
 	
@@ -121,9 +120,8 @@ class VisualSearch: TestViewController,
 			return
 		} else {
 			currentView -= 2
+			presentNextScreen()
 		}
-		timer.invalidate()
-		presentNextScreen()
 	}
     
     override func presentNextScreen() {
@@ -218,7 +216,8 @@ class VisualSearch: TestViewController,
 				self.collectionView.setCollectionViewLayout(self.boardFlowLayout!, animated: false)
 				
 				if (self.isGameStarted) {
-
+					
+					self.timer.invalidate()
 					self.timer = NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "showBlankScreen", userInfo: nil, repeats: false)
 					self.timerLastStarted = NSDate()
 				}
