@@ -304,6 +304,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	func startTheGame() {
+		timer.invalidate()
 		timer = NSTimer(timeInterval: gameSpeed + transitionSpeed, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
 	}
