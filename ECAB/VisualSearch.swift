@@ -103,16 +103,6 @@ class VisualSearch: TestViewController,
 		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
 	
-	override func presentPreviousScreen() {
-		if currentView == 0 {
-			return
-		} else {
-			currentView -= 2
-		}
-		timer.invalidate()
-		presentNextScreen()
-	}
-	
 	var isGameStarted = false
 	func startGame() {
 		if !isGameStarted {
@@ -125,10 +115,18 @@ class VisualSearch: TestViewController,
 		timer.invalidate()
 		presentNextScreen()
 	}
+	
+	override func presentPreviousScreen() {
+		if currentView == 0 {
+			return
+		} else {
+			currentView -= 2
+		}
+		timer.invalidate()
+		presentNextScreen()
+	}
     
     override func presentNextScreen() {
-		
-		timerLastStarted = NSDate()
 		
 		// Here we shoulf set borard with new scene.
 		currentView += 1
@@ -220,8 +218,8 @@ class VisualSearch: TestViewController,
 				self.collectionView.setCollectionViewLayout(self.boardFlowLayout!, animated: false)
 				
 				if (self.isGameStarted) {
-					self.timer = NSTimer(timeInterval: self.gameSpeed, target: self, selector: "showBlankScreen", userInfo: nil, repeats: false)
-					NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
+
+					self.timer = NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed, target: self, selector: "showBlankScreen", userInfo: nil, repeats: false)
 					self.timerLastStarted = NSDate()
 				}
 				
