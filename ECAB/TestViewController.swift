@@ -115,10 +115,8 @@ class TestViewController: UIViewController {
 		}
 		
 		if view.gestureRecognizers != nil {
-			for g in view.gestureRecognizers! {
-				if let recognizer = g as? UITapGestureRecognizer {
-					view.removeGestureRecognizer(recognizer)
-				}
+			for gesture in view.gestureRecognizers! {
+				view.removeGestureRecognizer(gesture)
 			}
 		}
 	}
