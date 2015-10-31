@@ -81,7 +81,7 @@ class VisualSearch: TestViewController,
 		
         collectionView.registerClass(VisualSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
-		// Instert fresh session entity
+		// Insert fresh session entity
 		model.addSession(model.data.selectedPlayer)
         session = model.data.sessions.lastObject as! Session
 		session.speed = gameSpeed
@@ -90,7 +90,7 @@ class VisualSearch: TestViewController,
         collectionView.backgroundColor = UIColor.whiteColor()
 		
         // Disable scrolling
-        collectionView.scrollEnabled = false;
+        collectionView.scrollEnabled = false
 		
 		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
