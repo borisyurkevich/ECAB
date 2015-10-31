@@ -118,7 +118,7 @@ class VisualSearch: TestViewController,
     
     override func presentNextScreen() {
 		
-		// Here we shoulf set borard with new scene.
+		// Here we should set borard with new scene.
 		currentView += 1
 		
 		if currentView == numberOfTargets.count {
