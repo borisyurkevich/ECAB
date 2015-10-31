@@ -60,11 +60,10 @@ class VisualSearch: TestViewController,
 	}
 	
     override func viewDidLoad() {
+		view = collectionView
         super.viewDidLoad()
 		
 		collectionView.frame = view.frame
-		view.addSubview(collectionView)
-		
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		
@@ -92,13 +91,6 @@ class VisualSearch: TestViewController,
 		
         // Disable scrolling
         collectionView.scrollEnabled = false;
-		
-		// Need to readd all the buttons
-		// Superclass buttons is not visible (probably because it is a collection view?
-		view.addSubview(backButton) // restart
-		view.addSubview(nextButton)
-		view.addSubview(skipTrainingButton)
-		view.addSubview(pauseButton)
 		
 		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
