@@ -164,6 +164,16 @@ class TestViewController: UIViewController {
 		print("Please implement skip() in this class")
 	}
 	
+	func tapHandler(sender: UIGestureRecognizer) {
+		gestureHandler(sender)
+	}
+	func swipeHandler(sender: UIGestureRecognizer) {
+		gestureHandler(sender)
+	}
+	func gestureHandler(sender: UIGestureRecognizer) {
+		print("⚠️ gestureHandler() is not implemented.")
+	}
+	
 	func addButtonBorder(button: UIButton) {
 		button.backgroundColor = UIColor.clearColor()
 		button.layer.cornerRadius = 5

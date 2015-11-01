@@ -72,8 +72,10 @@ class FlankerViewController: CounterpointingViewController {
 		
 		let leftTap = UITapGestureRecognizer(target: self, action: "tapHandler:")
 		let rightTap = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		let leftSwipe = UISwipeGestureRecognizer(target: self, action: "tapHandler:")
-		let rightSwipe = UISwipeGestureRecognizer(target: self, action: "tapHandler:")
+		let leftSwipe = UISwipeGestureRecognizer(target: self, action: "swipeHandler:")
+		let rightSwipe = UISwipeGestureRecognizer(target: self, action: "swipeHandler:")
+		// Those will call the gestureHandler() from Conunterpointing.
+		
 		leftTapView.addGestureRecognizer(leftTap)
 		leftTapView.addGestureRecognizer(leftSwipe)
 		rightTapView.addGestureRecognizer(rightTap)
