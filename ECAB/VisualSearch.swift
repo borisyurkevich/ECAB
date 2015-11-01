@@ -273,13 +273,11 @@ class VisualSearch: TestViewController,
     
     // MARK: UICollectionViewDelegateFlowLayout
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
-    {
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(cellWidth, cellHeight)
     }
     
-    func configureFlowLayout() -> UICollectionViewFlowLayout
-    {
+    func configureFlowLayout() -> UICollectionViewFlowLayout {
         let returnValue = UICollectionViewFlowLayout()
         
         returnValue.sectionInset = UIEdgeInsetsMake(insetTop, insetLeft, insetBottom, insetRight)
