@@ -199,9 +199,6 @@ class CounterpointingViewController: TestViewController {
 	func addGestures() {
 		let tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
 		view.addGestureRecognizer(tapGesture)
-		
-		let swipeGesture = UISwipeGestureRecognizer(target: self, action: "tapHandler:")
-		view.addGestureRecognizer(swipeGesture)
 	}
 	
 	func tapHandler(sender: UITapGestureRecognizer){
