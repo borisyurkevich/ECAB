@@ -200,11 +200,11 @@ class CounterpointingViewController: TestViewController {
 		let tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
 		view.addGestureRecognizer(tapGesture)
 		
-		let swipeGesture = UISwipeGestureRecognizer(target: self, action: "swipeHandler:")
+		let swipeGesture = UISwipeGestureRecognizer(target: self, action: "tapHandler:")
 		view.addGestureRecognizer(swipeGesture)
 	}
 	
-	override func gestureHandler(sender: UIGestureRecognizer) {
+	func tapHandler(sender: UITapGestureRecognizer){
 		// Determine Success or failure
 		let location = sender.locationInView(view)
 		let screenWidth = UIScreen.mainScreen().bounds.width
