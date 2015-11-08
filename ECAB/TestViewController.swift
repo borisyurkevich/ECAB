@@ -107,16 +107,19 @@ class TestViewController: UIViewController {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+	func addGestures() {
+		// Clean gestures first
+		if view.gestureRecognizers != nil {
+			for gesture in view.gestureRecognizers! {
+				view.removeGestureRecognizer(gesture)
+			}
+		}
+	}
+	
 	func cleanView() {
 		for v in view.subviews {
 			if !v.isKindOfClass(UIButton) {
 				v.removeFromSuperview()
-			}
-		}
-		
-		if view.gestureRecognizers != nil {
-			for gesture in view.gestureRecognizers! {
-				view.removeGestureRecognizer(gesture)
 			}
 		}
 	}

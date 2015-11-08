@@ -65,6 +65,8 @@ class FlankerViewController: CounterpointingViewController {
 		rightBarView.addSubview(rightStarImg)
 		
 		// Gestures
+		super.addGestures() // Will clean the gestures.
+		
 		let leftTapView = UIView(frame: starImg.frame)
 		leftBarView.addSubview(leftTapView)
 		let rightTapView = UIView(frame: rightStarImg.frame)

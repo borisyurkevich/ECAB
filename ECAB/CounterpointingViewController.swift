@@ -196,7 +196,9 @@ class CounterpointingViewController: TestViewController {
 		addGestures()
 	}
 	
-	func addGestures() {
+	override func addGestures() {
+		super.addGestures() // Will clean the gestures.
+		
 		let tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
 		view.addGestureRecognizer(tapGesture)
 	}

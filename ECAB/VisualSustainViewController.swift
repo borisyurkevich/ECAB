@@ -328,14 +328,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func cleanView() {
 		
-		if view.gestureRecognizers != nil {
-			for g in view.gestureRecognizers! {
-				if let recognizer = g as? UITapGestureRecognizer {
-					view.removeGestureRecognizer(recognizer)
-				}
-			}
-		}
-		
 		for v in view.subviews {
 		
 			if v.tag != attentionLabelTag {
