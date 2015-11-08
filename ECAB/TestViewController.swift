@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class TestViewController: UIViewController, UIGestureRecognizerDelegate {
+class TestViewController: UIViewController {
 	
 	let model: Model = Model.sharedInstance
 	
@@ -196,19 +196,4 @@ class TestViewController: UIViewController, UIGestureRecognizerDelegate {
 			),
 			dispatch_get_main_queue(), closure)
 	}
-	
-	func tapHandler(sender: UIGestureRecognizer){
-		print("⚠️ Tap handler must to be implemented in a subclass.")
-	}
-	
-	// MARK - UIGestureRecognizerDelegate
-	
-	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer,
-		shouldReceiveTouch touch: UITouch) -> Bool {
-			
-			tapHandler(gestureRecognizer)
-			
-			return true;
-	}
-	
 }

@@ -152,7 +152,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 	}
 	
-	override func tapHandler(sender: UIGestureRecognizer) {
+	override func tapHandler(sender: UITapGestureRecognizer) {
 		
 		let screen: CGFloat = CGFloat(index + 1)
 		let result = true
