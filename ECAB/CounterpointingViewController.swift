@@ -263,16 +263,17 @@ class CounterpointingViewController: TestViewController {
 			let screen: CGFloat = CGFloat(currentScreenShowing)
 			
 			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: abs(interval), inverted: gameModeInversed, delay:0.0)
-
-			if (!gameModeInversed) {
-				totalOne += Int(interval)
-			} else {
-				totalTwo += Int(interval)
-			}
-			session.totalOne = totalOne
-			session.totalTwo = totalTwo
 			
-			if result {
+			if (result) {
+				// We don't want to increase time for the total if player made a mistake.
+				if (!gameModeInversed) {
+					totalOne += Int(interval)
+				} else {
+					totalTwo += Int(interval)
+				}
+				session.totalOne = totalOne
+				session.totalTwo = totalTwo
+
 				let score = session.score.integerValue
 				session.score = NSNumber(integer: (score + 1))
 			} else {
