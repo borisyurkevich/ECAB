@@ -133,7 +133,6 @@
 		91E5C3A51A6BD5C400905752 = {
 			isa = PBXGroup;
 			children = (
-				914346891AFE8A65000FCF3A /* Model.xcdatamodeld */,
 				91E5C3B01A6BD5C400905752 /* ECAB */,
 				91E5C3C81A6BD5C400905752 /* ECABTests */,
 				91E5C3AF1A6BD5C400905752 /* Products */,
@@ -229,6 +228,7 @@
 		91F448171B089A1C0082EB6A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				914346891AFE8A65000FCF3A /* Model.xcdatamodeld */,
 				91FB39B31BDC406000CB2ABA /* Move+CoreDataProperties.swift */,
 				91FB39B11BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift */,
 				9130B7A01BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift */,
@@ -621,7 +621,8 @@
 				9143468A1AFE8A65000FCF3A /* Model.xcdatamodel */,
 			);
 			currentVersion = 91FB39B01BDBC84B00CB2ABA /* Model v7.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			name = Model.xcdatamodeld;
+			path = ../Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

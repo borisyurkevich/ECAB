@@ -11,15 +11,4 @@ import CoreData
 
 class Data: NSManagedObject {
 
-    @NSManaged var id: String
-    @NSManaged var selectedGame: NSNumber
-    @NSManaged var visSearchDifficulty: NSNumber
-    @NSManaged var visSearchSpeed: NSNumber
-    @NSManaged var visSustSpeed: NSNumber
-    @NSManaged var visSearchSpeedHard: NSNumber
-    @NSManaged var counterpointingSessions: NSOrderedSet
-    @NSManaged var players: NSOrderedSet
-    @NSManaged var selectedPlayer: Player
-    @NSManaged var sessions: NSOrderedSet
-
 }

@@ -13,6 +13,17 @@ import Foundation
 import CoreData
 
 extension Data {
-
-    @NSManaged var visSustAcceptedDelay: NSNumber?
+	
+	@NSManaged var id: String
+	@NSManaged var selectedGame: NSNumber
+	@NSManaged var visSearchDifficulty: NSNumber
+	@NSManaged var visSearchSpeed: NSNumber
+	@NSManaged var visSustSpeed: NSNumber // Exposure
+	@NSManaged var visSearchSpeedHard: NSNumber
+	@NSManaged var counterpointingSessions: NSOrderedSet
+	@NSManaged var players: NSOrderedSet
+	@NSManaged var selectedPlayer: Player
+	@NSManaged var sessions: NSOrderedSet
+    @NSManaged var visSustAcceptedDelay: NSNumber? // Max reponse delay
+	
 }
