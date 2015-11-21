@@ -14,7 +14,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	var managedContext: NSManagedObjectContext!
     
     @IBOutlet weak var changePlayerButton: UIBarButtonItem!
-	@IBOutlet weak var gameTitleCenter: UILabel!
 	@IBOutlet weak var gameIcon: UIImageView!
 	@IBOutlet weak var difControl: UISegmentedControl!
 	@IBOutlet weak var speedLabel: UILabel!
@@ -23,6 +22,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	@IBOutlet weak var secondSpeedLabel: UILabel!
 	@IBOutlet weak var speedLabelDescription: UILabel!
 	@IBOutlet weak var secondSpeedLabelDescription: UILabel!
+	@IBOutlet weak var periodValue: UILabel!
+	@IBOutlet weak var periodControl: UIStepper!
+	@IBOutlet weak var periodTitle: UILabel!
+	@IBOutlet weak var periodHelp: UILabel!
 	
     let model: Model = Model.sharedInstance
     
@@ -64,7 +67,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		
 		let currentTitle = model.games[model.data.selectedGame.integerValue]
 		title = currentTitle
-		gameTitleCenter.text = currentTitle
 		
 		switch game {
 		case .VisualSearch:
