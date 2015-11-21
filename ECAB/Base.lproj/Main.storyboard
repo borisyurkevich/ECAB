@@ -171,52 +171,28 @@
                                 </connections>
                             </segmentedControl>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="p33-7n-QH8" userLabel="Exposure">
-                                <rect key="frame" x="20" y="351" width="94" height="29"/>
+                                <rect key="frame" x="253" y="351" width="94" height="29"/>
                                 <animations/>
                                 <connections>
                                     <action selector="speedStepperHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="WGw-by-ZHM"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyP-Sh-fUH" userLabel="Exposure Value">
-                                <rect key="frame" x="55" y="322" width="23.5" height="20.5"/>
+                                <rect key="frame" x="288" y="323" width="23.5" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Boy-Rm-I1H" userLabel="Delay">
-                                <rect key="frame" x="253" y="351" width="94" height="29"/>
+                                <rect key="frame" x="20" y="351" width="94" height="29"/>
                                 <animations/>
                                 <connections>
                                     <action selector="delayHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="dey-x3-hNU"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bar-GU-NJl" userLabel="Delay Value">
-                                <rect key="frame" x="288" y="322" width="23.5" height="20.5"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="94" id="MID-ns-bJU"/>
-                                    <constraint firstAttribute="height" constant="21" id="cz8-ZC-uPI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="MID-ns-bJU"/>
-                                        <exclude reference="cz8-ZC-uPI"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exposure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SP9-Gk-u5c" userLabel="Exposure Title">
-                                <rect key="frame" x="31" y="388" width="71" height="19.5"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Response Delay" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJl-tE-Rnb" userLabel="Delay Title">
-                                <rect key="frame" x="222" y="388" width="156.5" height="19.5"/>
+                                <rect key="frame" x="264" y="388" width="71" height="19.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -238,8 +214,8 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="vuD-1w-Iy6"/>
                                         <exclude reference="JaO-hA-uoN"/>
+                                        <exclude reference="vuD-1w-Iy6"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -264,6 +240,30 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bar-GU-NJl" userLabel="Delay Value">
+                                <rect key="frame" x="56" y="323" width="23.5" height="20.5"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="94" id="MID-ns-bJU"/>
+                                    <constraint firstAttribute="height" constant="21" id="cz8-ZC-uPI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MID-ns-bJU"/>
+                                        <exclude reference="cz8-ZC-uPI"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Response Delay" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJl-tE-Rnb" userLabel="Delay Title">
+                                <rect key="frame" x="20" y="388" width="94" height="61.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -281,14 +281,15 @@
                             <constraint firstItem="QGC-TC-80M" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" constant="-32" id="Dcf-Lf-jfR"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" constant="66" id="F9W-CQ-cjA"/>
                             <constraint firstItem="SP9-Gk-u5c" firstAttribute="top" secondItem="p33-7n-QH8" secondAttribute="bottom" constant="8" symbolic="YES" id="FTi-IX-EfV"/>
+                            <constraint firstItem="kJl-tE-Rnb" firstAttribute="width" secondItem="Boy-Rm-I1H" secondAttribute="width" id="IHW-qp-enx"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="centerX" secondItem="p33-7n-QH8" secondAttribute="centerX" id="Idy-Yf-s94"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" symbolic="YES" id="Iel-YF-SAD"/>
                             <constraint firstItem="QGC-TC-80M" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="J8p-lK-iyU"/>
-                            <constraint firstItem="Bar-GU-NJl" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="JJ0-ZD-Csl"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="bottom" secondItem="Bar-GU-NJl" secondAttribute="bottom" id="L5J-Yf-N7G"/>
                             <constraint firstItem="SP9-Gk-u5c" firstAttribute="centerX" secondItem="p33-7n-QH8" secondAttribute="centerX" id="LO9-G4-TJQ"/>
-                            <constraint firstItem="kJl-tE-Rnb" firstAttribute="top" secondItem="Boy-Rm-I1H" secondAttribute="bottom" constant="8" id="LlP-Gm-jlI"/>
+                            <constraint firstItem="kJl-tE-Rnb" firstAttribute="top" secondItem="Boy-Rm-I1H" secondAttribute="bottom" constant="8" symbolic="YES" id="LlP-Gm-jlI"/>
                             <constraint firstItem="kJl-tE-Rnb" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="MJd-tx-qeN"/>
+                            <constraint firstItem="Boy-Rm-I1H" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="NMr-BZ-QUH"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="top" secondItem="yyP-Sh-fUH" secondAttribute="bottom" constant="8" symbolic="YES" id="Nc9-hx-Pgj"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="bottom" secondItem="Boy-Rm-I1H" secondAttribute="bottom" id="Q6b-j0-3jO"/>
                             <constraint firstItem="SBH-8k-glY" firstAttribute="top" secondItem="QGC-TC-80M" secondAttribute="bottom" constant="8" symbolic="YES" id="UFw-kc-6aA"/>
@@ -298,6 +299,7 @@
                             <constraint firstItem="XrF-Nf-R5f" firstAttribute="trailing" secondItem="QS5-Rx-YEW" secondAttribute="trailingMargin" id="X7N-Yb-Ucv"/>
                             <constraint firstItem="fVo-Sy-Z8P" firstAttribute="centerX" secondItem="XrF-Nf-R5f" secondAttribute="centerX" id="XzJ-ZD-CTz"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="top" secondItem="Bar-GU-NJl" secondAttribute="bottom" constant="8" symbolic="YES" id="YX7-mN-cbe"/>
+                            <constraint firstItem="p33-7n-QH8" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Z9w-QO-6bV"/>
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="firstBaseline" secondItem="yyP-Sh-fUH" secondAttribute="firstBaseline" id="aCg-EC-Osl"/>
                             <constraint firstItem="kJl-tE-Rnb" firstAttribute="top" secondItem="Boy-Rm-I1H" secondAttribute="bottom" constant="7" id="aeb-PS-Tde"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="top" secondItem="Bar-GU-NJl" secondAttribute="bottom" constant="7" id="dSF-bC-06x"/>
@@ -308,6 +310,7 @@
                             <constraint firstItem="QGC-TC-80M" firstAttribute="top" secondItem="NDk-cv-Gan" secondAttribute="bottom" constant="74" id="mxo-SW-P2B"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="top" secondItem="yyP-Sh-fUH" secondAttribute="bottom" constant="8" id="nY9-bg-aza"/>
                             <constraint firstItem="XrF-Nf-R5f" firstAttribute="top" secondItem="RQ3-hR-xgu" secondAttribute="bottom" constant="8" symbolic="YES" id="ojz-Zu-9nh"/>
+                            <constraint firstItem="Bar-GU-NJl" firstAttribute="centerX" secondItem="Boy-Rm-I1H" secondAttribute="centerX" id="qag-TX-lcJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fVo-Sy-Z8P" secondAttribute="trailing" id="qwt-ba-Yid"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" constant="-192" id="rLG-mB-vPM"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="leading" secondItem="QGC-TC-80M" secondAttribute="leading" id="rUY-GD-4Od"/>
@@ -318,19 +321,13 @@
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="baseline" secondItem="yyP-Sh-fUH" secondAttribute="baseline" id="un9-wr-duT"/>
                             <constraint firstItem="blY-ho-Ou9" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" symbolic="YES" id="zaA-zn-Xiw"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="centerX" secondItem="yyP-Sh-fUH" secondAttribute="centerX" id="zmL-V1-BTg"/>
+                            <constraint firstItem="kJl-tE-Rnb" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="zsE-8Y-dj6"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="2rs-Br-f3S"/>
                                 <exclude reference="Bv6-44-DwC"/>
                                 <exclude reference="mxo-SW-P2B"/>
-                                <exclude reference="rLG-mB-vPM"/>
-                                <exclude reference="rUY-GD-4Od"/>
-                                <exclude reference="s98-n5-6Wl"/>
-                                <exclude reference="Nc9-hx-Pgj"/>
-                                <exclude reference="UX9-Fv-9hd"/>
-                                <exclude reference="nY9-bg-aza"/>
-                                <exclude reference="zmL-V1-BTg"/>
                                 <exclude reference="3nK-l9-M9m"/>
                                 <exclude reference="AAw-wX-kxj"/>
                                 <exclude reference="X0G-dj-l46"/>
@@ -340,8 +337,18 @@
                                 <exclude reference="6sw-Jd-EIA"/>
                                 <exclude reference="9HO-mN-ejb"/>
                                 <exclude reference="dSF-bC-06x"/>
+                                <exclude reference="ibh-S3-PF1"/>
                                 <exclude reference="tbX-Ju-i58"/>
+                                <exclude reference="MJd-tx-qeN"/>
                                 <exclude reference="aeb-PS-Tde"/>
+                                <exclude reference="rLG-mB-vPM"/>
+                                <exclude reference="rUY-GD-4Od"/>
+                                <exclude reference="s98-n5-6Wl"/>
+                                <exclude reference="Nc9-hx-Pgj"/>
+                                <exclude reference="UX9-Fv-9hd"/>
+                                <exclude reference="dwt-sx-LUc"/>
+                                <exclude reference="nY9-bg-aza"/>
+                                <exclude reference="zmL-V1-BTg"/>
                             </mask>
                         </variation>
                     </view>
@@ -364,6 +371,7 @@
                     <connections>
                         <outlet property="changePlayerButton" destination="Bs7-bU-6Lo" id="GM4-dM-FBJ"/>
                         <outlet property="difControl" destination="QGC-TC-80M" id="ShL-x7-QLC"/>
+                        <outlet property="difficultyTitle" destination="SBH-8k-glY" id="bMy-i6-Zgt"/>
                         <outlet property="gameIcon" destination="blY-ho-Ou9" id="u6q-qr-E6o"/>
                         <outlet property="periodControl" destination="XrF-Nf-R5f" id="P1Y-iG-j19"/>
                         <outlet property="periodHelp" destination="fVo-Sy-Z8P" id="kOc-m4-xGm"/>
