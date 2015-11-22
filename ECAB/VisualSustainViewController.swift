@@ -34,8 +34,8 @@ class VisualSustainViewController: CounterpointingViewController {
 		testItem.frame = CGRectMake(0, 0, testItem.frame.size.width * 2, testItem.frame.size.height * 2)
 		testItem.center = view.center;
 		exposure = model.data.visSustSpeed.doubleValue // Default
-		blank = 0 // TODO
-		session.speed = blank
+		blank = model.data.visSustDelay.doubleValue
+		session.speed = exposure
 		session.vsustBlank = blank
 		
 		resetTimerValue = Double(model.data.visSustAcceptedDelay!) + 1
