@@ -12,8 +12,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	private var screenCountSinceAnimalAppeared = 0.0
 	private var timer = NSTimer()
-	private var blank = 0.2
-	private var exposure = 1.8
+	private var blank = 0.0
+	private var exposure = 0.0
 	private var mistakeCounter = 0
 	private var gameStarted = false
 	private var index = 0
@@ -33,7 +33,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		testItem.frame = CGRectMake(0, 0, testItem.frame.size.width * 2, testItem.frame.size.height * 2)
 		testItem.center = view.center;
-		exposure = model.data.visSustSpeed.doubleValue // Default
+		exposure = model.data.visSustSpeed.doubleValue
 		blank = model.data.visSustDelay.doubleValue
 		session.speed = exposure
 		session.vsustBlank = blank
@@ -100,7 +100,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		self.testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
 		self.testItem.center = self.view.center;
 		
-		delay(exposure) {
+		delay(blank) {
 			self.testItem.image = newImage
 			
 			var currentSuequence: [Picture]
@@ -250,6 +250,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			if !self.gameStarted {
 				self.startTheGame()
 				self.gameStarted = true
+				self.trainingMode = true
 			}
 			self.index = self.currentScreenShowing - 3
 			
