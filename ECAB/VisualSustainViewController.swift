@@ -88,20 +88,18 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		addGestures()
 		
-		view.addSubview(self.testItem)
-		
-		// Add Image
 		let newImage = UIImage(named: pic.rawValue)
-		let middleImage = UIImage(named: Picture.Empty.rawValue)
-			
-		self.testItem.image = middleImage
+		let whiteSpace = UIImage(named: Picture.Empty.rawValue)
 		let newFrame = UIImageView(image: newImage)
 		
-		self.testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
-		self.testItem.center = self.view.center;
+		testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
+		testItem.center = view.center;
+		testItem.image = newImage
 		
-		delay(blank) {
-			self.testItem.image = newImage
+		view.addSubview(testItem)
+		
+		delay(exposure) {
+			self.testItem.image = whiteSpace
 			
 			var currentSuequence: [Picture]
 			if self.trainingMode {
