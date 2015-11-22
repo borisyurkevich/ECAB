@@ -37,7 +37,8 @@
         <attribute name="visSearchSpeed" attributeType="Double" defaultValueString="20" syncable="YES"/>
         <attribute name="visSearchSpeedHard" attributeType="Double" defaultValueString="30" syncable="YES"/>
         <attribute name="visSustAcceptedDelay" attributeType="Double" defaultValueString="4" syncable="YES"/>
-        <attribute name="visSustSpeed" attributeType="Double" defaultValueString="0.2" syncable="YES"/>
+        <attribute name="visSustDelay" attributeType="Double" defaultValueString="0.2" syncable="YES"/>
+        <attribute name="visSustSpeed" attributeType="Double" defaultValueString="1.5" syncable="YES"/>
         <relationship name="counterpointingSessions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CounterpointingSession" inverseName="data" inverseEntity="CounterpointingSession" syncable="YES"/>
         <relationship name="players" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Player" inverseName="data" inverseEntity="Player" syncable="YES"/>
         <relationship name="selectedPlayer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="selected" inverseEntity="Player" syncable="YES"/>
@@ -78,7 +79,7 @@
     <elements>
         <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="165"/>
         <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="315"/>
-        <element name="Data" positionX="-432" positionY="-99" width="128" height="210"/>
+        <element name="Data" positionX="-432" positionY="-99" width="128" height="225"/>
         <element name="Move" positionX="-450" positionY="254" width="128" height="195"/>
         <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
         <element name="Session" positionX="-441" positionY="50" width="128" height="210"/>

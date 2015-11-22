@@ -12,8 +12,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	private var screenCountSinceAnimalAppeared = 0.0
 	private var timer = NSTimer()
-	private var gameSpeed = 0.2
-	private let transitionSpeed = 1.8
+	private var blank = 0.2
+	private var exposure = 1.8
 	private var mistakeCounter = 0
 	private var gameStarted = false
 	private var index = 0
@@ -31,10 +31,12 @@ class VisualSustainViewController: CounterpointingViewController {
 		greeingMessage = "Practice 1. Ready..."
         super.viewDidLoad()
 		
-		gameSpeed = model.data.visSustSpeed.doubleValue
 		testItem.frame = CGRectMake(0, 0, testItem.frame.size.width * 2, testItem.frame.size.height * 2)
 		testItem.center = view.center;
-		session.speed = model.data.visSustSpeed.doubleValue
+		exposure = model.data.visSustSpeed.doubleValue // Default
+		blank = 0 // TODO
+		session.speed = blank
+		session.vsustBlank = blank
 		
 		resetTimerValue = Double(model.data.visSustAcceptedDelay!) + 1
 		screenCountSinceAnimalAppeared = resetTimerValue
@@ -98,7 +100,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		self.testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
 		self.testItem.center = self.view.center;
 		
-		delay(transitionSpeed) {
+		delay(exposure) {
 			self.testItem.image = newImage
 			
 			var currentSuequence: [Picture]
@@ -305,7 +307,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	func startTheGame() {
 		timer.invalidate()
-		timer = NSTimer(timeInterval: gameSpeed + transitionSpeed, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
+		timer = NSTimer(timeInterval: blank + exposure, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
 	}
 	
