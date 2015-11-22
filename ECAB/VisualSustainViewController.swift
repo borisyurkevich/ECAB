@@ -220,7 +220,7 @@ class VisualSustainViewController: CounterpointingViewController {
 				let errors = session.errors.integerValue
 				session.errors = NSNumber(integer: (errors + 1))
 			} else if mistakeType == .Miss {
-				let errors = session.vsustMiss!.integerValue
+				let errors = session.vsustMiss.integerValue
 				session.vsustMiss = NSNumber(integer: (errors + 1))
 			}
 		}
