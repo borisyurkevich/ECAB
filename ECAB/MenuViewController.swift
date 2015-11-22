@@ -165,6 +165,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			let totalPeriod = exposure + delay
 			periodControl.value = totalPeriod
 			periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
+			periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
 		}
 	}
 	
@@ -210,8 +211,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 
 		let formattedValue = NSString(format: "%.01f", sender.value)
 		let number = Double(formattedValue as String)
-		model.data.visSustAcceptedDelay = number
 		secondSpeedLabel.text = "\(formattedValue) \(MenuConstants.second)"
+		
+		model.data.visSustAcceptedDelay = number
 		model.save()
 	}
 	
@@ -221,9 +223,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		let newTotalPeriodDouble = Double(newTotalPeriod as String)
 		let exposure = model.data.visSustSpeed.doubleValue
 		let newDelay = newTotalPeriodDouble! - exposure
-		model.data.visSustDelay = newDelay
 		periodValue.text = "\(newTotalPeriod) \(MenuConstants.second)"
 		periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second)"
+		
+		model.data.visSustDelay = newDelay
 		model.save()
 	}
 	
