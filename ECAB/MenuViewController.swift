@@ -159,6 +159,12 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			
 			secondSpeedLabel.text = "\(model.data.visSustAcceptedDelay!.doubleValue) \(MenuConstants.second)"
 			secondSpeedStepper.value = model.data.visSustAcceptedDelay!.doubleValue
+			
+			let exposure = model.data.visSustSpeed.doubleValue
+			let delay = model.data.visSustDelay.doubleValue
+			let totalPeriod = exposure + delay
+			periodControl.value = totalPeriod
+			periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
 		}
 	}
 	
@@ -179,16 +185,21 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	@IBAction func speedStepperHandler(sender: UIStepper) {
 		
 		let formattedValue = NSString(format: "%.01f", sender.value)
-		let number = Double(formattedValue as String)
+		let newSpeedValueDouble = Double(formattedValue as String)!
 		
 		if model.data.selectedGame == GamesIndex.VisualSearch.rawValue {
 			if model.data.visSearchDifficulty.integerValue == 0 {
-				model.data.visSearchSpeed = number!
+				model.data.visSearchSpeed = newSpeedValueDouble
 			} else {
-				model.data.visSearchSpeedHard = number!
+				model.data.visSearchSpeedHard = newSpeedValueDouble
 			}
 		} else if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
-			model.data.visSustSpeed = number!
+			model.data.visSustSpeed = newSpeedValueDouble
+			
+			let delay = model.data.visSustDelay.doubleValue
+			let newTotal = newSpeedValueDouble + delay
+			periodValue.text = "\(newTotal) \(MenuConstants.second)"
+			periodControl.value = newTotal
 		}
 		
 		speedLabel.text = "\(formattedValue) \(MenuConstants.second)"
@@ -203,6 +214,20 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		secondSpeedLabel.text = "\(formattedValue) \(MenuConstants.second)"
 		model.save()
 	}
+	
+	@IBAction func totalPeriodHandler(sender: UIStepper) {
+		
+		let newTotalPeriod = NSString(format: "%.01f", sender.value)
+		let newTotalPeriodDouble = Double(newTotalPeriod as String)
+		let exposure = model.data.visSustSpeed.doubleValue
+		let newDelay = newTotalPeriodDouble! - exposure
+		model.data.visSustDelay = newDelay
+		periodValue.text = "\(newTotalPeriod) \(MenuConstants.second)"
+		periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second)"
+		model.save()
+	}
+	
+	
     // MARK: - Navigation
 
     @IBAction func playButtonHandler(sender: UIBarButtonItem) {

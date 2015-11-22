@@ -201,6 +201,9 @@
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="XrF-Nf-R5f" userLabel="Period">
                                 <rect key="frame" x="486" y="351" width="94" height="29"/>
                                 <animations/>
+                                <connections>
+                                    <action selector="totalPeriodHandler:" destination="8rJ-Kc-sve" eventType="valueChanged" id="LjI-eW-jiu"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQ3-hR-xgu" userLabel="Period Value">
                                 <rect key="frame" x="521" y="322" width="23.5" height="20.5"/>
@@ -341,14 +344,14 @@
                                 <exclude reference="tbX-Ju-i58"/>
                                 <exclude reference="MJd-tx-qeN"/>
                                 <exclude reference="aeb-PS-Tde"/>
-                                <exclude reference="rLG-mB-vPM"/>
-                                <exclude reference="rUY-GD-4Od"/>
-                                <exclude reference="s98-n5-6Wl"/>
                                 <exclude reference="Nc9-hx-Pgj"/>
                                 <exclude reference="UX9-Fv-9hd"/>
                                 <exclude reference="dwt-sx-LUc"/>
                                 <exclude reference="nY9-bg-aza"/>
                                 <exclude reference="zmL-V1-BTg"/>
+                                <exclude reference="rLG-mB-vPM"/>
+                                <exclude reference="rUY-GD-4Od"/>
+                                <exclude reference="s98-n5-6Wl"/>
                             </mask>
                         </variation>
                     </view>
