@@ -22,6 +22,10 @@ class VisualSustainViewController: CounterpointingViewController {
 	private let stopwatchScale = 0.1
 	private var stopwatchStartDate = NSDate()
 	private var resetTimerValue = 0.0
+	private let gameOverTime = 300.0
+	private var stopwatchGameOver = NSTimer()
+	private var animalsCount = 0
+	private var objectsCount = 0
 	
 	let attentionLabelTag = 1
 	let secondsAttentionLabelRemainingOnScreen = 3.0
@@ -97,6 +101,15 @@ class VisualSustainViewController: CounterpointingViewController {
 		testItem.image = newImage
 		
 		view.addSubview(testItem)
+		
+		if (!trainingMode && isAnimal(pic)) {
+			animalsCount++
+		} else if (!trainingMode) {
+			objectsCount++
+		}
+		session.vsustAnimals = animalsCount
+		session.vsustObjects = objectsCount
+		
 		
 		delay(exposure) {
 			self.testItem.image = whiteSpace
@@ -308,6 +321,22 @@ class VisualSustainViewController: CounterpointingViewController {
 		timer.invalidate()
 		timer = NSTimer(timeInterval: exposure + blank, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+		
+		stopwatchGameOver = NSTimer(timeInterval: gameOverTime, target: self, selector: "gameOver", userInfo: nil, repeats: false)
+		NSRunLoop.currentRunLoop().addTimer(stopwatchGameOver, forMode: NSRunLoopCommonModes)
+	}
+	
+	func gameOver() {
+		timer.invalidate()
+		stopwatch.invalidate()
+		stopwatchGameOver.invalidate()
+		
+		let alertView = UIAlertController(title: "Test is Over", message: "You've been running the test for \(gameOverTime / 60) minutes", preferredStyle: .Alert)
+		alertView.addAction(UIAlertAction(title: "Stop the test", style: .Default, handler: {
+			(okAction) -> Void in
+			self.presentPause()
+		}))
+		presentViewController(alertView, animated: true, completion: nil)
 	}
 	
 	override func quit() {
@@ -320,6 +349,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		super.quit()
 		timer.invalidate()
 		stopwatch.invalidate()
+		stopwatchGameOver.invalidate()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
