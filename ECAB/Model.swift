@@ -181,7 +181,7 @@ class Model {
 		// Build number
 		let bundleInfo = NSBundle.mainBundle().infoDictionary
 		let bundleVersion = bundleInfo!["CFBundleVersion"]
-		session.bundleVersion = bundleVersion as! String
+		session.bundleVersion = bundleVersion! as? String
 		
 		// Insert the new Session into the Data set
 		let sessions = data.counterpointingSessions.mutableCopy() as! NSMutableOrderedSet
