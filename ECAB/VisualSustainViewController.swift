@@ -238,46 +238,46 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		self.cleanView()
 		
-		switch self.currentScreenShowing {
+		switch currentScreenShowing {
 		case 0:
 			// This is needed when practice is restarted.
-			self.presentMessage(self.greeingMessage)
+			presentMessage(greeingMessage)
 		case 1:
-			self.showFirstView()
+			showFirstView()
 		case 2:
-			self.presentMessage("Practice 2. Ready")
+			presentMessage("Practice 2. Ready")
 		case 3 ... 23:
-			if !self.gameStarted {
-				self.startTheGame()
-				self.gameStarted = true
-				self.trainingMode = true
+			if !gameStarted {
+				startTheGame()
+				gameStarted = true
+				trainingMode = true
 			}
-			self.index = self.currentScreenShowing - 3
+			index = currentScreenShowing - 3
 			
-			self.updateView(self.practiceSequence[self.index])
+			updateView(practiceSequence[index])
 			
 		case 24:
-			self.timer.invalidate()
-			self.gameStarted = false
-			self.presentMessage("Game!")
+			timer.invalidate()
+			gameStarted = false
+			presentMessage("Game!")
 			mistakeCounter = 0
-			self.trainingMode = false
+			trainingMode = false
 		case 25 ... 175:
 		
-			if !self.gameStarted {
-				self.startTheGame()
-				self.gameStarted = true
+			if !gameStarted {
+				startTheGame()
+				gameStarted = true
 			}
 			
-			self.index = self.currentScreenShowing - 25
-			self.updateView(self.gameSequence[self.index])
+			index = currentScreenShowing - 25
+			updateView(gameSequence[index])
 			
 		case 176:
-			self.presentMessage("...stop")
-			self.timer.invalidate()
-			self.gameStarted = false
+			presentMessage("...stop")
+			timer.invalidate()
+			gameStarted = false
 		case 177:
-			self.quit()
+			quit()
 		default:
 			break
 		}
