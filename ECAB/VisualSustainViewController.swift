@@ -13,31 +13,32 @@ import UIKit
 class VisualSustainViewController: CounterpointingViewController {
 	
 	// When false, test in traning mode, when true — game mode
-	private var gameStarted = false
+	var gameStarted = false
 	
 	// Place in array of pictures that appear on the screen.
 	// There's 2 arrays: training and game.
-	private var indexForCurrentSequence = 0
+	var indexForCurrentSequence = 0
 	
-	private let timeNever = -1.0
-	private let timersScale = 0.1 // Tenth of a second
-	private var timeToPresentNextScreen = NSTimer()
-	private var timeToGameOver = NSTimer()
-	private var timeToAcceptDelay = NSTimer()
-	private var dateAcceptDelayStart = NSDate()
+	let totalMistakesAccepted = 3
+	let timeNever = -1.0
+	let timersScale = 0.1 // Tenth of a second
+	var timeToPresentNextScreen = NSTimer()
+	var timeToGameOver = NSTimer()
+	var timeToAcceptDelay = NSTimer()
+	var dateAcceptDelayStart = NSDate()
 	
-	private var timeSinceAnimalAppeared = 0.0
-	private var timeBlankSpaceVisible = 0.0
-	private var timePictureVisible = 0.0 // Called "exposure" in the UI and log.
-	private let timeGameOver = 300.0
+	var timeSinceAnimalAppeared = 0.0
+	var timeBlankSpaceVisible = 0.0
+	var timePictureVisible = 0.0 // Called "exposure" in the UI and log.
+	let timeGameOver = 300.0
 
-	private var countTotalMissies = 0
-	private var countAnimal = 0
-	private var countObjects = 0
+	var countTotalMissies = 0
+	var countAnimal = 0
+	var countObjects = 0
 	
-	private var imageVisibleOnScreen = UIImageView(image: UIImage(named: "white_rect"))
-	private let labelTagAttention = 1
-	private let timeAttentionLabelRemainingOnScreen = 3.0
+	var imageVisibleOnScreen = UIImageView(image: UIImage(named: "white_rect"))
+	let labelTagAttention = 1
+	let timeAttentionLabelRemainingOnScreen = 3.0
 
     override func viewDidLoad() {
 		sessionType = 2
@@ -53,10 +54,6 @@ class VisualSustainViewController: CounterpointingViewController {
 		session.vsustBlank = timeBlankSpaceVisible
 		
 		timeSinceAnimalAppeared = timeNever
-	}
-	
-	struct Constants {
-		static let kTolerateMistakes = 3
 	}
 	
 	enum Picture: String {
@@ -213,7 +210,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		// -100 is special indicator, player skipped 4 turns, not has to be added to the log
 		var codedSkipWarning = VisualSustainSkip.NoSkip.rawValue
-		if countTotalMissies > Constants.kTolerateMistakes {
+		if countTotalMissies > totalMistakesAccepted {
 			codedSkipWarning = VisualSustainSkip.FourSkips.rawValue
 			attentionSound.play()
 			countTotalMissies = 0
