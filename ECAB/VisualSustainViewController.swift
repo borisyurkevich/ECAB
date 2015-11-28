@@ -40,22 +40,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	let labelTagAttention = 1
 	let timeAttentionLabelRemainingOnScreen = 3.0
 
-    override func viewDidLoad() {
-		sessionType = 2
-		greeingMessage = "Practice 1. Ready..."
-        super.viewDidLoad()
-		
-		imageVisibleOnScreen.frame = CGRectMake(0, 0, imageVisibleOnScreen.frame.size.width * 2, imageVisibleOnScreen.frame.size.height * 2)
-		imageVisibleOnScreen.center = view.center;
-		
-		timePictureVisible = model.data.visSustSpeed.doubleValue
-		timeBlankSpaceVisible = model.data.visSustDelay.doubleValue
-		session.speed = timePictureVisible
-		session.vsustBlank = timeBlankSpaceVisible
-		
-		timeSinceAnimalAppeared = timeNever
-	}
-	
 	enum Picture: String {
 		case Empty = "white_rect"
 		case Bed = "bed_inverse"
@@ -93,6 +77,31 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	private let practiceSequence: [Picture] = [.Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train, .Empty];
 	private let gameSequence: [Picture] = [.Sun, .Key, .Sock, .Boat, .Boot, .Pig, .Clock, .Car, .Book, .Door, .Cat, .Ball, .Bed, .Bus, .Horse, .Train, .Cake, .Leaf, .Dog, .Star, .Spoon, .Chair, .Bike, .Tree, .Fish, .Door, .Bus, .Ball, .Sun, .Horse, .Spoon, .Bed, .Leaf, .Boot, .Fish, .Star, .Cake, .Tree, .Sock, .Clock, .Book, .Cat, .Key, .Train, .Chair, .Pig,. Boat, .Car, .Bike, .Dog, .Bus, .Bed, .Sun, .Chair, .Dog, .Train, .Ball, .Horse, .Bike, .Leaf, .Sock, .Cake, .Boat, .Cat, .Key, .Door, .Tree, .Pig, .Spoon, .Clock, .Car, .Boot, .Book, .Fish, .Star, .Bike, .Clock, .Car, .Pig, .Boat, .Tree, .Cake, .Sock, .Bus, .Star, .Door, .Horse, .Spoon, .Ball, .Dog, .Boot, .Key, .Leaf, .Train, .Cat, .Chair, .Sun, .Bed, .Fish, .Book, .Cake, .Ball, .Star, .Bus, .Pig, .Train, .Boat, .Sun, .Fish, .Spoon, .Leaf, .Bed, .Dog, .Tree, .Door, .Boot, .Bike, .Cat, .Car, .Sock, .Chair, .Key, .Clock, .Book, .Horse, .Door,.Bike, .Car, .Leaf, .Cake, .Fish, .Bed, .Boot, .Horse, .Bus, .Train, .Sun, .Sock, .Chair, .Dog, .Star, .Ball, .Train, .Pig, .Key, .Clock, .Spoon, .Book, .Cat, .Boat, .Empty]
+	
+	override func viewDidLoad() {
+		sessionType = 2
+		greeingMessage = "Practice 1. Ready..."
+		super.viewDidLoad()
+		
+		imageVisibleOnScreen.frame = CGRectMake(0, 0, imageVisibleOnScreen.frame.size.width * 2, imageVisibleOnScreen.frame.size.height * 2)
+		imageVisibleOnScreen.center = view.center;
+		
+		timePictureVisible = model.data.visSustSpeed.doubleValue
+		timeBlankSpaceVisible = model.data.visSustDelay.doubleValue
+		session.speed = timePictureVisible
+		session.vsustBlank = timeBlankSpaceVisible
+		
+		timeSinceAnimalAppeared = timeNever
+	}
+	
+	func startTheGame() {
+		timeToPresentNextScreen.invalidate()
+		timeToPresentNextScreen = NSTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
+		NSRunLoop.currentRunLoop().addTimer(timeToPresentNextScreen, forMode: NSRunLoopCommonModes)
+		
+		timeToGameOver = NSTimer(timeInterval: timeGameOver, target: self, selector: "gameOver", userInfo: nil, repeats: false)
+		NSRunLoop.currentRunLoop().addTimer(timeToGameOver, forMode: NSRunLoopCommonModes)
+	}
 	
 	func updateView(pic: Picture) {
 		
@@ -322,15 +331,6 @@ class VisualSustainViewController: CounterpointingViewController {
 			returnValue = true
 		}
 		return returnValue
-	}
-	
-	func startTheGame() {
-		timeToPresentNextScreen.invalidate()
-		timeToPresentNextScreen = NSTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
-		NSRunLoop.currentRunLoop().addTimer(timeToPresentNextScreen, forMode: NSRunLoopCommonModes)
-		
-		timeToGameOver = NSTimer(timeInterval: timeGameOver, target: self, selector: "gameOver", userInfo: nil, repeats: false)
-		NSRunLoop.currentRunLoop().addTimer(timeToGameOver, forMode: NSRunLoopCommonModes)
 	}
 	
 	func gameOver() {
