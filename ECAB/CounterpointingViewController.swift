@@ -34,16 +34,7 @@ class CounterpointingViewController: TestViewController {
 		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
 		presentMessage(greeingMessage)
-		
-		let screen = UIScreen.mainScreen().bounds
-		let screenAreaLeft = CGRectMake(0, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
-		let screenAreaRight = CGRectMake(screen.size.width/2, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
-		let buttonLeft = UIButton(frame: screenAreaLeft)
-		let buttonRight = UIButton(frame: screenAreaRight)
-		buttonLeft.addTarget(self, action: "handleTouchLeft", forControlEvents: UIControlEvents.TouchDown)
-		buttonRight.addTarget(self, action: "handleTouchRight", forControlEvents: UIControlEvents.TouchDown)
-		view.addSubview(buttonLeft)
-		view.addSubview(buttonRight)
+		addTouchTargetButtons()
 	}
 	
 	override func skip() {
@@ -172,6 +163,19 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	// MARK: Other	
+	
+	func addTouchTargetButtons() {
+		
+		let screen = UIScreen.mainScreen().bounds
+		let screenAreaLeft = CGRectMake(0, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
+		let screenAreaRight = CGRectMake(screen.size.width/2, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
+		let buttonLeft = UIButton(frame: screenAreaLeft)
+		let buttonRight = UIButton(frame: screenAreaRight)
+		buttonLeft.addTarget(self, action: "handleTouchLeft", forControlEvents: UIControlEvents.TouchDown)
+		buttonRight.addTarget(self, action: "handleTouchRight", forControlEvents: UIControlEvents.TouchDown)
+		view.addSubview(buttonLeft)
+		view.addSubview(buttonRight)
+	}
 	
 	func presentBlueDot() {
 		cleanView()

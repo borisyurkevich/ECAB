@@ -12,6 +12,7 @@ import AVFoundation
 class FlankerViewController: CounterpointingViewController {
 	
 	var smallImages = false
+	let barWidth: CGFloat = 72
 
     override func viewDidLoad() {
 		greeingMessage = "Example stimuli..."
@@ -23,7 +24,30 @@ class FlankerViewController: CounterpointingViewController {
 		} else {
 			session.imageSizeComment = "Normal images (2x)"
 		}
+		
+		addTouchTargetButtons()
     }
+	override func addTouchTargetButtons() {
+		
+		let screen = UIScreen.mainScreen().bounds
+		let screenAreaLeft = CGRectMake(0, menuBarHeight, barWidth, screen.size.height-menuBarHeight)
+		let screenAreaRight = CGRectMake(UIScreen.mainScreen().bounds.size.width - barWidth, menuBarHeight, barWidth, screen.size.height-menuBarHeight)
+		let buttonLeft = UIButton(frame: screenAreaLeft)
+		let buttonRight = UIButton(frame: screenAreaRight)
+		buttonLeft.backgroundColor = UIColor.orangeColor()
+		buttonRight.backgroundColor = UIColor.greenColor()
+		buttonLeft.addTarget(self, action: "handleTouchLeft", forControlEvents: UIControlEvents.TouchDown)
+		buttonRight.addTarget(self, action: "handleTouchRight", forControlEvents: UIControlEvents.TouchDown)
+		
+		let star = UIImage(named: "star")
+		buttonLeft.setImage(star, forState: UIControlState.Normal)
+		buttonLeft.imageView!.contentMode = UIViewContentMode.Center
+		buttonRight.setImage(star, forState: UIControlState.Normal)
+		buttonRight.imageView!.contentMode = UIViewContentMode.Center
+		
+		view.addSubview(buttonLeft)
+		view.addSubview(buttonRight)
+	}
 	
 	enum Picture {
 		case Empty
@@ -44,38 +68,6 @@ class FlankerViewController: CounterpointingViewController {
 		addImage(left, position: Position.Left)
 		addImage(middle, position: Position.Middle)
 		addImage(right, position: Position.Right)
-		
-		let barWidth: CGFloat = 72
-		
-		let leftBarView = UIView(frame: CGRectMake(0, 0, barWidth, UIScreen.mainScreen().bounds.size.height))
-		leftBarView.backgroundColor = UIColor.orangeColor()
-		view.addSubview(leftBarView)
-		
-		let star = UIImage(named: "star")
-		let starImg = UIImageView(image: star)
-		starImg.center = leftBarView.center
-		leftBarView.addSubview(starImg)
-		
-		let rightBarView = UIView(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width - barWidth, 0, barWidth, UIScreen.mainScreen().bounds.size.height))
-		rightBarView.backgroundColor = UIColor.greenColor()
-		view.addSubview(rightBarView)
-		
-		let rightStarImg = UIImageView(image: star)
-		rightStarImg.center = CGPointMake(rightBarView.bounds.size.width/2, rightBarView.bounds.size.height/2)
-		rightBarView.addSubview(rightStarImg)
-		
-		// Gestures
-		super.addGestures() // Will clean the gestures.
-		
-		let leftTapView = UIView(frame: starImg.frame)
-		leftBarView.addSubview(leftTapView)
-		let rightTapView = UIView(frame: rightStarImg.frame)
-		rightBarView.addSubview(rightTapView)
-		
-		let leftTap = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		let rightTap = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		leftTapView.addGestureRecognizer(leftTap)
-		rightTapView.addGestureRecognizer(rightTap)
 	}
 	
 	func addImage(image: Picture, position:Position) {
