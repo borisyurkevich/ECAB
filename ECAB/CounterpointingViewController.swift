@@ -40,8 +40,6 @@ class CounterpointingViewController: TestViewController {
 		let screenAreaRight = CGRectMake(screen.size.width/2, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
 		let buttonLeft = UIButton(frame: screenAreaLeft)
 		let buttonRight = UIButton(frame: screenAreaRight)
-		buttonLeft.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
-		buttonRight.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.5)
 		buttonLeft.addTarget(self, action: "handleTouchLeft", forControlEvents: UIControlEvents.TouchDown)
 		buttonRight.addTarget(self, action: "handleTouchRight", forControlEvents: UIControlEvents.TouchDown)
 		view.addSubview(buttonLeft)
