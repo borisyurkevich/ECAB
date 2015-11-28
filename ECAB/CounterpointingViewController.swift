@@ -26,12 +26,26 @@ class CounterpointingViewController: TestViewController {
 	private var totalOne = 0
 	private var totalTwo = 0
 	
+	// MARK: Override
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
 		presentMessage(greeingMessage)
+		
+		let screen = UIScreen.mainScreen().bounds
+		let screenAreaLeft = CGRectMake(0, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
+		let screenAreaRight = CGRectMake(screen.size.width/2, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
+		let buttonLeft = UIButton(frame: screenAreaLeft)
+		let buttonRight = UIButton(frame: screenAreaRight)
+		buttonLeft.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 0.5)
+		buttonRight.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.5)
+		buttonLeft.addTarget(self, action: "handleTouchLeft", forControlEvents: UIControlEvents.TouchDown)
+		buttonRight.addTarget(self, action: "handleTouchRight", forControlEvents: UIControlEvents.TouchDown)
+		view.addSubview(buttonLeft)
+		view.addSubview(buttonRight)
 	}
 	
 	override func skip() {
@@ -159,6 +173,8 @@ class CounterpointingViewController: TestViewController {
 		}
 	}
 	
+	// MARK: Other	
+	
 	func presentBlueDot() {
 		cleanView()
 		
@@ -182,8 +198,6 @@ class CounterpointingViewController: TestViewController {
 		let imageView = UIImageView(image: UIImage(named: "dog"))
 		imageView.frame = CGRectMake(19, 260, pictureWidth, pictureHeight)
 		view.addSubview(imageView)
-
-		addGestures()
 	}
 	
 	func presentDogOnRight(){
@@ -192,26 +206,20 @@ class CounterpointingViewController: TestViewController {
 		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
 		imageView.frame = CGRectMake(view.bounds.width-300, 260, pictureWidth, pictureHeight)
 		view.addSubview(imageView)
-		
-		addGestures()
 	}
 	
-	override func addGestures() {
-		super.addGestures() // Will clean the gestures.
-		
-		let tapGesture = UITapGestureRecognizer(target: self, action: "tapHandler:")
-		view.addGestureRecognizer(tapGesture)
+	func handleTouchLeft() {
+		tapHandler(true)
 	}
-	
-	func tapHandler(sender: UITapGestureRecognizer){
+	func handleTouchRight() {
+		tapHandler(false)
+	}
+	func tapHandler(touchLeft: Bool){
 		// Determine Success or failure
-		let location = sender.locationInView(view)
-		let screenWidth = UIScreen.mainScreen().bounds.width
-		let middlePoint = screenWidth / 2
 		
 		var result:Bool
 		
-		if location.x < middlePoint {
+		if touchLeft {
 			if !touchModeInverserd {
 				// tap on the left side of the screen
 				if leftTarget {

@@ -24,6 +24,8 @@ class TestViewController: UIViewController {
 	
 	var currentScreenShowing = 0
 	var trainingMode = true
+	
+	let menuBarHeight: CGFloat = 54.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +117,7 @@ class TestViewController: UIViewController {
 			}
 		}
 	}
-	
+	// Removes everything, except, the buttons
 	func cleanView() {
 		for v in view.subviews {
 			if !v.isKindOfClass(UIButton) {
