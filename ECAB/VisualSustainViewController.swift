@@ -19,7 +19,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	// There's 2 arrays: training and game.
 	private var indexForCurrentSequence = 0
 	
-	private var timeTimerReset = 0.0
+	private let timeNever = -1.0
 	private let timersScale = 0.1 // Tenth of a second
 	private var timeToPresentNextScreen = NSTimer()
 	private var timeToGameOver = NSTimer()
@@ -46,13 +46,13 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		imageVisibleOnScreen.frame = CGRectMake(0, 0, imageVisibleOnScreen.frame.size.width * 2, imageVisibleOnScreen.frame.size.height * 2)
 		imageVisibleOnScreen.center = view.center;
+		
 		timePictureVisible = model.data.visSustSpeed.doubleValue
 		timeBlankSpaceVisible = model.data.visSustDelay.doubleValue
 		session.speed = timePictureVisible
 		session.vsustBlank = timeBlankSpaceVisible
 		
-		timeTimerReset = Double(model.data.visSustAcceptedDelay!) + 1
-		timeSinceAnimalAppeared = timeTimerReset
+		timeSinceAnimalAppeared = timeNever
 	}
 	
 	struct Constants {
@@ -186,7 +186,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
 			
 			// Prevents following taps to be sucesfull
-			timeSinceAnimalAppeared = timeTimerReset
+			timeSinceAnimalAppeared = timeNever
 			timeToAcceptDelay.invalidate()
 			
 			if !trainingMode {
@@ -351,7 +351,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func quit() {
 		
-		if timeSinceAnimalAppeared != timeTimerReset {
+		if timeSinceAnimalAppeared != timeNever {
 			// Last animal was missed
 			noteMistake(.Miss)
 		}
