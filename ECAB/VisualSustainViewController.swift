@@ -20,7 +20,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	var indexForCurrentSequence = 0
 	
 	let totalMistakesAccepted = 3
-	let timeNever = -1.0
+	let timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
 	let timersScale = 0.1 // Tenth of a second
 	var timeToPresentNextScreen = NSTimer()
 	var timeToGameOver = NSTimer()
@@ -99,13 +99,12 @@ class VisualSustainViewController: CounterpointingViewController {
 		timeToPresentNextScreen = NSTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(timeToPresentNextScreen, forMode: NSRunLoopCommonModes)
 		
+		timeToGameOver.invalidate()
 		timeToGameOver = NSTimer(timeInterval: timeGameOver, target: self, selector: "gameOver", userInfo: nil, repeats: false)
 		NSRunLoop.currentRunLoop().addTimer(timeToGameOver, forMode: NSRunLoopCommonModes)
 	}
 	
 	func updateView(pic: Picture) {
-		
-		addGestures()
 		
 		let newImage = UIImage(named: pic.rawValue)
 		let whiteSpace = UIImage(named: Picture.Empty.rawValue)
