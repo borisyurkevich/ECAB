@@ -2,6 +2,8 @@
 //  VisualSustainViewController.swift
 //  ECAB
 //
+//  All time here is counted in seconds. 1.0 - is one second double.
+//
 //  Created by Boris Yurkevich on 02/07/2015.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
@@ -10,40 +12,47 @@ import UIKit
 
 class VisualSustainViewController: CounterpointingViewController {
 	
-	private var screenCountSinceAnimalAppeared = 0.0
-	private var timer = NSTimer()
-	private var blank = 0.0
-	private var exposure = 0.0
-	private var mistakeCounter = 0
+	// When false, test in traning mode, when true — game mode
 	private var gameStarted = false
-	private var index = 0
-	private var testItem = UIImageView(image: UIImage(named: "white_rect"))
-	private var stopwatch = NSTimer()
-	private let stopwatchScale = 0.1
-	private var stopwatchStartDate = NSDate()
-	private var resetTimerValue = 0.0
-	private let gameOverTime = 300.0
-	private var stopwatchGameOver = NSTimer()
-	private var animalsCount = 0
-	private var objectsCount = 0
 	
-	let attentionLabelTag = 1
-	let secondsAttentionLabelRemainingOnScreen = 3.0
+	// Place in array of pictures that appear on the screen.
+	// There's 2 arrays: training and game.
+	private var indexForCurrentSequence = 0
+	
+	private var timeTimerReset = 0.0
+	private let timersScale = 0.1 // Tenth of a second
+	private var timeToPresentNextScreen = NSTimer()
+	private var timeToGameOver = NSTimer()
+	private var timeToAcceptDelay = NSTimer()
+	private var dateAcceptDelayStart = NSDate()
+	
+	private var timeSinceAnimalAppeared = 0.0
+	private var timeBlankSpaceVisible = 0.0
+	private var timePictureVisible = 0.0 // Called "exposure" in the UI and log.
+	private let timeGameOver = 300.0
+
+	private var countTotalMissies = 0
+	private var countAnimal = 0
+	private var countObjects = 0
+	
+	private var imageVisibleOnScreen = UIImageView(image: UIImage(named: "white_rect"))
+	private let labelTagAttention = 1
+	private let timeAttentionLabelRemainingOnScreen = 3.0
 
     override func viewDidLoad() {
 		sessionType = 2
 		greeingMessage = "Practice 1. Ready..."
         super.viewDidLoad()
 		
-		testItem.frame = CGRectMake(0, 0, testItem.frame.size.width * 2, testItem.frame.size.height * 2)
-		testItem.center = view.center;
-		exposure = model.data.visSustSpeed.doubleValue
-		blank = model.data.visSustDelay.doubleValue
-		session.speed = exposure
-		session.vsustBlank = blank
+		imageVisibleOnScreen.frame = CGRectMake(0, 0, imageVisibleOnScreen.frame.size.width * 2, imageVisibleOnScreen.frame.size.height * 2)
+		imageVisibleOnScreen.center = view.center;
+		timePictureVisible = model.data.visSustSpeed.doubleValue
+		timeBlankSpaceVisible = model.data.visSustDelay.doubleValue
+		session.speed = timePictureVisible
+		session.vsustBlank = timeBlankSpaceVisible
 		
-		resetTimerValue = Double(model.data.visSustAcceptedDelay!) + 1
-		screenCountSinceAnimalAppeared = resetTimerValue
+		timeTimerReset = Double(model.data.visSustAcceptedDelay!) + 1
+		timeSinceAnimalAppeared = timeTimerReset
 	}
 	
 	struct Constants {
@@ -96,23 +105,23 @@ class VisualSustainViewController: CounterpointingViewController {
 		let whiteSpace = UIImage(named: Picture.Empty.rawValue)
 		let newFrame = UIImageView(image: newImage)
 		
-		testItem.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
-		testItem.center = view.center;
-		testItem.image = newImage
+		imageVisibleOnScreen.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
+		imageVisibleOnScreen.center = view.center;
+		imageVisibleOnScreen.image = newImage
 		
-		view.addSubview(testItem)
+		view.addSubview(imageVisibleOnScreen)
 		
 		if (!trainingMode && isAnimal(pic)) {
-			animalsCount++
+			countAnimal++
 		} else if (!trainingMode) {
-			objectsCount++
+			countObjects++
 		}
-		session.vsustAnimals = animalsCount
-		session.vsustObjects = objectsCount
+		session.vsustAnimals = countAnimal
+		session.vsustObjects = countObjects
 		
 		
-		delay(exposure) {
-			self.testItem.image = whiteSpace
+		delay(timePictureVisible) {
+			self.imageVisibleOnScreen.image = whiteSpace
 			
 			var currentSuequence: [Picture]
 			if self.trainingMode {
@@ -120,9 +129,9 @@ class VisualSustainViewController: CounterpointingViewController {
 			} else {
 				currentSuequence = self.gameSequence
 			}
-			if self.isAnimal(currentSuequence[self.index]) {
+			if self.isAnimal(currentSuequence[self.indexForCurrentSequence]) {
 				
-				let timePassed = self.screenCountSinceAnimalAppeared
+				let timePassed = self.timeSinceAnimalAppeared
 				let acceptedDelay = self.model.data.visSustAcceptedDelay!.doubleValue + 1
 				
 				if timePassed != acceptedDelay {
@@ -168,17 +177,17 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func tapHandler(touchLeft: Bool) {
 		// Ignore touchLeft, whole screen is the target
 		
-		let screen: CGFloat = CGFloat(index + 1)
+		let screen: CGFloat = CGFloat(indexForCurrentSequence + 1)
 		let result = true
-		if screenCountSinceAnimalAppeared <= Double(model.data.visSustAcceptedDelay!) {
-			mistakeCounter = 0
+		if timeSinceAnimalAppeared <= Double(model.data.visSustAcceptedDelay!) {
+			countTotalMissies = 0
 			
 			successSound.play()
-			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay:screenCountSinceAnimalAppeared)
+			model.addCounterpointingMove(screen, positionY: 0, success: result, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
 			
 			// Prevents following taps to be sucesfull
-			screenCountSinceAnimalAppeared = resetTimerValue
-			stopwatch.invalidate()
+			timeSinceAnimalAppeared = timeTimerReset
+			timeToAcceptDelay.invalidate()
 			
 			if !trainingMode {
 				let score = session.score.integerValue
@@ -190,35 +199,35 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	func noteMistake(mistakeType: Mistake) {
-		let screen: CGFloat = CGFloat(index + 1)
+		let screen: CGFloat = CGFloat(indexForCurrentSequence + 1)
 		let result = false
-		mistakeCounter += 1
 		
 		//To avoid changing data model we will use interval to store mistake type
 		var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
 		if (mistakeType == .Miss) {
 			codedMistakeType = VisualSustainMistakeType.Miss.rawValue
+			countTotalMissies += 1
 		} else if (mistakeType == .FalsePositive) {
 			codedMistakeType = VisualSustainMistakeType.FalsePositive.rawValue
 		}
 		
 		// -100 is special indicator, player skipped 4 turns, not has to be added to the log
 		var codedSkipWarning = VisualSustainSkip.NoSkip.rawValue
-		if mistakeCounter > Constants.kTolerateMistakes {
+		if countTotalMissies > Constants.kTolerateMistakes {
 			codedSkipWarning = VisualSustainSkip.FourSkips.rawValue
 			attentionSound.play()
-			mistakeCounter = 0
+			countTotalMissies = 0
 			let label = UILabel()
 			label.text = "Remember, touch the screen every time you see an animal"
 			label.font = UIFont.systemFontOfSize(32.0)
 			label.frame = CGRectMake(120, 480, 0, 0)
 			label.sizeToFit()
-			label.tag = attentionLabelTag
+			label.tag = labelTagAttention
 			view.addSubview(label)
 			
-			delay(secondsAttentionLabelRemainingOnScreen) {
+			delay(timeAttentionLabelRemainingOnScreen) {
 				for v in self.view.subviews {
-					if v.tag == self.attentionLabelTag {
+					if v.tag == self.labelTagAttention {
 						if !v.isKindOfClass(UIButton) {
 							v.removeFromSuperview()
 						}
@@ -227,7 +236,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 		}
 
-		model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: result, interval: codedMistakeType, inverted: trainingMode, delay: screenCountSinceAnimalAppeared)
+		model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: result, interval: codedMistakeType, inverted: trainingMode, delay: timeSinceAnimalAppeared)
 
 		if !trainingMode {
 			if mistakeType == .FalsePositive {
@@ -264,15 +273,15 @@ class VisualSustainViewController: CounterpointingViewController {
 				gameStarted = true
 				trainingMode = true
 			}
-			index = currentScreenShowing - 3
+			indexForCurrentSequence = currentScreenShowing - 3
 			
-			updateView(practiceSequence[index])
+			updateView(practiceSequence[indexForCurrentSequence])
 			
 		case 24:
-			timer.invalidate()
+			timeToPresentNextScreen.invalidate()
 			gameStarted = false
 			presentMessage("Game!")
-			mistakeCounter = 0
+			countTotalMissies = 0
 			trainingMode = false
 		case 25 ... 175:
 		
@@ -281,12 +290,12 @@ class VisualSustainViewController: CounterpointingViewController {
 				gameStarted = true
 			}
 			
-			index = currentScreenShowing - 25
-			updateView(gameSequence[index])
+			indexForCurrentSequence = currentScreenShowing - 25
+			updateView(gameSequence[indexForCurrentSequence])
 			
 		case 176:
 			presentMessage("...stop")
-			timer.invalidate()
+			timeToPresentNextScreen.invalidate()
 			gameStarted = false
 		case 177:
 			quit()
@@ -296,17 +305,17 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	func startDelayTimer() {
-		stopwatch.invalidate()
-		stopwatchStartDate = NSDate()
-		stopwatch = NSTimer.scheduledTimerWithTimeInterval(stopwatchScale, target: self, selector: "updateDelayTimer", userInfo: nil, repeats: true)
-		self.screenCountSinceAnimalAppeared = 0
+		timeToAcceptDelay.invalidate()
+		dateAcceptDelayStart = NSDate()
+		timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(timersScale, target: self, selector: "updateDelayTimer", userInfo: nil, repeats: true)
+		self.timeSinceAnimalAppeared = 0
 	}
 	
 	func updateDelayTimer() {
-		let timePassedAfterAnimal: NSTimeInterval = stopwatchStartDate.timeIntervalSinceNow
-		screenCountSinceAnimalAppeared = abs(timePassedAfterAnimal)
-		if screenCountSinceAnimalAppeared > Double(model.data.visSustAcceptedDelay!) {
-			stopwatch.invalidate()
+		let timePassedAfterAnimal: NSTimeInterval = dateAcceptDelayStart.timeIntervalSinceNow
+		timeSinceAnimalAppeared = abs(timePassedAfterAnimal)
+		if timeSinceAnimalAppeared > Double(model.data.visSustAcceptedDelay!) {
+			timeToAcceptDelay.invalidate()
 		}
 	}
 	
@@ -319,20 +328,20 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	func startTheGame() {
-		timer.invalidate()
-		timer = NSTimer(timeInterval: exposure + blank, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
-		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+		timeToPresentNextScreen.invalidate()
+		timeToPresentNextScreen = NSTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
+		NSRunLoop.currentRunLoop().addTimer(timeToPresentNextScreen, forMode: NSRunLoopCommonModes)
 		
-		stopwatchGameOver = NSTimer(timeInterval: gameOverTime, target: self, selector: "gameOver", userInfo: nil, repeats: false)
-		NSRunLoop.currentRunLoop().addTimer(stopwatchGameOver, forMode: NSRunLoopCommonModes)
+		timeToGameOver = NSTimer(timeInterval: timeGameOver, target: self, selector: "gameOver", userInfo: nil, repeats: false)
+		NSRunLoop.currentRunLoop().addTimer(timeToGameOver, forMode: NSRunLoopCommonModes)
 	}
 	
 	func gameOver() {
-		timer.invalidate()
-		stopwatch.invalidate()
-		stopwatchGameOver.invalidate()
+		timeToPresentNextScreen.invalidate()
+		timeToAcceptDelay.invalidate()
+		timeToGameOver.invalidate()
 		
-		let alertView = UIAlertController(title: "Test is Over", message: "You've been running the test for \(gameOverTime / 60) minutes", preferredStyle: .Alert)
+		let alertView = UIAlertController(title: "Test is Over", message: "You've been running the test for \(timeGameOver / 60) minutes", preferredStyle: .Alert)
 		alertView.addAction(UIAlertAction(title: "Stop the test", style: .Default, handler: {
 			(okAction) -> Void in
 			self.presentPause()
@@ -342,27 +351,27 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func quit() {
 		
-		if screenCountSinceAnimalAppeared != resetTimerValue {
+		if timeSinceAnimalAppeared != timeTimerReset {
 			// Last animal was missed
 			noteMistake(.Miss)
 		}
 		
 		super.quit()
-		timer.invalidate()
-		stopwatch.invalidate()
-		stopwatchGameOver.invalidate()
+		timeToPresentNextScreen.invalidate()
+		timeToAcceptDelay.invalidate()
+		timeToGameOver.invalidate()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
-		timer.invalidate()
+		timeToPresentNextScreen.invalidate()
 	}
 	
 	override func cleanView() {
 		
 		for v in view.subviews {
 		
-			if v.tag != attentionLabelTag {
+			if v.tag != labelTagAttention {
 				if !v.isKindOfClass(UIButton) {
 					v.removeFromSuperview()
 				}
