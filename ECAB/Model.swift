@@ -47,6 +47,7 @@ class Model {
 	var data: Data!
 	
 	let titles = GameTitle()
+	let kMinDelay = 1.0
 	
     init() {
         

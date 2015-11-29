@@ -228,7 +228,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			session.vsustObjects = countObjects
 		}
 		
-		if timeBlankSpaceVisible >= 1.0 {
+		if timeBlankSpaceVisible >= model.kMinDelay {
 			delay(timePictureVisible) {
 				self.imageVisibleOnScreen.image = whiteSpace
 			}

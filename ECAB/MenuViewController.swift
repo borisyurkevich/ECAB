@@ -166,6 +166,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			periodControl.value = totalPeriod
 			periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
 			periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
+			
+			validateAndHighliteBlankSpaceLabel()
 		}
 	}
 	
@@ -225,7 +227,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		let newDelay = newTotalPeriodDouble! - exposure
 		periodValue.text = "\(newTotalPeriod) \(MenuConstants.second)"
 		
-		if newDelay >= 1.0 {
+		if newDelay >= model.kMinDelay {
 			periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second)"
 			periodHelp.textColor = UIColor.darkGrayColor()
 			
@@ -237,6 +239,13 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		}
 	}
 	
+	func validateAndHighliteBlankSpaceLabel() {
+		let currentDelay = model.data.visSustDelay.doubleValue
+		if currentDelay < model.kMinDelay {
+			periodHelp.text = "Blank space time: \(currentDelay) \(MenuConstants.second) Ignored when less than a second"
+			periodHelp.textColor = UIColor.redColor()
+		}
+	}
 	
     // MARK: - Navigation
 
