@@ -25,6 +25,7 @@ class TestViewController: UIViewController {
 	var currentScreenShowing = 0
 
 	var trainingMode = true
+	var gamePaused = false
 	
 	let menuBarHeight: CGFloat = 54.0
 
@@ -136,6 +137,8 @@ class TestViewController: UIViewController {
 	}
 	
 	func presentPause() {
+		gamePaused = true
+		
 		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. Add any comment", preferredStyle: .Alert)
 		
 		alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
@@ -145,6 +148,7 @@ class TestViewController: UIViewController {
 		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
 			(okAction) -> Void in
 			self.addComment(alertView)
+			self.gamePaused = false
 		}))
 		alertView.addTextFieldWithConfigurationHandler {
 			(textField: UITextField!) -> Void in

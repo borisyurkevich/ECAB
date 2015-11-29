@@ -21,7 +21,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	let totalMissesBeforeWarningPrompt = 4
 	let timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
 	let timersScale = 0.1 // Tenth of a second
-	var timeToPresentNextScreen = NSTimer()
 	var timeToGameOver = NSTimer()
 	var dateAcceptDelayStart = NSDate()
 	
@@ -31,7 +30,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	var timeSinceAnimalAppeared = 0.0
 	var timeBlankSpaceVisible = 0.0
 	var timePictureVisible = 0.0 // Called "exposure" in the UI and log.
-	let timeGameOver = 300.0 // Default is 300 seconds eg 5 mins
+	let timeGameOver = 30.0 // Default is 300 seconds eg 5 mins
 
 	var countTotalMissies = 0
 	var countAnimals = 0
@@ -105,16 +104,10 @@ class VisualSustainViewController: CounterpointingViewController {
 	func startAutoPresentPictures() {
 		pictureAutoPresent = true
 		imageVisibleOnScreen.hidden = false
-		
-		timeToPresentNextScreen.invalidate()
-		timeToPresentNextScreen = NSTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible, target: self, selector: "presentNextScreen", userInfo: nil, repeats: true)
-		NSRunLoop.currentRunLoop().addTimer(timeToPresentNextScreen, forMode: NSRunLoopCommonModes)
 	}
 	func stopAutoPresentPictures() {
 		pictureAutoPresent = false
 		imageVisibleOnScreen.hidden = true
-		
-		timeToPresentNextScreen.invalidate()
 	}
 	
 	// Start and stop test is enabling logic to run the game in non training mode
@@ -203,6 +196,10 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	func updateView(pic: Picture) {
 		
+		if gamePaused {
+			return
+		}
+		
 		let newImage = UIImage(named: pic.rawValue)
 		let whiteSpace = UIImage(named: Picture.Empty.rawValue)
 		let newFrame = UIImageView(image: newImage)
@@ -233,12 +230,17 @@ class VisualSustainViewController: CounterpointingViewController {
 				self.imageVisibleOnScreen.image = whiteSpace
 			}
 		}
+		
+		delay(timePictureVisible + timeBlankSpaceVisible) {
+			self.presentNextScreen()
+		}
 	}
 	
 	func updateAcceptedDelay() {
 		timeSinceAnimalAppeared += timersScale
 		if timeSinceAnimalAppeared > timeAcceptDelay {
 			timeToAcceptDelay.invalidate()
+			timeSinceAnimalAppeared = timeNever
 			// Because stopwatch was alive long enough to reach its limit, 
 			// we know that animal was missed.
 			noteMistake(.Miss)
@@ -394,7 +396,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	func gameOver() {
-		timeToPresentNextScreen.invalidate()
+		gamePaused = true
 		timeToAcceptDelay.invalidate()
 		timeToGameOver.invalidate()
 		
@@ -413,7 +415,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	override func quit() {
-
+		gamePaused = true
+		
 		// TODO Do I need this?
 		if timeSinceAnimalAppeared != timeNever {
 			// Last animal was missed
