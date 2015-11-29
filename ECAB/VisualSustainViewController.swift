@@ -417,7 +417,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func quit() {
 		gamePaused = true
 		
-		// TODO Do I need this?
 		if timeSinceAnimalAppeared != timeNever {
 			// Last animal was missed
 			noteMistake(.Miss)
