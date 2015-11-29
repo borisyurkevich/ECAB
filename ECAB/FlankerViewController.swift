@@ -122,6 +122,16 @@ class FlankerViewController: CounterpointingViewController {
 		presentNextScreen()
 	}
 	
+	override func presentPreviousScreen() {
+		if trainingMode {
+			currentScreenShowing = -1
+			presentNextScreen()
+		} else {
+			currentScreenShowing = 22
+			presentNextScreen()
+		}
+	}
+	
 	override func presentNextScreen() {
 		currentScreenShowing++
 		cleanView()

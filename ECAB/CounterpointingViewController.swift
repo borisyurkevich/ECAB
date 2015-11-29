@@ -38,7 +38,11 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	override func skip() {
-		currentScreenShowing = 27
+		// Not sure what screen to show because practice is mixed wit the test
+	}
+	
+	override func presentPreviousScreen() {
+		currentScreenShowing = -1
 		presentNextScreen()
 	}
 	
