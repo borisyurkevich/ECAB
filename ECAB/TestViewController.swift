@@ -23,6 +23,7 @@ class TestViewController: UIViewController {
 	var attentionSound = AVAudioPlayer()
 	
 	var currentScreenShowing = 0
+
 	var trainingMode = true
 	
 	let menuBarHeight: CGFloat = 54.0
@@ -155,9 +156,11 @@ class TestViewController: UIViewController {
 	
 	func presentPreviousScreen() {
 		// This typically restarts the game
-		currentScreenShowing = -1
-		trainingMode = true
-		presentNextScreen()
+//		currentScreenShowing = -1
+//		trainingMode = true
+//		presentNextScreen()
+		
+		print("❌ Implement presentPreviousScreen() in \(self.description)")
 	}
 	
 	func presentNextScreen() {

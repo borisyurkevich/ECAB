@@ -447,9 +447,9 @@ class SessionsTableViewController: UITableViewController {
 				} else {
 					// Two mistakes type
 					if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-						append = "\(counter)) screen: \(actualMove.poitionX) False Positive \(fourMistakes)\n"
+						append = "\(actualMove.poitionX) picture: False Positive \(fourMistakes)\n"
 					} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-						append = "\(counter)) screen: \(actualMove.poitionX) Miss \(fourMistakes)\n"
+						append = "\(actualMove.poitionX) picture: Miss \(fourMistakes)\n"
 					}
 					
 				}
@@ -478,7 +478,7 @@ class SessionsTableViewController: UITableViewController {
 			let objectsTotal = pickedSesstion.vsustObjects!.intValue
 			let animalsTotal = pickedSesstion.vsustAnimals!.intValue
 			
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\nInterval = \(interval) exposure = \(exposure) blank = \(blank)\nObjects = \(objectsTotal) animals = \(animalsTotal)\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nFalse positives = \(pickedSesstion.errors) Misses = \(pickedSesstion.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\nBuild: \(build)\nMoves:\n\n\(details)"
+			let text = "\(gameName) (build \(build))\n\nPlayer: \(pickedSesstion.player.name)\nInterval = \(interval) exposure = \(exposure) blank = \(blank) accepted delay = \(pickedSesstion.vsustAcceptedDelay!.doubleValue)\nObjects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\nTotal score = \(pickedSesstion.score) moves = \(pickedSesstion.moves.count)\nFalse positives = \(pickedSesstion.errors) Misses = \(pickedSesstion.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		default:

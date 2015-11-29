@@ -224,10 +224,17 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		let exposure = model.data.visSustSpeed.doubleValue
 		let newDelay = newTotalPeriodDouble! - exposure
 		periodValue.text = "\(newTotalPeriod) \(MenuConstants.second)"
-		periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second)"
 		
-		model.data.visSustDelay = newDelay
-		model.save()
+		if newDelay >= 1.0 {
+			periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second)"
+			periodHelp.textColor = UIColor.darkGrayColor()
+			
+			model.data.visSustDelay = newDelay
+			model.save()
+		} else {
+			periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second) Ignored when less than a second"
+			periodHelp.textColor = UIColor.redColor()
+		}
 	}
 	
 	

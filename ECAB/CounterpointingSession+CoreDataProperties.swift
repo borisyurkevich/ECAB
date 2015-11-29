@@ -2,7 +2,7 @@
 //  CounterpointingSession+CoreDataProperties.swift
 //  ECAB
 //
-//  Created by Boris Yurkevich on 22/11/2015.
+//  Created by Boris Yurkevich on 28/11/2015.
 //  Copyright © 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -20,5 +20,6 @@ extension CounterpointingSession {
     @NSManaged var vsustBlank: NSNumber?
     @NSManaged var vsustMiss: NSNumber?
     @NSManaged var vsustObjects: NSNumber?
+    @NSManaged var vsustAcceptedDelay: NSNumber?
 
 }
