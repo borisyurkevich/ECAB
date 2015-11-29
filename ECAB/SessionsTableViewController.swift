@@ -443,13 +443,13 @@ class SessionsTableViewController: UITableViewController {
 					
 					let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
 					
-					append = "\(counter)) screen: \(actualMove.poitionX) Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+					append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
 				} else {
 					// Two mistakes type
 					if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-						append = "\(actualMove.poitionX) picture: False Positive \(fourMistakes)\n"
+						append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
 					} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-						append = "\(actualMove.poitionX) picture: Miss \(fourMistakes)\n"
+						append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
 					}
 					
 				}
@@ -478,7 +478,7 @@ class SessionsTableViewController: UITableViewController {
 			let objectsTotal = pickedSesstion.vsustObjects!.intValue
 			let animalsTotal = pickedSesstion.vsustAnimals!.intValue
 			
-			let text = "\(gameName) (build \(build))\n\nPlayer: \(pickedSesstion.player.name)\nInterval = \(interval) exposure = \(exposure) blank = \(blank) accepted delay = \(pickedSesstion.vsustAcceptedDelay!.doubleValue)\nObjects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\nTotal score = \(pickedSesstion.score) moves = \(pickedSesstion.moves.count)\nFalse positives = \(pickedSesstion.errors) Misses = \(pickedSesstion.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\(details)"
+			let text = "\(gameName) (build \(build))\n\nPlayer: \(pickedSesstion.player.name)\nInterval = \(interval) exposure = \(exposure) blank = \(blank) accepted delay = \(pickedSesstion.vsustAcceptedDelay!.doubleValue)\nObjects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\nTotal score = \(pickedSesstion.score) moves = \(pickedSesstion.moves.count)\nFalse positives = \(pickedSesstion.errors) Misses = \(pickedSesstion.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\n\(details)"
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		default:

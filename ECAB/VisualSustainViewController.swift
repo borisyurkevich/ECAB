@@ -30,7 +30,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	var timeSinceAnimalAppeared = 0.0
 	var timeBlankSpaceVisible = 0.0
 	var timePictureVisible = 0.0 // Called "exposure" in the UI and log.
-	let timeGameOver = 30.0 // Default is 300 seconds eg 5 mins
+	let timeGameOver = 300.0 // Default is 300 seconds eg 5 mins
 
 	var countTotalMissies = 0
 	var countAnimals = 0
