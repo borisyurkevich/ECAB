@@ -232,11 +232,13 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			periodHelp.textColor = UIColor.darkGrayColor()
 			
 			model.data.visSustDelay = newDelay
-			model.save()
 		} else {
-			periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second) Ignored when less than a second"
+			periodHelp.text = "Blank space time: 0 \(MenuConstants.second) Ignored when less than a second"
 			periodHelp.textColor = UIColor.redColor()
+			
+			model.data.visSustDelay = 0.0
 		}
+		model.save()
 	}
 	
 	func validateAndHighliteBlankSpaceLabel() {
