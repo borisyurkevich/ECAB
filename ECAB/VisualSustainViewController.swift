@@ -292,8 +292,8 @@ class VisualSustainViewController: CounterpointingViewController {
 		if timeSinceAnimalAppeared <= timeAcceptDelay {
 			countTotalMissies = 0
 			
-			print("timeAcceptDelay = \(timeAcceptDelay)")
-			print("timeSinceAnimalAppeared = \(timeSinceAnimalAppeared)")
+//			print("timeAcceptDelay = \(timeAcceptDelay)")
+//			print("timeSinceAnimalAppeared = \(timeSinceAnimalAppeared)")
 			
 			successSound.play()
 			log(.Hit)
@@ -335,7 +335,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			successfulAction = true
 			model.addCounterpointingMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
 			
-			print("Log: screen = \(screen) codedSkipWarning =\(0) success: \(successfulAction) codedMistakeType =\(0.0) inverted = \(trainingMode) delay = \(timeSinceAnimalAppeared)")
+//			print("Log: screen = \(screen) codedSkipWarning =\(0) success: \(successfulAction) codedMistakeType =\(0.0) inverted = \(trainingMode) delay = \(timeSinceAnimalAppeared)")
 		} else {
 			// To avoid changing data model we will use interval to store mistake type
 			var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
@@ -360,7 +360,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 			model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: myDelay)
 			
-			print("Log: screen = \(screen) codedSkipWarning =\(codedSkipWarning) success: \(successfulAction) codedMistakeType =\(codedMistakeType) inverted = \(trainingMode) delay = \(timeSinceAnimalAppeared)")
+//			print("Log: screen = \(screen) codedSkipWarning =\(codedSkipWarning) success: \(successfulAction) codedMistakeType =\(codedMistakeType) inverted = \(trainingMode) delay = \(timeSinceAnimalAppeared)")
 
 		}
 	}
