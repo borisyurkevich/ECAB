@@ -117,8 +117,11 @@ class VisualSustainViewController: CounterpointingViewController {
 		countAnimals = 0
 		
 		timeToGameOver.invalidate()
-		timeToGameOver = NSTimer(timeInterval: timeGameOver, target: self, selector: "gameOver", userInfo: nil, repeats: false)
-		NSRunLoop.currentRunLoop().addTimer(timeToGameOver, forMode: NSRunLoopCommonModes)
+		timeToGameOver = NSTimer.scheduledTimerWithTimeInterval(timeGameOver,
+			target: self,
+			selector: "gameOver",
+			userInfo: nil,
+			repeats: false)
 	}
 	func stopTest() {
 		timeToGameOver.invalidate()
@@ -211,8 +214,11 @@ class VisualSustainViewController: CounterpointingViewController {
 		if isAnimal(pic) {
 			timeSinceAnimalAppeared = 0
 			timeToAcceptDelay.invalidate()
-			timeToAcceptDelay = NSTimer(timeInterval: timersScale, target: self, selector: "updateAcceptedDelay", userInfo: nil, repeats: true)
-			NSRunLoop.currentRunLoop().addTimer(timeToAcceptDelay, forMode: NSRunLoopCommonModes)
+			timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(timersScale,
+				target: self,
+				selector: "updateAcceptedDelay",
+				userInfo: nil,
+				repeats: true)
 		}
 		
 		if (!trainingMode) {
