@@ -2,6 +2,10 @@
 //  GameViewController.swift
 //  ECAB
 //
+//  Classes
+//  TestVC —> Visual Search, Counterpointing
+//  Counterpointing —> Flanker, Visual Sustain
+//
 //  Created by Boris Yurkevich on 6/20/15.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
@@ -33,6 +37,13 @@ class TestViewController: UIViewController {
 	var gamePaused = false
 	
 	var menuBarHeight: CGFloat = 0.0
+	// Doesnt affect Visual Search
+	// Affects Y offeset for the big buttons pn left and ride side
+	
+	enum Side {
+		case Left
+		case Right
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()

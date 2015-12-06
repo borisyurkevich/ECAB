@@ -41,7 +41,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	let tagChangingGamePicture = 2
 	let timeWarningPromptRemainingOnScreen = 4.0
 
-	enum Picture: String {
+	private enum Picture: String {
 		case Empty = "white_rect"
 		case Bed = "bed_inverse"
 		case Ball = "ball"
@@ -71,7 +71,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case Tree = "tree"
 	}
 	
-	enum PlayerAction {
+	private enum PlayerAction {
 		case Miss
 		case FalsePositive
 		case Hit
@@ -197,7 +197,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 	}
 	
-	func updateView(pic: Picture) {
+	private func updateView(pic: Picture) {
 		
 		if gamePaused {
 			return
@@ -318,7 +318,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 	}
 	
-	func noteMistake(mistakeType: PlayerAction) {
+	private func noteMistake(mistakeType: PlayerAction) {
 		
 		log(mistakeType)
 
@@ -333,7 +333,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 	}
 	
-	func log(action: PlayerAction) {
+	private func log(action: PlayerAction) {
 		let screen = CGFloat(indexForCurrentSequence + 1)
 		var successfulAction = false
 		
@@ -393,7 +393,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 	}
 	
-	func isAnimal(pic: Picture) -> Bool {
+	private func isAnimal(pic: Picture) -> Bool {
 		var returnValue = false
 		if pic == .Pig || pic == .Cat || pic == .Dog || pic == .Horse || pic == .Fish || pic == .Mouse {
 			returnValue = true

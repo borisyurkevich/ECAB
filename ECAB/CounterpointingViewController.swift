@@ -23,8 +23,8 @@ class CounterpointingViewController: TestViewController {
 	
 	var leftTarget = false // first screen will be with dog on right
 	var session: CounterpointingSession!
-	private var totalOne = 0
-	private var totalTwo = 0
+	var totalOne = 0
+	var totalTwo = 0
 	
 	// MARK: Override
 	
@@ -68,6 +68,29 @@ class CounterpointingViewController: TestViewController {
 		presentNextScreen()
 	}
 	
+	func presentDogOnSide(screenSide: Side) {
+		if screenSide == .Left {
+			presentDogOnLeft()
+		} else if screenSide == .Right {
+			presentDogOnRight()
+		}
+	}
+	func presentDogOnLeft(){
+		leftTarget = true;
+		
+		let imageView = UIImageView(image: UIImage(named: "dog"))
+		imageView.frame = CGRectMake(19, 260, pictureWidth, pictureHeight)
+		view.addSubview(imageView)
+	}
+	
+	func presentDogOnRight(){
+		leftTarget = false;
+		
+		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
+		imageView.frame = CGRectMake(view.bounds.width-300, 260, pictureWidth, pictureHeight)
+		view.addSubview(imageView)
+	}
+	
 	override func presentNextScreen() {
 		currentScreenShowing++
 	
@@ -78,53 +101,13 @@ class CounterpointingViewController: TestViewController {
 		case 0:
 			// This is needed when practice is restarted.
 			presentMessage(greeingMessage)
-		case 1:
-			presentDogOnRight()
-		case 2:
-			presentDogOnLeft()
+		case 1 ... 2:
+			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 3:
 			presentMessage("Touch the side with the dog as quickly as you can!")
 			trainingMode = false
-		case 4:
-			presentDogOnLeft()
-		case 5:
-			presentDogOnRight()
-		case 6:
-			presentDogOnLeft()
-		case 7:
-			presentDogOnLeft()
-		case 8:
-			presentDogOnRight()
-		case 9:
-			presentDogOnRight()
-		case 10:
-			presentDogOnLeft()
-		case 11:
-			presentDogOnRight()
-		case 12:
-			presentDogOnLeft()
-		case 13:
-			presentDogOnLeft()
-		case 14:
-			presentDogOnLeft()
-		case 15:
-			presentDogOnRight()
-		case 16:
-			presentDogOnLeft()
-		case 17:
-			presentDogOnRight()
-		case 18:
-			presentDogOnRight()
-		case 19:
-			presentDogOnRight()
-		case 20:
-			presentDogOnLeft()
-		case 21:
-			presentDogOnLeft()
-		case 22:
-			presentDogOnRight()
-		case 23:
-			presentDogOnRight()
+		case 4 ... 23:
+			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 24:
 			presentMessage("...stop")
 		case 25:
@@ -132,53 +115,13 @@ class CounterpointingViewController: TestViewController {
 			trainingMode = true
 			gameModeInversed = true
 			touchModeInverserd = true
-		case 26:
+		case 26 ... 27:
 			presentDogOnRight()
-		case 27:
-			presentDogOnLeft()
 		case 28:
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
 			trainingMode = false
-		case 29:
-			presentDogOnRight()
-		case 30:
-			presentDogOnLeft()
-		case 31:
-			presentDogOnRight()
-		case 32:
-			presentDogOnLeft()
-		case 33:
-			presentDogOnRight()
-		case 34:
-			presentDogOnRight()
-		case 35:
-			presentDogOnLeft()
-		case 36:
-			presentDogOnRight()
-		case 37:
-			presentDogOnRight()
-		case 38:
-			presentDogOnRight()
-		case 39:
-			presentDogOnLeft()
-		case 40:
-			presentDogOnLeft()
-		case 41:
-			presentDogOnRight()
-		case 42:
-			presentDogOnRight()
-		case 43:
-			presentDogOnLeft()
-		case 44:
-			presentDogOnLeft()
-		case 45:
-			presentDogOnLeft()
-		case 46:
-			presentDogOnRight()
-		case 47:
-			presentDogOnLeft()
-		case 48:
-			presentDogOnLeft()
+		case 29 ... 48:
+			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 49:
 			presentMessage("...stop")
 		case 50:
@@ -218,22 +161,6 @@ class CounterpointingViewController: TestViewController {
 		label.textAlignment = NSTextAlignment.Center
 		label.font = UIFont.systemFontOfSize(44)
 		view.addSubview(label)
-	}
-	
-	func presentDogOnLeft(){
-		leftTarget = true;
-		
-		let imageView = UIImageView(image: UIImage(named: "dog"))
-		imageView.frame = CGRectMake(19, 260, pictureWidth, pictureHeight)
-		view.addSubview(imageView)
-	}
-	
-	func presentDogOnRight(){
-		leftTarget = false;
-		
-		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
-		imageView.frame = CGRectMake(view.bounds.width-300, 260, pictureWidth, pictureHeight)
-		view.addSubview(imageView)
 	}
 	
 	func handleTouchLeft() {
@@ -337,4 +264,58 @@ class CounterpointingViewController: TestViewController {
 	override  func getComment() -> String {
 		return session.comment
 	}
+	
+	// Shows on which side of the screen dog are
+	private let dogSequence: [Side?] =
+	    [nil,
+		.Right,
+		.Left,
+		nil,
+		.Left,
+		.Right,
+		.Left,
+		.Left,
+		.Right,
+		.Right,
+		.Left,
+		.Right,
+		.Left,
+		.Left,
+		.Left,
+		.Right,
+		.Left,
+		.Right,
+		.Right,
+		.Right,
+		.Left,
+		.Left,
+		.Right,
+		.Right,
+		nil,
+		nil,
+		.Right,
+		.Left,
+		nil,
+		.Right,
+		.Left,
+		.Right,
+		.Left,
+		.Right,
+		.Right,
+		.Left,
+		.Right,
+		.Right,
+		.Right,
+		.Left,
+		.Left,
+		.Right,
+		.Right,
+		.Left,
+		.Left,
+		.Left,
+		.Right,
+		.Left,
+		.Left,
+		nil,
+		nil]
 }
