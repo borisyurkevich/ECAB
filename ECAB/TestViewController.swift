@@ -159,21 +159,13 @@ class TestViewController: UIViewController {
 	}
 	
 	func presentPreviousScreen() {
-		// This typically restarts the game
-//		currentScreenShowing = -1
-//		trainingMode = true
-//		presentNextScreen()
-		
 		print("❌ Implement presentPreviousScreen() in \(self.description)")
 	}
-	
 	func presentNextScreen() {
-		print("Please implement presentNextScreen() in this class")
+		print("❌ Implement presentNextScreen() in in \(self.description)")
 	}
-	
 	func skip() {
-		// To be implemented in subclasses
-		print("Please implement skip() in this class")
+		print("❌ Implement skip() in \(self.description)")
 	}
 	
 	func addButtonBorder(button: UIButton) {

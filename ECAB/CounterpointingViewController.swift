@@ -38,7 +38,29 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	override func skip() {
-		// Not sure what screen to show because practice is mixed wit the test
+		// Skips current interval: eather practice or test
+		// This constans represent the screen which appeares before
+		// practice or test session
+		//
+		// Inverse test is the test in which player need to test the other side
+		// of the screen
+		let test = 2
+		let practiceInverse = 24
+		let testInverse = 27
+		
+		switch currentScreenShowing {
+		case -1 ... 2:
+			currentScreenShowing = test
+		case 3 ... 24:
+			currentScreenShowing = practiceInverse
+		case 25 ... 27:
+			currentScreenShowing = testInverse
+		case 28 ... 49:
+			return
+		default:
+			return
+		}
+		presentNextScreen()
 	}
 	
 	override func presentPreviousScreen() {
