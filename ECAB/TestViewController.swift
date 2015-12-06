@@ -13,6 +13,11 @@ class TestViewController: UIViewController {
 	
 	let model: Model = Model.sharedInstance
 	
+	let standardButtonHeight:CGFloat = 30
+	let marginTop:CGFloat = 16
+	let margin:CGFloat = 16
+	let buttonWidth:CGFloat = 100
+	
 	let pauseButton = UIButton(type: UIButtonType.System)
 	let nextButton = UIButton(type: UIButtonType.System)
 	let backButton = UIButton(type: UIButtonType.System)
@@ -27,12 +32,14 @@ class TestViewController: UIViewController {
 	var trainingMode = true
 	var gamePaused = false
 	
-	let menuBarHeight: CGFloat = 54.0
+	var menuBarHeight: CGFloat = 0.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		view.backgroundColor = UIColor.whiteColor()
+		
+		menuBarHeight = standardButtonHeight + (marginTop * 2)
 		
 		// Sounds
 		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
@@ -63,9 +70,6 @@ class TestViewController: UIViewController {
 		
 		// Buttons
 		let screenSize: CGSize = UIScreen.mainScreen().bounds.size
-		let marginTop:CGFloat = 16
-		let margin:CGFloat = 16
-		let buttonWidth:CGFloat = 100
 		
 		backButton.setTitle("Restart", forState: UIControlState.Normal)
 		backButton.frame = CGRectMake(marginTop, marginTop, 0, 0)
