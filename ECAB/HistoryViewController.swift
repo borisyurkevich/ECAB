@@ -63,23 +63,6 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 				docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
 			}
 		}
-		
-//		let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-//		
-//		let data: NSData! = exportManager.export()
-//		data.writeToFile(documentsPath, atomically: true)
-//		
-//		let docController = UIDocumentInteractionController(URL: NSURL.fileURLWithPath(documentsPath))
-//		docController.UTI = "public.comma-separated-values-text"
-//		docController.delegate = self
-//		docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
 	}
-	
-	// MARK: - UIDocumentInteractionControllerDelegate
-	
-//	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-//		let filePresenter = UIViewController()
-//		return filePresenter
-//	}
 }
 
