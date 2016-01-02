@@ -8,10 +8,13 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: UIViewController, UIDocumentInteractionControllerDelegate {
 
 	@IBOutlet weak var textView: UITextView!
 	@IBOutlet weak var helpMessage: UILabel!
+	@IBOutlet weak var actionButton: UIBarButtonItem!
+	
+	let exportManager = DataExportModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,4 +27,49 @@ class HistoryViewController: UIViewController {
 		helpMessage.text = "Select any session from the left."
     }
 
+	@IBAction func handleShare(sender: UIBarButtonItem) {
+		exportToCSV()
+	}
+	
+	func exportToCSV() {
+		
+		let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
+		let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
+		
+		if let data = exportManager.export() {
+			do {
+				try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
+			} catch {
+				let writeError = error as NSError
+				print("Error. Can't write a file: \(writeError)")
+				// TODO Add alert.
+				return;
+			}
+			
+			if url != nil {
+				let docController = UIDocumentInteractionController(URL: url)
+				docController.UTI = "public.comma-separated-values-text"
+				docController.delegate = self
+				docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
+			}
+		}
+		
+//		let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+//		
+//		let data: NSData! = exportManager.export()
+//		data.writeToFile(documentsPath, atomically: true)
+//		
+//		let docController = UIDocumentInteractionController(URL: NSURL.fileURLWithPath(documentsPath))
+//		docController.UTI = "public.comma-separated-values-text"
+//		docController.delegate = self
+//		docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
+	}
+	
+	// MARK: - UIDocumentInteractionControllerDelegate
+	
+//	func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
+//		let filePresenter = UIViewController()
+//		return filePresenter
+//	}
 }
+
