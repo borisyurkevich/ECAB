@@ -34,15 +34,15 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 			self.exportToCSV()
 		})
 		let emailOption = UIAlertAction(title: "Send file", style: UIAlertActionStyle.Default, handler: { action in
-			// TODO impliment
+			self.presentActivityViewController()
 		})
-		exportDialog.addAction(fileOption)
 		exportDialog.addAction(emailOption)
+		exportDialog.addAction(fileOption)
 		exportDialog.popoverPresentationController?.barButtonItem = sender
-		navigationController?.presentViewController(exportDialog, animated: true, completion: nil)
+		navigationController?.presentViewController(exportDialog, animated: true,
+																completion: nil)
 	}
 	func exportToCSV() {
-		
 		let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
 		let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
 		
@@ -61,6 +61,27 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 				docController.UTI = "public.comma-separated-values-text"
 				docController.delegate = self
 				docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
+			}
+		}
+	}
+	func presentActivityViewController() {
+		let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
+		let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
+		
+		if let data = exportManager.export() {
+			do {
+				try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
+			} catch {
+				let writeError = error as NSError
+				print("Error. Can't write a file: \(writeError)")
+				// TODO Add alert.
+				return;
+			}
+			
+			if url != nil {
+				let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+				activityVC.popoverPresentationController?.barButtonItem = actionButton
+				self.navigationController?.presentViewController(activityVC, animated: true, completion: nil)
 			}
 		}
 	}
