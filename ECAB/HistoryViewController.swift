@@ -28,9 +28,19 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
     }
 
 	@IBAction func handleShare(sender: UIBarButtonItem) {
-		exportToCSV()
+		
+		let exportDialog = UIAlertController(title: "Export", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+		let fileOption = UIAlertAction(title: "Export file", style: UIAlertActionStyle.Default, handler: { action in
+			self.exportToCSV()
+		})
+		let emailOption = UIAlertAction(title: "Send file", style: UIAlertActionStyle.Default, handler: { action in
+			// TODO impliment
+		})
+		exportDialog.addAction(fileOption)
+		exportDialog.addAction(emailOption)
+		exportDialog.popoverPresentationController?.barButtonItem = sender
+		navigationController?.presentViewController(exportDialog, animated: true, completion: nil)
 	}
-	
 	func exportToCSV() {
 		
 		let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
