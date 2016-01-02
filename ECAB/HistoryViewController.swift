@@ -43,28 +43,21 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 																completion: nil)
 	}
 	func exportToCSV() {
-		let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
-		let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
-		
-		if let data = exportManager.export() {
-			do {
-				try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
-			} catch {
-				let writeError = error as NSError
-				print("Error. Can't write a file: \(writeError)")
-				// TODO Add alert.
-				return;
-			}
-			
-			if url != nil {
-				let docController = UIDocumentInteractionController(URL: url)
-				docController.UTI = "public.comma-separated-values-text"
-				docController.delegate = self
-				docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
-			}
+		if let url = writeFileAndReturnURL() {
+			let docController = UIDocumentInteractionController(URL: url)
+			docController.UTI = "public.comma-separated-values-text"
+			docController.delegate = self
+			docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
 		}
 	}
 	func presentActivityViewController() {
+		if let url = writeFileAndReturnURL() {
+			let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+			activityVC.popoverPresentationController?.barButtonItem = actionButton
+			self.navigationController?.presentViewController(activityVC, animated: true, completion: nil)
+		}
+	}
+	func writeFileAndReturnURL() -> NSURL? {
 		let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
 		let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
 		
@@ -73,16 +66,16 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 				try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
 			} catch {
 				let writeError = error as NSError
-				print("Error. Can't write a file: \(writeError)")
-				// TODO Add alert.
-				return;
+				let message = "Error. Can't write a file: \(writeError)"
+				let errorAlert = UIAlertController(title: "Can't write file", message: message, preferredStyle: .Alert)
+				navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+				return nil
 			}
-			
-			if url != nil {
-				let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-				activityVC.popoverPresentationController?.barButtonItem = actionButton
-				self.navigationController?.presentViewController(activityVC, animated: true, completion: nil)
-			}
+			return url
+		} else {
+			let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
+			navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+			return nil
 		}
 	}
 }
