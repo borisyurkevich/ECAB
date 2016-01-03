@@ -8,8 +8,6 @@
 //  Copyright © 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
-import UIKit
-
 class DataExportModel {
 	
 	func export() -> String? {

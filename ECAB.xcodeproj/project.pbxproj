@@ -14,6 +14,7 @@
 		9130B79D1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */; };
 		9130B79F1BCAC83400D26708 /* beep-piano.aif in Resources */ = {isa = PBXBuildFile; fileRef = 9130B79E1BCAC83400D26708 /* beep-piano.aif */; };
 		9130B7A11BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B7A01BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift */; };
+		913138911C393AAB00E79987 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913138901C393AAB00E79987 /* LogModel.swift */; };
 		913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913544061B04058D00041AB6 /* SessionsTableViewController.swift */; };
 		91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */; };
 		91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91379BE91B52A4A400E3C293 /* CounterpointingMove.swift */; };
@@ -66,6 +67,7 @@
 		9130B79E1BCAC83400D26708 /* beep-piano.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-piano.aif"; sourceTree = "<group>"; };
 		9130B7A01BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CounterpointingSession+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9130B7A21BD2775700D26708 /* Model v6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v6.xcdatamodel"; sourceTree = "<group>"; };
+		913138901C393AAB00E79987 /* LogModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
 		913544061B04058D00041AB6 /* SessionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsTableViewController.swift; sourceTree = "<group>"; };
 		91379BD41B528C9C00E3C293 /* Model v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v4.xcdatamodel"; sourceTree = "<group>"; };
 		91379BE51B52A4A300E3C293 /* CounterpointingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingSession.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 				913544061B04058D00041AB6 /* SessionsTableViewController.swift */,
 				91279C6A1C282CBF00418A57 /* DataExportModel.swift */,
+				913138901C393AAB00E79987 /* LogModel.swift */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				91379BEE1B52A4A400E3C293 /* Session.swift in Sources */,
 				91B494871B3598B100FAEE8A /* TestViewController.swift in Sources */,
 				910367F31A7E3B4900522B2B /* Model.swift in Sources */,
+				913138911C393AAB00E79987 /* LogModel.swift in Sources */,
 				91379BEC1B52A4A400E3C293 /* Move.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

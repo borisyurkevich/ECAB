@@ -11,6 +11,7 @@ import UIKit
 class SessionsTableViewController: UITableViewController {
 	
 	let model = Model.sharedInstance
+	let logModel = LogModel()
 	
 	private let reuseIdentifier = "Session Table Cell"
 	
@@ -228,90 +229,9 @@ class SessionsTableViewController: UITableViewController {
 		
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
-			let pickedSesstion = model.data.sessions[indexPath.row] as! Session
-			var detailMoves = ""
-			var counter = 1
-			var emptyScreenCounter = 0
-			for move in pickedSesstion.moves {
-				
-				let gameMove = move as! Move
-				
-				// Caluculate screen
-				var screenName = ""
-				let screenNum = gameMove.screenNumber.integerValue
-				switch screenNum {
-				case 0 ... 2, 11 ... 13:
-					screenName = "Training \(screenNum + 1)"
-					break
-				case 3 ... 5, 14 ... 15:
-					screenName = "Motor \(screenNum - 2)"
-					break
-				case 6 ... 8, 16 ... 17:
-					screenName = "Search \(screenNum - 5)"
-					break
-				default:
-					break
-				}
-				
-				// Success or failure
-				var progress = ""
-				if gameMove.success.boolValue == true {
-					progress = "success"
-				} else {
-					progress = "failure"
-				}
-				
-				var `repeat` = ""
-				if gameMove.`repeat`.boolValue == true {
-					`repeat` = "(repeat)"
-				} else {
-					`repeat` = "(unique)"
-				}
-				
-				let dateStr = smallFormatter.stringFromDate(gameMove.date)
-				
-				var append: String
-				
-				if gameMove.empty.boolValue == false {
-					
-					var extraTime = "unknwon"
-					if let definedExtraTime = gameMove.extraTimeLeft {
-						extraTime = String(format: "%.02f", definedExtraTime.doubleValue)
-					}
-					
-					append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) Extra time left: \(extraTime)\n"
-					counter++
-				} else {
-					append = "\n\(screenName) on set \(dateStr) \n"
-					emptyScreenCounter++
-				}
-				
-				detailMoves = detailMoves + append
-			}
-			_ = pickedSesstion.dateStart.description
-			let dateStr = formatter.stringFromDate(pickedSesstion.dateStart)
-			
-			// Difficlulty level
-			// You also can look into difficulty int attribute, I added it in case you would need
-			// more than two difficulty levels. 0 - is easy...
-			var difficlulty = "unknown"
-			if let firstMove = pickedSesstion.moves.firstObject as? Move {
-				if firstMove.screenNumber.integerValue > 10 {
-					difficlulty = "hard"
-				} else {
-					difficlulty = "easy"
-				}
-			}
-			
-			let comment = pickedSesstion.comment
-			
-			var build = "unknown"
-			if let canonicBuild = pickedSesstion.bundleVersion as String? {
-				build = canonicBuild
-			}
-			
-			let stringForTheTextView = "\(gameName)\n\nPlayer name: \(pickedSesstion.player.name); difficulty: \(difficlulty); speed: \(pickedSesstion.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), total moves: \(pickedSesstion.moves.count - emptyScreenCounter) \nFailed attempts: \(pickedSesstion.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
-			detailVC.textView.text = stringForTheTextView
+			let pickedSession = model.data.sessions[indexPath.row] as! Session
+			let visualSearchLog = logModel.generateVisualSearchLogWithSession(pickedSession, gameName: gameName)
+			detailVC.textView.text = visualSearchLog
 			detailVC.helpMessage.text = ""
 		case GamesIndex.Counterpointing.rawValue:
 			var array = [CounterpointingSession]()
@@ -321,47 +241,9 @@ class SessionsTableViewController: UITableViewController {
 					array.append(cSession)
 				}
 			}
-			let pickedSesstion = array[indexPath.row]
-			var details = ""
-			var counter = 0
-			var status = "success"
-			var spacePrinted = false
-			for move in pickedSesstion.moves {
-				let actualMove = move as! CounterpointingMove
-				if !actualMove.success.boolValue {
-					status = "mistake"
-				} else {
-					status = "success"
-				}
-				
-				var inverted = "normal"
-				if actualMove.inverted.boolValue {
-					inverted = "inverted"
-				}
-				
-				let append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
-				if actualMove.inverted.boolValue && spacePrinted == false {
-					details = details + "\n" + append
-					spacePrinted = true
-				} else {
-					details = details + append
-				}
-				counter++
-			}
-			
-			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
-			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
-			let roundRatio = Double(round(100 * ratio) / 100)
-
-			let comment = pickedSesstion.comment
-			
-			var build = "unknown"
-			if let canonicBuild = pickedSesstion.bundleVersion as String? {
-				build = canonicBuild
-			}
-			
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nComment: \(comment)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nTotal 1 (non-conflict time) = \(pickedSesstion.totalOne.integerValue), total 2 (conflict time) = \(pickedSesstion.totalTwo.integerValue); Ratio (total 2 / total 1) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nMoves:\n\n\(details)"
-			detailVC.textView.text = text
+			let pickedSession = array[indexPath.row]
+			let counterpointingLog = logModel.generateCounterpointingLog(pickedSession, gameName: gameName)
+			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
 			var array = [CounterpointingSession]()
