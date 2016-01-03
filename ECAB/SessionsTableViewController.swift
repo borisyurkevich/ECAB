@@ -242,7 +242,7 @@ class SessionsTableViewController: UITableViewController {
 				}
 			}
 			let pickedSession = array[indexPath.row]
-			let counterpointingLog = logModel.generateCounterpointingLog(pickedSession, gameName: gameName)
+			let counterpointingLog = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
@@ -253,49 +253,8 @@ class SessionsTableViewController: UITableViewController {
 					array.append(cSession)
 				}
 			}
-			let pickedSesstion = array[indexPath.row]
-			var details = ""
-			var counter = 0
-			var status = "success"
-			for move in pickedSesstion.moves {
-				let actualMove = move as! CounterpointingMove
-				if !actualMove.success.boolValue {
-					status = "mistake"
-				} else {
-					status = "success"
-				}
-				
-				var inverted = "normal"
-				if actualMove.inverted.boolValue {
-					inverted = "inverted"
-				}
-				
-				let append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
-				if counter == 9 || counter == 19 || counter == 29 {
-					details = details + append + "\n"
-				} else {
-					details = details + append
-				}
-				counter++
-			}
-			
-			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
-			let ratio = pickedSesstion.totalTwo.doubleValue / pickedSesstion.totalOne.doubleValue
-			let roundRatio = Double(round(100 * ratio) / 100)
-			
-			let comment = pickedSesstion.comment
-			
-			var build = "unknown"
-			if let definedBuild = pickedSesstion.bundleVersion as String? {
-				build = definedBuild
-			}
-			
-			var imageInfo = "uknown"
-			if let definedImageInfo = pickedSesstion.imageSizeComment as String? {
-				imageInfo = definedImageInfo
-			}
-			
-			let text = "\(gameName)\n\nPlayer: \(pickedSesstion.player.name)\n\nTotal score = \(pickedSesstion.score), moves = \(pickedSesstion.moves.count)\nErrors = \(pickedSesstion.errors)\n\nComment: \(comment)\n\nTotal 1 (non-conflict time) = \(pickedSesstion.totalOne.integerValue), total 2 (conflict time) = \(pickedSesstion.totalTwo.integerValue); Ratio (game 2 + game 3 / game 1 + game 4) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nImages: \(imageInfo)\n\nMoves:\n\n\(details)"
+			let pickedSession = array[indexPath.row]
+			let text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 		case GamesIndex.VisualSust.rawValue:
@@ -307,59 +266,7 @@ class SessionsTableViewController: UITableViewController {
 				}
 			}
 			let pickedSesstion = array[indexPath.row]
-			var details = ""
-			var counter = 0
-
-			var spacePrinted = false
-			for move in pickedSesstion.moves {
-				let actualMove = move as! CounterpointingMove
-				
-				var append = ""
-				var fourMistakes = ""
-				if actualMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
-					fourMistakes = "[4 mistaken taps in a row]"
-				}
-				if actualMove.success.boolValue {
-					
-					let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
-					
-					append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
-				} else {
-					// Two mistakes type
-					if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-						append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
-					} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-						append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
-					}
-					
-				}
-				
-				if !spacePrinted && !actualMove.inverted.boolValue { // Not training
-					details = details + "\n" + append
-					spacePrinted = true
-				} else {
-					details = details + append
-				}
-				counter++
-			}
-			
-			let dateString = formatter.stringFromDate(pickedSesstion.dateStart)
-			
-			let comment = pickedSesstion.comment
-			
-			var build = "unknown"
-			if let canonicBuild = pickedSesstion.bundleVersion as String? {
-				build = canonicBuild
-			}
-			
-			let exposure = pickedSesstion.speed.doubleValue
-			let blank = pickedSesstion.vsustBlank!.doubleValue
-			let interval = exposure + blank
-			let objectsTotal = pickedSesstion.vsustObjects!.intValue
-			let animalsTotal = pickedSesstion.vsustAnimals!.intValue
-			
-			let text = "\(gameName) (build \(build))\n\nPlayer: \(pickedSesstion.player.name)\nInterval = \(interval) exposure = \(exposure) blank = \(blank) accepted delay = \(pickedSesstion.vsustAcceptedDelay!.doubleValue)\nObjects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\nTotal score = \(pickedSesstion.score) moves = \(pickedSesstion.moves.count)\nFalse positives = \(pickedSesstion.errors) Misses = \(pickedSesstion.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\n\(details)"
-			detailVC.textView.text = text
+			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSesstion, gameName: gameName)
 			detailVC.helpMessage.text = ""
 		default:
 			break

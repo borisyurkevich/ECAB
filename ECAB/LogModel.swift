@@ -105,7 +105,7 @@ class LogModel {
 		return visualSearchLog;
 	}
 	
-	func generateCounterpointingLog(session: CounterpointingSession, gameName: String) -> String {
+	func generateCounterpointingLogWithSession(session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
 		var counter = 0
 		var status = "success"
@@ -145,6 +145,108 @@ class LogModel {
 		}
 		
 		let text = "\(gameName)\n\nPlayer: \(session.player.name)\n\nComment: \(comment)\n\nTotal score = \(session.score), moves = \(session.moves.count)\nErrors = \(session.errors)\n\nTotal 1 (non-conflict time) = \(session.totalOne.integerValue), total 2 (conflict time) = \(session.totalTwo.integerValue); Ratio (total 2 / total 1) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nMoves:\n\n\(details)"
+		return text
+	}
+	
+	func generateFlankerLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+		var details = ""
+		var counter = 0
+		var status = "success"
+		for move in session.moves {
+			let actualMove = move as! CounterpointingMove
+			if !actualMove.success.boolValue {
+				status = "mistake"
+			} else {
+				status = "success"
+			}
+			
+			var inverted = "normal"
+			if actualMove.inverted.boolValue {
+				inverted = "inverted"
+			}
+			
+			let append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
+			if counter == 9 || counter == 19 || counter == 29 {
+				details = details + append + "\n"
+			} else {
+				details = details + append
+			}
+			counter++
+		}
+		
+		let dateString = formatter.stringFromDate(session.dateStart)
+		let ratio = session.totalTwo.doubleValue / session.totalOne.doubleValue
+		let roundRatio = Double(round(100 * ratio) / 100)
+		
+		let comment = session.comment
+		
+		var build = "unknown"
+		if let definedBuild = session.bundleVersion as String? {
+			build = definedBuild
+		}
+		
+		var imageInfo = "uknown"
+		if let definedImageInfo = session.imageSizeComment as String? {
+			imageInfo = definedImageInfo
+		}
+		
+		let text = "\(gameName)\n\nPlayer: \(session.player.name)\n\nTotal score = \(session.score), moves = \(session.moves.count)\nErrors = \(session.errors)\n\nComment: \(comment)\n\nTotal 1 (non-conflict time) = \(session.totalOne.integerValue), total 2 (conflict time) = \(session.totalTwo.integerValue); Ratio (game 2 + game 3 / game 1 + game 4) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nImages: \(imageInfo)\n\nMoves:\n\n\(details)"
+		return text
+	}
+	
+	func generateVisualSustainLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+		var details = ""
+		var counter = 0
+		
+		var spacePrinted = false
+		for move in session.moves {
+			let actualMove = move as! CounterpointingMove
+			
+			var append = ""
+			var fourMistakes = ""
+			if actualMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+				fourMistakes = "[4 mistaken taps in a row]"
+			}
+			if actualMove.success.boolValue {
+				
+				let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
+				
+				append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+			} else {
+				// Two mistakes type
+				if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+					append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
+				} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
+					append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
+				}
+				
+			}
+			
+			if !spacePrinted && !actualMove.inverted.boolValue { // Not training
+				details = details + "\n" + append
+				spacePrinted = true
+			} else {
+				details = details + append
+			}
+			counter++
+		}
+		
+		let dateString = formatter.stringFromDate(session.dateStart)
+		
+		let comment = session.comment
+		
+		var build = "unknown"
+		if let canonicBuild = session.bundleVersion as String? {
+			build = canonicBuild
+		}
+		
+		let exposure = session.speed.doubleValue
+		let blank = session.vsustBlank!.doubleValue
+		let interval = exposure + blank
+		let objectsTotal = session.vsustObjects!.intValue
+		let animalsTotal = session.vsustAnimals!.intValue
+		
+		let text = "\(gameName) (build \(build))\n\nPlayer: \(session.player.name)\nInterval = \(interval) exposure = \(exposure) blank = \(blank) accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\nObjects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\nTotal score = \(session.score) moves = \(session.moves.count)\nFalse positives = \(session.errors) Misses = \(session.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\n\(details)"
 		return text
 	}
 }
