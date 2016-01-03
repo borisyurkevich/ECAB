@@ -16,26 +16,18 @@ import Foundation
 class DataExportModel {
 	
 	let model = Model.sharedInstance
-	var optionalSelectedGameIndex: NSNumber?
 	var pickedVisualSearchSession: Session? = nil
 	var pickedCounterpointingSession: CounterpointingSession? = nil
-	
-	init() {
-		optionalSelectedGameIndex = model.data.selectedGame
-	}
 	
 	func export() -> String? {
 		var returnValue: String? = nil
 		
-		if let selectedGameIndex: NSNumber = optionalSelectedGameIndex {
-			
-			switch selectedGameIndex {
-			case GamesIndex.VisualSearch.rawValue:
-				returnValue = createVisualSearchTable()
-				break
-			default:
-				break
-			}
+		switch model.data.selectedGame {
+		case GamesIndex.VisualSearch.rawValue:
+			returnValue = createVisualSearchTable()
+			break
+		default:
+			break
 		}
 		
 		return returnValue

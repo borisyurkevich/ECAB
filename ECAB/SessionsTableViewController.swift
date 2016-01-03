@@ -227,6 +227,10 @@ class SessionsTableViewController: UITableViewController {
 		
 		let gameName = model.games[Int(model.data.selectedGame)]
 		
+		if (detailVC.exportManager == nil) {
+			return
+		}
+		
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
 			let pickedSession = model.data.sessions[indexPath.row] as! Session
@@ -234,7 +238,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = visualSearchLog
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
-			detailVC.exportManager.pickedVisualSearchSession = pickedSession
+			detailVC.exportManager!.pickedVisualSearchSession = pickedSession
 		case GamesIndex.Counterpointing.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -248,7 +252,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
-			detailVC.exportManager.pickedCounterpointingSession = pickedSession
+			detailVC.exportManager!.pickedCounterpointingSession = pickedSession
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -262,7 +266,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
-			detailVC.exportManager.pickedCounterpointingSession = pickedSession
+			detailVC.exportManager!.pickedCounterpointingSession = pickedSession
 		case GamesIndex.VisualSust.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -275,7 +279,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName)
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
-			detailVC.exportManager.pickedCounterpointingSession = pickedSession
+			detailVC.exportManager!.pickedCounterpointingSession = pickedSession
 		default:
 			break
 		}
