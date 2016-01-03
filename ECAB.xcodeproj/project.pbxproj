@@ -124,6 +124,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9131388F1C39384000E79987 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
+				913544061B04058D00041AB6 /* SessionsTableViewController.swift */,
+				91279C6A1C282CBF00418A57 /* DataExportModel.swift */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
 		91658E7F1B0BE3E400879347 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +165,7 @@
 		91E5C3B01A6BD5C400905752 /* ECAB */ = {
 			isa = PBXGroup;
 			children = (
+				9131388F1C39384000E79987 /* History */,
 				91658E7F1B0BE3E400879347 /* Sounds */,
 				91F448171B089A1C0082EB6A /* Data */,
 				91E5C3DC1A6C205600905752 /* Model */,
@@ -200,12 +211,10 @@
 				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
 				91B494861B3598B100FAEE8A /* TestViewController.swift */,
 				910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */,
-				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 				91E5C4151A6C6CEC00905752 /* VisualSearch.swift */,
 				91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */,
 				91B494841B35981D00FAEE8A /* FlankerViewController.swift */,
 				91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */,
-				913544061B04058D00041AB6 /* SessionsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -225,7 +234,6 @@
 				910367F21A7E3B4900522B2B /* Model.swift */,
 				91F378461A754EA000D2F77B /* VisualSearchBoard.swift */,
 				91F3784A1A75529000D2F77B /* TestItem.swift */,
-				91279C6A1C282CBF00418A57 /* DataExportModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";

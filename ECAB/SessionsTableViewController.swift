@@ -24,6 +24,108 @@ class SessionsTableViewController: UITableViewController {
 		tableView.reloadData()
 	}
 	
+	// MARK: - Table view data source
+	
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
+		
+		// Date
+		let formatter = NSDateFormatter()
+		formatter.locale = NSLocale.autoupdatingCurrentLocale()
+		formatter.dateFormat = "dd MMM yyyy HH:mm"
+		
+		switch model.data.selectedGame {
+		case GamesIndex.VisualSearch.rawValue:
+			let session = model.data.sessions[indexPath.row] as! Session
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
+			
+		case GamesIndex.Counterpointing.rawValue:
+			
+			var cSessions = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 0 {
+					cSessions.append(cSession)
+				}
+			}
+			
+			let session = cSessions[indexPath.row]
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
+			
+		case GamesIndex.Flanker.rawValue:
+			var fSessions = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let fSession = session as! CounterpointingSession
+				if fSession.type.integerValue == 1 {
+					fSessions.append(fSession)
+				}
+			}
+			
+			let session = fSessions[indexPath.row]
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
+			
+		case GamesIndex.VisualSust.rawValue:
+			var fSessions = [CounterpointingSession]()
+			for session in model.data.counterpointingSessions {
+				let fSession = session as! CounterpointingSession
+				if fSession.type.integerValue == 2 {
+					fSessions.append(fSession)
+				}
+			}
+			
+			let session = fSessions[indexPath.row]
+			let dateStr = formatter.stringFromDate(session.dateStart)
+			let label = "\(indexPath.row+1). \(dateStr)"
+			cell.textLabel!.text = label
+		default:
+			break;
+		}
+		return cell
+	}
+	
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		
+		var returnValue = 0
+		
+		switch model.data.selectedGame {
+		case GamesIndex.VisualSearch.rawValue:
+			returnValue = model.data.sessions.count
+			break
+		case GamesIndex.Counterpointing.rawValue:
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 0 {
+					returnValue++
+				}
+			}
+			break
+		case GamesIndex.Flanker.rawValue:
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 1 {
+					returnValue++
+				}
+			}
+		case GamesIndex.VisualSust.rawValue:
+			for session in model.data.counterpointingSessions {
+				let cSession = session as! CounterpointingSession
+				if cSession.type.integerValue == 2 {
+					returnValue++
+				}
+			}
+		default:
+			break
+		}
+		
+		return returnValue
+	}
+	
 	// MARK: - Table view delegate
 	
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -110,110 +212,6 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.helpMessage.text = "Select any session from the left."
 		}
 	}
-
-	// MARK: - Table view data source
-	
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) 
-		
-		// Date
-		let formatter = NSDateFormatter()
-		formatter.locale = NSLocale.autoupdatingCurrentLocale()
-		formatter.dateFormat = "dd MMM yyyy HH:mm"
-		
-		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			let session = model.data.sessions[indexPath.row] as! Session
-			let dateStr = formatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-
-		case GamesIndex.Counterpointing.rawValue:
-			
-			var cSessions = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 0 {
-					cSessions.append(cSession)
-				}
-			}
-			
-			let session = cSessions[indexPath.row]
-			let dateStr = formatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-
-		case GamesIndex.Flanker.rawValue:
-			var fSessions = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let fSession = session as! CounterpointingSession
-				if fSession.type.integerValue == 1 {
-					fSessions.append(fSession)
-				}
-			}
-			
-			let session = fSessions[indexPath.row]
-			let dateStr = formatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-			
-		case GamesIndex.VisualSust.rawValue:
-			var fSessions = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let fSession = session as! CounterpointingSession
-				if fSession.type.integerValue == 2 {
-					fSessions.append(fSession)
-				}
-			}
-			
-			let session = fSessions[indexPath.row]
-			let dateStr = formatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-		default:
-			break;
-		}
-		return cell
-	}
-	
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		
-		var returnValue = 0
-		
-		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			returnValue = model.data.sessions.count
-			break
-		case GamesIndex.Counterpointing.rawValue:
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 0 {
-					returnValue++
-				}
-			}
-			break
-		case GamesIndex.Flanker.rawValue:
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 1 {
-					returnValue++
-				}
-			}
-		case GamesIndex.VisualSust.rawValue:
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 2 {
-					returnValue++
-				}
-			}
-		default:
-			break
-		}
-		
-		return returnValue
-	}
-	
-	// MARK: Table view delegate
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let navVC = splitViewController!.viewControllers.last as! UINavigationController!
