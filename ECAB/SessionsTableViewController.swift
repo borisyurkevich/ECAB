@@ -234,6 +234,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = visualSearchLog
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
+			detailVC.exportManager.pickedVisualSearchSession = pickedSession
 		case GamesIndex.Counterpointing.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -247,6 +248,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
+			detailVC.exportManager.pickedCounterpointingSession = pickedSession
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -260,6 +262,7 @@ class SessionsTableViewController: UITableViewController {
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
+			detailVC.exportManager.pickedCounterpointingSession = pickedSession
 		case GamesIndex.VisualSust.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -268,10 +271,11 @@ class SessionsTableViewController: UITableViewController {
 					array.append(cSession)
 				}
 			}
-			let pickedSesstion = array[indexPath.row]
-			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSesstion, gameName: gameName)
+			let pickedSession = array[indexPath.row]
+			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName)
 			detailVC.helpMessage.text = ""
 			detailVC.actionButton.enabled = true
+			detailVC.exportManager.pickedCounterpointingSession = pickedSession
 		default:
 			break
 		}
