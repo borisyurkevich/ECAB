@@ -233,6 +233,7 @@ class SessionsTableViewController: UITableViewController {
 			let visualSearchLog = logModel.generateVisualSearchLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = visualSearchLog
 			detailVC.helpMessage.text = ""
+			detailVC.actionButton.enabled = true
 		case GamesIndex.Counterpointing.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -245,6 +246,7 @@ class SessionsTableViewController: UITableViewController {
 			let counterpointingLog = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
+			detailVC.actionButton.enabled = true
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -257,6 +259,7 @@ class SessionsTableViewController: UITableViewController {
 			let text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
+			detailVC.actionButton.enabled = true
 		case GamesIndex.VisualSust.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -268,6 +271,7 @@ class SessionsTableViewController: UITableViewController {
 			let pickedSesstion = array[indexPath.row]
 			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSesstion, gameName: gameName)
 			detailVC.helpMessage.text = ""
+			detailVC.actionButton.enabled = true
 		default:
 			break
 		}

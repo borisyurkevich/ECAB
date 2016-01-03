@@ -25,6 +25,7 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 		
 		textView.text = ""
 		helpMessage.text = "Select any session from the left."
+		actionButton.enabled = false
     }
 
 	@IBAction func handleShare(sender: UIBarButtonItem) {
