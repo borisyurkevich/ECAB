@@ -39,7 +39,13 @@ class DataExportModel {
 		if let visualSearchSession: Session = pickedVisualSearchSession {
 			let gameName = model.games[Int(model.data.selectedGame)]
 			let playerName = visualSearchSession.player.name
-			returnValue = "\(gameName),,,,,,,\n,,,,,,,,\nID,\(playerName),,,,,,,\nbirth,dd/mm/yy,,,\n"
+			let birth = "dd/mm/yy"
+			let age = "yy/mm"
+			returnValue = "\(gameName)    ,               ,              ,               ,               ,               ,               \n" +
+						  "               ,               ,              ,               ,               ,               ,               \n" +
+			              "ID             ,\(playerName)  ,              ,               ,               ,               ,               \n" +
+			              "date of birth  ,\(birth)       ,age at test   ,\(age)         ,               ,               ,               \n" +
+						  "               ,               ,              ,               ,               ,               ,               \n"
 		}
 		
 		return returnValue
