@@ -172,12 +172,12 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	@IBAction func difficultyControlHandler(sender: UISegmentedControl) {
-		if sender.selectedSegmentIndex == 0 {
-			model.data.visSearchDifficulty = 0
+		if sender.selectedSegmentIndex == Difficulty.Easy.rawValue {
+			model.data.visSearchDifficulty = Difficulty.Easy.rawValue
 			speedStepper.value = model.data.visSearchSpeed.doubleValue
 			speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
 		} else {
-			model.data.visSearchDifficulty = 1
+			model.data.visSearchDifficulty = Difficulty.Hard.rawValue
 			speedStepper.value = model.data.visSearchSpeedHard.doubleValue
 			speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
 		}
@@ -191,7 +191,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		let newSpeedValueDouble = Double(formattedValue as String)!
 		
 		if model.data.selectedGame == GamesIndex.VisualSearch.rawValue {
-			if model.data.visSearchDifficulty.integerValue == 0 {
+			if model.data.visSearchDifficulty == Difficulty.Easy.rawValue{ 
 				model.data.visSearchSpeed = newSpeedValueDouble
 			} else {
 				model.data.visSearchSpeedHard = newSpeedValueDouble

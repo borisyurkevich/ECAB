@@ -82,16 +82,9 @@ class LogModel {
 		_ = session.dateStart.description
 		let dateStr = formatter.stringFromDate(session.dateStart)
 		
-		// Difficlulty level
-		// You also can look into difficulty int attribute, I added it in case you would need
-		// more than two difficulty levels. 0 - is easy...
-		var difficlulty = "unknown"
-		if let firstMove = session.moves.firstObject as? Move {
-			if firstMove.screenNumber.integerValue > 10 {
-				difficlulty = "hard"
-			} else {
-				difficlulty = "easy"
-			}
+		var difficulty = "easy"
+		if session.difficulty == Difficulty.Hard.rawValue {
+			difficulty = "hard"
 		}
 		
 		let comment = session.comment
@@ -101,7 +94,7 @@ class LogModel {
 			build = canonicBuild
 		}
 		
-		let visualSearchLog = "\(gameName)\n\nPlayer name: \(session.player.name); difficulty: \(difficlulty); speed: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(session.score), total moves: \(session.moves.count - emptyScreenCounter) \nFailed attempts: \(session.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
+		let visualSearchLog = "\(gameName)\n\nPlayer name: \(session.player.name); difficulty: \(difficulty); speed: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(session.score), total moves: \(session.moves.count - emptyScreenCounter) \nFailed attempts: \(session.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
 		return visualSearchLog;
 	}
 	

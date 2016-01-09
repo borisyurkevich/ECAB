@@ -17,6 +17,11 @@ enum GamesIndex: NSNumber {
 	case VisualSust = 3
 }
 
+enum Difficulty: NSNumber {
+	case Easy = 0
+	case Hard = 1
+}
+
 struct MenuConstants {
 	static let second = "s"
 }
