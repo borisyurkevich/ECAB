@@ -13,9 +13,7 @@ class LogModel {
 	let formatter = NSDateFormatter()
 	let smallFormatter = NSDateFormatter()
 	init() {
-		formatter.locale = NSLocale.autoupdatingCurrentLocale()
 		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss:S"
-		smallFormatter.locale = NSLocale.autoupdatingCurrentLocale()
 		smallFormatter.dateFormat = "HH:mm:ss:S"
 	}
 	
