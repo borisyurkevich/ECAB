@@ -41,11 +41,33 @@ class DataExportModel {
 			let playerName = visualSearchSession.player.name
 			let birth = "dd/mm/yy"
 			let age = "yy/mm"
-			returnValue = "\(gameName)    ,               ,              ,               ,               ,               ,               \n" +
-						  "               ,               ,              ,               ,               ,               ,               \n" +
-			              "ID             ,\(playerName)  ,              ,               ,               ,               ,               \n" +
-			              "date of birth  ,\(birth)       ,age at test   ,\(age)         ,               ,               ,               \n" +
-						  "               ,               ,              ,               ,               ,               ,               \n"
+			
+			let dateFormatter = NSDateFormatter()
+			dateFormatter.dateFormat = "dd/mm/yy"
+			let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
+			let timeFormatter = NSDateFormatter()
+			timeFormatter.dateFormat = "hh:mm:ss"
+			let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
+			
+			var difficulty = "easy"
+			if visualSearchSession.difficulty == Difficulty.Hard.rawValue {
+				difficulty = "hard"
+			}
+			let speed = visualSearchSession.speed.doubleValue
+			
+			let comments = visualSearchSession.comment
+			
+			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n" +
+			              "ID                      ,\(playerName)  ,              ,               ,               ,               ,               \n" +
+			              "date of birth           ,\(birth)       ,age at test   ,\(age)         ,               ,               ,               \n" +
+						  "date/time of test start ,\(dateStart)   ,\(timeStart)  ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n" +
+						  "parameters              ,\(difficulty)  ,              ,\(speed) s     ,               ,               ,               \n" +
+						  "comments                ,               ,\(comments)   ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n"			
 		}
 		
 		return returnValue
