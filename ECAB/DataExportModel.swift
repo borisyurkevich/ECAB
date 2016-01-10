@@ -57,6 +57,10 @@ class DataExportModel {
 			
 			let comments = visualSearchSession.comment
 			
+			let screenComm = "*screen 3 should be blank throughout for 'hard' condition"
+			let durationComm = "**set this to screen duration if it doesn't finish early"
+			let header = "log of indivudual responces"
+			
 			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 			              "ID                      ,\(playerName)  ,              ,               ,               ,               ,               \n" +
@@ -64,10 +68,24 @@ class DataExportModel {
 						  "date/time of test start ,\(dateStart)   ,\(timeStart)  ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "parameters              ,\(difficulty)  ,              ,\(speed) s     ,               ,               ,               \n" +
-						  "comments                ,               ,\(comments)   ,               ,               ,               ,               \n" +
+						  "comments                ,\(comments)    ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n"			
+						  "                        ,               ,              ,motor 1        ,motor 2        ,motor 3        ,TOTAL          \n" +
+						  "no of hits              ,               ,              ,               ,               ,               ,               \n" +
+						  "no of false positives   ,               ,              ,               ,               ,               ,               \n" +
+ 						  "total time              ,               ,              ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n" +
+					      "                        ,               ,              ,search 1       ,search 2       ,search 3       ,               \n" +
+  						  "no of hits              ,               ,              ,               ,               ,               ,               \n" +
+						  "no of false positives   ,               ,              ,               ,               ,               ,               \n" +
+						  "total time              ,               ,              ,               ,               ,               ,               \n" +
+			              "hits- false positives   ,               ,              ,               ,               ,               ,               \n" +
+  						  "                        ,\(screenComm)  ,              ,               ,               ,               ,               \n" +
+						  "                        ,\(durationComm),              ,               ,               ,               ,               \n" +
+						  "                        ,               ,              ,               ,               ,               ,               \n" +
+						  "\(header)               ,               ,              ,               ,               ,               ,               \n"
 		}
 		
 		return returnValue
