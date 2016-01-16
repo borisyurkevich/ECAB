@@ -91,6 +91,7 @@ class DataExportModel {
             
             // Motor time total
             let totalMt = mt1 + mt2 + mt3
+            let totalSearch = st1 + st2 + st3
 			
 			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
@@ -103,16 +104,16 @@ class DataExportModel {
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,motor 1       ,motor 2        ,motor 3        ,TOTAL          ,*              \n" +
-						  "no of hits              ,               ,\(mh1)        ,               ,               ,               ,               \n" +
-						  "no of false positives   ,               ,\(mfp1)       ,               ,               ,               ,               \n" +
- 						  "total time              ,               ,\(mt1)        ,               ,               ,\(totalMt)     ,**             \n" +
+						  "no of hits              ,               ,\(mh1)        ,\(mh2)         ,\(mh3)         ,               ,               \n" +
+						  "no of false positives   ,               ,\(mfp1)       ,\(mfp2)        ,\(mfp3)        ,               ,               \n" +
+ 						  "total time              ,               ,\(mt1)        ,\(mt2)         ,\(mt3)         ,\(totalMt)     ,**             \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 					      "                        ,               ,search 1      ,search 2       ,search 3       ,               ,               \n" +
-  						  "no of hits              ,               ,              ,               ,               ,               ,               \n" +
-						  "no of false positives   ,               ,              ,               ,               ,               ,               \n" +
-						  "total time              ,               ,              ,               ,               ,               ,**             \n" +
-			              "hits - false positives  ,               ,              ,               ,               ,               ,               \n" +
+  						  "no of hits              ,               ,\(sh1)        ,\(sh2)         ,\(sh3)         ,               ,               \n" +
+						  "no of false positives   ,               ,\(sfp1)       ,\(sfp2)        ,\(sfp3)        ,               ,               \n" +
+						  "total time              ,               ,\(st1)        ,\(st2)         ,\(st3)         ,\(totalSearch) ,**             \n" +
+			              "hits - false positives  ,               ,\(sh1 - sfp1) ,\(sh2 - sfp2)  ,\(sh3 - sfp3)  ,               ,               \n" +
   						  "                        ,\(screenComm)  ,              ,               ,               ,               ,               \n" +
 						  "                        ,\(durationComm),              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
@@ -129,6 +130,7 @@ class DataExportModel {
 	}
     func createDynamicLinesForVSSession(visualSearchSession: Session) {
         let timeFormatter = NSDateFormatter()
+        timeFormatter.dateFormat = "hh:mm:ss"
         let sessionStarted = visualSearchSession.dateStart
         
         var currentSection:MoveType = .MoveTypeUnknown
@@ -176,9 +178,48 @@ class DataExportModel {
                         } else {
                            mfp1 += 1
                         }
-                
                         let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
                         mt1 += secondsPassedForThisMove // increase total passed for this session's section
+                    case .MoveTypeMotorTwo:
+                        if gameMove.success.boolValue == true {
+                            mh2 += 1
+                        } else {
+                            mfp2 += 1
+                        }
+                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
+                        mt2 += secondsPassedForThisMove
+                    case .MoveTypeMotorThree:
+                        if gameMove.success.boolValue == true {
+                            mh3 += 1
+                        } else {
+                            mfp3 += 1
+                        }
+                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
+                        mt3 += secondsPassedForThisMove
+                    case .MoveTypeSearchOne:
+                        if gameMove.success.boolValue == true {
+                            sh1 += 1
+                        } else {
+                            sfp1 += 1
+                        }
+                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
+                        st1 += secondsPassedForThisMove
+                    case .MoveTypeSearchTwo:
+                        if gameMove.success.boolValue == true {
+                            sh2 += 1
+                        } else {
+                            sfp2 += 1
+                        }
+                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
+                        st2 += secondsPassedForThisMove
+                    case .MoveTypeSearchThree:
+                        if gameMove.success.boolValue == true {
+                            sh3 += 1
+                        } else {
+                            sfp3 += 1
+                        }
+                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
+                        st3 += secondsPassedForThisMove
                     default:
                         break
                     }
@@ -222,6 +263,7 @@ class DataExportModel {
                     }
                     // Time
                     let headerTime = timeFormatter.stringFromDate(gameMove.date)
+                    timePassedSinceLatestMove = gameMove.date.timeIntervalSince1970
                     
                     // CSV line
                     let headerLine = "\(header),screen onset, , ,\(headerTime)\n"
