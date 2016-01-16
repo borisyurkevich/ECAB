@@ -88,6 +88,9 @@ class DataExportModel {
             
             // Create dynamic lines
             createDynamicLinesForVSSession(visualSearchSession)
+            
+            // Motor time total
+            let totalMt = mt1 + mt2 + mt3
 			
 			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
@@ -102,7 +105,7 @@ class DataExportModel {
 						  "                        ,               ,motor 1       ,motor 2        ,motor 3        ,TOTAL          ,*              \n" +
 						  "no of hits              ,               ,\(mh1)        ,               ,               ,               ,               \n" +
 						  "no of false positives   ,               ,\(mfp1)       ,               ,               ,               ,               \n" +
- 						  "total time              ,               ,              ,               ,               ,               ,**             \n" +
+ 						  "total time              ,               ,\(mt1)        ,               ,               ,\(totalMt)     ,**             \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 					      "                        ,               ,search 1      ,search 2       ,search 3       ,               ,               \n" +
@@ -126,8 +129,10 @@ class DataExportModel {
 	}
     func createDynamicLinesForVSSession(visualSearchSession: Session) {
         let timeFormatter = NSDateFormatter()
+        let sessionStarted = visualSearchSession.dateStart
         
         var currentSection:MoveType = .MoveTypeUnknown
+        var timePassedSinceLatestMove:NSTimeInterval = sessionStarted.timeIntervalSince1970
         for move in visualSearchSession.moves {
             let gameMove = move as! Move
             let screenNumber = gameMove.screenNumber.integerValue
@@ -155,17 +160,15 @@ class DataExportModel {
                     } else {
                         veor = "ve"
                     }
-                    // time
-                    let moveTime = timeFormatter.stringFromDate(gameMove.date)
-                    // Row and column
+                    let moveTimestamp = timeFormatter.stringFromDate(gameMove.date)
                     let targetRow = gameMove.row
                     let targetColumn = gameMove.column
                     
                     // CSV line
-                    let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTime)\n"
+                    let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTimestamp)\n"
                     collectionOfTableRows.append(line)
                     
-                    // Add values
+                    // Time Interval
                     switch currentSection {
                     case .MoveTypeMotorOne:
                         if gameMove.success.boolValue == true {
@@ -173,10 +176,13 @@ class DataExportModel {
                         } else {
                            mfp1 += 1
                         }
-                        mt1 += gameMove.date.timeIntervalSinceReferenceDate
+                
+                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
+                        mt1 += secondsPassedForThisMove
                     default:
                         break
                     }
+                    timePassedSinceLatestMove = gameMove.date.timeIntervalSince1970
                 } else {
                     var header = "header uknown"
                     switch screenNumber {
