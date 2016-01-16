@@ -13,11 +13,36 @@
 
 import Foundation
 
+private enum MoveType {
+    case MoveTypeMotorOne
+    case MoveTypeMotorTwo
+    case MoveTypeMotorThree
+    case MoveTypeSearchOne
+    case MoveTypeSearchTwo
+    case MoveTypeSearchThree
+    case MoveTypeUnknown
+}
+
 class DataExportModel {
 	
 	let model = Model.sharedInstance
 	var pickedVisualSearchSession: Session? = nil
 	var pickedCounterpointingSession: CounterpointingSession? = nil
+    //
+    // Dynamic part of the table
+    var collectionOfTableRows: Array<String> = Array()
+    // Motor Total Hits:
+    var mh1 = 0; var mh2 = 0; var mh3 = 0
+    // Motor False Positives:
+    var mfp1 = 0; var mfp2 = 0; var mfp3 = 0
+    // Motor time total:
+    var mt1:NSTimeInterval = 0; var mt2:NSTimeInterval = 0; var mt3:NSTimeInterval = 0
+    // Search Total Hits:
+    var sh1 = 0; var sh2 = 0; var sh3 = 0
+    // Search False Positives:
+    var sfp1 = 0; var sfp2 = 0; var sfp3 = 0
+    // Search time total:
+    var st1:NSTimeInterval = 0; var st2:NSTimeInterval = 0; var st3:NSTimeInterval = 0
 	
 	func export() -> String? {
 		var returnValue: String? = nil
@@ -33,7 +58,7 @@ class DataExportModel {
 		return returnValue
 	}
 	
-	func createVisualSearchTable() -> String? {
+	func createVisualSearchTable() -> String {
 		var returnValue = "empty line\n"
 		
 		if let visualSearchSession: Session = pickedVisualSearchSession {
@@ -60,6 +85,9 @@ class DataExportModel {
 			let screenComm = "*screen 3 should be blank throughout for 'hard' condition"
 			let durationComm = "**set this to screen duration if it doesn't finish early"
 			let header = "log of indivudual responces"
+            
+            // Create dynamic lines
+            createDynamicLinesForVSSession(visualSearchSession)
 			
 			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
@@ -72,8 +100,8 @@ class DataExportModel {
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,motor 1       ,motor 2        ,motor 3        ,TOTAL          ,*              \n" +
-						  "no of hits              ,               ,              ,               ,               ,               ,               \n" +
-						  "no of false positives   ,               ,              ,               ,               ,               ,               \n" +
+						  "no of hits              ,               ,\(mh1)        ,               ,               ,               ,               \n" +
+						  "no of false positives   ,               ,\(mfp1)       ,               ,               ,               ,               \n" +
  						  "total time              ,               ,              ,               ,               ,               ,**             \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
@@ -81,88 +109,119 @@ class DataExportModel {
   						  "no of hits              ,               ,              ,               ,               ,               ,               \n" +
 						  "no of false positives   ,               ,              ,               ,               ,               ,               \n" +
 						  "total time              ,               ,              ,               ,               ,               ,**             \n" +
-			              "hits- false positives   ,               ,              ,               ,               ,               ,               \n" +
+			              "hits - false positives  ,               ,              ,               ,               ,               ,               \n" +
   						  "                        ,\(screenComm)  ,              ,               ,               ,               ,               \n" +
 						  "                        ,\(durationComm),              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "\(header)               ,               ,              ,               ,               ,               ,               \n" +
                           "                        ,               ,target row    ,target col     ,time           ,               ,               \n"
             
-            // Append dynamic lines
-            for move in visualSearchSession.moves {
-                let gameMove = move as! Move
-                let screenNumber = gameMove.screenNumber.integerValue
-                
-                var ignoreThisMove = false
-                switch screenNumber {
-                case 0 ... 2, 11 ... 13:
-                    ignoreThisMove = true // Training
-                default:
-                    break
-                }
-                if !ignoreThisMove {
-                    if gameMove.empty.boolValue == false {
-                        // Success or failure
-                        var sof = ""
-                        if gameMove.success.boolValue == true {
-                            sof = "hit"
-                        } else {
-                            sof = "false"
-                        }
-                        // ve / repeat
-                        var veor = ""
-                        if gameMove.`repeat`.boolValue == true {
-                            veor = "repeat"
-                        } else {
-                            veor = "ve"
-                        }
-                        // time
-                        let moveTime = timeFormatter.stringFromDate(gameMove.date)
-                        // Row and column
-                        let targetRow = gameMove.row
-                        let targetColumn = gameMove.column
-                        
-                        // CSV line
-                        let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTime)\n"
-                        returnValue += line
-                    } else {
-                        var header = "header uknown"
-                        switch screenNumber {
-                        case 3:
-                            header = "motor screen 1"
-                        case 4:
-                            header = "motor screen 2"
-                        case 5:
-                            header = "motor screen 3"
-                        case 14:
-                            header = "motor screen 1"
-                        case 15:
-                            header = "motor screen 2"
-                        case 6:
-                            header = "search screen 1"
-                        case 7:
-                            header = "search screen 2"
-                        case 8:
-                            header = "search screen 3"
-                        case 16:
-                            header = "search screen 1"
-                        case 17:
-                            header = "search screen 2"
-                        default:
-                            header = "wrong header number"
-                        }
-                        // Time
-                        let headerTime = timeFormatter.stringFromDate(gameMove.date)
-                        
-                        // CSV line
-                        let headerLine = "\(header),screen onset, , ,\(headerTime)\n"
-                        returnValue += headerLine
-                    }
-                }
+            // Append dynamic rows: headers and moves
+            for line in collectionOfTableRows {
+                returnValue += line
             }
 		}
 		
 		return returnValue
 	}
+    func createDynamicLinesForVSSession(visualSearchSession: Session) {
+        let timeFormatter = NSDateFormatter()
+        
+        var currentSection:MoveType = .MoveTypeUnknown
+        for move in visualSearchSession.moves {
+            let gameMove = move as! Move
+            let screenNumber = gameMove.screenNumber.integerValue
+            
+            var ignoreThisMove = false
+            switch screenNumber {
+            case 0 ... 2, 11 ... 13:
+                ignoreThisMove = true // Training
+            default:
+                break
+            }
+            if !ignoreThisMove {
+                if gameMove.empty.boolValue == false {
+                    // Success or failure
+                    var sof = ""
+                    if gameMove.success.boolValue == true {
+                        sof = "hit"
+                    } else {
+                        sof = "false"
+                    }
+                    // ve / repeat
+                    var veor = ""
+                    if gameMove.`repeat`.boolValue == true {
+                        veor = "repeat"
+                    } else {
+                        veor = "ve"
+                    }
+                    // time
+                    let moveTime = timeFormatter.stringFromDate(gameMove.date)
+                    // Row and column
+                    let targetRow = gameMove.row
+                    let targetColumn = gameMove.column
+                    
+                    // CSV line
+                    let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTime)\n"
+                    collectionOfTableRows.append(line)
+                    
+                    // Add values
+                    switch currentSection {
+                    case .MoveTypeMotorOne:
+                        if gameMove.success.boolValue == true {
+                           mh1 += 1
+                        } else {
+                           mfp1 += 1
+                        }
+                        mt1 += gameMove.date.timeIntervalSinceReferenceDate
+                    default:
+                        break
+                    }
+                } else {
+                    var header = "header uknown"
+                    switch screenNumber {
+                    case 3:
+                        header = "motor screen 1"
+                        currentSection = .MoveTypeMotorOne
+                    case 4:
+                        header = "motor screen 2"
+                        currentSection = .MoveTypeMotorTwo
+                    case 5:
+                        header = "motor screen 3"
+                        currentSection = .MoveTypeMotorThree
+                    case 14:
+                        header = "motor screen 1"
+                        currentSection = .MoveTypeSearchOne
+                    case 15:
+                        header = "motor screen 2"
+                        currentSection = .MoveTypeSearchTwo
+                    case 6:
+                        header = "search screen 1"
+                        currentSection = .MoveTypeSearchOne
+                    case 7:
+                        header = "search screen 2"
+                        currentSection = .MoveTypeSearchTwo
+                    case 8:
+                        header = "search screen 3"
+                        currentSection = .MoveTypeSearchThree
+                    case 16:
+                        header = "search screen 1"
+                        currentSection = .MoveTypeSearchOne
+                    case 17:
+                        header = "search screen 2"
+                        currentSection = .MoveTypeSearchTwo
+                    default:
+                        header = "wrong header number"
+                    }
+                    // Time
+                    let headerTime = timeFormatter.stringFromDate(gameMove.date)
+                    
+                    // CSV line
+                    let headerLine = "\(header),screen onset, , ,\(headerTime)\n"
+                    collectionOfTableRows.append(headerLine)
+                }
+            }
+        }
+    }
 }
 
