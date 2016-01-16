@@ -132,7 +132,7 @@ class DataExportModel {
         let sessionStarted = visualSearchSession.dateStart
         
         var currentSection:MoveType = .MoveTypeUnknown
-        var timePassedSinceLatestMove:NSTimeInterval = sessionStarted.timeIntervalSince1970
+        var timePassedSinceLatestMove = sessionStarted.timeIntervalSince1970
         for move in visualSearchSession.moves {
             let gameMove = move as! Move
             let screenNumber = gameMove.screenNumber.integerValue
@@ -178,10 +178,11 @@ class DataExportModel {
                         }
                 
                         let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
-                        mt1 += secondsPassedForThisMove
+                        mt1 += secondsPassedForThisMove // increase total passed for this session's section
                     default:
                         break
                     }
+                    // Increase the latest move date
                     timePassedSinceLatestMove = gameMove.date.timeIntervalSince1970
                 } else {
                     var header = "header uknown"
