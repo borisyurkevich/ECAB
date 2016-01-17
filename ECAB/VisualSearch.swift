@@ -107,8 +107,14 @@ class VisualSearch: TestViewController,
 		}
 	}
 	
+    let theViewWhenTestStartsNormal = 2 // Motor One - 1
+    let theViewWhenTestStartsHard = VisualSearchHardModeView.MotorOne.rawValue - 1
 	override func skip() {
-		currentView = 2
+        if model.data.visSearchDifficulty == Mode.Easy.rawValue {
+            currentView = theViewWhenTestStartsNormal
+        } else {
+            currentView = theViewWhenTestStartsHard
+        }
 		presentNextScreen()
 	}
 	
