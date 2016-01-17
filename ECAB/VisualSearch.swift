@@ -198,8 +198,8 @@ class VisualSearch: TestViewController,
 					self.isTraining = false
 				}
 				
-                // Set override insets for hard mode.
                 // Hard mode needs bigger insets
+                // Ovverrides insets
 				if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
 					if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
                         && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
