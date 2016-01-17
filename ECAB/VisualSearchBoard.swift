@@ -8,6 +8,17 @@
 
 import Foundation
 
+// TODO: Add easy mode here
+enum VisualSearchHardModeView: Int {
+    case TrainingOne = 11
+    case TrainingTwo = 12
+    case TrainingThree = 13
+    case MotorOne = 14
+    case MotorTwo = 15
+    case One = 16
+    case Two = 17
+}
+
 class VisualSearchBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
@@ -15,6 +26,7 @@ class VisualSearchBoard {
     private var apples = 0
     private var whiteApples = 0
     private var strawberries = 0
+    
     
     init(stage number: Int) { // From 1 to 3
 
@@ -289,20 +301,20 @@ class VisualSearchBoard {
 			break
 		case 10:
 			break
-		case 11:
+		case VisualSearchHardModeView.TrainingOne.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			break
-		case 12:
+		case VisualSearchHardModeView.TrainingTwo.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
 			break
-		case 13:
+		case VisualSearchHardModeView.TrainingThree.rawValue:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
 			break
-		case 14:
+		case VisualSearchHardModeView.MotorOne.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
 			f.append(w); f.append(w); f.append(w);
@@ -348,7 +360,7 @@ class VisualSearchBoard {
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
 			break
-		case 15:
+		case VisualSearchHardModeView.MotorTwo.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(t); f.append(w);
@@ -394,7 +406,7 @@ class VisualSearchBoard {
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
 			break
-		case 16:
+		case VisualSearchHardModeView.One.rawValue:
 			f.append(t); f.append(s); f.append(s);
 			f.append(w); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(w);
@@ -440,7 +452,7 @@ class VisualSearchBoard {
 			f.append(s); f.append(w); f.append(w);
 			f.append(s);
 			break
-		case 17:
+		case VisualSearchHardModeView.Two.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(s); f.append(w);

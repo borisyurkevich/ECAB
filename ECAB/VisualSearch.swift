@@ -68,7 +68,7 @@ class VisualSearch: TestViewController,
 		collectionView.dataSource = self
 		
 		if model.data.visSearchDifficulty == 1 { // Hard Mode
-			currentView = 11
+			currentView = VisualSearchHardModeView.TrainingOne.rawValue
 			numberOfTargets = [1, 1, 2, 9, 9, 9, 9]
 			gameSpeed = model.data.visSearchSpeedHard.doubleValue
 		} else {
@@ -139,7 +139,7 @@ class VisualSearch: TestViewController,
 				}
 				
 				switch (self.currentView) {
-				case 0, 11:
+				case 0, VisualSearchHardModeView.TrainingOne.rawValue:
 					self.cellWidth = 190
 					self.cellHeight = 190
 					
@@ -147,19 +147,19 @@ class VisualSearch: TestViewController,
 					self.insetLeft = 172
 					self.insetBottom = Insets.bottom
 					self.insetRight = 172
-				case 1, 12:
+				case 1, VisualSearchHardModeView.TrainingTwo.rawValue:
 					self.cellWidth = 84
 					self.cellHeight = 84
 					self.insetTop = 220
 					self.insetLeft = 340
 					self.insetRight = 340
-				case 2, 13:
+				case 2, VisualSearchHardModeView.TrainingThree.rawValue:
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
 					self.insetTop = 230
 					self.insetLeft = 200
 					self.insetRight = 200
-				case 3 ... 5, 14 ... 15:
+				case 3 ... 5, VisualSearchHardModeView.MotorOne.rawValue ... VisualSearchHardModeView.MotorTwo.rawValue:
 					// Real game starts on motor test
 					// This is three motor screen tests
 					self.startGame()
@@ -181,12 +181,15 @@ class VisualSearch: TestViewController,
 				}
 				
 				if self.model.data.visSearchDifficulty == 1 {  // Hard mode.
-					if self.currentView != 11 && self.currentView != 12 && self.currentView != 13 {
+					if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
+                        && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
+                        && self.currentView != VisualSearchHardModeView.TrainingThree.rawValue {
+                            
 						self.insetLeft = 100
 						self.insetRight = 100
 					}
 					
-					if self.currentView == 13 {
+					if self.currentView == VisualSearchHardModeView.TrainingThree.rawValue {
 						self.insetLeft = 245
 						self.insetRight = 245
 					}
@@ -317,13 +320,13 @@ class VisualSearch: TestViewController,
 		var rows = 6
 		
 		switch currentView {
-		case 0, 11:
+		case 0, VisualSearchHardModeView.TrainingOne.rawValue:
 			total = 3
 			rows = 1
-		case 1, 12:
+		case 1, VisualSearchHardModeView.TrainingTwo.rawValue:
 			total = 9
 			rows = 3
-		case 2, 13:
+		case 2, VisualSearchHardModeView.TrainingThree.rawValue:
 			total = 18
 			rows = 3
 		default:
@@ -374,7 +377,7 @@ class VisualSearch: TestViewController,
 				// Hard mode
 				var gameStage = currentView
 				if model.data.visSearchDifficulty == 1 { // Hard mode.
-					gameStage -= 11
+					gameStage -= VisualSearchHardModeView.TrainingOne.rawValue
 				}
 				
 				if checkedTargets.count == numberOfTargets[gameStage] {
