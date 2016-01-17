@@ -28,7 +28,8 @@ class DataExportModel {
 	let model = Model.sharedInstance
 	var pickedVisualSearchSession: Session? = nil
 	var pickedCounterpointingSession: CounterpointingSession? = nil
-    //
+    let msIn1️⃣Sec = 1000.0 // Milliseconds in one second
+    
     // Dynamic part of the table
     var collectionOfTableRows: Array<String> = Array()
     // Motor Total Hits:
@@ -71,7 +72,7 @@ class DataExportModel {
 			dateFormatter.dateFormat = "dd/mm/yy"
 			let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
 			let timeFormatter = NSDateFormatter()
-			timeFormatter.dateFormat = "hh:mm:ss"
+			timeFormatter.dateFormat = "hh:mm:ss:SSS"
 			let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
 			
 			var difficulty = "easy"
@@ -91,7 +92,7 @@ class DataExportModel {
             
             // Motor time total
             let totalMt = mt1 + mt2 + mt3
-            let totalSearch = st1 + st2 + st3
+            let totSearch = st1 + st2 + st3
 			
 			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
@@ -106,13 +107,13 @@ class DataExportModel {
 						  "                        ,               ,motor 1       ,motor 2        ,motor 3        ,TOTAL          ,*              \n" +
 						  "no of hits              ,               ,\(mh1)        ,\(mh2)         ,\(mh3)         ,               ,               \n" +
 						  "no of false positives   ,               ,\(mfp1)       ,\(mfp2)        ,\(mfp3)        ,               ,               \n" +
- 						  "total time              ,               ,\(mt1)        ,\(mt2)         ,\(mt3)         ,\(totalMt)     ,**             \n" +
+ 						  "total time              ,               ,\(r(mt1))     ,\(r(mt2))      ,\(r(mt3))      ,\(r(totalMt))  ,**             \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 						  "                        ,               ,              ,               ,               ,               ,               \n" +
 					      "                        ,               ,search 1      ,search 2       ,search 3       ,               ,               \n" +
   						  "no of hits              ,               ,\(sh1)        ,\(sh2)         ,\(sh3)         ,               ,               \n" +
 						  "no of false positives   ,               ,\(sfp1)       ,\(sfp2)        ,\(sfp3)        ,               ,               \n" +
-						  "total time              ,               ,\(st1)        ,\(st2)         ,\(st3)         ,\(totalSearch) ,**             \n" +
+						  "total time              ,               ,\(r(st1))     ,\(r(st2))      ,\(r(st3))      ,\(r(totSearch)),**             \n" +
 			              "hits - false positives  ,               ,\(sh1 - sfp1) ,\(sh2 - sfp2)  ,\(sh3 - sfp3)  ,               ,               \n" +
   						  "                        ,\(screenComm)  ,              ,               ,               ,               ,               \n" +
 						  "                        ,\(durationComm),              ,               ,               ,               ,               \n" +
@@ -128,9 +129,12 @@ class DataExportModel {
 		
 		return returnValue
 	}
+    func r(x:NSTimeInterval) -> Double {
+        return Double(round(msIn1️⃣Sec * x) / msIn1️⃣Sec)
+    }
     func createDynamicLinesForVSSession(visualSearchSession: Session) {
         let timeFormatter = NSDateFormatter()
-        timeFormatter.dateFormat = "hh:mm:ss"
+        timeFormatter.dateFormat = "hh:mm:ss:SSS"
         let sessionStarted = visualSearchSession.dateStart
         
         var currentSection:MoveType = .MoveTypeUnknown
