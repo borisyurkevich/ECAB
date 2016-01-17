@@ -107,20 +107,16 @@ class Model {
 			
 			// If there's no current player,
 			// create new one
-			if let currPl = data?.selectedPlayer {
-				print("Selected player found")
-				print("Player \(currPl.name) selected")
-				print("Check: player \(data.selectedPlayer.name) selected")
+			if data?.selectedPlayer != nil {
+				// Selected player found
 			} else {
 				if data.players.count == 0 {
 					addPlayer("Default")
-					print("Default player added")
+					// Default player added
 					data.selectedPlayer = data.players.firstObject as! Player
-					print("Player \(data.selectedPlayer.name) selected")
 				}
-				print("Players exist, but default not selected.")
+				// Players exist, but default not selected.
 				data.selectedPlayer = data.players.firstObject as! Player
-				print("Player \(data.selectedPlayer.name) selected")
 				data.selectedGame = 0
 			}
 			

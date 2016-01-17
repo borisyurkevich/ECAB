@@ -198,6 +198,7 @@ class VisualSearch: TestViewController,
 					self.isTraining = false
 				}
 				
+                // Set top inset
 				if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
 					if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
                         && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
@@ -217,7 +218,7 @@ class VisualSearch: TestViewController,
 					Insets.top = 100
 				}
 				
-				print("Requesting fot the board \(self.currentView)")
+                // Request new board
                 self.board = VisualSearchBoard(stage: self.currentView)
 				self.checkedMarks = []
 				self.checkedTargets = []
