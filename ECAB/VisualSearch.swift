@@ -27,6 +27,11 @@ class VisualSearch: TestViewController,
     private let interSpacing:CGFloat = 27
 	private var timer = NSTimer()
 	private var timerLastStarted = NSDate()
+    
+    enum Mode: Int {
+        case Easy = 0
+        case Hard = 1
+    }
 	
     private struct Insets {
         static var top:CGFloat = 100
@@ -67,7 +72,7 @@ class VisualSearch: TestViewController,
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		
-		if model.data.visSearchDifficulty == 1 { // Hard Mode
+		if model.data.visSearchDifficulty == Mode.Hard.rawValue {
 			currentView = VisualSearchHardModeView.TrainingOne.rawValue
 			numberOfTargets = [1, 1, 2, 9, 9, 9, 9]
 			gameSpeed = model.data.visSearchSpeedHard.doubleValue
@@ -134,7 +139,7 @@ class VisualSearch: TestViewController,
 				
 				var defaultSize:CGFloat = 70
 				
-				if self.model.data.visSearchDifficulty == 1 { // Hard mode
+                if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
 					defaultSize = 54
 				}
 				
@@ -180,7 +185,7 @@ class VisualSearch: TestViewController,
 					self.isTraining = false
 				}
 				
-				if self.model.data.visSearchDifficulty == 1 {  // Hard mode.
+				if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
 					if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
                         && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
                         && self.currentView != VisualSearchHardModeView.TrainingThree.rawValue {
@@ -374,9 +379,8 @@ class VisualSearch: TestViewController,
 				// Play the success sound
 				successSound.play()
 				
-				// Hard mode
 				var gameStage = currentView
-				if model.data.visSearchDifficulty == 1 { // Hard mode.
+                if model.data.visSearchDifficulty == Mode.Hard.rawValue {
 					gameStage -= VisualSearchHardModeView.TrainingOne.rawValue
 				}
 				
