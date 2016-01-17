@@ -132,10 +132,17 @@ class VisualSearch: TestViewController,
 		// Here we should set borard with new scene.
 		currentView += 1
 		
-		if currentView == numberOfTargets.count {
-			quit()
-			return
-		}
+        if model.data.visSearchDifficulty == Mode.Easy.rawValue {
+            if currentView == 8 + 1 { // TODO Change 8 to enum
+                quit()
+                return
+            }
+        } else if model.data.visSearchDifficulty == Mode.Hard.rawValue {
+            if currentView == VisualSearchHardModeView.Two.rawValue + 1 {
+                quit()
+                return
+            }
+        }
 		        
         UIView.transitionWithView(view, duration: transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             // animation...
