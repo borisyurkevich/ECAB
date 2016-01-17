@@ -184,7 +184,7 @@ class CounterpointingViewController: TestViewController {
 	func tapHandler(touchLeft: Bool){
 		// Determine Success or failure
 		
-		if !dogIsOnScreen {
+		if self .isMemberOfClass(CounterpointingViewController) && !dogIsOnScreen {
 			return
 		}
 		
