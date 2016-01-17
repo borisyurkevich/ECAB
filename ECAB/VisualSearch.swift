@@ -33,17 +33,17 @@ class VisualSearch: TestViewController,
         case Hard = 1
     }
 	
-    private struct Insets {
-        static var top:CGFloat = 100
-        static let left:CGFloat = 10
-        static let bottom:CGFloat = 10
-        static let right:CGFloat = 10
-    };
+//    private struct Insets {
+//        static var top:CGFloat = 100
+//        static let left:CGFloat = 10
+//        static let bottom:CGFloat = 10
+//        static let right:CGFloat = 10
+//    };
 	
 	// Inititial insets are very big
 	private var insetTop: CGFloat = 260
 	private var insetLeft: CGFloat = 172
-	private var insetBottom = Insets.bottom
+    private var insetBottom:CGFloat = 10
 	private var insetRight: CGFloat = 172
 	
     private var boardFlowLayout: UICollectionViewFlowLayout?
@@ -163,7 +163,7 @@ class VisualSearch: TestViewController,
 					
 					self.insetTop = 260
 					self.insetLeft = 172
-					self.insetBottom = Insets.bottom
+					self.insetBottom = 10
 					self.insetRight = 172
 				case 1, VisualSearchHardModeView.TrainingTwo.rawValue:
 					self.cellWidth = 84
@@ -183,18 +183,18 @@ class VisualSearch: TestViewController,
 					self.startGame()
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
-					self.insetTop = Insets.top
-					self.insetLeft = Insets.left
-					self.insetBottom = Insets.bottom
-					self.insetRight = Insets.right
+					self.insetTop = 100
+					self.insetLeft = 10
+					self.insetBottom = 10
+					self.insetRight = 10
 				default:
 					// This is normal game mode
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
-					self.insetTop = Insets.top
-					self.insetLeft = Insets.left
-					self.insetBottom = Insets.bottom
-					self.insetRight = Insets.right
+					self.insetTop = 100
+					self.insetLeft = 10
+					self.insetBottom = 10
+					self.insetRight = 10
 					self.isTraining = false
 				}
 				
@@ -214,9 +214,9 @@ class VisualSearch: TestViewController,
 						self.insetRight = 245
 					}
 					
-					Insets.top = 60
+					self.insetTop = 60
 				} else {
-					Insets.top = 100
+					self.insetTop = 100
 				}
 				
                 // Request new board
