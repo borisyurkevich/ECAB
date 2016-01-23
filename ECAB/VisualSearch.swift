@@ -33,12 +33,12 @@ class VisualSearch: TestViewController,
         case Hard = 1
     }
 	
-//    private struct Insets {
-//        static var top:CGFloat = 100
-//        static let left:CGFloat = 10
-//        static let bottom:CGFloat = 10
-//        static let right:CGFloat = 10
-//    };
+    private struct Insets {
+        static var top:CGFloat = 100
+        static let left:CGFloat = 10
+        static let bottom:CGFloat = 10
+        static let right:CGFloat = 10
+    };
 	
 	// Inititial insets are very big
 	private var insetTop: CGFloat = 260
@@ -171,7 +171,7 @@ class VisualSearch: TestViewController,
 					self.insetTop = 220
 					self.insetLeft = 340
 					self.insetRight = 340
-				case VisualSearchEasyModeView.TrainingTwo.rawValue, VisualSearchHardModeView.TrainingThree.rawValue:
+				case VisualSearchEasyModeView.TrainingThree.rawValue, VisualSearchHardModeView.TrainingThree.rawValue:
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
 					self.insetTop = 230
@@ -184,18 +184,18 @@ class VisualSearch: TestViewController,
 					self.startGame()
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
-					self.insetTop = 100
-					self.insetLeft = 10
-					self.insetBottom = 10
-					self.insetRight = 10
+					self.insetTop = Insets.top
+					self.insetLeft = Insets.left
+					self.insetBottom = Insets.bottom
+					self.insetRight = Insets.right
 				default:
 					// This is normal game mode
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
-					self.insetTop = 100
-					self.insetLeft = 10
-					self.insetBottom = 10
-					self.insetRight = 10
+					self.insetTop = Insets.top
+					self.insetLeft = Insets.left
+					self.insetBottom = Insets.bottom
+					self.insetRight = Insets.right
 					self.isTraining = false
 				}
 				
@@ -203,8 +203,8 @@ class VisualSearch: TestViewController,
                 // Ovverrides insets
 				if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
 					if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
-                        && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
-                        && self.currentView != VisualSearchHardModeView.TrainingThree.rawValue {
+                    && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
+                    && self.currentView != VisualSearchHardModeView.TrainingThree.rawValue {
                             
 						self.insetLeft = 100
 						self.insetRight = 100
@@ -215,9 +215,9 @@ class VisualSearch: TestViewController,
 						self.insetRight = 245
 					}
 					
-					self.insetTop = 60
+					Insets.top = 60
 				} else {
-					self.insetTop = 100
+					Insets.top = 100
 				}
 				
                 // Request new board
