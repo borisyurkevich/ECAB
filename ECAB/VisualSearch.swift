@@ -157,7 +157,7 @@ class VisualSearch: TestViewController,
 				}
 				
 				switch (self.currentView) {
-				case 0, VisualSearchHardModeView.TrainingOne.rawValue:
+				case VisualSearchEasyModeView.TrainingOne.rawValue, VisualSearchHardModeView.TrainingOne.rawValue:
 					self.cellWidth = 190
 					self.cellHeight = 190
 					
@@ -165,19 +165,20 @@ class VisualSearch: TestViewController,
 					self.insetLeft = 172
 					self.insetBottom = 10
 					self.insetRight = 172
-				case 1, VisualSearchHardModeView.TrainingTwo.rawValue:
+				case VisualSearchEasyModeView.TrainingTwo.rawValue, VisualSearchHardModeView.TrainingTwo.rawValue:
 					self.cellWidth = 84
 					self.cellHeight = 84
 					self.insetTop = 220
 					self.insetLeft = 340
 					self.insetRight = 340
-				case 2, VisualSearchHardModeView.TrainingThree.rawValue:
+				case VisualSearchEasyModeView.TrainingTwo.rawValue, VisualSearchHardModeView.TrainingThree.rawValue:
 					self.cellWidth = defaultSize
 					self.cellHeight = defaultSize
 					self.insetTop = 230
 					self.insetLeft = 200
 					self.insetRight = 200
-				case 3 ... 5, VisualSearchHardModeView.MotorOne.rawValue ... VisualSearchHardModeView.MotorTwo.rawValue:
+				case VisualSearchEasyModeView.MotorOne.rawValue ... VisualSearchEasyModeView.MotorThree.rawValue,
+                     VisualSearchHardModeView.MotorOne.rawValue ... VisualSearchHardModeView.MotorTwo.rawValue:
 					// Real game starts on motor test
 					// This is three motor screen tests
 					self.startGame()

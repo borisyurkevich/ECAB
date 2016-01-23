@@ -8,7 +8,18 @@
 
 import Foundation
 
-// TODO: Add easy mode here
+enum VisualSearchEasyModeView: Int {
+    case TrainingOne = 0
+    case TrainingTwo = 1
+    case TrainingThree = 2
+    case MotorOne = 3
+    case MotorTwo = 4
+    case MotorThree = 5
+    case One = 6
+    case Two = 7
+    case Three = 8
+}
+
 enum VisualSearchHardModeView: Int {
     case TrainingOne = 11
     case TrainingTwo = 12
