@@ -65,11 +65,11 @@ class DataExportModel {
 		if let visualSearchSession: Session = pickedVisualSearchSession {
 			let gameName = model.games[Int(model.data.selectedGame)]
 			let playerName = visualSearchSession.player.name
-			let birth = "dd/mm/yy"
+			let birth = "dd/MM/yy"
 			let age = "yy/mm"
 			
 			let dateFormatter = NSDateFormatter()
-			dateFormatter.dateFormat = "dd/mm/yy"
+			dateFormatter.dateFormat = "dd/MM/yy"
 			let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
 			let timeFormatter = NSDateFormatter()
 			timeFormatter.dateFormat = "hh:mm:ss:SSS"
