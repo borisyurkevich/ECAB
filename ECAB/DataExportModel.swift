@@ -70,7 +70,7 @@ class DataExportModel {
 			dateFormatter.dateFormat = "dd/MM/yy"
 			let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
 			let timeFormatter = NSDateFormatter()
-			timeFormatter.dateFormat = "hh:mm:ss:SSS"
+			timeFormatter.dateFormat = "HH:mm:ss:SSS"
 			let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
 			
 			var difficulty = "easy"
@@ -134,7 +134,7 @@ class DataExportModel {
         var collectionOfTableRows: Array<String> = Array()
         
         let timeFormatter = NSDateFormatter()
-        timeFormatter.dateFormat = "hh:mm:ss:SSS"
+        timeFormatter.dateFormat = "HH:mm:ss:SSS"
         let sessionStarted = visualSearchSession.dateStart
         
         var currentSection:MoveType = .MoveTypeUnknown
