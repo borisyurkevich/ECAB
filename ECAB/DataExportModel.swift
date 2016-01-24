@@ -30,8 +30,6 @@ class DataExportModel {
 	var pickedCounterpointingSession: CounterpointingSession? = nil
     let msIn1️⃣Sec = 1000.0 // Milliseconds in one second
     
-    // Dynamic part of the table
-    var collectionOfTableRows: Array<String> = Array()
     // Motor Total Hits:
     var mh1 = 0; var mh2 = 0; var mh3 = 0
     // Motor False Positives:
@@ -88,7 +86,7 @@ class DataExportModel {
 			let header = "log of indivudual responces"
             
             // Create dynamic lines
-            createDynamicLinesForVSSession(visualSearchSession)
+            let dynamicLines = createDynamicLinesForVSSession(visualSearchSession)
             
             // Motor time total
             let totalMt = mt1 + mt2 + mt3
@@ -122,7 +120,7 @@ class DataExportModel {
                           "                        ,               ,target row    ,target col     ,time           ,               ,               \n"
             
             // Append dynamic rows: headers and moves
-            for line in collectionOfTableRows {
+            for line in dynamicLines {
                 returnValue += line
             }
 		}
@@ -132,7 +130,9 @@ class DataExportModel {
     func r(x:NSTimeInterval) -> Double {
         return Double(round(msIn1️⃣Sec * x) / msIn1️⃣Sec)
     }
-    func createDynamicLinesForVSSession(visualSearchSession: Session) {
+    func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
+        var collectionOfTableRows: Array<String> = Array()
+        
         let timeFormatter = NSDateFormatter()
         timeFormatter.dateFormat = "hh:mm:ss:SSS"
         let sessionStarted = visualSearchSession.dateStart
@@ -275,6 +275,8 @@ class DataExportModel {
                 }
             }
         }
+        
+        return collectionOfTableRows
     }
 }
 
