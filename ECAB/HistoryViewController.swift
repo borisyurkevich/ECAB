@@ -15,6 +15,9 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 	@IBOutlet weak var actionButton: UIBarButtonItem!
 	
 	var exportManager: DataExportModel? = nil
+    var documentInteractionController: UIDocumentInteractionController?
+    // Has to be global var because in some cases it can be released during export
+    // http://stackoverflow.com/a/32746567/1162044
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +48,13 @@ class HistoryViewController: UIViewController, UIDocumentInteractionControllerDe
 		navigationController?.presentViewController(exportDialog, animated: true,
 																completion: nil)
 	}
+
 	func exportToCSV() {
 		if let url = writeFileAndReturnURL() {
-			let docController = UIDocumentInteractionController(URL: url)
-			docController.UTI = "public.comma-separated-values-text"
-			docController.delegate = self
-			docController.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
+            documentInteractionController = UIDocumentInteractionController(URL: url)
+			documentInteractionController!.UTI = "public.comma-separated-values-text"
+			documentInteractionController!.delegate = self
+			documentInteractionController!.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
 		}
 	}
 	func presentActivityViewController() {
