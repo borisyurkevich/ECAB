@@ -67,7 +67,7 @@ class DataExportModel {
 			let age = "yy/mm"
 			
 			let dateFormatter = NSDateFormatter()
-			dateFormatter.dateFormat = "dd/MM/yy"
+            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
 			let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
 			let timeFormatter = NSDateFormatter()
 			timeFormatter.dateFormat = "HH:mm:ss:SSS"
