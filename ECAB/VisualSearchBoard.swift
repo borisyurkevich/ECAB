@@ -111,20 +111,17 @@ class VisualSearchBoard {
         
         switch section {
 			
-		case 0:
+		case VisualSearchEasyModeView.TrainingOne.rawValue:
 			f.append(s); f.append(w); f.append(t);
-			break
-		case 1:
+		case VisualSearchEasyModeView.TrainingTwo.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
-			break
-		case 2:
+		case VisualSearchEasyModeView.TrainingThree.rawValue:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
-			break
-		case 3:
+		case VisualSearchEasyModeView.MotorOne.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
 			f.append(w); f.append(w); f.append(w);
@@ -154,8 +151,7 @@ class VisualSearchBoard {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-			break;
-		case 4:
+		case VisualSearchEasyModeView.MotorTwo.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -185,8 +181,7 @@ class VisualSearchBoard {
 			f.append(w); f.append(w); f.append(w);
 			f.append(t); f.append(w); f.append(w);
 			f.append(w);
-			break;
-		case 5:
+		case VisualSearchEasyModeView.MotorThree.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -216,8 +211,7 @@ class VisualSearchBoard {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-			break;
-		case 6:
+		case VisualSearchEasyModeView.One.rawValue:
 			f.append(t); f.append(s); f.append(s);
 			f.append(w); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(w);
@@ -247,8 +241,7 @@ class VisualSearchBoard {
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(w); f.append(s);
 			f.append(s);
-			break;
-		case 7:
+		case VisualSearchEasyModeView.Two.rawValue:
 			f.append(s); f.append(w); f.append(s);
 			f.append(s); f.append(w); f.append(s);
 			f.append(s); f.append(s); f.append(s);
@@ -278,8 +271,7 @@ class VisualSearchBoard {
 			f.append(s); f.append(w); f.append(w);
 			f.append(t); f.append(s); f.append(s);
 			f.append(w);
-			break;
-		case 8:
+		case VisualSearchEasyModeView.Three.rawValue:
 			f.append(t); f.append(s); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w); f.append(s); f.append(w);
@@ -309,22 +301,18 @@ class VisualSearchBoard {
 			f.append(t); f.append(w); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
-			break
 		case 10:
-			break
+            break
 		case VisualSearchHardModeView.TrainingOne.rawValue:
 			f.append(s); f.append(w); f.append(t);
-			break
 		case VisualSearchHardModeView.TrainingTwo.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
-			break
 		case VisualSearchHardModeView.TrainingThree.rawValue:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
-			break
 		case VisualSearchHardModeView.MotorOne.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
@@ -370,7 +358,6 @@ class VisualSearchBoard {
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-			break
 		case VisualSearchHardModeView.MotorTwo.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -416,7 +403,6 @@ class VisualSearchBoard {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-			break
 		case VisualSearchHardModeView.One.rawValue:
 			f.append(t); f.append(s); f.append(s);
 			f.append(w); f.append(w); f.append(s);
@@ -462,7 +448,6 @@ class VisualSearchBoard {
 			f.append(t); f.append(w); f.append(s);
 			f.append(s); f.append(w); f.append(w);
 			f.append(s);
-			break
 		case VisualSearchHardModeView.Two.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(w); f.append(w);
@@ -508,7 +493,6 @@ class VisualSearchBoard {
 			f.append(t); f.append(w); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
-			break
         default:
             print("⛔️ Set correct screen!")
         }

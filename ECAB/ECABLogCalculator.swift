@@ -1,0 +1,108 @@
+//
+//  ECABLogCalculator.swift
+//  ECAB
+//
+//  Created by Boris Yurkevich on 31/01/2016.
+//  Copyright © 2016 Oliver Braddick and Jan Atkinson. All rights reserved.
+//
+
+import Foundation
+
+struct TotalVisualSearch {
+    var motorOneTotal: Double
+    var motorTwoTotal: Double
+    var motorThreeTotal: Double
+    var searachOneTotal: Double
+    var searchTwoTotal: Double
+    var searhThreeTotal: Double
+}
+
+
+
+class ECABLogCalculator {
+    
+    // 1000.0 is Milliseconds in one second
+    class func r(x:NSTimeInterval) -> Double {
+        return Double(round(100.0 * x) / 100.0)
+    }
+    
+    class func getVisualSearchTotals(session: Session) -> TotalVisualSearch {
+        
+        var totals = TotalVisualSearch(motorOneTotal: 0, motorTwoTotal: 0, motorThreeTotal: 0, searachOneTotal: 0, searchTwoTotal: 0, searhThreeTotal: 0)
+        
+        var motorOneStart: NSDate?
+        var motorOneEnd: NSDate?
+        var motorTwoStart: NSDate?
+        var motorTwoEnd: NSDate?
+        var motorThreeStart: NSDate?
+        var motorThreeEnd: NSDate?
+        var searchOneStart: NSDate?
+        var searchOneEnd: NSDate?
+        var searchTwoStart: NSDate?
+        var searchTwoEnd: NSDate?
+        var searchThreeStart:NSDate?
+        var searchThreeEnd:NSDate?
+        
+        for move in session.moves {
+            let gameMove = move as! Move
+            
+            let screenNum = gameMove.screenNumber.integerValue
+            
+            // Every part inlude onset date in the empty move entity
+            
+            if screenNum == VisualSearchEasyModeView.MotorOne.rawValue || screenNum == VisualSearchHardModeView.MotorOne.rawValue {
+                if (motorOneStart == nil) {
+                    motorOneStart = gameMove.date
+                }
+                // End date will shift to the latest possible move on the screen
+                motorOneEnd = gameMove.date
+            } else if screenNum == VisualSearchEasyModeView.MotorTwo.rawValue || screenNum == VisualSearchHardModeView.MotorTwo.rawValue{
+                if (motorTwoStart == nil) {
+                    motorTwoStart = gameMove.date
+                }
+                motorTwoEnd = gameMove.date
+            } else if screenNum == VisualSearchEasyModeView.MotorThree.rawValue {
+                if (motorThreeStart == nil) {
+                    motorThreeStart = gameMove.date
+                }
+                motorThreeEnd = gameMove.date
+            } else if screenNum == VisualSearchEasyModeView.One.rawValue || screenNum == VisualSearchHardModeView.One.rawValue {
+                if (searchOneStart == nil) {
+                    searchOneStart = gameMove.date
+                }
+                searchOneEnd = gameMove.date
+            } else if screenNum == VisualSearchEasyModeView.Two.rawValue || screenNum == VisualSearchHardModeView.Two.rawValue {
+                if (searchTwoStart == nil) {
+                    searchTwoStart = gameMove.date
+                }
+                searchTwoEnd = gameMove.date
+            } else if screenNum == VisualSearchEasyModeView.Three.rawValue {
+                if (searchThreeStart == nil) {
+                    searchThreeStart = gameMove.date
+                }
+                searchThreeEnd = gameMove.date
+            }
+            
+        }
+        if let m1s = motorOneStart, let m1e = motorOneEnd {
+            totals.motorOneTotal = r(m1e.timeIntervalSinceDate(m1s))
+        }
+        if let m2s = motorTwoStart, let m2e = motorTwoEnd {
+            totals.motorTwoTotal = r(m2e.timeIntervalSinceDate(m2s))
+        }
+        if let m3s = motorThreeStart, let m3e = motorThreeEnd {
+            totals.motorThreeTotal = r(m3e.timeIntervalSinceDate(m3s))
+        }
+        if let s1s = searchOneStart, let s1e = searchOneEnd {
+            totals.searachOneTotal = r(s1e.timeIntervalSinceDate(s1s))
+        }
+        if let s2s = searchTwoStart, let s2e = searchTwoEnd {
+            totals.searchTwoTotal = r(s2e.timeIntervalSinceDate(s2s))
+        }
+        if let s3s = searchThreeStart, let s3e = searchThreeEnd {
+            totals.searhThreeTotal = r(s3e.timeIntervalSinceDate(s3s))
+        }
+    
+        return totals
+    }
+}

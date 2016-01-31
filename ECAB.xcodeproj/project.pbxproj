@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		910367F31A7E3B4900522B2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* Model.swift */; };
 		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
+		910791E51C5EA21200199A5D /* ECABLogCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910791E41C5EA21200199A5D /* ECABLogCalculator.swift */; };
 		91279C6B1C282CBF00418A57 /* DataExportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91279C6A1C282CBF00418A57 /* DataExportModel.swift */; };
 		9130B7991BC94D5100D26708 /* Data+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B7981BC94D5100D26708 /* Data+CoreDataProperties.swift */; };
 		9130B79D1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9130B79C1BCAA82500D26708 /* CounterpointingMove+CoreDataProperties.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayersTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		910791E41C5EA21200199A5D /* ECABLogCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECABLogCalculator.swift; sourceTree = "<group>"; };
 		91253DE71B2E1EC600773099 /* Model v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v2.xcdatamodel"; sourceTree = "<group>"; };
 		91279C6A1C282CBF00418A57 /* DataExportModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExportModel.swift; sourceTree = "<group>"; };
 		9130B7971BC94BD700D26708 /* Model v5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v5.xcdatamodel"; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 				913138901C393AAB00E79987 /* LogModel.swift */,
 				91279C6A1C282CBF00418A57 /* DataExportModel.swift */,
+				910791E41C5EA21200199A5D /* ECABLogCalculator.swift */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				91379BEA1B52A4A400E3C293 /* CounterpointingMove.swift in Sources */,
 				91379BF21B52FEA600E3C293 /* Data.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
+				910791E51C5EA21200199A5D /* ECABLogCalculator.swift in Sources */,
 				9130B7A11BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* VisualSearch.swift in Sources */,
 				91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */,

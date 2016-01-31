@@ -21,6 +21,9 @@ class LogModel {
 		var detailMoves = ""
 		var counter = 1
 		var emptyScreenCounter = 0
+        
+        let totals = ECABLogCalculator.getVisualSearchTotals(session)
+        
 		for move in session.moves {
 			
 			let gameMove = move as! Move
@@ -28,15 +31,19 @@ class LogModel {
 			// Caluculate screen
 			var screenName = ""
 			let screenNum = gameMove.screenNumber.integerValue
+            var trainig = false
 			switch screenNum {
 			case 0 ... 2, 11 ... 13:
 				screenName = "Training \(screenNum + 1)"
+                trainig = true
 				break
 			case 3 ... 5, 14 ... 15:
 				screenName = "Motor \(screenNum - 2)"
+                trainig = false
 				break
 			case 6 ... 8, 16 ... 17:
 				screenName = "Search \(screenNum - 5)"
+                trainig = false
 				break
 			default:
 				break
@@ -63,15 +70,15 @@ class LogModel {
 			
 			if gameMove.empty.boolValue == false {
 				
-				var extraTime = "unknwon"
-				if let definedExtraTime = gameMove.extraTimeLeft {
-					extraTime = String(format: "%.02f", definedExtraTime.doubleValue)
-				}
-				
-				append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) Extra time left: \(extraTime)\n"
+                append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) \n"
+
 				counter++
 			} else {
-				append = "\n\(screenName) on set \(dateStr) \n"
+                if (!trainig) {
+                    append = "\n\(screenName) onset \(dateStr) \n"
+                } else {
+                    append = "\n\(screenName)\n"
+                }
 				emptyScreenCounter++
 			}
 			
@@ -92,7 +99,10 @@ class LogModel {
 			build = canonicBuild
 		}
 		
-		let visualSearchLog = "\(gameName)\n\nPlayer name: \(session.player.name); difficulty: \(difficulty); speed: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(session.score), total moves: \(session.moves.count - emptyScreenCounter) \nFailed attempts: \(session.failureScore)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
+        // TODO
+        // let timePerTargetFoundMotor = 0.0
+        
+		let visualSearchLog = "\(gameName)\n\nPlayer name: \(session.player.name); difficulty: \(difficulty); screen duration 2: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(session.score)\nFalse positives: \(session.failureScore)\n\nTime per target found[motor] = ss.ss\nTime per target found[search] = ss.ss\nSearch time - motor time per target = ss.ss\n\nMotor 1 total = \(floor(totals.motorOneTotal))\nMotor 2 total = \(totals.motorTwoTotal)\nMotor 3 total = \(totals.motorThreeTotal)\nSearch 1 total = \(totals.searachOneTotal)\nSearch 2 total = \(totals.searchTwoTotal)\nSearch 3 total = \(totals.searhThreeTotal)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
 		return visualSearchLog;
 	}
 	
