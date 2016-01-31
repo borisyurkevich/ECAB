@@ -88,36 +88,39 @@ class DataExportModel {
             // Create dynamic lines
             let dynamicLines = createDynamicLinesForVSSession(visualSearchSession)
             
-            // Motor time total
-            let totalMt = mt1 + mt2 + mt3
-            let totSearch = st1 + st2 + st3
+            let mht = mh1 + mh2 + mh3
+            let mfpt = mfp1 + mfp2 + mfp3
+            let mtt = mt1 + mt2 + mt3
+            let stt = st1 + st2 + st3
+            let sht = sh1 + sh2 + sh3
+            let sfpt = sfp1 + sfp2 + sfp3
 			
-			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,               \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n" +
-			              "ID                      ,\(playerName)  ,              ,               ,               ,               ,               \n" +
-			              "date of birth           ,\(birth)       ,age at test   ,\(age)         ,               ,               ,               \n" +
-						  "date/time of test start ,\(dateStart)   ,\(timeStart)  ,               ,               ,               ,               \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n" +
-						  "parameters              ,\(difficulty)  ,              ,               ,\(speed) s     ,               ,               \n" +
-						  "comments                ,\(comments)    ,              ,               ,               ,               ,               \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n" +
-						  "                        ,               ,motor 1       ,motor 2        ,motor 3        ,TOTAL          ,*              \n" +
-						  "no of hits              ,               ,\(mh1)        ,\(mh2)         ,\(mh3)         ,               ,               \n" +
-						  "no of false positives   ,               ,\(mfp1)       ,\(mfp2)        ,\(mfp3)        ,               ,               \n" +
- 						  "total time              ,               ,\(r(mt1))     ,\(r(mt2))      ,\(r(mt3))      ,\(r(totalMt))  ,**             \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n" +
-					      "                        ,               ,search 1      ,search 2       ,search 3       ,               ,               \n" +
-  						  "no of hits              ,               ,\(sh1)        ,\(sh2)         ,\(sh3)         ,               ,               \n" +
-						  "no of false positives   ,               ,\(sfp1)       ,\(sfp2)        ,\(sfp3)        ,               ,               \n" +
-						  "total time              ,               ,\(r(st1))     ,\(r(st2))      ,\(r(st3))      ,\(r(totSearch)),**             \n" +
-			              "hits - false positives  ,               ,\(sh1 - sfp1) ,\(sh2 - sfp2)  ,\(sh3 - sfp3)  ,               ,               \n" +
-  						  "                        ,\(screenComm)  ,              ,               ,               ,               ,               \n" +
-						  "                        ,\(durationComm),              ,               ,               ,               ,               \n" +
-						  "                        ,               ,              ,               ,               ,               ,               \n" +
-						  "\(header)               ,               ,              ,               ,               ,               ,               \n" +
-                          "                        ,               ,target row    ,target col     ,time           ,               ,               \n"
+			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,    \n" +
+						  "                        ,               ,              ,               ,               ,               ,    \n" +
+			              "ID                      ,\(playerName)  ,              ,               ,               ,               ,    \n" +
+			              "date of birth           ,\(birth)       ,age at test   ,\(age)         ,               ,               ,    \n" +
+						  "date/time of test start ,\(dateStart)   ,\(timeStart)  ,               ,               ,               ,    \n" +
+						  "                        ,               ,              ,               ,               ,               ,    \n" +
+						  "parameters              ,\(difficulty)  ,              ,               ,\(speed) s     ,               ,    \n" +
+						  "comments                ,\(comments)    ,              ,               ,               ,               ,    \n" +
+						  "                        ,               ,              ,               ,               ,               ,    \n" +
+						  "                        ,               ,              ,               ,               ,               ,    \n" +
+						  "                        ,               ,motor 1       ,motor 2        ,motor 3        ,TOTAL          ,*   \n" +
+						  "no of hits              ,               ,\(mh1)        ,\(mh2)         ,\(mh3)         ,\(mht)         ,    \n" +
+						  "no of false positives   ,               ,\(mfp1)       ,\(mfp2)        ,\(mfp3)        ,\(mfpt)        ,    \n" +
+ 						  "total time              ,               ,\(r(mt1))     ,\(r(mt2))      ,\(r(mt3))      ,\(r(mtt))      ,**  \n" +
+						  "                        ,               ,              ,               ,               ,               ,    \n" +
+						  "                        ,               ,              ,               ,               ,               ,    \n" +
+					      "                        ,               ,search 1      ,search 2       ,search 3       ,               ,    \n" +
+  						  "no of hits              ,               ,\(sh1)        ,\(sh2)         ,\(sh3)         ,\(sht)         ,    \n" +
+						  "no of false positives   ,               ,\(sfp1)       ,\(sfp2)        ,\(sfp3)        ,\(sfpt)        ,    \n" +
+						  "total time              ,               ,\(r(st1))     ,\(r(st2))      ,\(r(st3))      ,\(r(stt))      ,**  \n" +
+			              "hits - false positives  ,               ,\(sh1 - sfp1) ,\(sh2 - sfp2)  ,\(sh3 - sfp3)  ,\(sht-sfpt)    ,    \n" +
+  						  "                        ,\(screenComm)  ,              ,               ,               ,               ,    \n" +
+						  "                        ,\(durationComm),              ,               ,               ,               ,    \n" +
+						  "                        ,               ,              ,               ,               ,               ,    \n" +
+						  "\(header)               ,               ,              ,               ,               ,               ,    \n" +
+                          "                        ,               ,target row    ,target col     ,time           ,               ,    \n"
             
             // Append dynamic rows: headers and moves
             for line in dynamicLines {
