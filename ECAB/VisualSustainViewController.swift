@@ -139,12 +139,12 @@ class VisualSustainViewController: CounterpointingViewController {
 			userInfo: nil,
 			repeats: false)
 	}
-	func invalidateAllTimers() {
+	func stopTest() {
 		timeToGameOver.invalidate()
 		timeToAcceptDelay.invalidate()
-        timeToPresentWhiteSpace.invalidate()
-        timeToPresentNextScreen.invalidate()
-	}
+        // We shoudn't invalidate all timers because that will prevent
+        // screen from cleaning.
+    }
 	
 	// Called eather from timer or from Next button in the menu bar
 	override func presentNextScreen() {
@@ -186,7 +186,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 		case 176:
 			stopAutoPresentPictures()
-			invalidateAllTimers()
+			stopTest()
 			presentMessage(labels.gameEnd)
 			
 		case 177:
@@ -199,7 +199,9 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	// Called when skip button tapped
 	override func skip() {
-        invalidateAllTimers()
+        timeToPresentWhiteSpace.invalidate()
+        timeToPresentNextScreen.invalidate()
+        stopTest()
 		currentScreenShowing = 23
 		presentNextScreen()
 	}
@@ -211,7 +213,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			currentScreenShowing = -1
 			presentNextScreen()
 		} else {
-			invalidateAllTimers()
+			stopTest()
 			skip()
 		}
 	}
@@ -459,7 +461,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 		
 		if !trainingMode {
-			invalidateAllTimers()
+			stopTest()
 		}
 		if pictureAutoPresent {
 			stopAutoPresentPictures()
