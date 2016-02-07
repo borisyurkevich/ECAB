@@ -11,6 +11,18 @@
 import UIKit
 
 class VisualSustainViewController: CounterpointingViewController {
+    
+    private struct Labels {
+        let practice1 = NSLocalizedString("Practice 1: do you know these animals?", comment: "visual sustain greeting")
+        let practice2 = NSLocalizedString("Now, touch the screen\nevery time you see one of the animals", comment: "visual sustain")
+        let gameReady = NSLocalizedString("Keep touch the screen\nevery time you see one of the animals", comment: "visual sustain")
+        let reminder = NSLocalizedString("Remember, touch the screen every time you see an animal", comment: "Visual sustain. Appear when subjects ignores x amount of targets")
+        let gameEnd = NSLocalizedString("Stop.", comment: "visual sustain")
+        let testOver = NSLocalizedString("Test is Over", comment: "visual sustain alert title")
+        let testOverBody = NSLocalizedString("You've been running the test for %@", comment: "visual sustain alert body")
+        let testOverAction = NSLocalizedString("Stop the test", comment: "visual sustain alert ok")
+    }
+    private let labels = Labels()
 	
 	// Place in array of pictures that appear on the screen.
 	// There's 2 arrays: training and game.
@@ -82,7 +94,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func viewDidLoad() {
 		sessionType = 2
-        greeingMessage = "Practice 1. Ready..."
+        greeingMessage = labels.practice1
         
 		super.viewDidLoad()
 		
@@ -140,14 +152,14 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 0:
 			// Swithing trainingMode bool needed when practice is restarted.
 			trainingMode = true
-			presentMessage("Practice 1. Ready...")
+			presentMessage(labels.practice1)
 			
 		case 1:
 			showFirstView()
 			
 		case 2:
 			removeFirstView()
-			presentMessage("Practice 2. Ready...")
+			presentMessage(labels.practice2)
 			
 		case 3 ... 23:
 			if !pictureAutoPresent {
@@ -158,7 +170,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 		case 24:
 			stopAutoPresentPictures()
-			presentMessage("Game. Ready...")
+			presentMessage(labels.gameReady)
 			
 		case 25 ... 175:
 			if !pictureAutoPresent {
@@ -171,7 +183,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 176:
 			stopAutoPresentPictures()
 			stopTest()
-			presentMessage("Stop.")
+			presentMessage(labels.gameEnd)
 			
 		case 177:
 			quit()
@@ -377,7 +389,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		failureSound.play()
 		countTotalMissies = 0
 		let label = UILabel()
-		label.text = "Remember, touch the screen every time you see an animal"
+		label.text = labels.reminder
 		label.font = UIFont.systemFontOfSize(32.0)
 		label.frame = CGRectMake(120, 610, 0, 0)
 		label.sizeToFit()
@@ -413,9 +425,9 @@ class VisualSustainViewController: CounterpointingViewController {
 		if secondsPlayed >= 60 {
 			valueToDisplay = "\(Int(secondsPlayed / 60)) minutes"
 		}
-		
-		let alertView = UIAlertController(title: "Test is Over", message: "You've been running the test for \(valueToDisplay)", preferredStyle: .Alert)
-		alertView.addAction(UIAlertAction(title: "Stop the test", style: .Default, handler: {
+		let bodyString = String.localizedStringWithFormat(labels.testOverBody, valueToDisplay)
+		let alertView = UIAlertController(title: labels.testOver, message: bodyString, preferredStyle: .Alert)
+		alertView.addAction(UIAlertAction(title: labels.testOverAction, style: .Default, handler: {
 			(okAction) -> Void in
 			self.presentPause()
 		}))
