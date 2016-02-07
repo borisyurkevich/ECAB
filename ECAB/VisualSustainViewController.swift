@@ -82,6 +82,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	override func viewDidLoad() {
 		sessionType = 2
+        greeingMessage = "Practice 1. Ready..."
+        
 		super.viewDidLoad()
 		
 		imageVisibleOnScreen.frame = CGRectMake(0, 0, imageVisibleOnScreen.frame.size.width * 2, imageVisibleOnScreen.frame.size.height * 2)
