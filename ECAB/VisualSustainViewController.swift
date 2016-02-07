@@ -33,6 +33,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	let totalMissesBeforeWarningPrompt = 4
 	let timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
 	let timersScale = 0.1 // Tenth of a second
+    var timeToPresentNextScreen = NSTimer()
+    var timeToPresentWhiteSpace = NSTimer()
 	var timeToGameOver = NSTimer()
 	var dateAcceptDelayStart = NSDate()
 	
@@ -137,9 +139,11 @@ class VisualSustainViewController: CounterpointingViewController {
 			userInfo: nil,
 			repeats: false)
 	}
-	func stopTest() {
+	func invalidateAllTimers() {
 		timeToGameOver.invalidate()
 		timeToAcceptDelay.invalidate()
+        timeToPresentWhiteSpace.invalidate()
+        timeToPresentNextScreen.invalidate()
 	}
 	
 	// Called eather from timer or from Next button in the menu bar
@@ -182,7 +186,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 		case 176:
 			stopAutoPresentPictures()
-			stopTest()
+			invalidateAllTimers()
 			presentMessage(labels.gameEnd)
 			
 		case 177:
@@ -195,6 +199,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	// Called when skip button tapped
 	override func skip() {
+        invalidateAllTimers()
 		currentScreenShowing = 23
 		presentNextScreen()
 	}
@@ -206,7 +211,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			currentScreenShowing = -1
 			presentNextScreen()
 		} else {
-			stopTest()
+			invalidateAllTimers()
 			skip()
 		}
 	}
@@ -218,7 +223,6 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 		
 		let newImage = UIImage(named: pic.rawValue)
-		let whiteSpace = UIImage(named: Picture.Empty.rawValue)
 		let newFrame = UIImageView(image: newImage)
 		
 		imageVisibleOnScreen.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
@@ -246,15 +250,27 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 		
 		if timeBlankSpaceVisible >= model.kMinDelay {
-			delay(timePictureVisible) {
-				self.imageVisibleOnScreen.image = whiteSpace
-			}
+            
+            timeToPresentWhiteSpace.invalidate()
+            timeToPresentWhiteSpace = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible,
+                target: self,
+                selector: "showWhiteSpace",
+                userInfo: nil,
+                repeats: false)
 		}
-		
-		delay(timePictureVisible + timeBlankSpaceVisible) {
-			self.presentNextScreen()
-		}
+        
+        timeToPresentNextScreen.invalidate()
+        timeToPresentNextScreen = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible + timeBlankSpaceVisible,
+            target: self,
+            selector: "presentNextScreen",
+            userInfo: nil,
+            repeats: false)
 	}
+    
+    func showWhiteSpace() {
+        let whiteSpace = UIImage(named: Picture.Empty.rawValue)
+        self.imageVisibleOnScreen.image = whiteSpace
+    }
 	
 	func updateAcceptedDelay() {
 		timeSinceAnimalAppeared += timersScale
@@ -443,7 +459,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 		
 		if !trainingMode {
-			stopTest()
+			invalidateAllTimers()
 		}
 		if pictureAutoPresent {
 			stopAutoPresentPictures()
