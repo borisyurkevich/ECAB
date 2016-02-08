@@ -410,10 +410,7 @@ class VisualSearchViewController: TestViewController,
 						quit()
 					}
 				}
-				
-//				print("checkedMarks.count = \(checkedMarks.count) numberOfTargets[screen] = \(numberOfTargets[gameStage])")
-//				print("\(checkedMarks)")
-//				print("targets = \(checkedTargets)")
+
 			} else {
 				// Repeat
 				failureSound.play()

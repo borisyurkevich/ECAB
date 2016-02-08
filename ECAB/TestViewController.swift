@@ -172,6 +172,9 @@ class TestViewController: UIViewController {
 		
 		presentViewController(alertView, animated: true, completion: nil)
 	}
+    func addComment(alert: UIAlertController) {
+        // Implement in subclassws
+    }
 	
 	func presentPreviousScreen() {
 		print("❌ Implement presentPreviousScreen() in \(self.description)")
