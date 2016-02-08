@@ -121,6 +121,10 @@ class FlankerViewController: CounterpointingViewController {
 		currentScreenShowing = 22
 		presentNextScreen()
 	}
+    
+    override  func getComment() -> String {
+        return session.comment
+    }
 	
 	override func presentPreviousScreen() {
 		if trainingMode {
@@ -286,7 +290,7 @@ class FlankerViewController: CounterpointingViewController {
 		case 70:
 			presentMessage("...stop")
 		case 71:
-			quit()
+			presentPause()
 		default:
 			break
 		}

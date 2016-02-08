@@ -134,7 +134,7 @@ class CounterpointingViewController: TestViewController {
 			presentMessage("...stop")
 		case 50:
 			dogIsOnScreen = false
-			quit()
+			presentPause()
 		default:
 			dogIsOnScreen = false
 			break
@@ -273,10 +273,13 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	override func addComment(alert: UIAlertController) {
-		let textField = alert.textFields![0] 
-		self.session.comment = textField.text!
+        if let fields = alert.textFields {
+            let textField = fields[0]
+            if let existingComment = textField.text {
+                self.session.comment = existingComment
+            }
+        }
 	}
-	
 	override  func getComment() -> String {
 		return session.comment
 	}

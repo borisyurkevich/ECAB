@@ -134,12 +134,12 @@ class VisualSearchViewController: TestViewController,
 		
         if model.data.visSearchDifficulty == Mode.Easy.rawValue {
             if currentView == 8 + 1 { // TODO Change 8 to enum
-                quit()
+                presentPause()
                 return
             }
         } else if model.data.visSearchDifficulty == Mode.Hard.rawValue {
             if currentView == VisualSearchHardModeView.Two.rawValue + 1 {
-                quit()
+                presentPause()
                 return
             }
         }
@@ -254,7 +254,7 @@ class VisualSearchViewController: TestViewController,
 	func showBlankScreen() {
 		
 		if currentView == numberOfTargets.count {
-			quit()
+			presentPause()
 			return
 		}
 		
@@ -407,7 +407,7 @@ class VisualSearchViewController: TestViewController,
 					if gameStage != numberOfTargets.count - 1 { // the last screen
 						showBlankScreen()
 					} else {
-						quit()
+						presentPause()
 					}
 				}
 
@@ -460,6 +460,18 @@ class VisualSearchViewController: TestViewController,
 		
 		return path
 	}
+    
+    override  func getComment() -> String {
+        return session.comment
+    }
+    override func addComment(alert: UIAlertController) {
+        if let fields = alert.textFields {
+            let textField = fields[0]
+            if let existingComment = textField.text {
+                self.session.comment = existingComment
+            }
+        }
+    }
 	
     // MARK: - Navigation
 

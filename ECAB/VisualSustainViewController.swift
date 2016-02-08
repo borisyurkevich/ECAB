@@ -190,7 +190,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			presentMessage(labels.gameEnd)
 			
 		case 177:
-			quit()
+			presentPause()
 			
 		default:
 			break
@@ -444,6 +444,10 @@ class VisualSustainViewController: CounterpointingViewController {
 		}))
 		presentViewController(alertView, animated: true, completion: nil)
 	}
+    
+    override  func getComment() -> String {
+        return session.comment
+    }
 	
 	override func quit() {
 		gamePaused = true
