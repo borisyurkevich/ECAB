@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VisualSearch: TestViewController,
+class VisualSearchViewController: TestViewController,
     UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
 	
     var currentView = 0

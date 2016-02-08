@@ -39,7 +39,7 @@
 		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
 		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */; };
-		91E5C4161A6C6CEC00905752 /* VisualSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* VisualSearch.swift */; };
+		91E5C4161A6C6CEC00905752 /* VisualSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* VisualSearchViewController.swift */; };
 		91E5C41A1A6C6F5400905752 /* VisualSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4191A6C6F5400905752 /* VisualSearchCell.swift */; };
 		91F378471A754EA000D2F77B /* VisualSearchBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F378461A754EA000D2F77B /* VisualSearchBoard.swift */; };
 		91F3784B1A75529000D2F77B /* TestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* TestItem.swift */; };
@@ -101,7 +101,7 @@
 		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
 		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MenuViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		91E5C4151A6C6CEC00905752 /* VisualSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		91E5C4151A6C6CEC00905752 /* VisualSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearchViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C4191A6C6F5400905752 /* VisualSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearchCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F378461A754EA000D2F77B /* VisualSearchBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearchBoard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F3784A1A75529000D2F77B /* TestItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestItem.swift; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 				91E5C3D61A6BDB5000905752 /* MenuViewController.swift */,
 				91B494861B3598B100FAEE8A /* TestViewController.swift */,
 				910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */,
-				91E5C4151A6C6CEC00905752 /* VisualSearch.swift */,
+				91E5C4151A6C6CEC00905752 /* VisualSearchViewController.swift */,
 				91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */,
 				91B494841B35981D00FAEE8A /* FlankerViewController.swift */,
 				91619A541B45CE80006E1AFC /* VisualSustainViewController.swift */,
@@ -410,7 +410,7 @@
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
 				910791E51C5EA21200199A5D /* ECABLogCalculator.swift in Sources */,
 				9130B7A11BD275E900D26708 /* CounterpointingSession+CoreDataProperties.swift in Sources */,
-				91E5C4161A6C6CEC00905752 /* VisualSearch.swift in Sources */,
+				91E5C4161A6C6CEC00905752 /* VisualSearchViewController.swift in Sources */,
 				91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */,
 				91379BE61B52A4A300E3C293 /* CounterpointingSession.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
