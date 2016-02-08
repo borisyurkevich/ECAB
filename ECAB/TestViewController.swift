@@ -121,60 +121,8 @@ class TestViewController: UIViewController {
 		view.addSubview(skipTrainingButton)
 		view.addSubview(pauseButton)
     }
-
-	func quit() {
-		self.dismissViewControllerAnimated(true, completion: nil)
-	}
-	
-	func addGestures() {
-		// Clean gestures first
-		if view.gestureRecognizers != nil {
-			for gesture in view.gestureRecognizers! {
-				view.removeGestureRecognizer(gesture)
-			}
-		}
-	}
-	// Removes everything, except, the buttons
-	func cleanView() {
-		for v in view.subviews {
-			if !v.isKindOfClass(UIButton) {
-				v.removeFromSuperview()
-			}
-		}
-	}
-	
-	func addComment(alert: UIAlertController) {
-		// Implement in subclassws
-	}
-	
-	func getComment() -> String {
-		return "No comment"
-	}
-	
-	func presentPause() {
-		gamePaused = true
-		
-		let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. Add any comment", preferredStyle: .Alert)
-		
-		alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
-			self.addComment(alertView)
-			self.quit()
-		}))
-		alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
-			(okAction) -> Void in
-			self.addComment(alertView)
-			self.gamePaused = false
-		}))
-		alertView.addTextFieldWithConfigurationHandler {
-			(textField: UITextField!) -> Void in
-			textField.text = self.getComment()
-		}
-		
-		presentViewController(alertView, animated: true, completion: nil)
-	}
-    func addComment(alert: UIAlertController) {
-        // Implement in subclassws
-    }
+    
+    // MARK: Presentation
 	
 	func presentPreviousScreen() {
 		print("❌ Implement presentPreviousScreen() in \(self.description)")
@@ -186,30 +134,6 @@ class TestViewController: UIViewController {
 		print("❌ Implement skip() in \(self.description)")
 	}
 	
-	func addButtonBorder(button: UIButton) {
-		button.backgroundColor = UIColor.clearColor()
-		button.layer.cornerRadius = 5
-		button.layer.borderWidth = 1
-		button.layer.borderColor = button.tintColor!.CGColor
-	}
-	
-	func guidedAccessNotificationHandler(notification: NSNotification) {
-		
-		let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
-		pauseButton.enabled = enabled
-		
-		if pauseButton.enabled == true {
-			pauseButton.hidden = false
-		} else {
-			pauseButton.hidden = true
-		}
-		// Hide button completly
-	}
-	
-	override func prefersStatusBarHidden() -> Bool {
-		return true
-	}
-	
 	func delay(delay:Double, closure:()->()) {
 		dispatch_after(
 			dispatch_time(
@@ -218,4 +142,83 @@ class TestViewController: UIViewController {
 			),
 			dispatch_get_main_queue(), closure)
 	}
+    
+    // MARK: GUI
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    func addButtonBorder(button: UIButton) {
+        button.backgroundColor = UIColor.clearColor()
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = button.tintColor!.CGColor
+    }
+    
+    // Removes everything, except, the buttons
+    func cleanView() {
+        for v in view.subviews {
+            if !v.isKindOfClass(UIButton) {
+                v.removeFromSuperview()
+            }
+        }
+    }
+    
+    // MARK: Quit, pause, and comment
+    
+    func presentPause() {
+        gamePaused = true
+        
+        let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. Add any comment", preferredStyle: .Alert)
+        
+        alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+            self.addComment(alertView)
+            self.quit()
+        }))
+        alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
+            (okAction) -> Void in
+            self.addComment(alertView)
+            self.gamePaused = false
+        }))
+        alertView.addTextFieldWithConfigurationHandler {
+            (textField: UITextField!) -> Void in
+            textField.text = self.getComment()
+        }
+        
+        presentViewController(alertView, animated: true, completion: nil)
+    }
+    func addComment(alert: UIAlertController) {
+        // Implement in subclassws
+    }
+    func getComment() -> String {
+        return "No comment"
+    }
+    func quit() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: Other
+    
+    func addGestures() {
+        // Clean gestures first
+        if view.gestureRecognizers != nil {
+            for gesture in view.gestureRecognizers! {
+                view.removeGestureRecognizer(gesture)
+            }
+        }
+    }
+    
+    func guidedAccessNotificationHandler(notification: NSNotification) {
+        
+        let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
+        pauseButton.enabled = enabled
+        
+        if pauseButton.enabled == true {
+            pauseButton.hidden = false
+        } else {
+            pauseButton.hidden = true
+        }
+        // Hide button completly
+    }
 }
