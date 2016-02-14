@@ -150,75 +150,8 @@ class VisualSearchViewController: TestViewController,
             
             }, completion: { (fininshed: Bool) -> () in
 				
-				var defaultSize:CGFloat = 70
-				
-                if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
-					defaultSize = 54
-				}
-				
-				switch (self.currentView) {
-				case VisualSearchEasyModeView.TrainingOne.rawValue, VisualSearchHardModeView.TrainingOne.rawValue:
-					self.cellWidth = 190
-					self.cellHeight = 190
-					
-					self.insetTop = 260
-					self.insetLeft = 172
-					self.insetBottom = 10
-					self.insetRight = 172
-				case VisualSearchEasyModeView.TrainingTwo.rawValue, VisualSearchHardModeView.TrainingTwo.rawValue:
-					self.cellWidth = 84
-					self.cellHeight = 84
-					self.insetTop = 220
-					self.insetLeft = 340
-					self.insetRight = 340
-				case VisualSearchEasyModeView.TrainingThree.rawValue, VisualSearchHardModeView.TrainingThree.rawValue:
-					self.cellWidth = defaultSize
-					self.cellHeight = defaultSize
-					self.insetTop = 230
-					self.insetLeft = 200
-					self.insetRight = 200
-				case VisualSearchEasyModeView.MotorOne.rawValue ... VisualSearchEasyModeView.MotorThree.rawValue,
-                     VisualSearchHardModeView.MotorOne.rawValue ... VisualSearchHardModeView.MotorTwo.rawValue:
-					// Real game starts on motor test
-					// This is three motor screen tests
-					self.startGame()
-					self.cellWidth = defaultSize
-					self.cellHeight = defaultSize
-					self.insetTop = Insets.top
-					self.insetLeft = Insets.left
-					self.insetBottom = Insets.bottom
-					self.insetRight = Insets.right
-				default:
-					// This is normal game mode
-					self.cellWidth = defaultSize
-					self.cellHeight = defaultSize
-					self.insetTop = Insets.top
-					self.insetLeft = Insets.left
-					self.insetBottom = Insets.bottom
-					self.insetRight = Insets.right
-					self.isTraining = false
-				}
-				
-                // Hard mode needs bigger insets
-                // Ovverrides insets
-				if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
-					if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
-                    && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
-                    && self.currentView != VisualSearchHardModeView.TrainingThree.rawValue {
-                            
-						self.insetLeft = 100
-						self.insetRight = 100
-					}
-					
-					if self.currentView == VisualSearchHardModeView.TrainingThree.rawValue {
-						self.insetLeft = 245
-						self.insetRight = 245
-					}
-					
-					Insets.top = 60
-				} else {
-					Insets.top = 100
-				}
+                // UI collection view insets.
+                self.updateInsets()
 				
                 // Request new board
                 self.board = VisualSearchBoard(stage: self.currentView)
@@ -249,6 +182,79 @@ class VisualSearchViewController: TestViewController,
 					}, completion: { (Bool) in
 						self.model.addMove(0, column: 0, session: self.session, isSuccess: false, isRepeat: false, isTraining: false, screen: self.currentView, isEmpty: true, extraTime: 0)})
         })
+    }
+    
+    func updateInsets() {
+        var defaultSize:CGFloat = 70
+        if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
+            defaultSize = 54
+        }
+        
+        switch (self.currentView) {
+        case VisualSearchEasyModeView.TrainingOne.rawValue, VisualSearchHardModeView.TrainingOne.rawValue:
+            self.cellWidth = 190
+            self.cellHeight = 190
+            
+            self.insetTop = 260
+            self.insetLeft = 172
+            self.insetBottom = 10
+            self.insetRight = 172
+        case VisualSearchEasyModeView.TrainingTwo.rawValue, VisualSearchHardModeView.TrainingTwo.rawValue:
+            self.cellWidth = 84
+            self.cellHeight = 84
+            self.insetTop = 220
+            self.insetLeft = 340
+            self.insetRight = 340
+        case VisualSearchEasyModeView.TrainingThree.rawValue, VisualSearchHardModeView.TrainingThree.rawValue:
+            self.cellWidth = defaultSize
+            self.cellHeight = defaultSize
+            self.insetTop = 230
+            self.insetLeft = 200
+            self.insetRight = 200
+        case VisualSearchEasyModeView.MotorOne.rawValue ... VisualSearchEasyModeView.MotorThree.rawValue,
+        VisualSearchHardModeView.MotorOne.rawValue ... VisualSearchHardModeView.MotorTwo.rawValue:
+            // Real game starts on motor test
+            // This is three motor screen tests
+            self.startGame()
+            self.cellWidth = defaultSize
+            self.cellHeight = defaultSize
+            self.insetTop = Insets.top
+            self.insetLeft = Insets.left
+            self.insetBottom = Insets.bottom
+            self.insetRight = Insets.right
+        default:
+            // This is normal game mode
+            self.cellWidth = defaultSize
+            self.cellHeight = defaultSize
+            self.insetTop = Insets.top
+            self.insetLeft = Insets.left
+            self.insetBottom = Insets.bottom
+            self.insetRight = Insets.right
+            self.isTraining = false
+        }
+        
+        if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
+            //
+            // Hard Mode.
+            // Training #3 needs bigger left and right insets because items have
+            // smaller size. The same size as hard motor and hard test.
+            if self.currentView == VisualSearchHardModeView.TrainingThree.rawValue {
+                self.insetTop = 230 + 35 // 230 is easy mode. 35 is needed to rougly center the collection vertically
+                self.insetLeft = 245
+                self.insetRight = 245
+            }
+            
+            if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
+                && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
+                && self.currentView != VisualSearchHardModeView.TrainingThree.rawValue {
+                    //
+                    // Motor and Normal Test has smaller insets on top
+                    // in order to fit all items on the screen.
+                    self.insetTop = 60
+                    self.insetLeft = 100
+                    self.insetRight = 100
+            }
+        }
     }
 	
 	func showBlankScreen() {
