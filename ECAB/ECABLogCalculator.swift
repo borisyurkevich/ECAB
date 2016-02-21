@@ -15,8 +15,14 @@ struct TotalVisualSearch {
     var searachOneTotal: Double
     var searchTwoTotal: Double
     var searhThreeTotal: Double
+    var average: Average
 }
 
+// Time per target
+struct Average {
+    var motor: Double
+    var search: Double
+}
 
 
 class ECABLogCalculator {
@@ -28,7 +34,9 @@ class ECABLogCalculator {
     
     class func getVisualSearchTotals(session: Session) -> TotalVisualSearch {
         
-        var totals = TotalVisualSearch(motorOneTotal: 0, motorTwoTotal: 0, motorThreeTotal: 0, searachOneTotal: 0, searchTwoTotal: 0, searhThreeTotal: 0)
+        let avg = Average(motor: 0, search: 0)
+        
+        var totals = TotalVisualSearch(motorOneTotal: 0, motorTwoTotal: 0, motorThreeTotal: 0, searachOneTotal: 0, searchTwoTotal: 0, searhThreeTotal: 0, average: avg)
         
         var motorOneStart: NSDate?
         var motorOneEnd: NSDate?
@@ -43,6 +51,9 @@ class ECABLogCalculator {
         var searchThreeStart:NSDate?
         var searchThreeEnd:NSDate?
         
+        var motorHits = 0
+        var searchHits = 0
+        
         for move in session.moves {
             let gameMove = move as! Move
             
@@ -56,31 +67,60 @@ class ECABLogCalculator {
                 }
                 // End date will shift to the latest possible move on the screen
                 motorOneEnd = gameMove.date
+                
+                if gameMove.success.boolValue == true {
+                    motorHits += 1
+                }
+                
             } else if screenNum == VisualSearchEasyModeView.MotorTwo.rawValue || screenNum == VisualSearchHardModeView.MotorTwo.rawValue{
                 if (motorTwoStart == nil) {
                     motorTwoStart = gameMove.date
                 }
                 motorTwoEnd = gameMove.date
+                
+                if gameMove.success.boolValue == true {
+                    motorHits += 1
+                }
+                
             } else if screenNum == VisualSearchEasyModeView.MotorThree.rawValue {
                 if (motorThreeStart == nil) {
                     motorThreeStart = gameMove.date
                 }
                 motorThreeEnd = gameMove.date
+                
+                if gameMove.success.boolValue == true {
+                    motorHits += 1
+                }
+                
             } else if screenNum == VisualSearchEasyModeView.One.rawValue || screenNum == VisualSearchHardModeView.One.rawValue {
                 if (searchOneStart == nil) {
                     searchOneStart = gameMove.date
                 }
                 searchOneEnd = gameMove.date
+                
+                if gameMove.success.boolValue == true {
+                    searchHits += 1
+                }
+                
             } else if screenNum == VisualSearchEasyModeView.Two.rawValue || screenNum == VisualSearchHardModeView.Two.rawValue {
                 if (searchTwoStart == nil) {
                     searchTwoStart = gameMove.date
                 }
                 searchTwoEnd = gameMove.date
+                
+                if gameMove.success.boolValue == true {
+                    searchHits += 1
+                }
+                
             } else if screenNum == VisualSearchEasyModeView.Three.rawValue {
                 if (searchThreeStart == nil) {
                     searchThreeStart = gameMove.date
                 }
                 searchThreeEnd = gameMove.date
+                
+                if gameMove.success.boolValue == true {
+                    searchHits += 1
+                }
             }
             
         }
@@ -102,6 +142,12 @@ class ECABLogCalculator {
         if let s3s = searchThreeStart, let s3e = searchThreeEnd {
             totals.searhThreeTotal = r(s3e.timeIntervalSinceDate(s3s))
         }
+        
+        let totalTimeMotor = totals.motorOneTotal + totals.motorTwoTotal + totals.motorThreeTotal
+        let totalTimeSearch = totals.searachOneTotal + totals.searchTwoTotal + totals.searhThreeTotal
+        
+        totals.average.motor = r(totalTimeMotor / Double(motorHits))
+        totals.average.search = r(totalTimeSearch / Double(searchHits))
     
         return totals
     }
