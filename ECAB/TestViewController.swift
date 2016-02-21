@@ -35,6 +35,11 @@ class TestViewController: UIViewController {
 
 	var trainingMode = true
 	var gamePaused = false
+    
+    // For cases when information on the screen, for example,
+    // blue dot or title label. In this case app should not 
+    // accept players interactions.
+    var playerInteractionsDisabled = false
 	
 	var menuBarHeight: CGFloat = 0.0
 	// Doesnt affect Visual Search
@@ -163,6 +168,7 @@ class TestViewController: UIViewController {
                 v.removeFromSuperview()
             }
         }
+        playerInteractionsDisabled = false
     }
     
     // MARK: Quit, pause, and comment

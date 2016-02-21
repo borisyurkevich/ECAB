@@ -15,16 +15,15 @@ class CounterpointingViewController: TestViewController {
 	var lastMistakeDate = NSDate().dateByAddingTimeInterval(0)
 	var greeingMessage = "Practice: touch the side with the dog"
 	var sessionType = 0
-	let pictureHeight: CGFloat = 197
-	let pictureWidth: CGFloat = 281
+	private let pictureHeight: CGFloat = 197
+	private let pictureWidth: CGFloat = 281
 	var gameModeInversed = false
 	var touchModeInverserd = false
-	var dogIsOnScreen = false
 
 	var leftTarget = false // first screen will be with dog on right
 	var session: CounterpointingSession!
-	var totalOne = 0
-	var totalTwo = 0
+	private var totalOne = 0
+	private var totalTwo = 0
 	
 	// MARK: Override
 	
@@ -71,10 +70,8 @@ class CounterpointingViewController: TestViewController {
 	func presentDogOnSide(screenSide: Side) {
 		if screenSide == .Left {
 			presentDogOnLeft()
-			dogIsOnScreen = true
 		} else if screenSide == .Right {
 			presentDogOnRight()
-			dogIsOnScreen = true
 		}
 	}
 	func presentDogOnLeft(){
@@ -102,41 +99,33 @@ class CounterpointingViewController: TestViewController {
 		switch currentScreenShowing {
 		case 0:
 			// This is needed when practice is restarted.
-			dogIsOnScreen = false
 			presentMessage(greeingMessage)
 		case 1 ... 2:
 			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 3:
-			dogIsOnScreen = false
 			trainingMode = false
 			presentMessage("Touch the side with the dog as quickly as you can!")
 		case 4 ... 23:
 			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 24:
-			dogIsOnScreen = false
 			presentMessage("...stop")
 		case 25:
 			trainingMode = true
 			gameModeInversed = true
 			touchModeInverserd = true
-			dogIsOnScreen = false
 			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
 		case 26 ... 27:
 			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 28:
 			trainingMode = false
-			dogIsOnScreen = false
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
 		case 29 ... 48:
 			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 49:
-			dogIsOnScreen = false
 			presentMessage("...stop")
 		case 50:
-			dogIsOnScreen = false
 			presentPause()
 		default:
-			dogIsOnScreen = false
 			break
 		}
 	}
@@ -158,12 +147,12 @@ class CounterpointingViewController: TestViewController {
 	
 	func presentBlueDot() {
 		cleanView()
-		
-		dogIsOnScreen = false
-		
+				
 		let dot = UIImageView(image: UIImage(named: "Blue Dot"))
 		dot.center = view.center
 		view.addSubview(dot)
+        
+        self.playerInteractionsDisabled = true
 	}
 	
 	func presentMessage(message: String){
@@ -173,6 +162,8 @@ class CounterpointingViewController: TestViewController {
 		label.textAlignment = NSTextAlignment.Center
 		label.font = UIFont.systemFontOfSize(44)
 		view.addSubview(label)
+        
+        self.playerInteractionsDisabled = true
 	}
 	
 	func handleTouchLeft() {
@@ -184,9 +175,9 @@ class CounterpointingViewController: TestViewController {
 	func tapHandler(touchLeft: Bool){
 		// Determine Success or failure
 		
-		if self .isMemberOfClass(CounterpointingViewController) && !dogIsOnScreen {
-			return
-		}
+        if playerInteractionsDisabled {
+            return
+        }
 		
 		var result:Bool
 		
