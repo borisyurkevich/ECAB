@@ -176,7 +176,7 @@ class TestViewController: UIViewController {
     func presentPause() {
         gamePaused = true
         
-        let alertView = UIAlertController(title: "Game paused", message: "You can quit the game. Add any comment", preferredStyle: .Alert)
+        let alertView = UIAlertController(title: "Pause", message: "Quit this test or add a comment.", preferredStyle: .Alert)
         
         alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
             self.addComment(alertView)
@@ -189,6 +189,9 @@ class TestViewController: UIViewController {
         }))
         alertView.addTextFieldWithConfigurationHandler {
             (textField: UITextField!) -> Void in
+            textField.clearButtonMode = .Always
+            textField.placeholder = "Your comment"
+            textField.autocapitalizationType = .Sentences
             textField.text = self.getComment()
         }
         
@@ -197,8 +200,8 @@ class TestViewController: UIViewController {
     func addComment(alert: UIAlertController) {
         // Implement in subclassws
     }
-    func getComment() -> String {
-        return "No comment"
+    func getComment() -> String? {
+        return ""
     }
     func quit() {
         self.dismissViewControllerAnimated(true, completion: nil)
