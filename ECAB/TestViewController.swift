@@ -182,7 +182,7 @@ class TestViewController: UIViewController {
             self.addComment(alertView)
             self.quit()
         }))
-        alertView.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: {
+        alertView.addAction(UIAlertAction(title: "Continue", style: .Cancel, handler: {
             (okAction) -> Void in
             self.addComment(alertView)
             self.gamePaused = false
