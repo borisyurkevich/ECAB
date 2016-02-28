@@ -32,19 +32,39 @@ class LogModel {
 			var screenName = ""
 			let screenNum = gameMove.screenNumber.integerValue
             var trainig = false
+            
 			switch screenNum {
-			case 0 ... 2, 11 ... 13:
+                
+            case VisualSearchEasyModeView.TrainingOne.rawValue ... VisualSearchEasyModeView.TrainingThree.rawValue:
+                
 				screenName = "Training \(screenNum + 1)"
                 trainig = true
-				break
-			case 3 ... 5, 14 ... 15:
-				screenName = "Motor \(screenNum - 2)"
+                
+            case VisualSearchHardModeView.TrainingOne.rawValue ... VisualSearchHardModeView.TrainingThree.rawValue:
+                
+                screenName = "Training \(screenNum - 10)"
+                trainig = true
+                
+            case VisualSearchEasyModeView.MotorOne.rawValue ... VisualSearchEasyModeView.MotorThree.rawValue:
+                
+                screenName = "Motor \(screenNum - 2)"
                 trainig = false
-				break
-			case 6 ... 8, 16 ... 17:
+                
+            case VisualSearchHardModeView.MotorOne.rawValue, VisualSearchHardModeView.MotorTwo.rawValue:
+
+                screenName = "Motor \(screenNum - 13)"
+                trainig = false
+
+            case VisualSearchEasyModeView.One.rawValue ... VisualSearchEasyModeView.Three.rawValue:
+            
 				screenName = "Search \(screenNum - 5)"
                 trainig = false
-				break
+			
+            case VisualSearchHardModeView.One.rawValue, VisualSearchHardModeView.Two.rawValue:
+                
+                screenName = "Search \(screenNum - 15)"
+                trainig = false
+                
 			default:
 				break
 			}
@@ -98,11 +118,8 @@ class LogModel {
 		if let canonicBuild = session.bundleVersion as String? {
 			build = canonicBuild
 		}
-		
-        // TODO
-        // let timePerTargetFoundMotor = 0.0
         
-		let visualSearchLog = "\(gameName)\n\nPlayer name: \(session.player.name); difficulty: \(difficulty); screen duration 2: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(session.score)\nFalse positives: \(session.failureScore)\n\nTime per target found[motor] = \(totals.average.motor)\nTime per target found[search] = \(totals.average.search)\nSearch time - motor time per target = \(totals.average.search - totals.average.motor)\n\nMotor 1 total = \(totals.motorOneTotal)\nMotor 2 total = \(totals.motorTwoTotal)\nMotor 3 total = \(totals.motorThreeTotal)\nSearch 1 total = \(totals.searachOneTotal)\nSearch 2 total = \(totals.searchTwoTotal)\nSearch 3 total = \(totals.searhThreeTotal)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
+		let visualSearchLog = "\(gameName) \(difficulty) difficulty. \n\nPlayer name: \(session.player.name)\nExposure: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(session.score)\nFalse positives: \(session.failureScore)\n\nTime per target found[motor] = \(totals.average.motor)\nTime per target found[search] = \(totals.average.search)\nSearch time - motor time per target = \(totals.average.search - totals.average.motor)\n\nMotor 1 total = \(totals.motorOneTotal)\nMotor 2 total = \(totals.motorTwoTotal)\nMotor 3 total = \(totals.motorThreeTotal)\nSearch 1 total = \(totals.searachOneTotal)\nSearch 2 total = \(totals.searchTwoTotal)\nSearch 3 total = \(totals.searhThreeTotal)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
 		return visualSearchLog;
 	}
 	
