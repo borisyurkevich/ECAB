@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -475,7 +475,7 @@
             </objects>
             <point key="canvasLocation" x="-90" y="752"/>
         </scene>
-        <!--Session-->
+        <!--Session Log-->
         <scene sceneID="LZK-h6-jyy">
             <objects>
                 <viewController id="syM-os-cW6" customClass="HistoryViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
@@ -515,15 +515,8 @@
                             <constraint firstAttribute="centerY" secondItem="YOd-VB-Ye7" secondAttribute="centerY" id="wmk-WV-s1o"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Session" id="RR3-0r-HER">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="anv-2T-ABa">
-                            <connections>
-                                <action selector="handleShare:" destination="syM-os-cW6" id="cCy-Nu-wpU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Session Log" id="RR3-0r-HER"/>
                     <connections>
-                        <outlet property="actionButton" destination="anv-2T-ABa" id="oya-dW-FSg"/>
                         <outlet property="helpMessage" destination="YOd-VB-Ye7" id="Um7-hN-eOp"/>
                         <outlet property="textView" destination="obK-CX-Wet" id="NQN-T7-X52"/>
                     </connections>
@@ -555,7 +548,16 @@
                             <outlet property="delegate" destination="bYc-bL-klV" id="xjG-9d-wXd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sessions" id="tUe-0J-V6O"/>
+                    <navigationItem key="navigationItem" title="Sessions" id="tUe-0J-V6O">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="MPm-ga-JvH">
+                            <connections>
+                                <action selector="handleExport:" destination="bYc-bL-klV" id="eA5-iH-EZU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="actionButton" destination="MPm-ga-JvH" id="XNs-tt-UGI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="olL-85-2EX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

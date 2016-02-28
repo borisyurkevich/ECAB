@@ -8,13 +8,28 @@
 
 import UIKit
 
-class SessionsTableViewController: UITableViewController {
+class SessionsTableViewController: UITableViewController, UIDocumentInteractionControllerDelegate {
 	
 	let model = Model.sharedInstance
 	let logModel = LogModel()
 	
 	private let reuseIdentifier = "Session Table Cell"
+    
+    var documentInteractionController: UIDocumentInteractionController?
+    // Has to be global var because in some cases it can be released during export
+    // http://stackoverflow.com/a/32746567/1162044
 	
+    private var selectedSession: Session?
+    private var selectedCounterpointingSession:CounterpointingSession?
+    
+    @IBOutlet weak var actionButton: UIBarButtonItem!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        actionButton.enabled = false
+    }
+    
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
@@ -24,6 +39,71 @@ class SessionsTableViewController: UITableViewController {
 		// game is finished.
 		tableView.reloadData()
 	}
+    
+    // Export
+    
+    @IBAction func handleExport(sender: UIBarButtonItem) {
+        
+        let exportDialog = UIAlertController(title: "Export", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let fileOption = UIAlertAction(title: "Export file", style: UIAlertActionStyle.Default, handler: { action in
+            self.exportToCSV()
+        })
+        let emailOption = UIAlertAction(title: "Send file", style: UIAlertActionStyle.Default, handler: { action in
+            self.presentActivityViewController()
+        })
+        exportDialog.addAction(emailOption)
+        exportDialog.addAction(fileOption)
+        exportDialog.popoverPresentationController?.barButtonItem = sender
+        navigationController?.presentViewController(exportDialog, animated: true,
+            completion: nil)
+        
+    }
+    
+    func exportToCSV() {
+        if let url = writeFileAndReturnURL() {
+            documentInteractionController = UIDocumentInteractionController(URL: url)
+            documentInteractionController!.UTI = "public.comma-separated-values-text"
+            documentInteractionController!.delegate = self
+            documentInteractionController!.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
+        }
+    }
+    func presentActivityViewController() {
+        if let url = writeFileAndReturnURL() {
+            let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            activityVC.popoverPresentationController?.barButtonItem = actionButton
+            self.navigationController?.presentViewController(activityVC, animated: true, completion: nil)
+        }
+    }
+    func writeFileAndReturnURL() -> NSURL? {
+        let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
+        let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
+        
+        let exportManager = DataExportModel()
+        exportManager.pickedVisualSearchSession = selectedSession
+        // TODO change to have other sessions support.
+        
+        if let data = exportManager.export() {
+            do {
+                try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
+            } catch {
+                let writeError = error as NSError
+                let message = "Error. Can't write a file: \(writeError)"
+                let errorAlert = UIAlertController(title: "Can't write file", message: message, preferredStyle: .Alert)
+                let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
+                errorAlert.addAction(okayAction)
+                navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+                return nil
+            }
+            return url
+        } else {
+            let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
+            let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
+            errorAlert.addAction(okayAction)
+            navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+            return nil
+        }
+    }
+    
 	
 	// MARK: - Table view data source
 	
@@ -226,19 +306,17 @@ class SessionsTableViewController: UITableViewController {
 		smallFormatter.dateFormat = "HH:mm:ss:S"
 		
 		let gameName = model.games[Int(model.data.selectedGame)]
-		
-		if (detailVC.exportManager == nil) {
-			return
-		}
-		
+        
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
 			let pickedSession = model.data.sessions[indexPath.row] as! Session
 			let visualSearchLog = logModel.generateVisualSearchLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = visualSearchLog
 			detailVC.helpMessage.text = ""
-			detailVC.actionButton.enabled = true
-			detailVC.exportManager!.pickedVisualSearchSession = pickedSession
+			
+            actionButton.enabled = true
+			selectedSession = pickedSession
+            
 		case GamesIndex.Counterpointing.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -251,8 +329,10 @@ class SessionsTableViewController: UITableViewController {
 			let counterpointingLog = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
-			detailVC.actionButton.enabled = true
-			detailVC.exportManager!.pickedCounterpointingSession = pickedSession
+			
+            actionButton.enabled = false
+			selectedCounterpointingSession = pickedSession
+            
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -265,8 +345,10 @@ class SessionsTableViewController: UITableViewController {
 			let text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
-			detailVC.actionButton.enabled = true
-			detailVC.exportManager!.pickedCounterpointingSession = pickedSession
+			
+            actionButton.enabled = false
+			selectedCounterpointingSession = pickedSession
+            
 		case GamesIndex.VisualSust.rawValue:
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
@@ -278,8 +360,10 @@ class SessionsTableViewController: UITableViewController {
 			let pickedSession = array[indexPath.row]
 			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName)
 			detailVC.helpMessage.text = ""
-			detailVC.actionButton.enabled = true
-			detailVC.exportManager!.pickedCounterpointingSession = pickedSession
+			
+            actionButton.enabled = false
+			selectedCounterpointingSession = pickedSession
+            
 		default:
 			break
 		}
