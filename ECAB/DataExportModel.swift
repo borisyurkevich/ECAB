@@ -235,34 +235,37 @@ class DataExportModel {
                 } else {
                     var header = "header uknown"
                     switch screenNumber {
-                    case 3:
+                    case VisualSearchEasyModeView.MotorOne.rawValue:
                         header = "motor screen 1"
                         currentSection = .MoveTypeMotorOne
-                    case 4:
+                    case VisualSearchEasyModeView.MotorTwo.rawValue:
                         header = "motor screen 2"
                         currentSection = .MoveTypeMotorTwo
-                    case 5:
+                    case VisualSearchEasyModeView.MotorThree.rawValue:
                         header = "motor screen 3"
                         currentSection = .MoveTypeMotorThree
-                    case 14:
+                    
+                    case VisualSearchHardModeView.MotorOne.rawValue:
                         header = "motor screen 1"
-                        currentSection = .MoveTypeSearchOne
-                    case 15:
+                        currentSection = .MoveTypeMotorOne
+                    case VisualSearchHardModeView.MotorTwo.rawValue:
                         header = "motor screen 2"
-                        currentSection = .MoveTypeSearchTwo
-                    case 6:
+                        currentSection = .MoveTypeMotorTwo
+                        
+                    case VisualSearchEasyModeView.One.rawValue:
                         header = "search screen 1"
                         currentSection = .MoveTypeSearchOne
-                    case 7:
+                    case VisualSearchEasyModeView.Two.rawValue:
                         header = "search screen 2"
                         currentSection = .MoveTypeSearchTwo
-                    case 8:
+                    case VisualSearchEasyModeView.Three.rawValue:
                         header = "search screen 3"
                         currentSection = .MoveTypeSearchThree
-                    case 16:
+                        
+                    case VisualSearchHardModeView.One.rawValue:
                         header = "search screen 1"
                         currentSection = .MoveTypeSearchOne
-                    case 17:
+                    case VisualSearchHardModeView.Two.rawValue:
                         header = "search screen 2"
                         currentSection = .MoveTypeSearchTwo
                     default:
