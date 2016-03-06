@@ -327,6 +327,13 @@ class VisualSearchViewController: TestViewController,
 	func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
 		
 		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
+        
+        // Sound
+        if cell.fruit.isValuable {
+            successSound.play()
+        } else {
+            failureSound.play()
+        }
 		
 		var isRepeat = false
 		for item in checkedMarks {
@@ -398,9 +405,6 @@ class VisualSearchViewController: TestViewController,
 					session.score = NSNumber(integer: (times + 1))
 				}
 				
-				// Play the success sound
-				successSound.play()
-				
 				var gameStage = currentView
                 if model.data.visSearchDifficulty == Mode.Hard.rawValue {
 					gameStage -= VisualSearchHardModeView.TrainingOne.rawValue
@@ -417,19 +421,13 @@ class VisualSearchViewController: TestViewController,
 					}
 				}
 
-			} else {
-				// Repeat
-				failureSound.play()
 			}
-			
 		} else {
 			// Not valuable fruit selected
-			
 			if (!isTraining) {
 				let times = session.failureScore.integerValue
 				session.failureScore = NSNumber(integer: (times + 1))
 			}
-			failureSound.play()
 		}
 	}
 	
