@@ -27,10 +27,6 @@ class TestViewController: UIViewController {
 	let backButton = UIButton(type: UIButtonType.System)
 	let skipTrainingButton = UIButton(type: UIButtonType.System)
 	
-	var successSound = AVAudioPlayer()
-	var failureSound = AVAudioPlayer()
-	var attentionSound = AVAudioPlayer()
-	
 	var currentScreenShowing = 0
 
 	var trainingMode = true
@@ -49,6 +45,51 @@ class TestViewController: UIViewController {
 		case Left
 		case Right
 	}
+    
+    enum Sound {
+        case Positive
+        case Negative
+        case Attention
+    }
+    
+    func playSound(type: Sound) {
+    
+        switch type {
+        case .Positive:
+            if let soundURL = NSBundle.mainBundle().URLForResource("slide-magic", withExtension: "aif") {
+                var soundID:SystemSoundID = 1
+                AudioServicesCreateSystemSoundID(soundURL, &soundID)
+                AudioServicesPlaySystemSound(soundID)
+            } else {
+                presentErrorAlert()
+            }
+        case .Negative:
+            if let soundURL = NSBundle.mainBundle().URLForResource("beep-attention", withExtension: "aif") {
+                var soundID:SystemSoundID = 1
+                AudioServicesCreateSystemSoundID(soundURL, &soundID)
+                AudioServicesPlaySystemSound(soundID)
+            } else {
+                presentErrorAlert()
+            }
+        case .Attention:
+            if let soundURL = NSBundle.mainBundle().URLForResource("beep-piano", withExtension: "aif") {
+                var soundID:SystemSoundID = 1
+                AudioServicesCreateSystemSoundID(soundURL, &soundID)
+                AudioServicesPlaySystemSound(soundID)
+            } else {
+                presentErrorAlert()
+            }
+        }
+    }
+    
+    func presentErrorAlert() {
+        let errorAlert = UIAlertController(title: nil,
+            message: "Couldn't play a sound.",
+            preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        errorAlert.addAction(okayAction)
+        presentViewController(errorAlert, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,33 +97,6 @@ class TestViewController: UIViewController {
 		view.backgroundColor = UIColor.whiteColor()
 		
 		menuBarHeight = standardButtonHeight + (marginTop * 2)
-		
-		// Sounds
-		let successSoundPath = NSBundle.mainBundle().pathForResource("slide-magic", ofType: "aif")
-		let successSoundURL = NSURL(fileURLWithPath: successSoundPath!)
-		var error: NSError?
-		do {
-			successSound = try AVAudioPlayer(contentsOfURL: successSoundURL)
-		} catch let error1 as NSError {
-			error = error1
-			print("Error \(error)")
-		}
-		successSound.prepareToPlay()
-		let failureSoundPath = NSBundle.mainBundle().pathForResource("beep-attention", ofType: "aif")
-		let failureSoundURL = NSURL(fileURLWithPath: failureSoundPath!)
-		do {
-			failureSound = try AVAudioPlayer(contentsOfURL: failureSoundURL)
-		} catch let error as NSError {
-			print("Error \(error)")
-		}
-		failureSound.prepareToPlay()
-		let attentionSoundPath = NSBundle.mainBundle().pathForResource("beep-piano", ofType: "aif")
-		let attentionSoundIRL = NSURL(fileURLWithPath: attentionSoundPath!)
-		do {
-			attentionSound = try AVAudioPlayer(contentsOfURL: attentionSoundIRL)
-		} catch let error as NSError {
-			print("Error \(error)")
-		}
 		
 		// Buttons
 		let screenSize: CGSize = UIScreen.mainScreen().bounds.size

@@ -330,7 +330,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		if timeSinceAnimalAppeared <= timeAcceptDelay {
 			countTotalMissies = 0
 			
-			successSound.play()
+			playSound(.Positive)
 			log(.Hit)
 			
 			// Prevents following taps to be sucesfull
@@ -397,7 +397,9 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	func showWarningPrompt() {
-		failureSound.play()
+    
+		playSound(.Negative)
+        
 		countTotalMissies = 0
 		let label = UILabel()
 		label.text = labels.reminder

@@ -330,9 +330,9 @@ class VisualSearchViewController: TestViewController,
         
         // Sound
         if cell.fruit.isValuable {
-            successSound.play()
+            playSound(.Positive)
         } else {
-            failureSound.play()
+            playSound(.Negative)
         }
 		
 		var isRepeat = false
