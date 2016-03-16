@@ -94,6 +94,13 @@ class DataExportModel {
             let stt = st1 + st2 + st3
             let sht = sh1 + sh2 + sh3
             let sfpt = sfp1 + sfp2 + sfp3
+            
+            
+            let avg = ECABLogCalculator.getVisualSearchTotals(visualSearchSession).average
+            let avgMotor = "Time per target found [motor]"
+            let avgSearch = "Time per target found [search]"
+            let avgDiff = "Search time - motor time per target"
+            let avgDiffVal = avg.search - avg.motor
 			
 			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,    \n" +
 						  "                        ,               ,              ,               ,               ,               ,    \n" +
@@ -119,6 +126,10 @@ class DataExportModel {
   						  "                        ,\(screenComm)  ,              ,               ,               ,               ,    \n" +
 						  "                        ,\(durationComm),              ,               ,               ,               ,    \n" +
 						  "                        ,               ,              ,               ,               ,               ,    \n" +
+                          "\(avgMotor)             ,\(avg.motor)   ,              ,               ,               ,               ,    \n" +
+                          "\(avgSearch)            ,\(avg.search)  ,              ,               ,               ,               ,    \n" +
+                          "\(avgDiff)              ,\(avgDiffVal)  ,              ,               ,               ,               ,    \n" +
+                          "                        ,               ,              ,               ,               ,               ,    \n" +
 						  "\(header)               ,               ,              ,               ,               ,               ,    \n" +
                           "                        ,               ,target row    ,target col     ,time           ,               ,    \n"
             
