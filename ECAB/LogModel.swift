@@ -74,7 +74,7 @@ class LogModel {
 			if gameMove.success.boolValue == true {
 				progress = "success"
 			} else {
-				progress = "failure"
+				progress = "false positive"
 			}
 			
 			var `repeat` = ""
@@ -131,7 +131,7 @@ class LogModel {
 		for move in session.moves {
 			let actualMove = move as! CounterpointingMove
 			if !actualMove.success.boolValue {
-				status = "mistake"
+				status = "false positive"
 			} else {
 				status = "success"
 			}
@@ -173,7 +173,7 @@ class LogModel {
 		for move in session.moves {
 			let actualMove = move as! CounterpointingMove
 			if !actualMove.success.boolValue {
-				status = "mistake"
+				status = "false positive"
 			} else {
 				status = "success"
 			}
