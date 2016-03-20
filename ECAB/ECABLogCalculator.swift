@@ -54,6 +54,8 @@ class ECABLogCalculator {
         var motorHits = 0
         var searchHits = 0
         
+        var hitsPerScreen = [0, 0, 0, 0, 0, 0]
+        
         for move in session.moves {
             let gameMove = move as! Move
             
@@ -70,6 +72,7 @@ class ECABLogCalculator {
                 
                 if gameMove.success.boolValue == true {
                     motorHits += 1
+                    hitsPerScreen[0] += 1
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.MotorTwo.rawValue || screenNum == VisualSearchHardModeView.MotorTwo.rawValue{
@@ -80,6 +83,7 @@ class ECABLogCalculator {
                 
                 if gameMove.success.boolValue == true {
                     motorHits += 1
+                    hitsPerScreen[1] += 1
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.MotorThree.rawValue {
@@ -90,6 +94,7 @@ class ECABLogCalculator {
                 
                 if gameMove.success.boolValue == true {
                     motorHits += 1
+                    hitsPerScreen[2] += 1
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.One.rawValue || screenNum == VisualSearchHardModeView.One.rawValue {
@@ -100,6 +105,7 @@ class ECABLogCalculator {
                 
                 if gameMove.success.boolValue == true {
                     searchHits += 1
+                    hitsPerScreen[3] += 1
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.Two.rawValue || screenNum == VisualSearchHardModeView.Two.rawValue {
@@ -110,6 +116,7 @@ class ECABLogCalculator {
                 
                 if gameMove.success.boolValue == true {
                     searchHits += 1
+                    hitsPerScreen[4] += 1
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.Three.rawValue {
@@ -120,6 +127,7 @@ class ECABLogCalculator {
                 
                 if gameMove.success.boolValue == true {
                     searchHits += 1
+                    hitsPerScreen[5] += 1
                 }
             }
             
@@ -141,6 +149,45 @@ class ECABLogCalculator {
         }
         if let s3s = searchThreeStart, let s3e = searchThreeEnd {
             totals.searhThreeTotal = r(s3e.timeIntervalSinceDate(s3s))
+        }
+        
+        // When not all targets hits totals need to be increased to the 
+        // amount of time screen is visible
+        if session.difficulty == Difficulty.Easy.rawValue {
+            
+            if hitsPerScreen[0] < VisualSearchTargets.easyMode[3] {
+               totals.motorOneTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[1] < VisualSearchTargets.easyMode[4] {
+                totals.motorTwoTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[2] < VisualSearchTargets.easyMode[5] {
+                totals.motorThreeTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[3] < VisualSearchTargets.easyMode[6] {
+                totals.searachOneTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[4] < VisualSearchTargets.easyMode[7] {
+                totals.searchTwoTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[5] < VisualSearchTargets.easyMode[8] {
+                totals.searhThreeTotal = session.speed.doubleValue
+            }
+            
+        } else if session.difficulty == Difficulty.Hard.rawValue {
+            
+            if hitsPerScreen[0] < VisualSearchTargets.hardMode[3] {
+                totals.motorOneTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[1] < VisualSearchTargets.hardMode[4] {
+                totals.motorTwoTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[4] < VisualSearchTargets.hardMode[5] {
+                totals.searachOneTotal = session.speed.doubleValue
+            }
+            if hitsPerScreen[5] < VisualSearchTargets.hardMode[6] {
+                totals.searchTwoTotal = session.speed.doubleValue
+            }
         }
         
         let totalTimeMotor = totals.motorOneTotal + totals.motorTwoTotal + totals.motorThreeTotal

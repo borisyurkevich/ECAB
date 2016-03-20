@@ -30,9 +30,14 @@ enum VisualSearchHardModeView: Int {
     case Two = 17
 }
 
-struct VisauSearchTargets {
+struct VisualSearchTargets {
     static let easyMode = [1, 1, 2, 6, 6, 6, 6, 6, 6]
     static let hardMode = [1, 1, 2, 9, 9, 9, 9]
+}
+
+struct VisualSearchSpeed {
+    static let easyMode = 20.0
+    static let hardMode = 30.0 // Default value, can be changed in CoreData
 }
 
 class VisualSearchBoard {

@@ -13,7 +13,7 @@ class VisualSearchViewController: TestViewController,
 	
     var currentView = 0
     let reuseIdentifier = "ApplesCell"
-    var gameSpeed: Double = 20 // Amount of seconds one view is visible, default is 20
+    var gameSpeed: Double = VisualSearchSpeed.easyMode // Amount of seconds one view is visible, default is 20
 	let transitionSpeed = 0.4
 	private var checkedMarks = [Int]() // Every tapped target
 	private var checkedTargets = [Int]() // Only red appples
@@ -74,12 +74,12 @@ class VisualSearchViewController: TestViewController,
 		
 		if model.data.visSearchDifficulty == Mode.Hard.rawValue {
 			currentView = VisualSearchHardModeView.TrainingOne.rawValue
-			numberOfTargets = VisauSearchTargets.hardMode
+			numberOfTargets = VisualSearchTargets.hardMode
 			gameSpeed = model.data.visSearchSpeedHard.doubleValue
 		} else {
 			// Easy Mode
 			gameSpeed = model.data.visSearchSpeed.doubleValue
-            numberOfTargets = VisauSearchTargets.easyMode
+            numberOfTargets = VisualSearchTargets.easyMode
 		}
 		
         boardFlowLayout = configureFlowLayout()
