@@ -18,7 +18,7 @@ class VisualSearchViewController: TestViewController,
 	private var checkedMarks = [Int]() // Every tapped target
 	private var checkedTargets = [Int]() // Only red appples
 	private var isTraining = true
-	private var numberOfTargets = [1, 1, 2, 6, 6, 6, 6, 6, 6]
+	private var numberOfTargets = [0] // Depends on test difficulty
 	private var collectionView: UICollectionView
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
@@ -74,11 +74,12 @@ class VisualSearchViewController: TestViewController,
 		
 		if model.data.visSearchDifficulty == Mode.Hard.rawValue {
 			currentView = VisualSearchHardModeView.TrainingOne.rawValue
-			numberOfTargets = [1, 1, 2, 9, 9, 9, 9]
+			numberOfTargets = VisauSearchTargets.hardMode
 			gameSpeed = model.data.visSearchSpeedHard.doubleValue
 		} else {
 			// Easy Mode
 			gameSpeed = model.data.visSearchSpeed.doubleValue
+            numberOfTargets = VisauSearchTargets.easyMode
 		}
 		
         boardFlowLayout = configureFlowLayout()

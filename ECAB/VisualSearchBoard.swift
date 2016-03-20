@@ -30,6 +30,11 @@ enum VisualSearchHardModeView: Int {
     case Two = 17
 }
 
+struct VisauSearchTargets {
+    static let easyMode = [1, 1, 2, 6, 6, 6, 6, 6, 6]
+    static let hardMode = [1, 1, 2, 9, 9, 9, 9]
+}
+
 class VisualSearchBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
