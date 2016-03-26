@@ -125,7 +125,7 @@ class LogModel {
 	
 	func generateCounterpointingLogWithSession(session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
-		var counter = 0
+		var counter = 1
 		var status = "success"
 
 		for move in session.moves {
@@ -185,7 +185,7 @@ class LogModel {
 	
 	func generateFlankerLogWithSession(session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
-		var counter = 0
+		var counter = 1
 		var status = "success"
 		for move in session.moves {
 			let actualMove = move as! CounterpointingMove
@@ -257,7 +257,7 @@ class LogModel {
 	
 	func generateVisualSustainLogWithSession(session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
-		var counter = 0
+		var counter = 1
 		
 		var spacePrinted = false
 		for move in session.moves {
