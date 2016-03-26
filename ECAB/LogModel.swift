@@ -92,14 +92,14 @@ class LogModel {
 				
                 append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) \n"
 
-				counter++
+				counter += 1
 			} else {
                 if (!trainig) {
                     append = "\n\(screenName) onset \(dateStr) \n"
                 } else {
                     append = "\n\(screenName)\n"
                 }
-				emptyScreenCounter++
+				emptyScreenCounter += 1
 			}
 			
 			detailMoves = detailMoves + append
@@ -148,7 +148,7 @@ class LogModel {
 			} else {
 				details = details + append
 			}
-				counter++
+				counter += 1
 		}
 		
 		let dateString = formatter.stringFromDate(session.dateStart)
@@ -189,7 +189,7 @@ class LogModel {
 			} else {
 				details = details + append
 			}
-			counter++
+			counter += 1
 		}
 		
 		let dateString = formatter.stringFromDate(session.dateStart)
@@ -246,7 +246,7 @@ class LogModel {
 			} else {
 				details = details + append
 			}
-			counter++
+			counter += 1
 		}
 		
 		let dateString = formatter.stringFromDate(session.dateStart)

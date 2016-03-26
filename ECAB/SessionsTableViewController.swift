@@ -182,7 +182,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
 				if cSession.type.integerValue == 0 {
-					returnValue++
+					returnValue += 1
 				}
 			}
 			break
@@ -190,14 +190,14 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
 				if cSession.type.integerValue == 1 {
-					returnValue++
+					returnValue += 1
 				}
 			}
 		case GamesIndex.VisualSust.rawValue:
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
 				if cSession.type.integerValue == 2 {
-					returnValue++
+					returnValue += 1
 				}
 			}
 		default:

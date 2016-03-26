@@ -91,7 +91,7 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	override func presentNextScreen() {
-		currentScreenShowing++
+		currentScreenShowing += 1
 	
 		cleanView()
 		screenPresentedDate = NSDate()
@@ -139,8 +139,8 @@ class CounterpointingViewController: TestViewController {
 		let screenAreaRight = CGRectMake(screen.size.width/2, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
 		let buttonLeft = UIButton(frame: screenAreaLeft)
 		let buttonRight = UIButton(frame: screenAreaRight)
-		buttonLeft.addTarget(self, action: "handleTouchLeft", forControlEvents: UIControlEvents.TouchDown)
-		buttonRight.addTarget(self, action: "handleTouchRight", forControlEvents: UIControlEvents.TouchDown)
+		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), forControlEvents: UIControlEvents.TouchDown)
+		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), forControlEvents: UIControlEvents.TouchDown)
 		view.addSubview(buttonLeft)
 		view.addSubview(buttonRight)
 	}

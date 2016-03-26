@@ -40,7 +40,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		
 		changePlayerButton.title = "Loading..."
 		// Subscribe from notifications from Model
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "dataLoaded", name: "dataLoaded", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuViewController.dataLoaded), name: "dataLoaded", object: nil)
 		model.setupWithContext(managedContext)
 		
 		difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue

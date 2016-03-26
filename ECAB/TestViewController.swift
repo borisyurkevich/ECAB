@@ -105,7 +105,7 @@ class TestViewController: UIViewController {
 		backButton.frame = CGRectMake(marginTop, marginTop, 0, 0)
 		backButton.sizeToFit()
 		backButton.frame.size.width = buttonWidth
-		backButton.addTarget(self, action: "presentPreviousScreen", forControlEvents: UIControlEvents.TouchUpInside)
+		backButton.addTarget(self, action: #selector(TestViewController.presentPreviousScreen), forControlEvents: UIControlEvents.TouchUpInside)
 		backButton.tintColor = UIColor.grayColor()
 		addButtonBorder(backButton)
 
@@ -113,7 +113,7 @@ class TestViewController: UIViewController {
 		nextButton.frame = CGRectMake(backButton.frame.maxX + margin, marginTop, 0, 0)
 		nextButton.sizeToFit()
 		nextButton.frame.size.width = buttonWidth
-		nextButton.addTarget(self, action: "presentNextScreen", forControlEvents: UIControlEvents.TouchUpInside)
+		nextButton.addTarget(self, action: #selector(TestViewController.presentNextScreen), forControlEvents: UIControlEvents.TouchUpInside)
 		nextButton.tintColor = UIColor.grayColor()
 		addButtonBorder(nextButton)
 		
@@ -122,18 +122,18 @@ class TestViewController: UIViewController {
 		skipTrainingButton.sizeToFit()
 		skipTrainingButton.frame.size.width = buttonWidth
 		skipTrainingButton.tintColor = UIColor.grayColor()
-		skipTrainingButton.addTarget(self, action: "skip", forControlEvents: UIControlEvents.TouchUpInside)
+		skipTrainingButton.addTarget(self, action: #selector(TestViewController.skip), forControlEvents: UIControlEvents.TouchUpInside)
 		addButtonBorder(skipTrainingButton)
 		
 		pauseButton.setTitle("Pause", forState: UIControlState.Normal)
 		pauseButton.frame = CGRectMake(screenSize.width - (backButton.frame.size.width + marginTop), marginTop, 0, 0)
 		pauseButton.sizeToFit()
 		pauseButton.frame.size.width = buttonWidth
-		pauseButton.addTarget(self, action: "presentPause", forControlEvents: UIControlEvents.TouchUpInside)
+		pauseButton.addTarget(self, action: #selector(TestViewController.presentPause), forControlEvents: UIControlEvents.TouchUpInside)
 		pauseButton.tintColor = UIColor.grayColor()
 		addButtonBorder(pauseButton)
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "guidedAccessNotificationHandler:", name: "kECABGuidedAccessNotification", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TestViewController.guidedAccessNotificationHandler(_:)), name: "kECABGuidedAccessNotification", object: nil)
 		
 		view.addSubview(backButton)
 		view.addSubview(nextButton)

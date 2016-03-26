@@ -170,7 +170,7 @@ class VisualSearchViewController: TestViewController,
 					self.timer.invalidate()
 					self.timer = NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed,
 						target: self,
-						selector: "showBlankScreen",
+						selector: #selector(VisualSearchViewController.showBlankScreen),
 						userInfo: nil,
 						repeats: false)
 					self.timerLastStarted = NSDate()

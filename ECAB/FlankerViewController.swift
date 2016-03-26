@@ -36,8 +36,8 @@ class FlankerViewController: CounterpointingViewController {
 		let buttonRight = UIButton(frame: screenAreaRight)
 		buttonLeft.backgroundColor = UIColor.orangeColor()
 		buttonRight.backgroundColor = UIColor.greenColor()
-		buttonLeft.addTarget(self, action: "handleTouchLeft", forControlEvents: UIControlEvents.TouchDown)
-		buttonRight.addTarget(self, action: "handleTouchRight", forControlEvents: UIControlEvents.TouchDown)
+		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), forControlEvents: UIControlEvents.TouchDown)
+		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), forControlEvents: UIControlEvents.TouchDown)
 		
 		let star = UIImage(named: "star")
 		buttonLeft.setImage(star, forState: UIControlState.Normal)
@@ -137,7 +137,7 @@ class FlankerViewController: CounterpointingViewController {
 	}
 	
 	override func presentNextScreen() {
-		currentScreenShowing++
+		currentScreenShowing += 1
 		cleanView()
 		screenPresentedDate = NSDate()
 		

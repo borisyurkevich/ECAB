@@ -135,7 +135,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		timeToGameOver.invalidate()
 		timeToGameOver = NSTimer.scheduledTimerWithTimeInterval(timeGameOver,
 			target: self,
-			selector: "gameOver",
+			selector: #selector(VisualSustainViewController.gameOver),
 			userInfo: nil,
 			repeats: false)
 	}
@@ -148,7 +148,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	// Called eather from timer or from Next button in the menu bar
 	override func presentNextScreen() {
-		currentScreenShowing++
+		currentScreenShowing += 1
 		
 		self.cleanView() // Removes labels only
 		
@@ -236,7 +236,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			timeToAcceptDelay.invalidate()
 			timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(timersScale,
 				target: self,
-				selector: "updateAcceptedDelay",
+				selector: #selector(VisualSustainViewController.updateAcceptedDelay),
 				userInfo: nil,
 				repeats: true)
 		}
@@ -256,7 +256,7 @@ class VisualSustainViewController: CounterpointingViewController {
             timeToPresentWhiteSpace.invalidate()
             timeToPresentWhiteSpace = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible,
                 target: self,
-                selector: "showWhiteSpace",
+                selector: #selector(VisualSustainViewController.showWhiteSpace),
                 userInfo: nil,
                 repeats: false)
 		}
@@ -264,7 +264,7 @@ class VisualSustainViewController: CounterpointingViewController {
         timeToPresentNextScreen.invalidate()
         timeToPresentNextScreen = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible + timeBlankSpaceVisible,
             target: self,
-            selector: "presentNextScreen",
+            selector: #selector(TestViewController.presentNextScreen),
             userInfo: nil,
             repeats: false)
 	}
