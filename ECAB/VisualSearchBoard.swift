@@ -56,56 +56,6 @@ class VisualSearchBoard {
         numberOfCells = data.count
     }
     
-    init(targets realTargets: Int,
-                     fakeTargers: Int,
-                    otherTargets: Int){
-                    
-        apples = realTargets
-        whiteApples = fakeTargers
-        strawberries = otherTargets
-                    
-        numberOfCells = apples + whiteApples + strawberries
-        
-        if numberOfCells == 0 {
-            fatalError("🚫 You need to add at least one game object to board")
-        }
-                    
-        generateDifferentFruits()
-    }
-    
-    func generateDifferentFruits(){
-
-        var fruits = Array<TestItem>()
-        
-        for var i = 0; i < apples; i++ {
-            let freshApple = TestItem(type: TestItem.Fruit.🍎)
-            fruits.append(freshApple)
-        }
-        
-        for var i = 0; i < whiteApples; i++ {
-            let freshWhiteApple = TestItem(type: TestItem.Fruit.🍏)
-            fruits.append(freshWhiteApple)
-        }
-        
-        for var i = 0; i < strawberries; i++ {
-            let strawberry = TestItem(type: TestItem.Fruit.🍓)
-            fruits.append(strawberry)
-        }
-        // Added all 3 types of fruits to the fruits collection
-        
-        self.data = shuffle(fruits)
-    }
-    
-    func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let countNumber = list.count
-        for i in 0..<(countNumber - 1) {
-            let j = Int(arc4random_uniform(UInt32(countNumber - i))) + i
-            swap(&list[i], &list[j])
-        }
-        return list
-    }
-    // http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift
-    
     func generateDefaultPattern(forScreen section: Int){
         var f = [TestItem]()
         let t = TestItem(type: .🍎) // target (red apple)
