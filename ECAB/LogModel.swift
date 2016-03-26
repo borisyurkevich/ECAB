@@ -140,8 +140,16 @@ class LogModel {
 			if actualMove.inverted.boolValue {
 				inverted = "inverted"
 			}
+            
+            // Because I defined old interval as Integer I am chaning it to Double
+            // This condition is to keep old data working.
+            var append: String
+            if let newInterval = actualMove.intervalDouble as? Double {
+                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(r(newInterval)) ms \(inverted) \n"
+            } else {
+                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
+            }
 			
-			let append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
             
             if actualMove.poitionX == blankSpaceTag {
                 details = details + "\n"
@@ -163,7 +171,15 @@ class LogModel {
 		build = canonicBuild
 		}
 		
-		let text = "\(gameName)\n\nPlayer: \(session.player.name)\n\nComment: \(comment)\n\nTotal score = \(session.score), moves = \(session.moves.count)\nErrors = \(session.errors)\n\nTotal 1 (non-conflict time) = \(session.totalOne.integerValue), total 2 (conflict time) = \(session.totalTwo.integerValue); Ratio (total 2 / total 1) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nMoves:\n\n\(details)"
+		let text = "\(gameName)\n\n" + "Player: \(session.player.name)\n\n" +
+            "Comment: \(comment)\n\nTotal score = \(session.score)," +
+            "moves = \(session.moves.count)\nErrors = \(session.errors)\n\n" +
+            "Total 1 (non-conflict time) = \(session.totalOne.integerValue)\n" +
+            "Total 2 (conflict time) = \(session.totalTwo.integerValue)\n" +
+            "Ratio (total 2 / total 1) = \(roundRatio)\n\n" +
+            "Session started: \(dateString)\n\n" +
+            "Build: \(build)\n" +
+            "Moves:\n\n\(details)"
 		return text
 	}
 	
@@ -184,7 +200,14 @@ class LogModel {
 				inverted = "inverted"
 			}
 			
-			let append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
+            var append: String
+            if let newInterval = actualMove.intervalDouble as? Double {
+                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) s. \(inverted) \n"
+            } else {
+                // Because I defined old interval as Integer I am chaning it to Double
+                // This condition is to keep old data working.
+                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval) s. \(inverted) \n"
+            }
             
             if actualMove.poitionX == blankSpaceTag {
                 details = details + "\n"
@@ -195,8 +218,6 @@ class LogModel {
 		}
 		
 		let dateString = formatter.stringFromDate(session.dateStart)
-		let ratio = session.totalTwo.doubleValue / session.totalOne.doubleValue
-		let roundRatio = Double(round(100 * ratio) / 100)
 		
 		let comment = session.comment
 		
@@ -209,8 +230,28 @@ class LogModel {
 		if let definedImageInfo = session.imageSizeComment as String? {
 			imageInfo = definedImageInfo
 		}
-		
-		let text = "\(gameName)\n\nPlayer: \(session.player.name)\n\nTotal score = \(session.score), moves = \(session.moves.count)\nErrors = \(session.errors)\n\nComment: \(comment)\n\nTotal 1 (non-conflict time) = \(session.totalOne.integerValue), total 2 (conflict time) = \(session.totalTwo.integerValue); Ratio (block 2 + block 3 / block 1 + block 4) = \(roundRatio)\n\nSession started: \(dateString)\n\nBuild: \(build)\nImages: \(imageInfo)\n\nMoves:\n\n\(details)"
+    
+        let result = ECABLogCalculator.getFlankerResult(session)
+        let ratio = result.conflictTime / result.nonConflictTime
+        let text = "\(gameName)\n\n" +
+            "Player: \(session.player.name)\n\n" +
+            "Total score = \(session.score), moves = \(session.moves.count)\n" +
+            "Errors = \(session.errors)\n\n" +
+            "Comment: \(comment)\n\n" +
+            "Total 1 (non-conflict time) = \(r(result.nonConflictTime))\n" +
+            "total 2 (conflict time) = \(r(result.conflictTime))\n" +
+            "Ratio (block 2 + block 3 / block 1 + block 4) = \(r(ratio))\n\n" +
+            "Conflict time mean = \(r(result.conflictTimeMean))\n" +
+            "Conflict median = \(r(result.conflictTimeMedian))\n" +
+            "Conflict time standard deviation = \(r(result.conflictTimeStandardDeviation))\n" +
+            "Non conflict time mean = \(r(result.nonConflictTimeMean))\n" +
+            "Non conflict median = \(r(result.nonConflictTimeMedian))\n" +
+            "Non conflict time standard deviation = \(r(result.nonConflictTimeStandardDeviation))\n\n" +
+            "Session started: \(dateString)\n\n" +
+            "Build: \(build)\n" +
+            "Images: \(imageInfo)\n\n" +
+            "Moves:\n\n\(details)"
+        
 		return text
 	}
 	

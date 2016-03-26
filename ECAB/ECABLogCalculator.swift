@@ -30,6 +30,22 @@ struct TotalVisualSearch {
     var searchFalse3 = 0
 }
 
+struct FlankerResult {
+    let timeBlock1:NSTimeInterval
+    let timeBlock2:NSTimeInterval
+    let timeBlock3:NSTimeInterval
+    let timeBlock4:NSTimeInterval
+    let conflictTime:NSTimeInterval
+    let nonConflictTime:NSTimeInterval
+    
+    let conflictTimeMean: Double
+    let conflictTimeMedian: Double
+    let conflictTimeStandardDeviation: Double
+    let nonConflictTimeMean: Double
+    let nonConflictTimeMedian: Double
+    let nonConflictTimeStandardDeviation: Double
+}
+
 // Time per target
 struct Average {
     var motor: Double
@@ -38,11 +54,6 @@ struct Average {
 
 
 class ECABLogCalculator {
-    
-    // 1000.0 is Milliseconds in one second
-    class func r(x:NSTimeInterval) -> Double {
-        return Double(round(100.0 * x) / 100.0)
-    }
     
     class func getVisualSearchTotals(session: Session) -> TotalVisualSearch {
         
@@ -213,5 +224,101 @@ class ECABLogCalculator {
         totals.average.search = r(totalTimeSearch / Double(searchHits))
     
         return totals
+    }
+    
+    class func getFlankerResult(session: CounterpointingSession) -> FlankerResult {
+    
+        var timeBlock1:NSTimeInterval = 0
+        var timeBlock2:NSTimeInterval = 0
+        var timeBlock3:NSTimeInterval = 0
+        var timeBlock4:NSTimeInterval = 0
+        var countBlock1 = 0
+        var countBlock2 = 0
+        var countBlock3 = 0
+        var countBlock4 = 0
+        
+        var conflictIntervals: Array<NSTimeInterval> = []
+        var nonConflictIntervals: Array<NSTimeInterval> = []
+        
+        for m in session.moves {
+            
+        
+            if let move = m as? CounterpointingMove {
+                if let inerval = move.intervalDouble as? Double {
+                    // Real test begin after 3 practice blocks.
+                    // on screen number 24
+                    switch move.poitionX.integerValue {
+                    case 24 ... 33:
+                        timeBlock1 += inerval
+                        countBlock1 += 1
+                        nonConflictIntervals.append(inerval)
+                    case 36 ... 45:
+                        timeBlock2 += inerval
+                        countBlock2 += 1
+                        conflictIntervals.append(inerval)
+                    case 48 ... 57:
+                        timeBlock3 += inerval
+                        countBlock3 += 1
+                        conflictIntervals.append(inerval)
+                    case 60 ... 69:
+                        timeBlock4 += inerval
+                        countBlock4 += 1
+                        nonConflictIntervals.append(inerval)
+                    default:
+                        break
+                    }
+                }
+                
+            } else {
+                print("Error in getFlankerResult()")
+                exit(0)
+            }
+            
+        }
+
+        let nonConflictTimeMean = (timeBlock1 + timeBlock4) / Double(countBlock1 + countBlock4)
+        let conflictTimeMean = (timeBlock2 + timeBlock3) / Double(countBlock2 + countBlock3)
+        
+        // Sort intervals in ascending order
+        nonConflictIntervals = nonConflictIntervals.sort({$0 < $1})
+        conflictIntervals = conflictIntervals.sort({$0 < $1})
+        
+        let nonConflictMedianIndex = (Double(countBlock1 + countBlock4) + 1) / 2
+        let nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
+        let conflictMedianIndex = (Double(countBlock2 + countBlock3) + 1) / 2
+        let conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+        
+        // Calculate the deviations of each data point from the mean,
+        // and square the result of each:
+        var nonConflictDeviation = 0.0
+        for value in nonConflictIntervals {
+            nonConflictDeviation += pow((value - nonConflictMedian), 2)
+        }
+        var conflictDeviation = 0.0
+        for value in conflictIntervals {
+            conflictDeviation += pow((value - conflictMedian), 2)
+        }
+        
+        // The variance is the mean of these values:
+        let nonConflictVariance = nonConflictDeviation / Double(countBlock1 + countBlock4)
+        let conflictVariance = conflictDeviation / Double(countBlock2 + countBlock3)
+        
+        let nonConflictStandardDeviation = sqrt(nonConflictVariance)
+        let conflictStandardDeviation = sqrt(conflictVariance)
+        
+        let result = FlankerResult(timeBlock1: timeBlock1,
+                                   timeBlock2: timeBlock2,
+                                   timeBlock3: timeBlock3,
+                                   timeBlock4: timeBlock4,
+                                 conflictTime: timeBlock2 + timeBlock3,
+                              nonConflictTime: timeBlock1 + timeBlock4,
+                             conflictTimeMean: conflictTimeMean,
+                           conflictTimeMedian: conflictMedian,
+                conflictTimeStandardDeviation: conflictStandardDeviation,
+                          nonConflictTimeMean: nonConflictTimeMean,
+                        nonConflictTimeMedian: nonConflictMedian,
+             nonConflictTimeStandardDeviation: nonConflictStandardDeviation)
+        
+        return result
     }
 }

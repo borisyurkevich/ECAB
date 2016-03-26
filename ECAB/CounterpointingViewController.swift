@@ -22,8 +22,8 @@ class CounterpointingViewController: TestViewController {
 
 	var leftTarget = false // first screen will be with dog on right
 	var session: CounterpointingSession!
-	private var totalOne = 0
-	private var totalTwo = 0
+	private var totalOne = 0.0
+	private var totalTwo = 0.0
 	
 	// MARK: Override
 	
@@ -231,18 +231,18 @@ class CounterpointingViewController: TestViewController {
             startPoint = screenPresentedDate.laterDate(lastMistakeDate)
             lastMistakeDate = currentTime
         }
-        let interval = currentTime.timeIntervalSinceDate(startPoint) * 1000.0
+        let interval = currentTime.timeIntervalSinceDate(startPoint)
         let screen: CGFloat = CGFloat(currentScreenShowing)
-        model.addCounterpointingMove(screen, positionY: 0, success: result, interval: abs(interval), inverted: gameModeInversed, delay:0.0)
+        model.addCounterpointingMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0)
         
 		if !trainingMode {
         
 			if (result) {
 				// We don't want to increase time for the total if player made a mistake.
 				if (!gameModeInversed) {
-					totalOne += Int(interval)
+					totalOne += interval
 				} else {
-					totalTwo += Int(interval)
+					totalTwo += interval
 				}
 				session.totalOne = totalOne
 				session.totalTwo = totalTwo

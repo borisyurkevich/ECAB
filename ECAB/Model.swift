@@ -47,6 +47,11 @@ enum VisualSustainSkip: CGFloat {
 // Needed to show blank space in the log between moves.
 let blankSpaceTag:CGFloat = -1.0
 
+// 1000.0 is Milliseconds in one second
+func r(x:NSTimeInterval) -> Double {
+    return Double(round(100.0 * x) / 100.0)
+}
+
 class Model {
     let games = [GameTitle.visual, GameTitle.counterpointing, GameTitle.flanker, GameTitle.visualSust]
 	
@@ -243,7 +248,7 @@ class Model {
 		move.poitionY = positionY
 		move.success = success
 		move.date = NSDate()
-		move.interval = interval
+		move.intervalDouble = NSNumber(double: interval)
 		move.inverted = inverted
 		move.delay = delay
 		
