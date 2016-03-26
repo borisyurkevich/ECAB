@@ -29,19 +29,6 @@ class DataExportModel {
 	var pickedVisualSearchSession: Session? = nil
 	var pickedCounterpointingSession: CounterpointingSession? = nil
     let msIn1️⃣Sec = 1000.0 // Milliseconds in one second
-    
-    // Motor Total Hits:
-    var mh1 = 0; var mh2 = 0; var mh3 = 0
-    // Motor False Positives:
-    var mfp1 = 0; var mfp2 = 0; var mfp3 = 0
-    // Motor time total:
-    var mt1:NSTimeInterval = 0; var mt2:NSTimeInterval = 0; var mt3:NSTimeInterval = 0
-    // Search Total Hits:
-    var sh1 = 0; var sh2 = 0; var sh3 = 0
-    // Search False Positives:
-    var sfp1 = 0; var sfp2 = 0; var sfp3 = 0
-    // Search time total:
-    var st1:NSTimeInterval = 0; var st2:NSTimeInterval = 0; var st3:NSTimeInterval = 0
 	
 	func export() -> String? {
 		var returnValue: String? = nil
@@ -87,51 +74,58 @@ class DataExportModel {
             
             // Create dynamic lines
             let dynamicLines = createDynamicLinesForVSSession(visualSearchSession)
+            let t = ECABLogCalculator.getVisualSearchTotals(visualSearchSession)
+            let avg = t.average
             
-            let mht = mh1 + mh2 + mh3
-            let mfpt = mfp1 + mfp2 + mfp3
-            let mtt = mt1 + mt2 + mt3
-            let stt = st1 + st2 + st3
-            let sht = sh1 + sh2 + sh3
-            let sfpt = sfp1 + sfp2 + sfp3
+            let mht = t.motorHits1 + t.motorHits2 + t.motorHits3
+            let mfpt = t.motorFalse1 + t.motorFalse2 + t.motorFalse3
+            // Motor time total
+            let mtt = t.motorOneTotal + t.motorTwoTotal + t.motorThreeTotal
+            // Search time total
+            let stt = t.searchOneTotal + t.searchTwoTotal + t.searchThreeTotal
+            // Search total hits
+            let sht = t.searchHits1 + t.searchHits2 + t.searchHits3
+            // Search false positives
+            let sfpt = t.searchFalse1 + t.searchFalse2 + t.searchFalse3
+            let searchDiff1 = t.searchHits1 - t.searchFalse1
+            let searchDiff2 = t.searchHits2 - t.searchFalse2
+            let searchDiff3 = t.searchHits3 - t.searchFalse3
             
-            
-            let avg = ECABLogCalculator.getVisualSearchTotals(visualSearchSession).average
             let avgMotor = "Time per target found [motor]"
             let avgSearch = "Time per target found [search]"
             let avgDiff = "Search time - motor time per target"
             let avgDiffVal = avg.search - avg.motor
 			
-			returnValue = "\(gameName)             ,               ,              ,               ,               ,               ,    \n" +
-						  "                        ,               ,              ,               ,               ,               ,    \n" +
-			              "ID                      ,\(playerName)  ,              ,               ,               ,               ,    \n" +
-			              "date of birth           ,\(birth)       ,age at test   ,\(age)         ,               ,               ,    \n" +
-						  "date/time of test start ,\(dateStart)   ,\(timeStart)  ,               ,               ,               ,    \n" +
-						  "                        ,               ,              ,               ,               ,               ,    \n" +
-						  "parameters              ,\(difficulty)  ,              ,               ,\(speed) s     ,               ,    \n" +
-						  "comments                ,\(comments)    ,              ,               ,               ,               ,    \n" +
-						  "                        ,               ,              ,               ,               ,               ,    \n" +
-						  "                        ,               ,              ,               ,               ,               ,    \n" +
-						  "                        ,               ,motor 1       ,motor 2        ,motor 3        ,TOTAL          ,*   \n" +
-						  "no of hits              ,               ,\(mh1)        ,\(mh2)         ,\(mh3)         ,\(mht)         ,    \n" +
-						  "no of false positives   ,               ,\(mfp1)       ,\(mfp2)        ,\(mfp3)        ,\(mfpt)        ,    \n" +
- 						  "total time              ,               ,\(r(mt1))     ,\(r(mt2))      ,\(r(mt3))      ,\(r(mtt))      ,**  \n" +
-						  "                        ,               ,              ,               ,               ,               ,    \n" +
-						  "                        ,               ,              ,               ,               ,               ,    \n" +
-					      "                        ,               ,search 1      ,search 2       ,search 3       ,               ,    \n" +
-  						  "no of hits              ,               ,\(sh1)        ,\(sh2)         ,\(sh3)         ,\(sht)         ,    \n" +
-						  "no of false positives   ,               ,\(sfp1)       ,\(sfp2)        ,\(sfp3)        ,\(sfpt)        ,    \n" +
-						  "total time              ,               ,\(r(st1))     ,\(r(st2))      ,\(r(st3))      ,\(r(stt))      ,**  \n" +
-			              "hits - false positives  ,               ,\(sh1 - sfp1) ,\(sh2 - sfp2)  ,\(sh3 - sfp3)  ,\(sht-sfpt)    ,    \n" +
-  						  "                        ,\(screenComm)  ,              ,               ,               ,               ,    \n" +
-						  "                        ,\(durationComm),              ,               ,               ,               ,    \n" +
-						  "                        ,               ,              ,               ,               ,               ,    \n" +
-                          "\(avgMotor)             ,\(avg.motor)   ,              ,               ,               ,               ,    \n" +
-                          "\(avgSearch)            ,\(avg.search)  ,              ,               ,               ,               ,    \n" +
-                          "\(avgDiff)              ,\(avgDiffVal)  ,              ,               ,               ,               ,    \n" +
-                          "                        ,               ,              ,               ,               ,               ,    \n" +
-						  "\(header)               ,               ,              ,               ,               ,               ,    \n" +
-                          "                        ,               ,target row    ,target col     ,time           ,               ,    \n"
+			returnValue = "\(gameName)             ,               ,                       ,                      ,                       ,               ,    \n" +
+						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+			              "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
+			              "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
+						  "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
+						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+						  "parameters              ,\(difficulty)  ,                       ,                      ,\(speed) s             ,               ,    \n" +
+						  "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
+						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+						  "                        ,               ,motor 1                ,motor 2               ,motor 3                ,TOTAL          ,*   \n" +
+						  "no of hits              ,               ,\(t.motorHits1)        ,\(t.motorHits2)       ,\(t.motorHits3)        ,\(mht)         ,    \n" +
+						  "no of false positives   ,               ,\(t.motorFalse1)       ,\(t.motorFalse2)      ,\(t.motorFalse3)       ,\(mfpt)        ,    \n" +
+ 						  "total time              ,               ,\(r(t.motorOneTotal))  ,\(r(t.motorTwoTotal)) ,\(r(t.motorThreeTotal)),\(r(mtt))      ,**  \n" +
+						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+					      "                        ,               ,search 1               ,search 2              ,search 3               ,               ,    \n" +
+  						  "no of hits              ,               ,\(t.searchHits1)       ,\(t.searchHits2)      ,\(t.searchHits3)       ,\(sht)         ,    \n" +
+						  "no of false positives   ,               ,\(t.searchFalse1)      ,\(t.searchFalse2)     ,\(t.searchFalse3)      ,\(sfpt)        ,    \n" +
+						  "total time              ,               ,\(r(t.searchOneTotal)) ,\(r(t.searchTwoTotal)),\(r(t.searchThreeTotal)),\(r(stt))      ,**  \n" +
+			              "hits - false positives  ,               ,\(searchDiff1)         ,\(searchDiff2)        ,\(searchDiff3)         ,\(sht-sfpt)    ,    \n" +
+  						  "                        ,\(screenComm)  ,                       ,                      ,                       ,               ,    \n" +
+						  "                        ,\(durationComm),                       ,                      ,                       ,               ,    \n" +
+						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "\(avgMotor)             ,\(avg.motor)   ,                       ,                      ,                       ,               ,    \n" +
+                          "\(avgSearch)            ,\(avg.search)  ,                       ,                      ,                       ,               ,    \n" +
+                          "\(avgDiff)              ,\(avgDiffVal)  ,                       ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+						  "\(header)               ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,target row             ,target col            ,time                   ,               ,    \n"
             
             // Append dynamic rows: headers and moves
             for line in dynamicLines {
@@ -149,10 +143,7 @@ class DataExportModel {
         
         let timeFormatter = NSDateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss:SSS"
-        let sessionStarted = visualSearchSession.dateStart
         
-        var currentSection:MoveType = .MoveTypeUnknown
-        var timePassedSinceLatestMove = sessionStarted.timeIntervalSince1970
         for move in visualSearchSession.moves {
             let gameMove = move as! Move
             let screenNumber = gameMove.screenNumber.integerValue
@@ -188,103 +179,34 @@ class DataExportModel {
                     let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTimestamp)\n"
                     collectionOfTableRows.append(line)
                     
-                    // Time Interval
-                    switch currentSection {
-                    case .MoveTypeMotorOne:
-                        if gameMove.success.boolValue == true {
-                           mh1 += 1
-                        } else {
-                           mfp1 += 1
-                        }
-                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
-                        mt1 += secondsPassedForThisMove // increase total passed for this session's section
-                    case .MoveTypeMotorTwo:
-                        if gameMove.success.boolValue == true {
-                            mh2 += 1
-                        } else {
-                            mfp2 += 1
-                        }
-                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
-                        mt2 += secondsPassedForThisMove
-                    case .MoveTypeMotorThree:
-                        if gameMove.success.boolValue == true {
-                            mh3 += 1
-                        } else {
-                            mfp3 += 1
-                        }
-                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
-                        mt3 += secondsPassedForThisMove
-                    case .MoveTypeSearchOne:
-                        if gameMove.success.boolValue == true {
-                            sh1 += 1
-                        } else {
-                            sfp1 += 1
-                        }
-                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
-                        st1 += secondsPassedForThisMove
-                    case .MoveTypeSearchTwo:
-                        if gameMove.success.boolValue == true {
-                            sh2 += 1
-                        } else {
-                            sfp2 += 1
-                        }
-                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
-                        st2 += secondsPassedForThisMove
-                    case .MoveTypeSearchThree:
-                        if gameMove.success.boolValue == true {
-                            sh3 += 1
-                        } else {
-                            sfp3 += 1
-                        }
-                        let secondsPassedForThisMove:NSTimeInterval = gameMove.date.timeIntervalSince1970 - timePassedSinceLatestMove
-                        st3 += secondsPassedForThisMove
-                    default:
-                        break
-                    }
-                    // Increase the latest move date
-                    timePassedSinceLatestMove = gameMove.date.timeIntervalSince1970
                 } else {
                     var header = "header uknown"
                     switch screenNumber {
                     case VisualSearchEasyModeView.MotorOne.rawValue:
                         header = "motor screen 1"
-                        currentSection = .MoveTypeMotorOne
                     case VisualSearchEasyModeView.MotorTwo.rawValue:
                         header = "motor screen 2"
-                        currentSection = .MoveTypeMotorTwo
                     case VisualSearchEasyModeView.MotorThree.rawValue:
                         header = "motor screen 3"
-                        currentSection = .MoveTypeMotorThree
-                    
                     case VisualSearchHardModeView.MotorOne.rawValue:
                         header = "motor screen 1"
-                        currentSection = .MoveTypeMotorOne
                     case VisualSearchHardModeView.MotorTwo.rawValue:
                         header = "motor screen 2"
-                        currentSection = .MoveTypeMotorTwo
-                        
                     case VisualSearchEasyModeView.One.rawValue:
                         header = "search screen 1"
-                        currentSection = .MoveTypeSearchOne
                     case VisualSearchEasyModeView.Two.rawValue:
                         header = "search screen 2"
-                        currentSection = .MoveTypeSearchTwo
                     case VisualSearchEasyModeView.Three.rawValue:
                         header = "search screen 3"
-                        currentSection = .MoveTypeSearchThree
-                        
                     case VisualSearchHardModeView.One.rawValue:
                         header = "search screen 1"
-                        currentSection = .MoveTypeSearchOne
                     case VisualSearchHardModeView.Two.rawValue:
                         header = "search screen 2"
-                        currentSection = .MoveTypeSearchTwo
                     default:
                         header = "wrong header number"
                     }
                     // Time
                     let headerTime = timeFormatter.stringFromDate(gameMove.date)
-                    timePassedSinceLatestMove = gameMove.date.timeIntervalSince1970
                     
                     // CSV line
                     let headerLine = "\(header),screen onset, , ,\(headerTime)\n"

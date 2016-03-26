@@ -119,7 +119,7 @@ class LogModel {
 			build = canonicBuild
 		}
         
-		let visualSearchLog = "\(gameName) \(difficulty) difficulty. \n\nPlayer name: \(session.player.name)\nExposure: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score = \(session.score)\nFalse positives: \(session.failureScore)\n\nTime per target found[motor] = \(totals.average.motor)\nTime per target found[search] = \(totals.average.search)\nSearch time - motor time per target = \(totals.average.search - totals.average.motor)\n\nMotor 1 total = \(totals.motorOneTotal)\nMotor 2 total = \(totals.motorTwoTotal)\nMotor 3 total = \(totals.motorThreeTotal)\nSearch 1 total = \(totals.searachOneTotal)\nSearch 2 total = \(totals.searchTwoTotal)\nSearch 3 total = \(totals.searhThreeTotal)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
+		let visualSearchLog = "\(gameName) \(difficulty) difficulty. \n\nPlayer name: \(session.player.name)\nExposure: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score: \(session.score)\nFalse positives: \(session.failureScore)\n\nTime per target found[motor] = \(totals.average.motor)\nTime per target found[search] = \(totals.average.search)\nSearch time - motor time per target = \(totals.average.search - totals.average.motor)\n\nMotor 1 total = \(totals.motorOneTotal)\nMotor 2 total = \(totals.motorTwoTotal)\nMotor 3 total = \(totals.motorThreeTotal)\nSearch 1 total = \(totals.searchOneTotal)\nSearch 2 total = \(totals.searchTwoTotal)\nSearch 3 total = \(totals.searchThreeTotal)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
 		return visualSearchLog;
 	}
 	
