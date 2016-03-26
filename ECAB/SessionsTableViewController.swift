@@ -75,31 +75,47 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         }
     }
     func writeFileAndReturnURL() -> NSURL? {
-        let tempExportPath = NSTemporaryDirectory().stringByAppendingString("export.csv")
-        let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
         
-        let exportManager = DataExportModel()
-        exportManager.pickedVisualSearchSession = selectedSession
-        // TODO change to have other sessions support.
-        
-        if let data = exportManager.export() {
-            do {
-                try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
-            } catch {
-                let writeError = error as NSError
-                let message = "Error. Can't write a file: \(writeError)"
-                let errorAlert = UIAlertController(title: "Can't write file", message: message, preferredStyle: .Alert)
+        if let visualSearchSession: Session = selectedSession {
+            
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "ddMMM_HHmm"
+            let dateName: String = formatter.stringFromDate(visualSearchSession.dateStart)
+            let fileName: String = "VisualSearch_\(dateName).csv"
+            let tempExportPath = NSTemporaryDirectory().stringByAppendingString(fileName)
+            let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
+            
+            let exportManager = DataExportModel()
+            exportManager.pickedVisualSearchSession = visualSearchSession
+            // TODO change to have other sessions support.
+            
+            if let data = exportManager.export() {
+                do {
+                    try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
+                } catch {
+                    let writeError = error as NSError
+                    let message = "Error. Can't write a file: \(writeError)"
+                    let errorAlert = UIAlertController(title: "Can't write file", message: message, preferredStyle: .Alert)
+                    let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
+                    errorAlert.addAction(okayAction)
+                    navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+                    return nil
+                }
+                return url
+            } else {
+                let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
                 let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
                 errorAlert.addAction(okayAction)
                 navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
                 return nil
             }
-            return url
         } else {
-            let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
+            let title = NSLocalizedString("Couldn't read this session", comment: "alert title")
+            let errorAlert = UIAlertController(title: title, message: nil, preferredStyle: .Alert)
             let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
             errorAlert.addAction(okayAction)
             navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+            
             return nil
         }
     }
@@ -112,7 +128,6 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		
 		// Date
 		let formatter = NSDateFormatter()
-		formatter.locale = NSLocale.autoupdatingCurrentLocale()
 		formatter.dateFormat = "dd MMM yyyy HH:mm"
 		
 		switch model.data.selectedGame {
