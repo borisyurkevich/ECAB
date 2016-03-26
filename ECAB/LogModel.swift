@@ -127,7 +127,7 @@ class LogModel {
 		var details = ""
 		var counter = 0
 		var status = "success"
-		var spacePrinted = false
+
 		for move in session.moves {
 			let actualMove = move as! CounterpointingMove
 			if !actualMove.success.boolValue {
@@ -142,13 +142,14 @@ class LogModel {
 			}
 			
 			let append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
-			if actualMove.inverted.boolValue && spacePrinted == false {
-				details = details + "\n" + append
-				spacePrinted = true
-			} else {
-				details = details + append
-			}
-				counter += 1
+            
+            if actualMove.poitionX == blankSpaceTag {
+                details = details + "\n"
+            } else {
+                details = details + append
+            }
+            
+            counter += 1
 		}
 		
 		let dateString = formatter.stringFromDate(session.dateStart)
@@ -184,8 +185,9 @@ class LogModel {
 			}
 			
 			let append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
-			if counter == 9 || counter == 19 || counter == 29 {
-				details = details + append + "\n"
+            
+            if actualMove.poitionX == blankSpaceTag {
+                details = details + "\n"
 			} else {
 				details = details + append
 			}

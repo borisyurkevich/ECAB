@@ -44,6 +44,9 @@ enum VisualSustainSkip: CGFloat {
 	case FourSkips = -100
 }
 
+// Needed to show blank space in the log between moves.
+let blankSpaceTag:CGFloat = -1.0
+
 class Model {
     let games = [GameTitle.visual, GameTitle.counterpointing, GameTitle.flanker, GameTitle.visualSust]
 	
