@@ -136,9 +136,9 @@ class LogModel {
 				status = "success"
 			}
 			
-			var inverted = "normal"
+			var inverted = "non-conflict"
 			if actualMove.inverted.boolValue {
-				inverted = "inverted"
+				inverted = "conflict"
 			}
             
             // Because I defined old interval as Integer I am chaning it to Double
@@ -195,9 +195,9 @@ class LogModel {
 				status = "success"
 			}
 			
-			var inverted = "normal"
+			var inverted = "non-conflict"
 			if actualMove.inverted.boolValue {
-				inverted = "inverted"
+				inverted = "conflict"
 			}
 			
             var append: String
