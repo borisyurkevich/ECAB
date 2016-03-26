@@ -12,7 +12,7 @@
     </entity>
     <entity name="CounterpointingSession" representedClassName="ECAB.CounterpointingSession" syncable="YES">
         <attribute name="bundleVersion" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
-        <attribute name="comment" attributeType="String" defaultValueString="no comment" syncable="YES"/>
+        <attribute name="comment" attributeType="String" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="errors" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="imageSizeComment" optional="YES" attributeType="String" syncable="YES"/>
