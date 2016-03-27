@@ -283,10 +283,21 @@ class ECABLogCalculator {
         nonConflictIntervals = nonConflictIntervals.sort({$0 < $1})
         conflictIntervals = conflictIntervals.sort({$0 < $1})
         
-        let nonConflictMedianIndex = (Double(countBlock1 + countBlock4) + 1) / 2
-        let nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
-        let conflictMedianIndex = (Double(countBlock2 + countBlock3) + 1) / 2
-        let conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+        var nonConflictMedian: NSTimeInterval
+        if nonConflictIntervals.isEmpty {
+            nonConflictMedian = 0
+        } else {
+            let nonConflictMedianIndex = (Double(countBlock1 + countBlock4) + 1) / 2
+            nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
+        }
+        
+        var conflictMedian: NSTimeInterval
+        if conflictIntervals.isEmpty {
+            conflictMedian = 0
+        } else {
+            let conflictMedianIndex = (Double(countBlock2 + countBlock3) + 1) / 2
+            conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+        }
         
         // Calculate the deviations of each data point from the mean,
         // and square the result of each:
