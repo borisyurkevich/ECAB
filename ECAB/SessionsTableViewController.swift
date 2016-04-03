@@ -76,39 +76,47 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     }
     func writeFileAndReturnURL() -> NSURL? {
         
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "ddMMM_HHmm"
+        
+        let fileName: String
+        var dateName: String
         if let visualSearchSession: Session = selectedSession {
-            
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "ddMMM_HHmm"
-            let dateName: String = formatter.stringFromDate(visualSearchSession.dateStart)
-            let fileName: String = "VisualSearch_\(dateName).csv"
-            let tempExportPath = NSTemporaryDirectory().stringByAppendingString(fileName)
-            let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
-            
-            let exportManager = DataExportModel()
-            exportManager.pickedVisualSearchSession = visualSearchSession
-            // TODO change to have other sessions support.
-            
-            if let data = exportManager.export() {
-                do {
-                    try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
-                } catch {
-                    let writeError = error as NSError
-                    let message = "Error. Can't write a file: \(writeError)"
-                    let errorAlert = UIAlertController(title: "Can't write file", message: message, preferredStyle: .Alert)
-                    let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
-                    errorAlert.addAction(okayAction)
-                    navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
-                    return nil
-                }
-                return url
-            } else {
-                let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
+            dateName = formatter.stringFromDate(visualSearchSession.dateStart)
+            fileName = "VisualSearch_\(dateName).csv"
+        } else if let counterpointingSession = selectedCounterpointingSession {
+            dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+            // TODO change 'Flanker' to have other 2 game options
+            fileName = "Flanker_\(dateName).csv"
+        } else {
+            let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
+            let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
+            errorAlert.addAction(okayAction)
+            navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+            return nil
+        }
+        
+        let tempExportPath = NSTemporaryDirectory().stringByAppendingString(fileName)
+        let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
+        
+        let exportManager = DataExportModel()
+        exportManager.pickedVisualSearchSession = selectedSession
+        exportManager.pickedCounterpointingSession = selectedCounterpointingSession
+        
+        if let data = exportManager.export() {
+            do {
+                try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
+            } catch {
+                let writeError = error as NSError
+                let message = "Error. Can't write a file: \(writeError)"
+                let errorAlert = UIAlertController(title: "Can't write file", message: message, preferredStyle: .Alert)
                 let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
                 errorAlert.addAction(okayAction)
                 navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
                 return nil
             }
+            return url
+
         } else {
             let title = NSLocalizedString("Couldn't read this session", comment: "alert title")
             let errorAlert = UIAlertController(title: title, message: nil, preferredStyle: .Alert)
@@ -361,7 +369,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 			
-            actionButton.enabled = false
+            actionButton.enabled = true
 			selectedCounterpointingSession = pickedSession
             
 		case GamesIndex.VisualSust.rawValue:

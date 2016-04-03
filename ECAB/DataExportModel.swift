@@ -27,37 +27,166 @@ class DataExportModel {
 	
 	let model = Model.sharedInstance
 	var pickedVisualSearchSession: Session? = nil
-	var pickedCounterpointingSession: CounterpointingSession? = nil
+    var pickedCounterpointingSession: CounterpointingSession? = nil
     let msIn1️⃣Sec = 1000.0 // Milliseconds in one second
-	
+    
+    init() {
+        gameName = model.games[Int(model.data.selectedGame)]
+        birth = "dd/MM/yy"
+        age = "yy/mm"
+        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        timeFormatter.dateFormat = "HH:mm:ss:SSS"
+    }
+    private let gameName: String
+    private let birth: String
+    private let age: String
+    private let dateFormatter = NSDateFormatter()
+    private let timeFormatter = NSDateFormatter()
+    private var returnValue = "empty line\n"
+    
 	func export() -> String? {
 		var returnValue: String? = nil
 		
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
 			returnValue = createVisualSearchTable()
-			break
+        case GamesIndex.Flanker.rawValue:
+            returnValue = createFlankerTable()
 		default:
 			break
 		}
 		
 		return returnValue
 	}
+    
+    
+    func createFlankerTable() -> String {
+        
+        if let session: CounterpointingSession = pickedCounterpointingSession {
+            let playerName = session.player.name
+            
+            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
+            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            
+            let comments = session.comment
+            var imageInfo = "uknown image size"
+            if let definedImageInfo = session.imageSizeComment as String? {
+                imageInfo = definedImageInfo
+            }
+            
+            let rows = createFlankerLines(session)
+            let t = ECABLogCalculator.getFlankerResult(session)
+            
+            let ratio = t.conflictTime / t.nonConflictTime
+            let mediansRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
+            
+            returnValue = "ECAB Test               ,\(gameName)    ,                       ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
+                          "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
+                          "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "parameters              ,\(imageInfo)   ,                       ,                      ,                       ,               ,    \n" +
+                          "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "non-conflict (blocks 1+4),               ,                      ,                      ,                       ,               ,    \n" +
+                          "total time block 1 =    ,\(r(t.timeBlock1)),msec                ,                      ,                       ,               ,    \n" +
+                          "total time block 4 =    ,\(r(t.timeBlock4)),msec                ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "total time blocks 1+4 = ,\(r(t.nonConflictTime)),msec           ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "mean reponse time 1+4 = ,\(r(t.nonConflictTimeMean)),msec       ,                      ,                       ,               ,    \n" +
+                          "median reponse time 1+4 =,\(r(t.nonConflictTimeMedian)),msec    ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "conflicts (blocks 2+3),               ,                         ,                      ,                       ,               ,    \n" +
+                          "total time block 2 =    ,\(r(t.timeBlock2)),msec                ,                      ,                       ,               ,    \n" +
+                          "total time block 3 =    ,\(r(t.timeBlock3)),msec                ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "total time blocks 2+3 = ,\(r(t.conflictTime)),msec              ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "mean reponse time 2+3 = ,\(r(t.conflictTimeMean)),msec          ,                      ,                       ,               ,    \n" +
+                          "median reponse time 2+3 =,\(r(t.conflictTimeMedian)),msec       ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
+                          "ratio of medians conflict/non-conflict total = ,\(r(mediansRatio)),                    ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                          "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
+                          "                        ,               ,                       ,                      ,                       ,               ,    \n"
+            
+            // Append dynamic rows: headers and moves
+            for line in rows {
+                returnValue += line
+            }
+        }
+        
+        return returnValue;
+    }
+    
+    private func createFlankerLines(session: CounterpointingSession) -> Array<String> {
+        var collectionOfTableRows: Array<String> = Array()
+        var headerCount = 0
+        var screenCount = 1
+        
+        for move in session.moves {
+            let gameMove = move as! CounterpointingMove
+
+            if gameMove.poitionX != blankSpaceTag {
+                // Success or failure
+                var sof = ""
+                if gameMove.success.boolValue == true {
+                    sof = "correct"
+                } else {
+                    sof = "incorrect"
+                }
+
+                var time: Double
+                if let newInterval = gameMove.intervalDouble as? Double {
+                    time = r(newInterval)
+                } else {
+                    // Because I defined old interval as Integer I am chaning it to Double
+                    // This condition is to keep old data working.
+                    time = gameMove.interval.doubleValue
+                }
+                
+                // CSV line
+                let line = ",\(screenCount),\(sof), \(time), msec, , ,\n"
+                collectionOfTableRows.append(line)
+                
+                screenCount += 1
+                
+            } else {
+                var header = "header uknown"
+                
+                switch headerCount {
+                case 0:
+                    header = "non-conflict block 1"
+                case 1:
+                    header = "conflict block 2"
+                case 2:
+                    header = "conflict block 3"
+                case 3:
+                    header = "non-conflict block 4"
+                default:
+                    header = "header error"
+                }
+                headerCount += 1
+                
+                // CSV line
+                let headerLine = "\(header),screen,response,time, , ,\n"
+                collectionOfTableRows.append(headerLine)
+            }
+        }
+        
+        return collectionOfTableRows
+    }
 	
 	func createVisualSearchTable() -> String {
-		var returnValue = "empty line\n"
 		
 		if let visualSearchSession: Session = pickedVisualSearchSession {
-			let gameName = model.games[Int(model.data.selectedGame)]
 			let playerName = visualSearchSession.player.name
-			let birth = "dd/MM/yy"
-			let age = "yy/mm"
 			
-			let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
 			let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
-			let timeFormatter = NSDateFormatter()
-			timeFormatter.dateFormat = "HH:mm:ss:SSS"
 			let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
 			
 			var difficulty = "easy"
@@ -135,14 +264,11 @@ class DataExportModel {
 		
 		return returnValue
 	}
-    func r(x:NSTimeInterval) -> Double {
-        return Double(round(msIn1️⃣Sec * x) / msIn1️⃣Sec)
-    }
+//    func r(x:NSTimeInterval) -> Double {
+//        return Double(round(msIn1️⃣Sec * x) / msIn1️⃣Sec)
+//    }
     func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
-        
-        let timeFormatter = NSDateFormatter()
-        timeFormatter.dateFormat = "HH:mm:ss:SSS"
         
         for move in visualSearchSession.moves {
             let gameMove = move as! Move
