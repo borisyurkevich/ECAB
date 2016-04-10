@@ -74,28 +74,47 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
             self.navigationController?.presentViewController(activityVC, animated: true, completion: nil)
         }
     }
+    
+    func showAlert() {
+        let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
+        errorAlert.addAction(okayAction)
+        navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
+    }
+    
     func writeFileAndReturnURL() -> NSURL? {
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "ddMMM_HHmm"
-        
-        let fileName: String
+
+        var fileName = ""
         var dateName: String
-        if let visualSearchSession: Session = selectedSession {
-            dateName = formatter.stringFromDate(visualSearchSession.dateStart)
-            fileName = "VisualSearch_\(dateName).csv"
-        } else if let counterpointingSession = selectedCounterpointingSession {
-            dateName = formatter.stringFromDate(counterpointingSession.dateStart)
-            // TODO change 'Flanker' to have other 2 game options
-            fileName = "Flanker_\(dateName).csv"
-        } else {
-            let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .Alert)
-            let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
-            errorAlert.addAction(okayAction)
-            navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
-            return nil
-        }
         
+        switch model.data.selectedGame {
+        case GamesIndex.VisualSearch.rawValue:
+            if let visualSearchSession: Session = selectedSession {
+                dateName = formatter.stringFromDate(visualSearchSession.dateStart)
+                fileName = "VisualSearch_\(dateName).csv"
+            }
+        break
+        case GamesIndex.VisualSust.rawValue:
+        break
+        case GamesIndex.Counterpointing.rawValue:
+            if let counterpointingSession = selectedCounterpointingSession {
+                dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                fileName = "Counterpoining_\(dateName).csv"
+            }
+        break
+        case GamesIndex.Flanker.rawValue:
+            if let counterpointingSession = selectedCounterpointingSession {
+                dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                fileName = "Flanker_\(dateName).csv"
+            }
+        break
+        default:
+        break
+        }
+
         let tempExportPath = NSTemporaryDirectory().stringByAppendingString(fileName)
         let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
         
@@ -353,7 +372,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
 			
-            actionButton.enabled = false
+            actionButton.enabled = true
 			selectedCounterpointingSession = pickedSession
             
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing

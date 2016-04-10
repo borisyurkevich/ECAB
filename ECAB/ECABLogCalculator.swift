@@ -30,6 +30,15 @@ struct TotalVisualSearch {
     var searchFalse3 = 0
 }
 
+struct CounterpointingResult {
+    let timeBlockNonConflict: NSTimeInterval
+    let timeBlockConflict: NSTimeInterval
+    let conflictTimeMean: Double
+    let conflictTimeMedian: Double
+    let nonConflictTimeMean: Double
+    let nonConflictTimeMedian: Double
+}
+
 struct FlankerResult {
     let timeBlock1:NSTimeInterval
     let timeBlock2:NSTimeInterval
@@ -224,6 +233,83 @@ class ECABLogCalculator {
         totals.average.search = r(totalTimeSearch / Double(searchHits))
     
         return totals
+    }
+    
+    class func getCounterpintingResult(session: CounterpointingSession) -> CounterpointingResult {
+        
+        var timeBlock1NonConflict:NSTimeInterval = 0
+        var timeBlock2Conflict:NSTimeInterval = 0
+        var countBlock1 = 0
+        var countBlock2 = 0
+        
+        var conflictIntervals: Array<NSTimeInterval> = []
+        var nonConflictIntervals: Array<NSTimeInterval> = []
+        
+        for m in session.moves {
+            
+            
+            if let move = m as? CounterpointingMove {
+                if let inerval = move.intervalDouble as? Double {
+                    // Real test begin after 3 practice blocks.
+                    // on screen number 24
+                    switch move.poitionX.integerValue {
+                    case 4 ... 23:
+                        timeBlock1NonConflict += inerval
+                        countBlock1 += 1
+                        nonConflictIntervals.append(inerval)
+                    case 29 ... 48:
+                        timeBlock2Conflict += inerval
+                        countBlock2 += 1
+                        conflictIntervals.append(inerval)
+                    default:
+                        break
+                    }
+                }
+                
+            } else {
+                print("Error in getFlankerResult()")
+                exit(0)
+            }
+            
+        }
+        
+        let nonConflictTimeMean = timeBlock1NonConflict / Double(countBlock1)
+        let conflictTimeMean = timeBlock2Conflict / Double(countBlock2)
+        
+        // Sort intervals in ascending order
+        nonConflictIntervals = nonConflictIntervals.sort({$0 < $1})
+        conflictIntervals = conflictIntervals.sort({$0 < $1})
+        
+        var nonConflictMedian: NSTimeInterval
+        if nonConflictIntervals.isEmpty {
+            nonConflictMedian = 0
+        } else {
+            let nonConflictMedianIndex = (Double(countBlock1) + 1) / 2
+            nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
+        }
+        
+        var conflictMedian: NSTimeInterval
+        if conflictIntervals.isEmpty {
+            conflictMedian = 0
+        } else {
+            let conflictMedianIndex = (Double(countBlock2) + 1) / 2
+            conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+        }
+        
+        // Calculate the deviations of each data point from the mean,
+        // and square the result of each:
+        var nonConflictDeviation = 0.0
+        for value in nonConflictIntervals {
+            nonConflictDeviation += pow((value - nonConflictMedian), 2)
+        }
+        var conflictDeviation = 0.0
+        for value in conflictIntervals {
+            conflictDeviation += pow((value - conflictMedian), 2)
+        }
+        
+        let result = CounterpointingResult(timeBlockNonConflict: timeBlock1NonConflict, timeBlockConflict: timeBlock2Conflict, conflictTimeMean: conflictTimeMean, conflictTimeMedian: conflictMedian, nonConflictTimeMean: nonConflictTimeMean, nonConflictTimeMedian: nonConflictMedian)
+        
+        return result
     }
     
     class func getFlankerResult(session: CounterpointingSession) -> FlankerResult {

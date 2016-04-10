@@ -141,7 +141,7 @@ class LogModel {
 				inverted = "conflict"
 			}
             
-            // Because I defined old interval as Integer I am chaning it to Double
+            // Because I defined old interval as Integer I am changing it to Double
             // This condition is to keep old data working.
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
@@ -149,7 +149,6 @@ class LogModel {
             } else {
                 append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
             }
-			
             
             if actualMove.poitionX == blankSpaceTag {
                 details = details + "\n"

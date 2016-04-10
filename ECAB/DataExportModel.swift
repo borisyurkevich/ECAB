@@ -50,6 +50,8 @@ class DataExportModel {
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
 			returnValue = createVisualSearchTable()
+        case GamesIndex.Counterpointing.rawValue:
+            returnValue = createCounterpointingTable()
         case GamesIndex.Flanker.rawValue:
             returnValue = createFlankerTable()
 		default:
@@ -59,6 +61,54 @@ class DataExportModel {
 		return returnValue
 	}
     
+    func createCounterpointingTable() -> String {
+        
+        if let session: CounterpointingSession = pickedCounterpointingSession {
+            let playerName = session.player.name
+            
+            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
+            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            
+            let comments = session.comment
+            
+            let rows = createCounterpointinLines(session)
+            let t = ECABLogCalculator.getCounterpintingResult(session)
+            
+            let ratio = t.timeBlockConflict / t.timeBlockNonConflict
+            let mediansRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
+            
+            returnValue = "ECAB Test     ,\(gameName)    ,                      ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
+                "ID                      ,\(playerName)  ,                      ,                      ,                       ,               ,    \n" +
+                "date of birth           ,\(birth)       ,age at test           ,\(age)                ,                       ,               ,    \n" +
+                "date/time of test start ,\(dateStart)   ,\(timeStart)          ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
+                "comments                ,\(comments)    ,                      ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
+                "non-conflict (blocks 1) ,               ,                      ,                      ,                       ,               ,    \n" +
+                "total time 1 =          ,\(r(t.timeBlockNonConflict)),msec     ,                      ,                       ,               ,    \n" +
+                "mean reponse time 1   = ,\(r(t.nonConflictTimeMean)),msec      ,                      ,                       ,               ,    \n" +
+                "median reponse time 1  =,\(r(t.nonConflictTimeMedian)),msec    ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
+                "conflict (blocks 2)     ,               ,                      ,                      ,                       ,               ,    \n" +
+                "total time 2 =          ,\(r(t.timeBlockConflict)),msec        ,                      ,                       ,               ,    \n" +
+                "mean reponse time 2 =   ,\(r(t.conflictTimeMean)),msec         ,                      ,                       ,               ,    \n" +
+                "median reponse time 2 = ,\(r(t.conflictTimeMedian)),msec       ,                      ,                       ,               ,    \n" +
+                "                         ,               ,                     ,                      ,                       ,               ,    \n" +
+                "ratio total2 / total1  = ,\(r(ratio))    ,                     ,                      ,                       ,               ,    \n" +
+                "ratio median2 / median1 =,\(r(mediansRatio)),                  ,                     ,                        ,               ,    \n" +
+                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
+                "log of individual responses,            ,                      ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                      ,                      ,                       ,               ,    \n"
+            
+            // Append dynamic rows: headers and moves
+            for line in rows {
+                returnValue += line
+            }
+        }
+        
+        return returnValue;
+    }
     
     func createFlankerTable() -> String {
         
@@ -121,6 +171,72 @@ class DataExportModel {
         }
         
         return returnValue;
+    }
+    
+    private func createCounterpointinLines(session: CounterpointingSession) -> Array<String> {
+        var collectionOfTableRows: Array<String> = Array()
+        var headerCount = 0
+        var screenCount = 1
+        var needHeader = true
+        
+        for move in session.moves {
+            let gameMove = move as! CounterpointingMove
+            
+            if (gameMove.poitionX.integerValue >= 4 && gameMove.poitionX.integerValue <= 23)
+            || (gameMove.poitionX.integerValue >= 29 && gameMove.poitionX.integerValue <= 48) {
+            
+                // Success or failure
+                var sof = ""
+                if gameMove.success.boolValue == true {
+                    sof = "correct"
+                } else {
+                    sof = "incorrect"
+                }
+                
+                var time: Double
+                if let newInterval = gameMove.intervalDouble as? Double {
+                    time = r(newInterval)
+                } else {
+                    // Because I defined old interval as Integer I am chaning it to Double
+                    // This condition is to keep old data working.
+                    time = gameMove.interval.doubleValue
+                }
+                
+                // CSV line
+                let line = ",\(screenCount),\(sof), \(time), msec, , ,\n"
+                collectionOfTableRows.append(line)
+                
+                screenCount += 1
+                needHeader = true
+                
+            } else {
+            
+                if needHeader  {
+                
+                    var header = "header uknown"
+                    
+                    switch headerCount {
+                    case 0:
+                        header = "non-conflict block 1"
+                    case 1:
+                        header = "conflict block 2"
+                    default:
+                        header = "header error"
+                    }
+                    headerCount += 1
+                    
+                    // CSV line
+                    let headerLine = "\(header),screen,response,time, , ,\n"
+                    collectionOfTableRows.append(headerLine)
+                    
+                    // Prevents duplicate headers
+                    needHeader = false
+                }
+            
+            }
+        }
+        
+        return collectionOfTableRows
     }
     
     private func createFlankerLines(session: CounterpointingSession) -> Array<String> {
@@ -264,9 +380,7 @@ class DataExportModel {
 		
 		return returnValue
 	}
-//    func r(x:NSTimeInterval) -> Double {
-//        return Double(round(msIn1️⃣Sec * x) / msIn1️⃣Sec)
-//    }
+
     func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         
