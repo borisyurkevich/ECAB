@@ -25,10 +25,17 @@ private enum MoveType {
 
 class DataExportModel {
 	
-	let model = Model.sharedInstance
-	var pickedVisualSearchSession: Session? = nil
+    var pickedVisualSearchSession: Session? = nil
     var pickedCounterpointingSession: CounterpointingSession? = nil
-    let msIn1️⃣Sec = 1000.0 // Milliseconds in one second
+    
+	private let model = Model.sharedInstance
+    private let msInOneSec = 1000.0 // Milliseconds in one second
+    private let gameName: String
+    private let birth: String
+    private let age: String
+    private let dateFormatter = NSDateFormatter()
+    private let timeFormatter = NSDateFormatter()
+    private var returnValue = "empty line\n"
     
     init() {
         gameName = model.games[Int(model.data.selectedGame)]
@@ -37,12 +44,6 @@ class DataExportModel {
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
         timeFormatter.dateFormat = "HH:mm:ss:SSS"
     }
-    private let gameName: String
-    private let birth: String
-    private let age: String
-    private let dateFormatter = NSDateFormatter()
-    private let timeFormatter = NSDateFormatter()
-    private var returnValue = "empty line\n"
     
 	func export() -> String? {
 		var returnValue: String? = nil
@@ -60,6 +61,90 @@ class DataExportModel {
 		
 		return returnValue
 	}
+    
+    func createVisualSearchTable() -> String {
+        
+        if let visualSearchSession: Session = pickedVisualSearchSession {
+            let playerName = visualSearchSession.player.name
+            
+            let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
+            let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
+            
+            var difficulty = "easy"
+            if visualSearchSession.difficulty == Difficulty.Hard.rawValue {
+                difficulty = "hard"
+            }
+            let speed = visualSearchSession.speed.doubleValue
+            
+            let comments = visualSearchSession.comment
+            
+            let screenComm = "*screen 3 should be blank throughout for 'hard' condition"
+            let durationComm = "**set this to screen duration if it doesn't finish early"
+            let header = "log of indivudual responces"
+            
+            // Create dynamic lines
+            let dynamicLines = createDynamicLinesForVSSession(visualSearchSession)
+            let t = ECABLogCalculator.getVisualSearchTotals(visualSearchSession)
+            let avg = t.average
+            
+            let mht = t.motorHits1 + t.motorHits2 + t.motorHits3
+            let mfpt = t.motorFalse1 + t.motorFalse2 + t.motorFalse3
+            // Motor time total
+            let mtt = t.motorOneTotal + t.motorTwoTotal + t.motorThreeTotal
+            // Search time total
+            let stt = t.searchOneTotal + t.searchTwoTotal + t.searchThreeTotal
+            // Search total hits
+            let sht = t.searchHits1 + t.searchHits2 + t.searchHits3
+            // Search false positives
+            let sfpt = t.searchFalse1 + t.searchFalse2 + t.searchFalse3
+            let searchDiff1 = t.searchHits1 - t.searchFalse1
+            let searchDiff2 = t.searchHits2 - t.searchFalse2
+            let searchDiff3 = t.searchHits3 - t.searchFalse3
+            
+            let avgMotor = "Time per target found [motor]"
+            let avgSearch = "Time per target found [search]"
+            let avgDiff = "Search time - motor time per target"
+            let avgDiffVal = avg.search - avg.motor
+            
+            returnValue = "\(gameName)             ,               ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
+                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
+                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "parameters              ,\(difficulty)  ,                       ,                      ,\(speed) s             ,               ,    \n" +
+                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,motor 1                ,motor 2               ,motor 3                ,TOTAL          ,*   \n" +
+                "no of hits              ,               ,\(t.motorHits1)        ,\(t.motorHits2)       ,\(t.motorHits3)        ,\(mht)         ,    \n" +
+                "no of false positives   ,               ,\(t.motorFalse1)       ,\(t.motorFalse2)      ,\(t.motorFalse3)       ,\(mfpt)        ,    \n" +
+                "total time              ,               ,\(r(t.motorOneTotal))  ,\(r(t.motorTwoTotal)) ,\(r(t.motorThreeTotal)),\(r(mtt))      ,**  \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,search 1               ,search 2              ,search 3               ,               ,    \n" +
+                "no of hits              ,               ,\(t.searchHits1)       ,\(t.searchHits2)      ,\(t.searchHits3)       ,\(sht)         ,    \n" +
+                "no of false positives   ,               ,\(t.searchFalse1)      ,\(t.searchFalse2)     ,\(t.searchFalse3)      ,\(sfpt)        ,    \n" +
+                "total time              ,               ,\(r(t.searchOneTotal)) ,\(r(t.searchTwoTotal)),\(r(t.searchThreeTotal)),\(r(stt))      ,**  \n" +
+                "hits - false positives  ,               ,\(searchDiff1)         ,\(searchDiff2)        ,\(searchDiff3)         ,\(sht-sfpt)    ,    \n" +
+                "                        ,\(screenComm)  ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,\(durationComm),                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "\(avgMotor)             ,\(avg.motor)   ,                       ,                      ,                       ,               ,    \n" +
+                "\(avgSearch)            ,\(avg.search)  ,                       ,                      ,                       ,               ,    \n" +
+                "\(avgDiff)              ,\(avgDiffVal)  ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "\(header)               ,               ,                       ,                      ,                       ,               ,    \n" +
+            "                        ,               ,target row             ,target col            ,time                   ,               ,    \n"
+            
+            // Append dynamic rows: headers and moves
+            for line in dynamicLines {
+                returnValue += line
+            }
+        }
+        
+        return returnValue
+    }
     
     func createCounterpointingTable() -> String {
         
@@ -224,21 +309,21 @@ class DataExportModel {
                         header = "header error"
                     }
                     headerCount += 1
-                    
+        
                     // CSV line
                     let headerLine = "\(header),screen,response,time, , ,\n"
                     collectionOfTableRows.append(headerLine)
-                    
+        
                     // Prevents duplicate headers
                     needHeader = false
                 }
-            
+    
             }
         }
-        
+
         return collectionOfTableRows
     }
-    
+
     private func createFlankerLines(session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
@@ -287,99 +372,15 @@ class DataExportModel {
                     header = "header error"
                 }
                 headerCount += 1
-                
+    
                 // CSV line
                 let headerLine = "\(header),screen,response,time, , ,\n"
                 collectionOfTableRows.append(headerLine)
             }
         }
-        
+
         return collectionOfTableRows
     }
-	
-	func createVisualSearchTable() -> String {
-		
-		if let visualSearchSession: Session = pickedVisualSearchSession {
-			let playerName = visualSearchSession.player.name
-			
-			let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
-			let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
-			
-			var difficulty = "easy"
-			if visualSearchSession.difficulty == Difficulty.Hard.rawValue {
-				difficulty = "hard"
-			}
-			let speed = visualSearchSession.speed.doubleValue
-			
-			let comments = visualSearchSession.comment
-			
-			let screenComm = "*screen 3 should be blank throughout for 'hard' condition"
-			let durationComm = "**set this to screen duration if it doesn't finish early"
-			let header = "log of indivudual responces"
-            
-            // Create dynamic lines
-            let dynamicLines = createDynamicLinesForVSSession(visualSearchSession)
-            let t = ECABLogCalculator.getVisualSearchTotals(visualSearchSession)
-            let avg = t.average
-            
-            let mht = t.motorHits1 + t.motorHits2 + t.motorHits3
-            let mfpt = t.motorFalse1 + t.motorFalse2 + t.motorFalse3
-            // Motor time total
-            let mtt = t.motorOneTotal + t.motorTwoTotal + t.motorThreeTotal
-            // Search time total
-            let stt = t.searchOneTotal + t.searchTwoTotal + t.searchThreeTotal
-            // Search total hits
-            let sht = t.searchHits1 + t.searchHits2 + t.searchHits3
-            // Search false positives
-            let sfpt = t.searchFalse1 + t.searchFalse2 + t.searchFalse3
-            let searchDiff1 = t.searchHits1 - t.searchFalse1
-            let searchDiff2 = t.searchHits2 - t.searchFalse2
-            let searchDiff3 = t.searchHits3 - t.searchFalse3
-            
-            let avgMotor = "Time per target found [motor]"
-            let avgSearch = "Time per target found [search]"
-            let avgDiff = "Search time - motor time per target"
-            let avgDiffVal = avg.search - avg.motor
-			
-			returnValue = "\(gameName)             ,               ,                       ,                      ,                       ,               ,    \n" +
-						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-			              "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
-			              "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
-						  "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
-						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-						  "parameters              ,\(difficulty)  ,                       ,                      ,\(speed) s             ,               ,    \n" +
-						  "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
-						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-						  "                        ,               ,motor 1                ,motor 2               ,motor 3                ,TOTAL          ,*   \n" +
-						  "no of hits              ,               ,\(t.motorHits1)        ,\(t.motorHits2)       ,\(t.motorHits3)        ,\(mht)         ,    \n" +
-						  "no of false positives   ,               ,\(t.motorFalse1)       ,\(t.motorFalse2)      ,\(t.motorFalse3)       ,\(mfpt)        ,    \n" +
- 						  "total time              ,               ,\(r(t.motorOneTotal))  ,\(r(t.motorTwoTotal)) ,\(r(t.motorThreeTotal)),\(r(mtt))      ,**  \n" +
-						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-					      "                        ,               ,search 1               ,search 2              ,search 3               ,               ,    \n" +
-  						  "no of hits              ,               ,\(t.searchHits1)       ,\(t.searchHits2)      ,\(t.searchHits3)       ,\(sht)         ,    \n" +
-						  "no of false positives   ,               ,\(t.searchFalse1)      ,\(t.searchFalse2)     ,\(t.searchFalse3)      ,\(sfpt)        ,    \n" +
-						  "total time              ,               ,\(r(t.searchOneTotal)) ,\(r(t.searchTwoTotal)),\(r(t.searchThreeTotal)),\(r(stt))      ,**  \n" +
-			              "hits - false positives  ,               ,\(searchDiff1)         ,\(searchDiff2)        ,\(searchDiff3)         ,\(sht-sfpt)    ,    \n" +
-  						  "                        ,\(screenComm)  ,                       ,                      ,                       ,               ,    \n" +
-						  "                        ,\(durationComm),                       ,                      ,                       ,               ,    \n" +
-						  "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "\(avgMotor)             ,\(avg.motor)   ,                       ,                      ,                       ,               ,    \n" +
-                          "\(avgSearch)            ,\(avg.search)  ,                       ,                      ,                       ,               ,    \n" +
-                          "\(avgDiff)              ,\(avgDiffVal)  ,                       ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-						  "\(header)               ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,target row             ,target col            ,time                   ,               ,    \n"
-            
-            // Append dynamic rows: headers and moves
-            for line in dynamicLines {
-                returnValue += line
-            }
-		}
-		
-		return returnValue
-	}
 
     func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
