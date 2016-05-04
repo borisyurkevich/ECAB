@@ -55,6 +55,20 @@ struct FlankerResult {
     let nonConflictTimeStandardDeviation: Double
 }
 
+struct VisualSustaineResult {
+    let delay: Double
+    
+    let totalPeriod: Double
+    let totalExposure: Double
+    let maxDelay: Double
+    
+    let totalHits: Int
+    let totalMisses: Int
+    let totalFalseAndVE: Int
+    let totalPicturesDisplayd: Int
+    let totalAnimalsDisplayed: Int
+}
+
 // Time per target
 struct Average {
     var motor: Double
@@ -415,6 +429,30 @@ class ECABLogCalculator {
                           nonConflictTimeMean: nonConflictTimeMean,
                         nonConflictTimeMedian: nonConflictMedian,
              nonConflictTimeStandardDeviation: nonConflictStandardDeviation)
+        
+        return result
+    }
+    
+    class func getVisualSustainResult(session: CounterpointingSession) -> VisualSustaineResult {
+        
+        let delay = session.vsustAcceptedDelay!.doubleValue
+        var totalPeriod = 0.0
+        let exposure = session.speed.doubleValue
+        let mdelay = session.vsustAcceptedDelay!.doubleValue
+        let score = session.score.integerValue
+        let misses = session.vsustMiss?.integerValue
+        let objectsTotal = session.vsustObjects!.integerValue
+        let animalsTotal = session.vsustAnimals!.integerValue
+        let totalPics = objectsTotal + animalsTotal
+        let falsePositives = session.errors.integerValue
+        
+        for m in session.moves {
+            if let move = m as? CounterpointingMove {
+                totalPeriod += move.interval.doubleValue
+            }
+        }
+        
+        let result = VisualSustaineResult(delay: delay, totalPeriod: totalPeriod, totalExposure: exposure, maxDelay: mdelay, totalHits: score, totalMisses: misses!, totalFalseAndVE: falsePositives, totalPicturesDisplayd: totalPics, totalAnimalsDisplayed: animalsTotal)
         
         return result
     }

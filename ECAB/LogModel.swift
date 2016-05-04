@@ -306,7 +306,18 @@ class LogModel {
 		let objectsTotal = session.vsustObjects!.intValue
 		let animalsTotal = session.vsustAnimals!.intValue
 		
-		let text = "\(gameName) (build \(build))\n\nPlayer: \(session.player.name)\nInterval = \(interval) exposure = \(exposure) blank = \(blank) accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\nObjects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\nTotal score = \(session.score) moves = \(session.moves.count)\nFalse positives = \(session.errors) Misses = \(session.vsustMiss!)\n\nComment: \(comment)\n\nSession started: \(dateString)\n\n\(details)"
+		let text = "\(gameName) (build \(build))\n\n" +
+        "Player: \(session.player.name)\n" +
+        "Interval = \(interval) exposure = \(exposure)" +
+        "blank = \(blank)" +
+        "accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\n" +
+        "Objects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\n" +
+        "Total score = \(session.score) moves = \(session.moves.count)\n" +
+        "False positives = \(session.errors) Misses = \(session.vsustMiss!)\n\n" +
+        "Comment: \(comment)\n\n" +
+        "Session started: \(dateString)\n\n" +
+        "\(details)"
+        
 		return text
 	}
 }

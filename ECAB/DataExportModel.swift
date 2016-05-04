@@ -258,6 +258,146 @@ class DataExportModel {
         return returnValue;
     }
     
+    func createVisualSustainedTable() -> String {
+        
+        if let session: CounterpointingSession = pickedCounterpointingSession {
+            let playerName = session.player.name
+            
+            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
+            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            
+            let comments = session.comment
+            var imageInfo = "uknown image size"
+            if let definedImageInfo = session.imageSizeComment as String? {
+                imageInfo = definedImageInfo
+            }
+            
+            let rows = createFlankerLines(session)
+            let t = ECABLogCalculator.getFlankerResult(session)
+            
+            let ratio = t.conflictTime / t.nonConflictTime
+            let mediansRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
+            
+            returnValue = "ECAB Test               ,\(gameName)    ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
+                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
+                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "parameters              ,\(imageInfo)   ,                       ,                      ,                       ,               ,    \n" +
+                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "non-conflict (blocks 1+4),               ,                      ,                      ,                       ,               ,    \n" +
+                "total time block 1 =    ,\(r(t.timeBlock1)),msec                ,                      ,                       ,               ,    \n" +
+                "total time block 4 =    ,\(r(t.timeBlock4)),msec                ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "total time blocks 1+4 = ,\(r(t.nonConflictTime)),msec           ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "mean reponse time 1+4 = ,\(r(t.nonConflictTimeMean)),msec       ,                      ,                       ,               ,    \n" +
+                "median reponse time 1+4 =,\(r(t.nonConflictTimeMedian)),msec    ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "conflicts (blocks 2+3),               ,                         ,                      ,                       ,               ,    \n" +
+                "total time block 2 =    ,\(r(t.timeBlock2)),msec                ,                      ,                       ,               ,    \n" +
+                "total time block 3 =    ,\(r(t.timeBlock3)),msec                ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "total time blocks 2+3 = ,\(r(t.conflictTime)),msec              ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "mean reponse time 2+3 = ,\(r(t.conflictTimeMean)),msec          ,                      ,                       ,               ,    \n" +
+                "median reponse time 2+3 =,\(r(t.conflictTimeMedian)),msec       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
+                "ratio of medians conflict/non-conflict total = ,\(r(mediansRatio)),                    ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
+            "                        ,               ,                       ,                      ,                       ,               ,    \n"
+            
+            // Append dynamic rows: headers and moves
+            for line in rows {
+                returnValue += line
+            }
+        }
+        
+        return returnValue;
+    }
+    
+    private func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
+        var collectionOfTableRows: Array<String> = Array()
+        
+        for move in visualSearchSession.moves {
+            let gameMove = move as! Move
+            let screenNumber = gameMove.screenNumber.integerValue
+            
+            var ignoreThisMove = false
+            switch screenNumber {
+            case 0 ... 2, 11 ... 13:
+                ignoreThisMove = true // Training
+            default:
+                break
+            }
+            if !ignoreThisMove {
+                if gameMove.empty.boolValue == false {
+                    // Success or failure
+                    var sof = ""
+                    if gameMove.success.boolValue == true {
+                        sof = "hit"
+                    } else {
+                        sof = "false"
+                    }
+                    // ve / repeat
+                    var veor = ""
+                    if gameMove.`repeat`.boolValue == true {
+                        veor = "repeat"
+                    } else {
+                        veor = "ve"
+                    }
+                    let moveTimestamp = timeFormatter.stringFromDate(gameMove.date)
+                    let targetRow = gameMove.row
+                    let targetColumn = gameMove.column
+                    
+                    // CSV line
+                    let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTimestamp)\n"
+                    collectionOfTableRows.append(line)
+                    
+                } else {
+                    var header = "header uknown"
+                    switch screenNumber {
+                    case VisualSearchEasyModeView.MotorOne.rawValue:
+                        header = "motor screen 1"
+                    case VisualSearchEasyModeView.MotorTwo.rawValue:
+                        header = "motor screen 2"
+                    case VisualSearchEasyModeView.MotorThree.rawValue:
+                        header = "motor screen 3"
+                    case VisualSearchHardModeView.MotorOne.rawValue:
+                        header = "motor screen 1"
+                    case VisualSearchHardModeView.MotorTwo.rawValue:
+                        header = "motor screen 2"
+                    case VisualSearchEasyModeView.One.rawValue:
+                        header = "search screen 1"
+                    case VisualSearchEasyModeView.Two.rawValue:
+                        header = "search screen 2"
+                    case VisualSearchEasyModeView.Three.rawValue:
+                        header = "search screen 3"
+                    case VisualSearchHardModeView.One.rawValue:
+                        header = "search screen 1"
+                    case VisualSearchHardModeView.Two.rawValue:
+                        header = "search screen 2"
+                    default:
+                        header = "wrong header number"
+                    }
+                    // Time
+                    let headerTime = timeFormatter.stringFromDate(gameMove.date)
+                    
+                    // CSV line
+                    let headerLine = "\(header),screen onset, , ,\(headerTime)\n"
+                    collectionOfTableRows.append(headerLine)
+                }
+            }
+        }
+        
+        return collectionOfTableRows
+    }
+    
     private func createCounterpointinLines(session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
@@ -382,10 +522,10 @@ class DataExportModel {
         return collectionOfTableRows
     }
 
-    func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
+    private func createVisualSustainedLines(session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         
-        for move in visualSearchSession.moves {
+        for move in session.moves {
             let gameMove = move as! Move
             let screenNumber = gameMove.screenNumber.integerValue
             
