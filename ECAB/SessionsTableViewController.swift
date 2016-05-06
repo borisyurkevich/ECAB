@@ -98,6 +98,10 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
             }
         break
         case GamesIndex.VisualSust.rawValue:
+            if let counterpointingSession = selectedCounterpointingSession {
+                dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                fileName = "VisualSustain_\(dateName).csv"
+            }
         break
         case GamesIndex.Counterpointing.rawValue:
             if let counterpointingSession = selectedCounterpointingSession {
@@ -128,7 +132,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
             } catch {
                 let writeError = error as NSError
                 let message = "Error. Can't write a file: \(writeError)"
-                let errorAlert = UIAlertController(title: "Can't write file", message: message, preferredStyle: .Alert)
+                let errorAlert = UIAlertController(title: "Can't Write File", message: message, preferredStyle: .Alert)
                 let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.Cancel, handler: nil)
                 errorAlert.addAction(okayAction)
                 navigationController?.presentViewController(errorAlert, animated: true, completion: nil)
@@ -403,7 +407,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName)
 			detailVC.helpMessage.text = ""
 			
-            actionButton.enabled = false
+            actionButton.enabled = true
 			selectedCounterpointingSession = pickedSession
             
 		default:

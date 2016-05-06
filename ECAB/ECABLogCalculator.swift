@@ -436,7 +436,6 @@ class ECABLogCalculator {
     class func getVisualSustainResult(session: CounterpointingSession) -> VisualSustaineResult {
         
         let delay = session.vsustAcceptedDelay!.doubleValue
-        var totalPeriod = 0.0
         let exposure = session.speed.doubleValue
         let mdelay = session.vsustAcceptedDelay!.doubleValue
         let score = session.score.integerValue
@@ -446,13 +445,10 @@ class ECABLogCalculator {
         let totalPics = objectsTotal + animalsTotal
         let falsePositives = session.errors.integerValue
         
-        for m in session.moves {
-            if let move = m as? CounterpointingMove {
-                totalPeriod += move.interval.doubleValue
-            }
-        }
+        let blank = session.vsustBlank!.doubleValue
+        let interval = exposure + blank
         
-        let result = VisualSustaineResult(delay: delay, totalPeriod: totalPeriod, totalExposure: exposure, maxDelay: mdelay, totalHits: score, totalMisses: misses!, totalFalseAndVE: falsePositives, totalPicturesDisplayd: totalPics, totalAnimalsDisplayed: animalsTotal)
+        let result = VisualSustaineResult(delay: delay, totalPeriod: interval, totalExposure: exposure, maxDelay: mdelay, totalHits: score, totalMisses: misses!, totalFalseAndVE: falsePositives, totalPicturesDisplayd: totalPics, totalAnimalsDisplayed: animalsTotal)
         
         return result
     }
