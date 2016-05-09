@@ -174,7 +174,7 @@ class LogModel {
         
 		let text = "\(gameName)\n\n" + "Player: \(session.player.name)\n\n" +
             "Comment: \(comment)\n\nTotal score = \(session.score)\n" +
-            "Moves = \(session.moves.count)\n" +
+            "Screens = \(session.moves.count)\n" +
             "Errors = \(session.errors)\n\n" +
             "non-conflict (blocks 1)\n" +
             "total time 1 = \(r(result.timeBlockNonConflict)) msec \n" +
