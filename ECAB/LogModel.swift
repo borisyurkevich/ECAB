@@ -160,22 +160,35 @@ class LogModel {
 		}
 		
 		let dateString = formatter.stringFromDate(session.dateStart)
-		let ratio = session.totalTwo.doubleValue / session.totalOne.doubleValue
-		let roundRatio = Double(round(100 * ratio) / 100)
-		
+				
 		let comment = session.comment
 		
 		var build = "unknown"
 		if let canonicBuild = session.bundleVersion as String? {
-		build = canonicBuild
+            build = canonicBuild
 		}
 		
+        let result = ECABLogCalculator.getCounterpintingResult(session)
+        let resultRatio = result.timeBlockConflict / result.timeBlockNonConflict
+        let mediansRatio = result.conflictTimeMedian / result.nonConflictTimeMedian
+        
 		let text = "\(gameName)\n\n" + "Player: \(session.player.name)\n\n" +
-            "Comment: \(comment)\n\nTotal score = \(session.score)," +
-            "moves = \(session.moves.count)\nErrors = \(session.errors)\n\n" +
-            "Total 1 (non-conflict time) = \(session.totalOne.integerValue)\n" +
-            "Total 2 (conflict time) = \(session.totalTwo.integerValue)\n" +
-            "Ratio (total 2 / total 1) = \(roundRatio)\n\n" +
+            "Comment: \(comment)\n\nTotal score = \(session.score)\n" +
+            "Moves = \(session.moves.count)\n" +
+            "Errors = \(session.errors)\n\n" +
+            "non-conflict (blocks 1)\n" +
+            "total time 1 = \(r(result.timeBlockNonConflict)) msec \n" +
+            "mean reponse time 1 = \(r(result.nonConflictTimeMean)) msec \n" +
+            "median reponse time 1 = \(r(result.nonConflictTimeMedian)) msec" +
+            "\n\n" +
+            "conflict (blocks 2)\n" +
+            "total time 2 = \(r(result.timeBlockConflict)) msec \n" +
+            "mean reponse time 2 = \(r(result.conflictTimeMean)) msec \n" +
+            "median reponse time 2 = \(r(result.conflictTimeMedian)) msec" +
+            "\n\n" +
+            "ratio total2 / total1  = \(r(resultRatio)) msec \n" +
+            "ratio median2 / median1 = \(r(mediansRatio)) msec" +
+            "\n\n" +
             "Session started: \(dateString)\n\n" +
             "Build: \(build)\n" +
             "Moves:\n\n\(details)"

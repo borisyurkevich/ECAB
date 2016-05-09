@@ -174,8 +174,8 @@ class DataExportModel {
                 "                        ,               ,                      ,                      ,                       ,               ,    \n" +
                 "non-conflict (blocks 1) ,               ,                      ,                      ,                       ,               ,    \n" +
                 "total time 1 =          ,\(r(t.timeBlockNonConflict)),msec     ,                      ,                       ,               ,    \n" +
-                "mean reponse time 1   = ,\(r(t.nonConflictTimeMean)),msec      ,                      ,                       ,               ,    \n" +
-                "median reponse time 1  =,\(r(t.nonConflictTimeMedian)),msec    ,                      ,                       ,               ,    \n" +
+                "mean reponse time 1 =   ,\(r(t.nonConflictTimeMean)),msec      ,                      ,                       ,               ,    \n" +
+                "median reponse time 1 = ,\(r(t.nonConflictTimeMedian)),msec    ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                      ,                      ,                       ,               ,    \n" +
                 "conflict (blocks 2)     ,               ,                      ,                      ,                       ,               ,    \n" +
                 "total time 2 =          ,\(r(t.timeBlockConflict)),msec        ,                      ,                       ,               ,    \n" +
