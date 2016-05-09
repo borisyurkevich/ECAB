@@ -206,7 +206,7 @@ class DataExportModel {
             let timeStart = timeFormatter.stringFromDate(session.dateStart)
             
             let comments = session.comment
-            var imageInfo = "uknown image size"
+            var imageInfo = "unknown image size"
             if let definedImageInfo = session.imageSizeComment as String? {
                 imageInfo = definedImageInfo
             }
