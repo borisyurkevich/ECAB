@@ -199,6 +199,14 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	// Called when skip button tapped
 	override func skip() {
+    
+        // Removes 5 images on tutorial.
+        for v in view.subviews {
+            if v.isKindOfClass(UIImageView) {
+                v.removeFromSuperview()
+            }
+        }
+        
         timeToPresentWhiteSpace.invalidate()
         timeToPresentNextScreen.invalidate()
         stopTest()
