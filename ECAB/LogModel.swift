@@ -321,8 +321,8 @@ class LogModel {
 		
 		let text = "\(gameName) (build \(build))\n\n" +
         "Player: \(session.player.name)\n" +
-        "Interval = \(interval) exposure = \(exposure)" +
-        "blank = \(blank)" +
+        "Interval = \(interval) exposure = \(exposure) " +
+        "blank = \(blank) " +
         "accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\n" +
         "Objects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\n" +
         "Total score = \(session.score) moves = \(session.moves.count)\n" +

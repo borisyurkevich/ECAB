@@ -32,7 +32,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	let totalMissesBeforeWarningPrompt = 4
 	let timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
-	let timersScale = 0.1 // Tenth of a second
+	let timersScale = 0.01 // Hundreds of a second
     var timeToPresentNextScreen = NSTimer()
     var timeToPresentWhiteSpace = NSTimer()
 	var timeToGameOver = NSTimer()
