@@ -13,7 +13,7 @@
 import UIKit
 import AVFoundation
 
-class TestViewController: UIViewController {
+class TestViewController: UIViewController, UITextFieldDelegate {
 	
 	let model: Model = Model.sharedInstance
 	
@@ -190,26 +190,51 @@ class TestViewController: UIViewController {
     func presentPause() {
         gamePaused = true
         
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        pauseButton.setTitle("", forState: .Normal)
+        pauseButton.addSubview(activity)
+        activity.startAnimating()
+        
+        // For some reason it takes long time, need to show something in UI.
+        if #available(iOS 9.0, *) {
+            activity.translatesAutoresizingMaskIntoConstraints = false
+            activity.centerYAnchor.constraintEqualToAnchor(pauseButton.centerYAnchor).active = true
+            activity.centerXAnchor.constraintEqualToAnchor(pauseButton.centerXAnchor).active = true
+            
+        } else {
+            // Fallback on earlier versions
+            // In this case inidcator is not centered in the button, not a big deal.
+        }
+        
         let alertView = UIAlertController(title: "Pause", message: "Quit this test or add a comment.", preferredStyle: .Alert)
         
-        alertView.addAction(UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+        let quit = UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
             self.addComment(alertView)
             self.quit()
-        }))
-        alertView.addAction(UIAlertAction(title: "Continue", style: .Cancel, handler: {
+        })
+        let continueAction = UIAlertAction(title: "Continue", style: .Cancel, handler: {
             (okAction) -> Void in
             self.addComment(alertView)
             self.gamePaused = false
-        }))
+        })
+        
+        alertView.addAction(quit)
+        alertView.addAction(continueAction)
+
         alertView.addTextFieldWithConfigurationHandler {
             (textField: UITextField!) -> Void in
+            
+            textField.delegate = self
             textField.clearButtonMode = .Always
             textField.placeholder = "Your comment"
             textField.autocapitalizationType = .Sentences
             textField.text = self.getComment()
         }
         
-        presentViewController(alertView, animated: true, completion: nil)
+        presentViewController(alertView, animated: true) { 
+            activity.removeFromSuperview()
+            self.pauseButton.setTitle("Pause", forState: .Normal)
+        }
     }
     func addComment(alert: UIAlertController) {
         // Implement in subclassws
