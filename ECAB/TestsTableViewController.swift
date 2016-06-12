@@ -46,16 +46,40 @@ class TestsTableViewController: UITableViewController {
 		let detailVC = navVC.topViewController as! MenuViewController
 		
 		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			detailVC.showTheGame(.VisualSearch);
-		case GamesIndex.Counterpointing.rawValue:
-			detailVC.showTheGame(.Counterpointing)
-		case GamesIndex.Flanker.rawValue:
-			detailVC.showTheGame(.Flanker)
-		case GamesIndex.VisualSust.rawValue:
-			detailVC.showTheGame(.VisualSust)
-		default:
-			break
+            case GamesIndex.VisualSearch.rawValue:
+                detailVC.showTheGame(.VisualSearch)
+                break;
+            
+            case GamesIndex.Counterpointing.rawValue:
+                detailVC.showTheGame(.Counterpointing)
+                break;
+            
+            case GamesIndex.Flanker.rawValue:
+                detailVC.showTheGame(.Flanker)
+                break;
+            
+            case GamesIndex.VisualSust.rawValue:
+                detailVC.showTheGame(.VisualSust)
+                break;
+            
+            case GamesIndex.AuditorySust.rawValue:
+                detailVC.showTheGame(.AuditorySust)
+                break;
+            
+            case GamesIndex.DualSust.rawValue:
+                detailVC.showTheGame(.DualSust)
+                break;
+                
+            case GamesIndex.Verbal.rawValue:
+                detailVC.showTheGame(.Verbal)
+                break;
+                
+            case GamesIndex.Balloon.rawValue:
+                detailVC.showTheGame(.Balloon)
+                break;
+            
+            default:
+                break
 		}
 	}
 }

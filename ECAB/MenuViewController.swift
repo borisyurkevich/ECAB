@@ -49,16 +49,23 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	func dataLoaded() {
 		
 		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			showTheGame(.VisualSearch)
-		case GamesIndex.VisualSust.rawValue:
-			showTheGame(.VisualSust)
-		case GamesIndex.Flanker.rawValue:
-			showTheGame(.Flanker)
-		case GamesIndex.Counterpointing.rawValue:
-			showTheGame(.Counterpointing)
-		default:
-			break
+            case GamesIndex.VisualSearch.rawValue:
+                showTheGame(.VisualSearch)
+                break;
+            case GamesIndex.VisualSust.rawValue:
+                showTheGame(.VisualSust)
+                break;
+            case GamesIndex.Flanker.rawValue:
+                showTheGame(.Flanker)
+                break;
+            case GamesIndex.Counterpointing.rawValue:
+                showTheGame(.Counterpointing)
+                break;
+            case GamesIndex.DualSust.rawValue:
+                showTheGame(.DualSust)
+                break;
+            default:
+                break
 		}
 		
 		changePlayerButton.title = model.data.selectedPlayer.name
@@ -70,104 +77,118 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		title = currentTitle
 		
 		switch game {
-		case .VisualSearch:
-			gameIcon.image = UIImage(named: "red_apple")
-			difControl.hidden = false
-			speedLabel.hidden = false
-			speedLabelDescription.hidden = false
-			
-			speedStepper.hidden = false
-			secondSpeedLabel.hidden = true
-			secondSpeedStepper.hidden = true
-			secondSpeedLabelDescription.hidden = true
-			
-			// Third Control
-			periodControl.hidden = true
-			periodTitle.hidden = true
-			periodHelp.hidden = true
-			periodValue.hidden = true
-			
-			
-			if model.data.visSearchDifficulty.integerValue == 0 {
-				speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
-				speedStepper.value = model.data.visSustSpeed.doubleValue
-			} else {
-				speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
-				speedStepper.value = model.data.visSearchSpeedHard.doubleValue
-			}
-			
-		case .Flanker:
-			gameIcon.image = UIImage(named: "fish")
-			
-			difficultyTitle.hidden = true
-			difControl.hidden = true
-			
-			speedLabel.hidden = true
-			speedStepper.hidden = true
-			
-			secondSpeedLabel.hidden = true
-			secondSpeedStepper.hidden = true
-			secondSpeedLabelDescription.hidden = true
-			speedLabelDescription.hidden = true
-			
-			// Third Control
-			periodControl.hidden = true
-			periodTitle.hidden = true
-			periodHelp.hidden = true
-			periodValue.hidden = true
-			
-		case .Counterpointing:
-			gameIcon.image = UIImage(named: "dog")
-			
-			difficultyTitle.hidden = true
-			difControl.hidden = true
-			
-			speedLabel.hidden = true
-			speedStepper.hidden = true
-			secondSpeedLabel.hidden = true
-			secondSpeedStepper.hidden = true
-			secondSpeedLabelDescription.hidden = true
-			speedLabelDescription.hidden = true
-			
-			// Third Control
-			periodControl.hidden = true
-			periodTitle.hidden = true
-			periodHelp.hidden = true
-			periodValue.hidden = true
-			
-		case .VisualSust:
-			gameIcon.image = UIImage(named: "pig")
-			
-			difficultyTitle.hidden = true
-			difControl.hidden = true
-			
-			speedLabel.hidden = false
-			speedStepper.hidden = false
-			secondSpeedLabel.hidden = false
-			secondSpeedStepper.hidden = false
-			secondSpeedLabelDescription.hidden = false
-			speedLabelDescription.hidden = false
-			
-			periodControl.hidden = false
-			periodTitle.hidden = false
-			periodHelp.hidden = false
-			periodValue.hidden = false
-			
-			
-			speedStepper.value = model.data.visSustSpeed.doubleValue
-			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) \(MenuConstants.second)"
-			
-			secondSpeedLabel.text = "\(model.data.visSustAcceptedDelay!.doubleValue) \(MenuConstants.second)"
-			secondSpeedStepper.value = model.data.visSustAcceptedDelay!.doubleValue
-			
-			let exposure = model.data.visSustSpeed.doubleValue
-			let delay = model.data.visSustDelay.doubleValue
-			let totalPeriod = exposure + delay
-			periodControl.value = totalPeriod
-			periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
-			periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
-			
-			validateAndHighliteBlankSpaceLabel()
+            case .VisualSearch:
+                gameIcon.image = UIImage(named: "red_apple")
+                difControl.hidden = false
+                speedLabel.hidden = false
+                speedLabelDescription.hidden = false
+                
+                speedStepper.hidden = false
+                secondSpeedLabel.hidden = true
+                secondSpeedStepper.hidden = true
+                secondSpeedLabelDescription.hidden = true
+                
+                // Third Control
+                periodControl.hidden = true
+                periodTitle.hidden = true
+                periodHelp.hidden = true
+                periodValue.hidden = true
+                
+                
+                if model.data.visSearchDifficulty.integerValue == 0 {
+                    speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
+                    speedStepper.value = model.data.visSustSpeed.doubleValue
+                } else {
+                    speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
+                    speedStepper.value = model.data.visSearchSpeedHard.doubleValue
+                }
+                
+            case .Flanker:
+                gameIcon.image = UIImage(named: "fish")
+                
+                difficultyTitle.hidden = true
+                difControl.hidden = true
+                
+                speedLabel.hidden = true
+                speedStepper.hidden = true
+                
+                secondSpeedLabel.hidden = true
+                secondSpeedStepper.hidden = true
+                secondSpeedLabelDescription.hidden = true
+                speedLabelDescription.hidden = true
+                
+                // Third Control
+                periodControl.hidden = true
+                periodTitle.hidden = true
+                periodHelp.hidden = true
+                periodValue.hidden = true
+                
+            case .Counterpointing:
+                gameIcon.image = UIImage(named: "dog")
+                
+                difficultyTitle.hidden = true
+                difControl.hidden = true
+                
+                speedLabel.hidden = true
+                speedStepper.hidden = true
+                secondSpeedLabel.hidden = true
+                secondSpeedStepper.hidden = true
+                secondSpeedLabelDescription.hidden = true
+                speedLabelDescription.hidden = true
+                
+                // Third Control
+                periodControl.hidden = true
+                periodTitle.hidden = true
+                periodHelp.hidden = true
+                periodValue.hidden = true
+                
+            case .VisualSust:
+                gameIcon.image = UIImage(named: "pig")
+                
+                difficultyTitle.hidden = true
+                difControl.hidden = true
+                
+                speedLabel.hidden = false
+                speedStepper.hidden = false
+                secondSpeedLabel.hidden = false
+                secondSpeedStepper.hidden = false
+                secondSpeedLabelDescription.hidden = false
+                speedLabelDescription.hidden = false
+                
+                periodControl.hidden = false
+                periodTitle.hidden = false
+                periodHelp.hidden = false
+                periodValue.hidden = false
+                
+                
+                speedStepper.value = model.data.visSustSpeed.doubleValue
+                speedLabel.text = "\(model.data.visSustSpeed.doubleValue) \(MenuConstants.second)"
+                
+                secondSpeedLabel.text = "\(model.data.visSustAcceptedDelay!.doubleValue) \(MenuConstants.second)"
+                secondSpeedStepper.value = model.data.visSustAcceptedDelay!.doubleValue
+                
+                let exposure = model.data.visSustSpeed.doubleValue
+                let delay = model.data.visSustDelay.doubleValue
+                let totalPeriod = exposure + delay
+                periodControl.value = totalPeriod
+                periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
+                periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
+                
+                validateAndHighliteBlankSpaceLabel()
+                
+            case .AuditorySust:
+                gameIcon.image = UIImage(named: "cat")
+                break;
+            
+            case .DualSust:
+                break;
+                
+            case .Verbal:
+                break;
+                
+            case .Balloon:
+                gameIcon.image = UIImage(named: "icon_balloon")
+                break;
 		}
 	}
 	

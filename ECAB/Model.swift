@@ -15,6 +15,10 @@ enum GamesIndex: NSNumber {
 	case Counterpointing = 1
 	case Flanker = 2
 	case VisualSust = 3
+    case AuditorySust = 4
+    case DualSust = 5
+    case Verbal = 6
+    case Balloon = 7
 }
 
 enum Difficulty: NSNumber {
@@ -27,10 +31,14 @@ struct MenuConstants {
 }
 
 struct GameTitle {
-	static let visual = "Visual Search"
+	static let visual = "Visual search"
 	static let counterpointing = "Counterpointing"
 	static let flanker = "Flanker"
-	static let visualSust = "Visual Sustained"
+	static let visualSust = "Visual sustained"
+    static let auditorySust = "Auditory sustained"
+    static let dualSust = "Dual sustained"
+    static let verbal = "Verbal opposites"
+    static let balloon = "Balloon sorting"
 }
 
 enum VisualSustainMistakeType: Double {
@@ -53,7 +61,15 @@ func r(x:NSTimeInterval) -> Double {
 }
 
 class Model {
-    let games = [GameTitle.visual, GameTitle.counterpointing, GameTitle.flanker, GameTitle.visualSust]
+    let games = [GameTitle.visual,
+                 GameTitle.counterpointing,
+                 GameTitle.flanker,
+                 GameTitle.visualSust,
+                 GameTitle.auditorySust,
+                 GameTitle.dualSust,
+                 GameTitle.verbal,
+                 GameTitle.balloon
+    ]
 	
 	var managedContext: NSManagedObjectContext!
 	
