@@ -52,17 +52,33 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             case GamesIndex.VisualSearch.rawValue:
                 showTheGame(.VisualSearch)
                 break;
+            
             case GamesIndex.VisualSust.rawValue:
                 showTheGame(.VisualSust)
                 break;
+            
             case GamesIndex.Flanker.rawValue:
                 showTheGame(.Flanker)
                 break;
+            
             case GamesIndex.Counterpointing.rawValue:
                 showTheGame(.Counterpointing)
                 break;
+            
+            case GamesIndex.AuditorySust.rawValue:
+                showTheGame(.AuditorySust)
+                break;
+            
             case GamesIndex.DualSust.rawValue:
                 showTheGame(.DualSust)
+                break;
+                
+            case GamesIndex.Verbal.rawValue:
+                showTheGame(.Verbal)
+                break;
+                
+            case GamesIndex.Balloon.rawValue:
+                showTheGame(.Balloon)
                 break;
             default:
                 break
@@ -78,7 +94,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		
 		switch game {
             case .VisualSearch:
-                gameIcon.image = UIImage(named: "red_apple")
+                gameIcon.image = UIImage(named: "icon_visual")
                 difControl.hidden = false
                 speedLabel.hidden = false
                 speedLabelDescription.hidden = false
@@ -95,6 +111,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodValue.hidden = true
                 
                 
+                
                 if model.data.visSearchDifficulty.integerValue == 0 {
                     speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
                     speedStepper.value = model.data.visSustSpeed.doubleValue
@@ -104,7 +121,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 }
                 
             case .Flanker:
-                gameIcon.image = UIImage(named: "fish")
+                gameIcon.image = UIImage(named: "icon_flanker")
                 
                 difficultyTitle.hidden = true
                 difControl.hidden = true
@@ -124,7 +141,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodValue.hidden = true
                 
             case .Counterpointing:
-                gameIcon.image = UIImage(named: "dog")
+                gameIcon.image = UIImage(named: "icon_counter")
                 
                 difficultyTitle.hidden = true
                 difControl.hidden = true
@@ -143,7 +160,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodValue.hidden = true
                 
             case .VisualSust:
-                gameIcon.image = UIImage(named: "pig")
+                gameIcon.image = UIImage(named: "icon_sustained")
                 
                 difficultyTitle.hidden = true
                 difControl.hidden = true
@@ -177,13 +194,31 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 validateAndHighliteBlankSpaceLabel()
                 
             case .AuditorySust:
-                gameIcon.image = UIImage(named: "cat")
+                gameIcon.image = UIImage(named: "icon_auditory")
+                
+                difficultyTitle.hidden = true
+                difControl.hidden = true
+                
+                speedLabel.hidden = true
+                speedStepper.hidden = true
+                secondSpeedLabel.hidden = true
+                secondSpeedStepper.hidden = true
+                secondSpeedLabelDescription.hidden = true
+                speedLabelDescription.hidden = true
+                
+                // Third Control
+                periodControl.hidden = true
+                periodTitle.hidden = true
+                periodHelp.hidden = true
+                periodValue.hidden = true
                 break;
             
             case .DualSust:
+                gameIcon.image = UIImage(named: "icon_dual")
                 break;
                 
             case .Verbal:
+                gameIcon.image = UIImage(named: "icon_verbal")
                 break;
                 
             case .Balloon:
@@ -277,35 +312,49 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         if let detailVC: UISplitViewController = splitViewController {
 			
 			switch title! {
-			case GameTitle.visual:
-				let gameVC = VisualSearchViewController()
-				detailVC.presentViewController(gameVC, animated: true, completion: nil)
-			case GameTitle.counterpointing:
-				let gameVC = CounterpointingViewController()
-				detailVC.presentViewController(gameVC, animated: true, completion: nil)
-			case GameTitle.flanker:
-				let gameVC = FlankerViewController()
-				
-				let alert = UIAlertController(title: "Small Images.", message: "Enable small images?", preferredStyle:.Alert)
-				let okayAction = UIAlertAction(title: "Classic images (2x)", style: .Default, handler: { (alertAction) -> Void in
-					detailVC.presentViewController(gameVC, animated: true, completion: nil)
-				})
-				let smallImageAction = UIAlertAction(title: "Smaller images (1.5x)", style: .Cancel, handler: { (alertAction) -> Void in
-					gameVC.smallImages = true
-					detailVC.presentViewController(gameVC, animated: true, completion: nil)
-				})
-				alert.addAction(okayAction)
-				alert.addAction(smallImageAction)
-				
-				self.presentViewController(alert, animated: true, completion: nil)
-				
-			case GameTitle.visualSust:
-				let gameVC = VisualSustainViewController()
-				detailVC.presentViewController(gameVC, animated: true, completion: nil)
-			default:
-				let gameVC = VisualSearchViewController()
-				detailVC.presentViewController(gameVC, animated: true, completion: nil)
-			}
+                
+                case GameTitle.visual:
+                    detailVC.presentViewController(VisualSearchViewController(), animated: true, completion: nil)
+                
+                case GameTitle.counterpointing:
+                    detailVC.presentViewController(CounterpointingViewController(), animated: true, completion: nil)
+                
+                case GameTitle.flanker:
+                    let gameVC = FlankerViewController()
+                    
+                    let alert = UIAlertController(title: "Small Images.", message: "Enable small images?", preferredStyle:.Alert)
+                    let okayAction = UIAlertAction(title: "Classic images (2x)", style: .Default, handler: { (alertAction) -> Void in
+                        detailVC.presentViewController(gameVC, animated: true, completion: nil)
+                    })
+                    let smallImageAction = UIAlertAction(title: "Smaller images (1.5x)", style: .Cancel, handler: { (alertAction) -> Void in
+                        gameVC.smallImages = true
+                        detailVC.presentViewController(gameVC, animated: true, completion: nil)
+                    })
+                    alert.addAction(okayAction)
+                    alert.addAction(smallImageAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    
+                case GameTitle.visualSust:
+                    detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
+                
+                case GameTitle.auditorySust:
+                    detailVC.presentViewController(AuditorySustainViewController(), animated: true, completion: nil)
+                
+                case GameTitle.dualSust:
+                    detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
+                
+                case GameTitle.verbal:
+                    detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
+                
+                case GameTitle.balloon:
+                    detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
+                    
+                
+                default:
+                    let gameVC = VisualSearchViewController()
+                    detailVC.presentViewController(gameVC, animated: true, completion: nil)
+            }
 		}
     }
     

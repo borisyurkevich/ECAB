@@ -126,19 +126,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_apple" translatesAutoresizingMaskIntoConstraints="NO" id="blY-ho-Ou9">
-                                <rect key="frame" x="250" y="72" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="KqV-9e-OGt"/>
-                                    <constraint firstAttribute="height" constant="100" id="yVi-j6-iil"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="KqV-9e-OGt"/>
-                                        <exclude reference="yVi-j6-iil"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap ▶︎ to start the test." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
                                 <rect key="frame" x="20" y="72" width="168" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -245,6 +232,19 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="red_apple" translatesAutoresizingMaskIntoConstraints="NO" id="blY-ho-Ou9">
+                                <rect key="frame" x="212" y="72" width="174" height="142"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="KqV-9e-OGt"/>
+                                    <constraint firstAttribute="height" constant="100" id="yVi-j6-iil"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="KqV-9e-OGt"/>
+                                        <exclude reference="yVi-j6-iil"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>

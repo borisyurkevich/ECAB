@@ -56,7 +56,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     
         switch type {
         case .Positive:
-            if let soundURL = NSBundle.mainBundle().URLForResource("slide-magic", withExtension: "aif") {
+            if let soundURL = NSBundle.mainBundle().URLForResource("positive", withExtension: "aif") {
                 var soundID:SystemSoundID = 1
                 AudioServicesCreateSystemSoundID(soundURL, &soundID)
                 AudioServicesPlaySystemSound(soundID)
@@ -64,7 +64,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
                 presentErrorAlert()
             }
         case .Negative:
-            if let soundURL = NSBundle.mainBundle().URLForResource("beep-attention", withExtension: "aif") {
+            if let soundURL = NSBundle.mainBundle().URLForResource("negative", withExtension: "aif") {
                 var soundID:SystemSoundID = 1
                 AudioServicesCreateSystemSoundID(soundURL, &soundID)
                 AudioServicesPlaySystemSound(soundID)
@@ -72,7 +72,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
                 presentErrorAlert()
             }
         case .Attention:
-            if let soundURL = NSBundle.mainBundle().URLForResource("beep-piano", withExtension: "aif") {
+            if let soundURL = NSBundle.mainBundle().URLForResource("attention", withExtension: "aif") {
                 var soundID:SystemSoundID = 1
                 AudioServicesCreateSystemSoundID(soundURL, &soundID)
                 AudioServicesPlaySystemSound(soundID)
