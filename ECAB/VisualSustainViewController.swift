@@ -249,7 +249,7 @@ class VisualSustainViewController: CounterpointingViewController {
 				repeats: true)
 		}
 		
-		if (!trainingMode) {
+		if (!trainingMode && pic != .Empty) {
 			if isAnimal(pic) {
 				countAnimals += 1
 			} else {
