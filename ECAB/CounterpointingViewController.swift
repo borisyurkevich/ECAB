@@ -24,6 +24,9 @@ class CounterpointingViewController: TestViewController {
 	var session: CounterpointingSession!
 	private var totalOne = 0.0
 	private var totalTwo = 0.0
+    
+    var pauseDate: NSDate?
+    var pauseLength: NSTimeInterval?
 	
 	// MARK: Override
 	
@@ -35,6 +38,17 @@ class CounterpointingViewController: TestViewController {
 		presentMessage(greeingMessage)
 		addTouchTargetButtons()
 	}
+    
+    override func presentPause() {
+        
+        pauseDate = NSDate()
+        super.presentPause()
+    }
+    override func resumeTest() {
+        
+        pauseLength = NSDate().timeIntervalSinceDate(pauseDate!)
+        pauseDate = nil
+    }
 	
 	override func skip() {
 		// Skips current interval: eather practice or test
@@ -226,7 +240,13 @@ class CounterpointingViewController: TestViewController {
 		}
 		
         let currentTime = NSDate()
+        
         var startPoint = screenPresentedDate
+        
+        if let pauseInterval = pauseLength {
+            startPoint = screenPresentedDate.dateByAddingTimeInterval(pauseInterval)
+        }
+        
         if !result {
             startPoint = screenPresentedDate.laterDate(lastMistakeDate)
             lastMistakeDate = currentTime

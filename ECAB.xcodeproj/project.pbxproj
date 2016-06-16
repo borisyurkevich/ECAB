@@ -32,6 +32,7 @@
 		91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B494841B35981D00FAEE8A /* FlankerViewController.swift */; };
 		91B494871B3598B100FAEE8A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B494861B3598B100FAEE8A /* TestViewController.swift */; };
 		91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */; };
+		91D609BA1D133C2D00B8241C /* TImer Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D609B91D133C2D00B8241C /* TImer Extension.swift */; };
 		91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3B31A6BD5C400905752 /* AppDelegate.swift */; };
 		91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3B91A6BD5C400905752 /* Main.storyboard */; };
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
@@ -91,6 +92,7 @@
 		91C8A6791B24C0AC001F081A /* CounterpointingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingViewController.swift; sourceTree = "<group>"; };
 		91CCD65A1C01CDD300A445CC /* Model v8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v8.xcdatamodel"; sourceTree = "<group>"; };
 		91CCD65B1C0A3E3000A445CC /* Model v9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v9.xcdatamodel"; sourceTree = "<group>"; };
+		91D609B91D133C2D00B8241C /* TImer Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TImer Extension.swift"; sourceTree = "<group>"; };
 		91E5C3AE1A6BD5C400905752 /* ECAB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECAB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5C3B21A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91E5C3B31A6BD5C400905752 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				910367F21A7E3B4900522B2B /* Model.swift */,
 				91F378461A754EA000D2F77B /* VisualSearchBoard.swift */,
 				91F3784A1A75529000D2F77B /* TestItem.swift */,
+				91D609B91D133C2D00B8241C /* TImer Extension.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
+				91D609BA1D133C2D00B8241C /* TImer Extension.swift in Sources */,
 				917E87901AAE466C00470759 /* TestsTableViewController.swift in Sources */,
 				91F3784B1A75529000D2F77B /* TestItem.swift in Sources */,
 				91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */,

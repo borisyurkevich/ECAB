@@ -100,6 +100,14 @@ class VisualSearchViewController: TestViewController,
 		
 		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
+    
+    override func presentPause() {
+        timer.pause()
+        super.presentPause()
+    }
+    override func resumeTest() {
+        timer.resume()
+    }
 	
 	var isGameStarted = false
 	func startGame() {

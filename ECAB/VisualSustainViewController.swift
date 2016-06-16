@@ -486,5 +486,20 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 		}
 	}
+    
+    override func presentPause() {
+        timeToPresentNextScreen.pause()
+        timeToPresentWhiteSpace.pause()
+        timeToGameOver.pause()
+        timeToAcceptDelay.pause()
+        
+        super.presentPause()
+    }
+    override func resumeTest() {
+        timeToPresentNextScreen.resume()
+        timeToPresentWhiteSpace.resume()
+        timeToGameOver.resume()
+        timeToAcceptDelay.resume()
+    }
 
 }

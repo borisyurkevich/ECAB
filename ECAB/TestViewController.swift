@@ -187,6 +187,10 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Quit, pause, and comment
     
+    func resumeTest() {
+        // Override in subclass and resume timers
+    }
+    
     func presentPause() {
         gamePaused = true
         
@@ -216,6 +220,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             (okAction) -> Void in
             self.addComment(alertView)
             self.gamePaused = false
+            self.resumeTest()
         })
         
         alertView.addAction(quit)
