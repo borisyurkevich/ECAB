@@ -101,13 +101,13 @@ class CounterpointingViewController: TestViewController {
 			// This is needed when practice is restarted.
 			presentMessage(greeingMessage)
 		case 1 ... 2:
-			presentDogOnSide(dogSequence[currentScreenShowing]!)
+			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 3:
 			trainingMode = false
 			presentMessage("Touch the side with the dog as quickly as you can!")
             model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 4 ... 23:
-			presentDogOnSide(dogSequence[currentScreenShowing]!)
+			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 24:
 			presentMessage("...stop")
 		case 25:
@@ -117,13 +117,13 @@ class CounterpointingViewController: TestViewController {
 			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
             model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 26 ... 27:
-			presentDogOnSide(dogSequence[currentScreenShowing]!)
+			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 28:
 			trainingMode = false
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
             model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 29 ... 48:
-			presentDogOnSide(dogSequence[currentScreenShowing]!)
+			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 49:
 			presentMessage("...stop")
 		case 50:
@@ -188,10 +188,10 @@ class CounterpointingViewController: TestViewController {
 			if !touchModeInverserd {
 				// tap on the left side of the screen
 				if leftTarget {
-					playSound(.Positive)
+                    playSound(.Positive)
 					result = true
 				} else {
-					playSound(.Negative)
+					playSound(.Positive)
 					result = false
 				}
 			} else {
@@ -275,58 +275,4 @@ class CounterpointingViewController: TestViewController {
 	override  func getComment() -> String {
 		return session.comment
 	}
-	
-	// Shows on which side of the screen dog are
-	private let dogSequence: [Side?] =
-	    [nil,
-		.Right,
-		.Left,
-		nil,
-		.Left,
-		.Right,
-		.Left,
-		.Left,
-		.Right,
-		.Right,
-		.Left,
-		.Right,
-		.Left,
-		.Left,
-		.Left,
-		.Right,
-		.Left,
-		.Right,
-		.Right,
-		.Right,
-		.Left,
-		.Left,
-		.Right,
-		.Right,
-		nil,
-		nil,
-		.Right,
-		.Left,
-		nil,
-		.Right,
-		.Left,
-		.Right,
-		.Left,
-		.Right,
-		.Right,
-		.Left,
-		.Right,
-		.Right,
-		.Right,
-		.Left,
-		.Left,
-		.Right,
-		.Right,
-		.Left,
-		.Left,
-		.Left,
-		.Right,
-		.Left,
-		.Left,
-		nil,
-		nil]
 }

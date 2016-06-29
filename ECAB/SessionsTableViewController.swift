@@ -33,7 +33,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		title = model.games[Int(model.data.selectedGame)]
+		title = model.games[Int(model.data.selectedGame)].rawValue
 		
 		// For some reason there's delay and table is not updated streight after
 		// game is finished.
@@ -356,7 +356,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
 			let pickedSession = model.data.sessions[indexPath.row] as! Session
-			let visualSearchLog = logModel.generateVisualSearchLogWithSession(pickedSession, gameName: gameName)
+			let visualSearchLog = logModel.generateVisualSearchLogWithSession(pickedSession, gameName: gameName.rawValue)
 			detailVC.textView.text = visualSearchLog
 			detailVC.helpMessage.text = ""
 			
@@ -372,7 +372,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 				}
 			}
 			let pickedSession = array[indexPath.row]
-			let counterpointingLog = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName)
+			let counterpointingLog = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName.rawValue)
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
 			
@@ -388,7 +388,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 				}
 			}
 			let pickedSession = array[indexPath.row]
-			let text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName)
+			let text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName.rawValue)
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
 			
@@ -404,7 +404,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 				}
 			}
 			let pickedSession = array[indexPath.row]
-			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName)
+			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName.rawValue)
 			detailVC.helpMessage.text = ""
 			
             actionButton.enabled = true

@@ -330,11 +330,7 @@ class VisualSearchViewController: TestViewController,
 		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
         
         // Sound
-        if cell.fruit.isValuable {
-            playSound(.Positive)
-        } else {
-            playSound(.Negative)
-        }
+        playSound(cell.fruit.isValuable ? .Positive : .Negative);
 		
 		var isRepeat = false
 		for item in checkedMarks {

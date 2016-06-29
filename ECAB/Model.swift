@@ -10,48 +10,6 @@ import Foundation
 import CoreData
 import UIKit
 
-enum GamesIndex: NSNumber {
-	case VisualSearch = 0
-	case Counterpointing = 1
-	case Flanker = 2
-	case VisualSust = 3
-    case AuditorySust = 4
-    case DualSust = 5
-    case Verbal = 6
-    case Balloon = 7
-}
-
-enum Difficulty: NSNumber {
-	case Easy = 0
-	case Hard = 1
-}
-
-struct MenuConstants {
-	static let second = "s"
-}
-
-struct GameTitle {
-	static let visual = "Visual search"
-	static let counterpointing = "Counterpointing"
-	static let flanker = "Flanker"
-	static let visualSust = "Visual sustained"
-    static let auditorySust = "Auditory sustained"
-    static let dualSust = "Dual sustained"
-    static let verbal = "Verbal opposites"
-    static let balloon = "Balloon sorting"
-}
-
-enum VisualSustainMistakeType: Double {
-	case Miss = 100
-	case FalsePositive = 200
-	case Unknown = 0
-}
-
-enum VisualSustainSkip: CGFloat {
-	case NoSkip = 0
-	case FourSkips = -100
-}
-
 // Needed to show blank space in the log between moves.
 let blankSpaceTag:CGFloat = -1.0
 
@@ -75,7 +33,6 @@ class Model {
 	
 	var data: Data!
 	
-	let titles = GameTitle()
 	let kMinDelay = 1.0
 	
     init() {

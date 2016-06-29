@@ -90,7 +90,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	func showTheGame(game: GamesIndex) {
 		
 		let currentTitle = model.games[model.data.selectedGame.integerValue]
-		title = currentTitle
+		title = currentTitle.rawValue
 		
 		switch game {
             case .VisualSearch:
@@ -313,13 +313,13 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			
 			switch title! {
                 
-                case GameTitle.visual:
+                case GameTitle.visual.rawValue:
                     detailVC.presentViewController(VisualSearchViewController(), animated: true, completion: nil)
                 
-                case GameTitle.counterpointing:
+                case GameTitle.counterpointing.rawValue:
                     detailVC.presentViewController(CounterpointingViewController(), animated: true, completion: nil)
                 
-                case GameTitle.flanker:
+                case GameTitle.flanker.rawValue:
                     let gameVC = FlankerViewController()
                     
                     let alert = UIAlertController(title: "Small Images.", message: "Enable small images?", preferredStyle:.Alert)
@@ -335,19 +335,19 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                     
                     self.presentViewController(alert, animated: true, completion: nil)
                     
-                case GameTitle.visualSust:
+                case GameTitle.visualSust.rawValue:
                     detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
                 
-                case GameTitle.auditorySust:
+                case GameTitle.auditorySust.rawValue:
                     detailVC.presentViewController(AuditorySustainViewController(), animated: true, completion: nil)
                 
-                case GameTitle.dualSust:
+                case GameTitle.dualSust.rawValue:
+                    detailVC.presentViewController(DualSustainViewController(), animated: true, completion: nil)
+                
+                case GameTitle.verbal.rawValue:
                     detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
                 
-                case GameTitle.verbal:
-                    detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
-                
-                case GameTitle.balloon:
+                case GameTitle.balloon.rawValue:
                     detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
                     
                 
