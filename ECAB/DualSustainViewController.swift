@@ -151,12 +151,12 @@ class DualSustainViewController: CounterpointingViewController {
                 updateView(DualSustainFactory.gameSequence[indexForCurrentSequence].picture)
                 playSound(DualSustainFactory.gameSequence[indexForCurrentSequence].sound)
             
-            case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 3):
+            case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 2):
                 stopAutoPresentPictures()
                 stopTest()
                 presentMessage(labels.gameEnd)
                 
-            case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 4):
+            case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 3):
                 presentPause()
                 
             default:
