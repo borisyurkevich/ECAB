@@ -40,7 +40,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		
 		changePlayerButton.title = "Loading..."
 		// Subscribe from notifications from Model
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuViewController.dataLoaded), name: "dataLoaded", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,
+		                                                 selector: #selector(MenuViewController.dataLoaded),
+		                                                 name: "dataLoaded",
+		                                                 object: nil)
 		model.setupWithContext(managedContext)
 		
 		difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
@@ -49,6 +52,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	func dataLoaded() {
 		
 		switch model.data.selectedGame {
+            
             case GamesIndex.VisualSearch.rawValue:
                 showTheGame(.VisualSearch)
                 break;
@@ -80,6 +84,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             case GamesIndex.Balloon.rawValue:
                 showTheGame(.Balloon)
                 break;
+            
             default:
                 break
 		}
@@ -109,8 +114,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodTitle.hidden = true
                 periodHelp.hidden = true
                 periodValue.hidden = true
-                
-                
                 
                 if model.data.visSearchDifficulty.integerValue == 0 {
                     speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"
@@ -215,14 +218,59 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             
             case .DualSust:
                 gameIcon.image = UIImage(named: "icon_dual")
+                difficultyTitle.hidden = true
+                difControl.hidden = true
+                
+                speedLabel.hidden = true
+                speedStepper.hidden = true
+                secondSpeedLabel.hidden = true
+                secondSpeedStepper.hidden = true
+                secondSpeedLabelDescription.hidden = true
+                speedLabelDescription.hidden = true
+                
+                // Third Control
+                periodControl.hidden = true
+                periodTitle.hidden = true
+                periodHelp.hidden = true
+                periodValue.hidden = true
                 break;
                 
             case .Verbal:
                 gameIcon.image = UIImage(named: "icon_verbal")
+                difficultyTitle.hidden = true
+                difControl.hidden = true
+                
+                speedLabel.hidden = true
+                speedStepper.hidden = true
+                secondSpeedLabel.hidden = true
+                secondSpeedStepper.hidden = true
+                secondSpeedLabelDescription.hidden = true
+                speedLabelDescription.hidden = true
+                
+                // Third Control
+                periodControl.hidden = true
+                periodTitle.hidden = true
+                periodHelp.hidden = true
+                periodValue.hidden = true
                 break;
                 
             case .Balloon:
                 gameIcon.image = UIImage(named: "icon_balloon")
+                difficultyTitle.hidden = true
+                difControl.hidden = true
+                
+                speedLabel.hidden = true
+                speedStepper.hidden = true
+                secondSpeedLabel.hidden = true
+                secondSpeedStepper.hidden = true
+                secondSpeedLabelDescription.hidden = true
+                speedLabelDescription.hidden = true
+                
+                // Third Control
+                periodControl.hidden = true
+                periodTitle.hidden = true
+                periodHelp.hidden = true
+                periodValue.hidden = true
                 break;
 		}
 	}

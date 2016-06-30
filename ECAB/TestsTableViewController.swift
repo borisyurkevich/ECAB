@@ -31,12 +31,9 @@ class TestsTableViewController: UITableViewController {
     }
 	
 	// MARK: — Table View delegate
-	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
 		model.data.selectedGame = indexPath.row
 		model.save()
-		
 		selectGame()
 	}
 	

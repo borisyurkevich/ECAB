@@ -49,16 +49,21 @@ class DataExportModel {
 		var returnValue: String? = nil
 		
 		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			returnValue = createVisualSearchTable()
-        case GamesIndex.Counterpointing.rawValue:
-            returnValue = createCounterpointingTable()
-        case GamesIndex.Flanker.rawValue:
-            returnValue = createFlankerTable()
-        case GamesIndex.VisualSust.rawValue:
-            returnValue = createVisualSustainedTable()
-		default:
-			break
+            
+            case GamesIndex.VisualSearch.rawValue:
+                returnValue = createVisualSearchTable()
+            
+            case GamesIndex.Counterpointing.rawValue:
+                returnValue = createCounterpointingTable()
+            
+            case GamesIndex.Flanker.rawValue:
+                returnValue = createFlankerTable()
+            
+            case GamesIndex.VisualSust.rawValue:
+                returnValue = createVisualSustainedTable()
+            
+            default:
+                break
 		}
 		
 		return returnValue

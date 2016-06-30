@@ -154,7 +154,6 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Quit, pause, and comment
-    
     func presentPause() {
         gamePaused = true
         

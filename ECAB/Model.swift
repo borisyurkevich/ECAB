@@ -88,9 +88,7 @@ class Model {
 			
 			// If there's no current player,
 			// create new one
-			if data?.selectedPlayer != nil {
-				// Selected player found
-			} else {
+            if data?.selectedPlayer == nil {
 				if data.players.count == 0 {
 					addPlayer("Default")
 					// Default player added

@@ -100,6 +100,12 @@ enum Sound: String {
     case Tree = "tree"
 }
 
+enum PlayerAction {
+    case Miss
+    case FalsePositive
+    case Hit
+}
+
 enum MenuConstants: String {
     case second = "s"
 }

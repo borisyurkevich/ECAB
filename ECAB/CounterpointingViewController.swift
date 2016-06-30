@@ -14,7 +14,7 @@ class CounterpointingViewController: TestViewController {
 	var screenPresentedDate = NSDate()
 	var lastMistakeDate = NSDate().dateByAddingTimeInterval(0)
 	var greeingMessage = "Practice: touch the side with the dog"
-	var sessionType = 0
+	var sessionType = GamesIndex.Counterpointing
 	private let pictureHeight: CGFloat = 197
 	private let pictureWidth: CGFloat = 281
 	var gameModeInversed = false
@@ -30,7 +30,7 @@ class CounterpointingViewController: TestViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
+		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType.rawValue.integerValue)
 		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
 		presentMessage(greeingMessage)
 		addTouchTargetButtons()

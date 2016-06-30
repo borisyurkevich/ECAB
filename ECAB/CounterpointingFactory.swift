@@ -62,5 +62,4 @@ class CounterpointingFactory {
          .Left,
          nil,
          nil]
-    
 }

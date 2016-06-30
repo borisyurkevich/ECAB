@@ -16,7 +16,8 @@ class FlankerViewController: CounterpointingViewController {
 
     override func viewDidLoad() {
 		greeingMessage = "Example stimuli..."
-		sessionType = 1
+		sessionType = GamesIndex.Flanker
+        
         super.viewDidLoad()
 		
 		if (smallImages) {
