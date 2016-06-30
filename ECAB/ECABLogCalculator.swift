@@ -75,7 +75,6 @@ struct Average {
     var search: Double
 }
 
-
 class ECABLogCalculator {
     
     class func getVisualSearchTotals(session: Session) -> TotalVisualSearch {

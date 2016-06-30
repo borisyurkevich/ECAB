@@ -66,9 +66,9 @@ class DualSustainViewController: CounterpointingViewController {
         imageVisibleOnScreen.tag = tagChangingGamePicture
         view.addSubview(imageVisibleOnScreen)
         
-        timePictureVisible = model.data.visSustSpeed.doubleValue
-        timeBlankSpaceVisible = model.data.visSustDelay.doubleValue
-        timeAcceptDelay = model.data.visSustAcceptedDelay!.doubleValue
+        timePictureVisible = model.data.dualSustSpeed.doubleValue
+        timeBlankSpaceVisible = model.data.dualSustDelay.doubleValue
+        timeAcceptDelay = model.data.dualSustAcceptedDelay!.doubleValue
         
         session.speed = timePictureVisible
         session.vsustBlank = timeBlankSpaceVisible

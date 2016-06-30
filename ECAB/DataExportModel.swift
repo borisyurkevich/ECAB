@@ -62,6 +62,19 @@ class DataExportModel {
             case GamesIndex.VisualSust.rawValue:
                 returnValue = createVisualSustainedTable()
             
+            case GameTitle.auditorySust.rawValue:
+                break
+                
+            case GameTitle.dualSust.rawValue:
+                returnValue = createDualSustainedTable()
+                break
+                
+            case GameTitle.verbal.rawValue:
+                break
+                
+            case GameTitle.balloon.rawValue:
+                break
+            
             default:
                 break
 		}
@@ -163,7 +176,7 @@ class DataExportModel {
             
             let comments = session.comment
             
-            let rows = createCounterpointinLines(session)
+            let rows = createCounterpointingLines(session)
             let t = ECABLogCalculator.getCounterpintingResult(session)
             
             let ratio = t.timeBlockConflict / t.timeBlockNonConflict
@@ -307,6 +320,48 @@ class DataExportModel {
         return returnValue;
     }
     
+    func createDualSustainedTable() -> String {
+        
+        if let session: CounterpointingSession = pickedCounterpointingSession {
+            let playerName = session.player.name
+            
+            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
+            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            
+            let comments = session.comment
+            
+            let rows = createDualSustainedLines(session)
+            let t = ECABLogCalculator.getVisualSustainResult(session)
+            
+            returnValue = "ECAB Test               ,\(gameName)    ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
+                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
+                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "parameters              ,               ,                       ,                      ,                       ,               ,    \n" +
+                "total period            ,\(t.totalPeriod),exposure              ,\(t.totalExposure)    ,max delay              ,\(t.maxDelay)  ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "total pictures displayed,\(t.totalPicturesDisplayd),of which    ,\(t.totalAnimalsDisplayed),animals            ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "total hits=             ,\(t.totalHits) ,                       ,                      ,                       ,               ,    \n" +
+                "total misses=           ,\(t.totalMisses),                      ,                      ,                       ,               ,    \n" +
+                "total false +ves        ,\(t.totalFalseAndVE),                  ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
+            "                        ,               ,                       ,                      ,                       ,               ,    \n"
+            
+            // Append dynamic rows: headers and moves
+            for line in rows {
+                returnValue += line
+            }
+        }
+        
+        return returnValue;
+    }
+    
     private func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         
@@ -384,7 +439,7 @@ class DataExportModel {
         return collectionOfTableRows
     }
     
-    private func createCounterpointinLines(session: CounterpointingSession) -> Array<String> {
+    private func createCounterpointingLines(session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
         var screenCount = 1
@@ -544,5 +599,43 @@ class DataExportModel {
         
         return collectionOfTableRows
     }
+    
+    private func createDualSustainedLines(session: CounterpointingSession) -> Array<String> {
+        var collectionOfTableRows: Array<String> = Array()
+        var spacePrinted = false
+        
+        for move in session.moves {
+            let gameMove = move as! CounterpointingMove
+            
+            var line = ""
+            var fourMistakes = ""
+            if gameMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+                fourMistakes = "[4 mistaken taps in a row]"
+            }
+            if gameMove.success.boolValue {
+                
+                let formattedDelay = String(format: "%.02f", gameMove.delay!.doubleValue)
+                
+                line = "picture \(gameMove.poitionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
+            } else {
+                // Two mistakes type
+                if (gameMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                    line = "picture \(gameMove.poitionX), False Positive, \(fourMistakes)\n"
+                } else if (gameMove.interval == VisualSustainMistakeType.Miss.rawValue) {
+                    line = "picture \(gameMove.poitionX), Miss, \(fourMistakes)\n"
+                }
+            }
+            
+            if !spacePrinted && !gameMove.inverted.boolValue { // Not training
+                line = "\n" + line
+                spacePrinted = true
+            }
+            
+            collectionOfTableRows.append(line)
+        }
+        
+        return collectionOfTableRows
+    }
+
 }
 

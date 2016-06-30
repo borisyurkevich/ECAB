@@ -307,17 +307,17 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
                     detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName.rawValue)
                     break
                 
-                case GameTitle.auditorySust.rawValue:
+                case GamesIndex.AuditorySust.rawValue:
                     break
                 
-                case GameTitle.dualSust.rawValue:
+                case GamesIndex.DualSust.rawValue:
                     detailVC.textView.text = logModel.generateDualSustainLogWithSession(pickedSession, gameName: gameName.rawValue)
                     break
                 
-                case GameTitle.verbal.rawValue:
+                case GamesIndex.Verbal.rawValue:
                     break
                 
-                case GameTitle.balloon.rawValue:
+                case GamesIndex.Balloon.rawValue:
                     break
                     
                 default:

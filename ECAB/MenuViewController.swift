@@ -218,21 +218,36 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             
             case .DualSust:
                 gameIcon.image = UIImage(named: "icon_dual")
+                
                 difficultyTitle.hidden = true
                 difControl.hidden = true
                 
-                speedLabel.hidden = true
-                speedStepper.hidden = true
-                secondSpeedLabel.hidden = true
-                secondSpeedStepper.hidden = true
-                secondSpeedLabelDescription.hidden = true
-                speedLabelDescription.hidden = true
+                speedLabel.hidden = false
+                speedStepper.hidden = false
+                secondSpeedLabel.hidden = false
+                secondSpeedStepper.hidden = false
+                secondSpeedLabelDescription.hidden = false
+                speedLabelDescription.hidden = false
                 
-                // Third Control
-                periodControl.hidden = true
-                periodTitle.hidden = true
-                periodHelp.hidden = true
-                periodValue.hidden = true
+                periodControl.hidden = false
+                periodTitle.hidden = false
+                periodHelp.hidden = false
+                periodValue.hidden = false
+                
+                speedStepper.value = model.data.dualSustSpeed.doubleValue
+                speedLabel.text = "\(model.data.dualSustSpeed.doubleValue) \(MenuConstants.second)"
+                
+                secondSpeedLabel.text = "\(model.data.dualSustAcceptedDelay!.doubleValue) \(MenuConstants.second)"
+                secondSpeedStepper.value = model.data.dualSustAcceptedDelay!.doubleValue
+                
+                let exposure = model.data.dualSustSpeed.doubleValue
+                let delay = model.data.dualSustDelay.doubleValue
+                let totalPeriod = exposure + delay
+                periodControl.value = totalPeriod
+                periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
+                periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
+                
+                validateAndHighliteBlankSpaceLabel()
                 break;
                 
             case .Verbal:
@@ -307,7 +322,14 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			let newTotal = newSpeedValueDouble + delay
 			periodValue.text = "\(newTotal) \(MenuConstants.second)"
 			periodControl.value = newTotal
-		}
+        } else if model.data.selectedGame == GamesIndex.DualSust.rawValue {
+            model.data.dualSustSpeed = newSpeedValueDouble
+            
+            let delay = model.data.dualSustDelay.doubleValue
+            let newTotal = newSpeedValueDouble + delay
+            periodValue.text = "\(newTotal) \(MenuConstants.second)"
+            periodControl.value = newTotal
+        }
 		
 		speedLabel.text = "\(formattedValue) \(MenuConstants.second)"
 		model.save()
@@ -320,6 +342,13 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		secondSpeedLabel.text = "\(formattedValue) \(MenuConstants.second)"
 		
 		model.data.visSustAcceptedDelay = number
+        
+        if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
+            model.data.visSustAcceptedDelay = number
+        } else if model.data.selectedGame == GamesIndex.DualSust.rawValue {
+            model.data.dualSustAcceptedDelay = number
+        }
+        
 		model.save()
 	}
 	
@@ -335,12 +364,20 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			periodHelp.text = "Blank space time: \(newDelay) \(MenuConstants.second)"
 			periodHelp.textColor = UIColor.darkGrayColor()
 			
-			model.data.visSustDelay = newDelay
+            if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
+                model.data.visSustDelay = newDelay
+            } else if model.data.selectedGame == GamesIndex.DualSust.rawValue {
+                model.data.dualSustDelay = newDelay
+            }
 		} else {
 			periodHelp.text = "Blank space time: 0 \(MenuConstants.second) Ignored when less than a second"
 			periodHelp.textColor = UIColor.redColor()
 			
-			model.data.visSustDelay = 0.0
+            if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
+                model.data.visSustDelay = 0.0
+            } else if model.data.selectedGame == GamesIndex.DualSust.rawValue {
+                model.data.dualSustDelay = 0.0
+            }
 		}
 		model.save()
 	}
@@ -397,7 +434,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 
                 case GameTitle.balloon.rawValue:
                     detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
-                    
                 
                 default:
                     let gameVC = VisualSearchViewController()

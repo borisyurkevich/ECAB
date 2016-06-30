@@ -335,6 +335,9 @@ class LogModel {
 	}
     
     func generateDualSustainLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+        
+        print("GENERATE DUAL")
+        
         var details = ""
         var counter = 1
         

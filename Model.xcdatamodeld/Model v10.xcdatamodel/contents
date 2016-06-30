@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G19a" minimumToolsVersion="Xcode 4.3">
     <entity name="CounterpointingMove" representedClassName="ECAB.CounterpointingMove" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="delay" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -33,6 +33,9 @@
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedCounterpointingSessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <entity name="Data" representedClassName="ECAB.Data" syncable="YES">
+        <attribute name="dualSustAcceptedDelay" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="dualSustDelay" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="dualSustSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selectedGame" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="visSearchDifficulty" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -81,7 +84,7 @@
     <elements>
         <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="180"/>
         <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="330"/>
-        <element name="Data" positionX="-432" positionY="-99" width="128" height="225"/>
+        <element name="Data" positionX="-432" positionY="-99" width="128" height="270"/>
         <element name="Move" positionX="-450" positionY="254" width="128" height="195"/>
         <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
         <element name="Session" positionX="-441" positionY="50" width="128" height="210"/>
