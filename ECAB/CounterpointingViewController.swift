@@ -21,7 +21,7 @@ class CounterpointingViewController: TestViewController {
 	var touchModeInverserd = false
 
 	var leftTarget = false // first screen will be with dog on right
-	var session: CounterpointingSession!
+	var session: Session!
 	private var totalOne = 0.0
 	private var totalTwo = 0.0
 	
@@ -30,8 +30,8 @@ class CounterpointingViewController: TestViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType.rawValue.integerValue)
-		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
+		model.addSession(model.data.selectedPlayer, type: sessionType.rawValue.integerValue)
+		session = model.data.sessions.lastObject as! Session
 		presentMessage(greeingMessage)
 		addTouchTargetButtons()
 	}
@@ -105,7 +105,7 @@ class CounterpointingViewController: TestViewController {
 		case 3:
 			trainingMode = false
 			presentMessage("Touch the side with the dog as quickly as you can!")
-            model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 4 ... 23:
 			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 24:
@@ -115,13 +115,13 @@ class CounterpointingViewController: TestViewController {
 			gameModeInversed = true
 			touchModeInverserd = true
 			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
-            model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 26 ... 27:
 			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 28:
 			trainingMode = false
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
-            model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 29 ... 48:
 			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 49:
@@ -233,7 +233,7 @@ class CounterpointingViewController: TestViewController {
         }
         let interval = currentTime.timeIntervalSinceDate(startPoint)
         let screen: CGFloat = CGFloat(currentScreenShowing)
-        model.addCounterpointingMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0)
+        model.addMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0)
         
 		if !trainingMode {
         

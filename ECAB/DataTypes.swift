@@ -21,6 +21,17 @@ enum GamesIndex: NSNumber {
     case Balloon = 7
 }
 
+enum GameTitle: String {
+    case visual = "Visual search"
+    case counterpointing = "Counterpointing"
+    case flanker = "Flanker"
+    case visualSust = "Visual sustained"
+    case auditorySust = "Auditory sustained"
+    case dualSust = "Dual sustained"
+    case verbal = "Verbal opposites"
+    case balloon = "Balloon sorting"
+}
+
 enum Difficulty: NSNumber {
     case Easy = 0
     case Hard = 1
@@ -108,17 +119,6 @@ enum PlayerAction {
 
 enum MenuConstants: String {
     case second = "s"
-}
-
-enum GameTitle: String {
-    case visual = "Visual search"
-    case counterpointing = "Counterpointing"
-    case flanker = "Flanker"
-    case visualSust = "Visual sustained"
-    case auditorySust = "Auditory sustained"
-    case dualSust = "Dual sustained"
-    case verbal = "Verbal opposites"
-    case balloon = "Balloon sorting"
 }
 
 enum VisualSustainMistakeType: Double {

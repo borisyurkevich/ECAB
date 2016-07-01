@@ -295,7 +295,7 @@ class DualSustainViewController: CounterpointingViewController {
         
         if (action == .Hit) {
             successfulAction = true
-            model.addCounterpointingMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
+            model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
         } else {
             // To avoid changing data model we will use interval to store mistake type
             var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
@@ -316,7 +316,7 @@ class DualSustainViewController: CounterpointingViewController {
             
             let delay = (timeSinceAnimalAppeared == timeNever) ? 0 : timeSinceAnimalAppeared;
             
-            model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: delay)
+            model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: delay)
         }
     }
     

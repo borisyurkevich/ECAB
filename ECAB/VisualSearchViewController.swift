@@ -88,7 +88,7 @@ class VisualSearchViewController: TestViewController,
         collectionView.registerClass(VisualSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Insert fresh session entity
-		model.addSession(model.data.selectedPlayer)
+        model.addSession(model.data.selectedPlayer, type: model.data.selectedGame.integerValue);
         session = model.data.sessions.lastObject as! Session
 		session.speed = gameSpeed
 		session.difficulty = model.data.visSearchDifficulty

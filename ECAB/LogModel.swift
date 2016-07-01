@@ -123,13 +123,13 @@ class LogModel {
 		return visualSearchLog;
 	}
 	
-	func generateCounterpointingLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateCounterpointingLogWithSession(session: Session, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		var status = "success"
 
 		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
+			let actualMove = move as! Move
 			if !actualMove.success.boolValue {
 				status = "false positive"
 			} else {
@@ -145,12 +145,12 @@ class LogModel {
             // This condition is to keep old data working.
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(r(newInterval)) ms \(inverted) \n"
+                append = "\(counter)) \(status) screen:\(actualMove.positionX) \(r(newInterval)) ms \(inverted) \n"
             } else {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
+                append = "\(counter)) \(status) screen:\(actualMove.positionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
             }
             
-            if actualMove.poitionX == blankSpaceTag {
+            if actualMove.positionX == blankSpaceTag {
                 details = details + "\n"
             } else {
                 details = details + append
@@ -195,12 +195,12 @@ class LogModel {
 		return text
 	}
 	
-	func generateFlankerLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateFlankerLogWithSession(session: Session, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		var status = "success"
 		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
+			let actualMove = move as! Move
 			if !actualMove.success.boolValue {
 				status = "false positive"
 			} else {
@@ -214,14 +214,14 @@ class LogModel {
 			
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) s. \(inverted) \n"
+                append = "\(counter)) \(status) screen: \(actualMove.positionX) \(r(newInterval)) s. \(inverted) \n"
             } else {
                 // Because I defined old interval as Integer I am chaning it to Double
                 // This condition is to keep old data working.
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval) s. \(inverted) \n"
+                append = "\(counter)) \(status) screen: \(actualMove.positionX) \(actualMove.interval) s. \(inverted) \n"
             }
             
-            if actualMove.poitionX == blankSpaceTag {
+            if actualMove.positionX == blankSpaceTag {
                 details = details + "\n"
 			} else {
 				details = details + append
@@ -267,30 +267,30 @@ class LogModel {
 		return text
 	}
 	
-	func generateVisualSustainLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateVisualSustainLogWithSession(session: Session, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		
 		var spacePrinted = false
 		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
+			let actualMove = move as! Move
 			
 			var append = ""
 			var fourMistakes = ""
-			if actualMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+			if actualMove.positionY == VisualSustainSkip.FourSkips.rawValue {
 				fourMistakes = "[4 mistaken taps in a row]"
 			}
 			if actualMove.success.boolValue {
 				
 				let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
 				
-				append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+				append = "picture \(actualMove.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
 			} else {
 				// Two mistakes type
 				if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-					append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
+					append = "picture \(actualMove.positionX) - False Positive \(fourMistakes)\n"
 				} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-					append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
+					append = "picture \(actualMove.positionX) - Miss \(fourMistakes)\n"
 				}
 				
 			}
@@ -334,33 +334,31 @@ class LogModel {
 		return text
 	}
     
-    func generateDualSustainLogWithSession(session: CounterpointingSession, gameName: String) -> String {
-        
-        print("GENERATE DUAL")
-        
+    func generateDualSustainLogWithSession(session: Session, gameName: String) -> String {
+                
         var details = ""
         var counter = 1
         
         var spacePrinted = false
         for move in session.moves {
-            let actualMove = move as! CounterpointingMove
+            let actualMove = move as! Move
             
             var append = ""
             var fourMistakes = ""
-            if actualMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+            if actualMove.positionY == VisualSustainSkip.FourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
             if actualMove.success.boolValue {
                 
                 let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
                 
-                append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+                append = "picture \(actualMove.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
             } else {
                 // Two mistakes type
                 if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
+                    append = "picture \(actualMove.positionX) - False Positive \(fourMistakes)\n"
                 } else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
+                    append = "picture \(actualMove.positionX) - Miss \(fourMistakes)\n"
                 }
                 
             }

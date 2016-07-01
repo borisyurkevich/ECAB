@@ -45,12 +45,16 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		                                                 name: "dataLoaded",
 		                                                 object: nil)
 		model.setupWithContext(managedContext)
-		
-		difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
-	}
+    }
 	
 	func dataLoaded() {
+        
+        // Select row in tableView
+        let navVC = splitViewController!.viewControllers.first as! UINavigationController
+        let testTVC = navVC.topViewController as! TestsTableViewController
+        testTVC.selectRow(model.data.selectedGame.integerValue)
 		
+        // Show correct selected game
 		switch model.data.selectedGame {
             
             case GamesIndex.VisualSearch.rawValue:
@@ -89,13 +93,14 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 break
 		}
 		
+        // Show correct player name
 		changePlayerButton.title = model.data.selectedPlayer.name
 	}
 	
 	func showTheGame(game: GamesIndex) {
 		
-		let currentTitle = model.games[model.data.selectedGame.integerValue]
-		title = currentTitle.rawValue
+        // Set game title
+		title = model.games[model.data.selectedGame.integerValue].rawValue
 		
 		switch game {
             case .VisualSearch:
@@ -114,6 +119,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodTitle.hidden = true
                 periodHelp.hidden = true
                 periodValue.hidden = true
+                
+                // Set difficulty toggle
+                difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
                 
                 if model.data.visSearchDifficulty.integerValue == 0 {
                     speedLabel.text = "\(model.data.visSearchSpeed.doubleValue) \(MenuConstants.second)"

@@ -17,9 +17,8 @@ class TestsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let returnValue = model.games.count
         // Return the number of rows in the section.
-        return returnValue
+        return model.games.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -35,7 +34,13 @@ class TestsTableViewController: UITableViewController {
 		model.data.selectedGame = indexPath.row
 		model.save()
 		selectGame()
-	}
+    }
+    
+    func selectRow(index:Int) {
+        let rowToSelect:NSIndexPath = NSIndexPath(forRow: index, inSection: 0)
+        self.tableView.selectRowAtIndexPath(rowToSelect, animated: true, scrollPosition: UITableViewScrollPosition.None)
+        self.tableView(self.tableView, didSelectRowAtIndexPath: rowToSelect)
+    }
 	
 	func selectGame() {
 		

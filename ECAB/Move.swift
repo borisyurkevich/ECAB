@@ -10,5 +10,13 @@ import Foundation
 import CoreData
 
 class Move: NSManagedObject {
+    
+    @NSManaged var date: NSDate
+    @NSManaged var interval: NSNumber
+    @NSManaged var inverted: NSNumber
+    @NSManaged var positionX: NSNumber
+    @NSManaged var positionY: NSNumber
+    @NSManaged var success: NSNumber
+    @NSManaged var session: Session
 
 }

@@ -26,7 +26,7 @@ private enum MoveType {
 class DataExportModel {
 	
     var pickedVisualSearchSession: Session? = nil
-    var pickedCounterpointingSession: CounterpointingSession? = nil
+    var pickedCounterpointingSession: Session? = nil
     
 	private let model = Model.sharedInstance
     private let msInOneSec = 1000.0 // Milliseconds in one second
@@ -168,7 +168,7 @@ class DataExportModel {
     
     func createCounterpointingTable() -> String {
         
-        if let session: CounterpointingSession = pickedCounterpointingSession {
+        if let session: Session = pickedCounterpointingSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -217,7 +217,7 @@ class DataExportModel {
     
     func createFlankerTable() -> String {
         
-        if let session: CounterpointingSession = pickedCounterpointingSession {
+        if let session: Session = pickedCounterpointingSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -280,7 +280,7 @@ class DataExportModel {
     
     func createVisualSustainedTable() -> String {
         
-        if let session: CounterpointingSession = pickedCounterpointingSession {
+        if let session: Session = pickedCounterpointingSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -322,7 +322,7 @@ class DataExportModel {
     
     func createDualSustainedTable() -> String {
         
-        if let session: CounterpointingSession = pickedCounterpointingSession {
+        if let session: Session = pickedCounterpointingSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -439,17 +439,17 @@ class DataExportModel {
         return collectionOfTableRows
     }
     
-    private func createCounterpointingLines(session: CounterpointingSession) -> Array<String> {
+    private func createCounterpointingLines(session: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
         var screenCount = 1
         var needHeader = true
         
         for move in session.moves {
-            let gameMove = move as! CounterpointingMove
+            let gameMove = move as! Move
             
-            if (gameMove.poitionX.integerValue >= 4 && gameMove.poitionX.integerValue <= 23)
-            || (gameMove.poitionX.integerValue >= 29 && gameMove.poitionX.integerValue <= 48) {
+            if (gameMove.positionX.integerValue >= 4 && gameMove.positionX.integerValue <= 23)
+            || (gameMove.positionX.integerValue >= 29 && gameMove.positionX.integerValue <= 48) {
             
                 // Success or failure
                 var sof = ""
@@ -505,15 +505,15 @@ class DataExportModel {
         return collectionOfTableRows
     }
 
-    private func createFlankerLines(session: CounterpointingSession) -> Array<String> {
+    private func createFlankerLines(session: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
         var screenCount = 1
         
         for move in session.moves {
-            let gameMove = move as! CounterpointingMove
+            let gameMove = move as! Move
 
-            if gameMove.poitionX != blankSpaceTag {
+            if gameMove.positionX != blankSpaceTag {
                 // Success or failure
                 var sof = ""
                 if gameMove.success.boolValue == true {
@@ -563,29 +563,29 @@ class DataExportModel {
         return collectionOfTableRows
     }
 
-    private func createVisualSustainedLines(session: CounterpointingSession) -> Array<String> {
+    private func createVisualSustainedLines(session: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var spacePrinted = false
         
         for move in session.moves {
-            let gameMove = move as! CounterpointingMove
+            let gameMove = move as! Move
             
             var line = ""
             var fourMistakes = ""
-            if gameMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+            if gameMove.positionY == VisualSustainSkip.FourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
             if gameMove.success.boolValue {
                 
                 let formattedDelay = String(format: "%.02f", gameMove.delay!.doubleValue)
                 
-                line = "picture \(gameMove.poitionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
+                line = "picture \(gameMove.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
             } else {
                 // Two mistakes type
                 if (gameMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    line = "picture \(gameMove.poitionX), False Positive, \(fourMistakes)\n"
+                    line = "picture \(gameMove.positionX), False Positive, \(fourMistakes)\n"
                 } else if (gameMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    line = "picture \(gameMove.poitionX), Miss, \(fourMistakes)\n"
+                    line = "picture \(gameMove.positionX), Miss, \(fourMistakes)\n"
                 }
             }
             
@@ -600,29 +600,29 @@ class DataExportModel {
         return collectionOfTableRows
     }
     
-    private func createDualSustainedLines(session: CounterpointingSession) -> Array<String> {
+    private func createDualSustainedLines(session: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var spacePrinted = false
         
         for move in session.moves {
-            let gameMove = move as! CounterpointingMove
+            let gameMove = move as! Move
             
             var line = ""
             var fourMistakes = ""
-            if gameMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+            if gameMove.positionY == VisualSustainSkip.FourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
             if gameMove.success.boolValue {
                 
                 let formattedDelay = String(format: "%.02f", gameMove.delay!.doubleValue)
                 
-                line = "picture \(gameMove.poitionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
+                line = "picture \(gameMove.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
             } else {
                 // Two mistakes type
                 if (gameMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    line = "picture \(gameMove.poitionX), False Positive, \(fourMistakes)\n"
+                    line = "picture \(gameMove.positionX), False Positive, \(fourMistakes)\n"
                 } else if (gameMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    line = "picture \(gameMove.poitionX), Miss, \(fourMistakes)\n"
+                    line = "picture \(gameMove.positionX), Miss, \(fourMistakes)\n"
                 }
             }
             

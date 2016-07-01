@@ -29,7 +29,6 @@ extension Data {
     @NSManaged var dualSustSpeed: NSNumber
     @NSManaged var dualSustDelay: NSNumber
     
-    @NSManaged var counterpointingSessions: NSOrderedSet
     @NSManaged var players: NSOrderedSet
     @NSManaged var selectedPlayer: Player
     @NSManaged var sessions: NSOrderedSet

@@ -248,7 +248,7 @@ class ECABLogCalculator {
         return totals
     }
     
-    class func getCounterpintingResult(session: CounterpointingSession) -> CounterpointingResult {
+    class func getCounterpintingResult(session: Session) -> CounterpointingResult {
         
         var timeBlock1NonConflict:NSTimeInterval = 0
         var timeBlock2Conflict:NSTimeInterval = 0
@@ -261,11 +261,11 @@ class ECABLogCalculator {
         for m in session.moves {
             
             
-            if let move = m as? CounterpointingMove {
+            if let move = m as? Move {
                 if let inerval = move.intervalDouble as? Double {
                     // Real test begin after 3 practice blocks.
                     // on screen number 24
-                    switch move.poitionX.integerValue {
+                    switch move.positionX.integerValue {
                     case 4 ... 23:
                         timeBlock1NonConflict += inerval
                         countBlock1 += 1
@@ -325,7 +325,7 @@ class ECABLogCalculator {
         return result
     }
     
-    class func getFlankerResult(session: CounterpointingSession) -> FlankerResult {
+    class func getFlankerResult(session: Session) -> FlankerResult {
     
         var timeBlock1:NSTimeInterval = 0
         var timeBlock2:NSTimeInterval = 0
@@ -342,11 +342,11 @@ class ECABLogCalculator {
         for m in session.moves {
             
         
-            if let move = m as? CounterpointingMove {
+            if let move = m as? Move {
                 if let inerval = move.intervalDouble as? Double {
                     // Real test begin after 3 practice blocks.
                     // on screen number 24
-                    switch move.poitionX.integerValue {
+                    switch move.positionX.integerValue {
                     case 24 ... 33:
                         timeBlock1 += inerval
                         countBlock1 += 1
@@ -432,7 +432,7 @@ class ECABLogCalculator {
         return result
     }
     
-    class func getVisualSustainResult(session: CounterpointingSession) -> VisualSustaineResult {
+    class func getVisualSustainResult(session: Session) -> VisualSustaineResult {
         
         let delay = session.vsustAcceptedDelay!.doubleValue
         let exposure = session.speed.doubleValue
