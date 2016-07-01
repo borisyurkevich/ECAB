@@ -50,12 +50,12 @@
         <scene sceneID="vyR-Ug-JPp">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="TA3-rz-yeh" customClass="TestsTableViewController" customModule="ECAB" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7iI-ce-5h4">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7iI-ce-5h4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Games Table Cell" textLabel="VAj-AV-p7O" style="IBUITableViewCellStyleDefault" id="FjG-yX-bDk">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Games Table Cell" textLabel="VAj-AV-p7O" style="IBUITableViewCellStyleDefault" id="FjG-yX-bDk">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FjG-yX-bDk" id="MbZ-Ho-ifG">
@@ -104,7 +104,7 @@
         <scene sceneID="X1g-Oz-Cvj">
             <objects>
                 <splitViewController id="54u-Sh-hfo" userLabel="Tests" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tests" image="brick" id="N7p-p5-KLl" userLabel="Menu"/>
+                    <tabBarItem key="tabBarItem" title="Tests" image="icon_play" selectedImage="icon_play" id="N7p-p5-KLl" userLabel="Menu"/>
                     <connections>
                         <segue destination="hJ0-ho-1Vr" kind="relationship" relationship="masterViewController" id="Lmv-Fl-atF"/>
                         <segue destination="GcY-sq-jJv" kind="relationship" relationship="detailViewController" id="pjE-6V-y8X"/>
@@ -439,11 +439,11 @@
             </objects>
             <point key="canvasLocation" x="1490" y="752"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Players-->
         <scene sceneID="b0p-Pk-zdW">
             <objects>
                 <splitViewController id="NP5-2p-xMM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="Tg6-Dv-uzt"/>
+                    <tabBarItem key="tabBarItem" title="Players" image="icon_players" selectedImage="icon_players" id="Tg6-Dv-uzt"/>
                     <connections>
                         <segue destination="V0J-go-EfZ" kind="relationship" relationship="masterViewController" id="kp4-UA-kz7"/>
                         <segue destination="Lt9-kZ-xZx" kind="relationship" relationship="detailViewController" id="jcR-v9-Q0m"/>
@@ -579,11 +579,11 @@
             </objects>
             <point key="canvasLocation" x="746" y="2424"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Logs-->
         <scene sceneID="aBz-dr-ZFN">
             <objects>
                 <splitViewController id="8IP-aC-NyM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="history" id="uEv-CF-9Cf"/>
+                    <tabBarItem key="tabBarItem" title="Logs" image="icon_history" selectedImage="icon_history" id="uEv-CF-9Cf"/>
                     <connections>
                         <segue destination="i4A-ZU-fPs" kind="relationship" relationship="masterViewController" id="CgO-e9-A6M"/>
                         <segue destination="oRM-kb-bZd" kind="relationship" relationship="detailViewController" id="iBY-DV-mkw"/>
@@ -649,7 +649,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="brick" width="30" height="30"/>
+        <image name="icon_history" width="25" height="25"/>
+        <image name="icon_play" width="25" height="25"/>
+        <image name="icon_players" width="25" height="25"/>
         <image name="red_apple" width="100" height="100"/>
     </resources>
 </document>

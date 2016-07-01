@@ -28,6 +28,13 @@ class TestsTableViewController: UITableViewController {
         
         return cell
     }
+    
+    // Select correct test row when the view is displayed
+    override func viewWillAppear(animated: Bool) {
+        if(model.data != nil){
+            selectRow(model.data.selectedGame.integerValue)
+        }
+    }
 	
 	// MARK: — Table View delegate
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -38,7 +45,7 @@ class TestsTableViewController: UITableViewController {
     
     func selectRow(index:Int) {
         let rowToSelect:NSIndexPath = NSIndexPath(forRow: index, inSection: 0)
-        self.tableView.selectRowAtIndexPath(rowToSelect, animated: true, scrollPosition: UITableViewScrollPosition.None)
+        self.tableView.selectRowAtIndexPath(rowToSelect, animated: true, scrollPosition:UITableViewScrollPosition.None)
         self.tableView(self.tableView, didSelectRowAtIndexPath: rowToSelect)
     }
 	
