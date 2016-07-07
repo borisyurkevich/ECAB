@@ -48,16 +48,16 @@ class CounterpointingViewController: TestViewController {
 		let testInverse = 27
 		
 		switch currentScreenShowing {
-		case -1 ... 2:
-			currentScreenShowing = test
-		case 3 ... 24:
-			currentScreenShowing = practiceInverse
-		case 25 ... 27:
-			currentScreenShowing = testInverse
-		case 28 ... 49:
-			return
-		default:
-			return
+            case -1 ... 2:
+                currentScreenShowing = test
+            case 3 ... 24:
+                currentScreenShowing = practiceInverse
+            case 25 ... 27:
+                currentScreenShowing = testInverse
+            case 28 ... 49:
+                return
+            default:
+                return
 		}
 		presentNextScreen()
 	}
@@ -105,7 +105,7 @@ class CounterpointingViewController: TestViewController {
 		case 3:
 			trainingMode = false
 			presentMessage("Touch the side with the dog as quickly as you can!")
-            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
 		case 4 ... 23:
 			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 24:
@@ -115,13 +115,13 @@ class CounterpointingViewController: TestViewController {
 			gameModeInversed = true
 			touchModeInverserd = true
 			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
-            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
 		case 26 ... 27:
 			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 28:
 			trainingMode = false
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
-            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
 		case 29 ... 48:
 			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
 		case 49:
@@ -172,9 +172,11 @@ class CounterpointingViewController: TestViewController {
 	func handleTouchLeft() {
 		tapHandler(true)
 	}
+    
 	func handleTouchRight() {
 		tapHandler(false)
 	}
+    
 	func tapHandler(touchLeft: Bool){
 		// Determine Success or failure
 		
@@ -233,7 +235,7 @@ class CounterpointingViewController: TestViewController {
         }
         let interval = currentTime.timeIntervalSinceDate(startPoint)
         let screen: CGFloat = CGFloat(currentScreenShowing)
-        model.addMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0)
+        model.addMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0, type: SuccessType.Picture.rawValue)
         
 		if !trainingMode {
         

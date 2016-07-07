@@ -20,7 +20,6 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     // http://stackoverflow.com/a/32746567/1162044
 	
     private var selectedSession: Session?
-    private var selectedCounterpointingSession:Session?
     
     @IBOutlet weak var actionButton: UIBarButtonItem!
     
@@ -92,34 +91,34 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         
         switch model.data.selectedGame {
             case GamesIndex.VisualSearch.rawValue:
-                if let visualSearchSession: Session = selectedSession {
-                    dateName = formatter.stringFromDate(visualSearchSession.dateStart)
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
                     fileName = "VisualSearch_\(dateName).csv"
                 }
                 break
             case GamesIndex.VisualSust.rawValue:
-                if let counterpointingSession = selectedCounterpointingSession {
-                    dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
                     fileName = "VisualSustain_\(dateName).csv"
                 }
                 break
             case GamesIndex.Counterpointing.rawValue:
-                if let counterpointingSession = selectedCounterpointingSession {
-                    dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
                     fileName = "Counterpoining_\(dateName).csv"
                 }
                 break
             case GamesIndex.Flanker.rawValue:
-                if let counterpointingSession = selectedCounterpointingSession {
-                    dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
                     fileName = "Flanker_\(dateName).csv"
                 }
                 break
             case GameTitle.auditorySust.rawValue:
                 break
             case GameTitle.dualSust.rawValue:
-                if let counterpointingSession = selectedCounterpointingSession {
-                    dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
                     fileName = "DualSustain_\(dateName).csv"
                 }
                 break
@@ -135,8 +134,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
         
         let exportManager = DataExportModel()
-        exportManager.pickedVisualSearchSession = selectedSession
-        exportManager.pickedCounterpointingSession = selectedCounterpointingSession
+        exportManager.pickedSession = selectedSession
         
         if let data = exportManager.export() {
             do {
@@ -302,6 +300,6 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         detailVC.helpMessage.text = ""
         
         actionButton.enabled = true
-        selectedCounterpointingSession = pickedSession
+        selectedSession = pickedSession
 	}
 }

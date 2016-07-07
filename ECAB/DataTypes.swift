@@ -37,6 +37,11 @@ enum Difficulty: NSNumber {
     case Hard = 1
 }
 
+enum SuccessType: NSNumber {
+    case Picture = 0
+    case Sound = 1
+}
+
 enum Side {
     case Left
     case Right

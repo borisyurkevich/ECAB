@@ -25,8 +25,7 @@ private enum MoveType {
 
 class DataExportModel {
 	
-    var pickedVisualSearchSession: Session? = nil
-    var pickedCounterpointingSession: Session? = nil
+    var pickedSession: Session? = nil
     
 	private let model = Model.sharedInstance
     private let msInOneSec = 1000.0 // Milliseconds in one second
@@ -84,27 +83,27 @@ class DataExportModel {
     
     func createVisualSearchTable() -> String {
         
-        if let visualSearchSession: Session = pickedVisualSearchSession {
-            let playerName = visualSearchSession.player.name
+        if let session: Session = pickedSession {
+            let playerName = session.player.name
             
-            let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
-            let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
+            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
+            let timeStart = timeFormatter.stringFromDate(session.dateStart)
             
             var difficulty = "easy"
-            if visualSearchSession.difficulty == Difficulty.Hard.rawValue {
+            if session.difficulty == Difficulty.Hard.rawValue {
                 difficulty = "hard"
             }
-            let speed = visualSearchSession.speed.doubleValue
+            let speed = session.speed.doubleValue
             
-            let comments = visualSearchSession.comment
+            let comments = session.comment
             
             let screenComm = "*screen 3 should be blank throughout for 'hard' condition"
             let durationComm = "**set this to screen duration if it doesn't finish early"
             let header = "log of indivudual responces"
             
             // Create dynamic lines
-            let dynamicLines = createDynamicLinesForVSSession(visualSearchSession)
-            let t = ECABLogCalculator.getVisualSearchTotals(visualSearchSession)
+            let dynamicLines = createDynamicLinesForVSSession(session)
+            let t = ECABLogCalculator.getVisualSearchTotals(session)
             let avg = t.average
             
             let mht = t.motorHits1 + t.motorHits2 + t.motorHits3
@@ -168,7 +167,7 @@ class DataExportModel {
     
     func createCounterpointingTable() -> String {
         
-        if let session: Session = pickedCounterpointingSession {
+        if let session: Session = pickedSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -217,7 +216,7 @@ class DataExportModel {
     
     func createFlankerTable() -> String {
         
-        if let session: Session = pickedCounterpointingSession {
+        if let session: Session = pickedSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -280,7 +279,7 @@ class DataExportModel {
     
     func createVisualSustainedTable() -> String {
         
-        if let session: Session = pickedCounterpointingSession {
+        if let session: Session = pickedSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -322,7 +321,7 @@ class DataExportModel {
     
     func createDualSustainedTable() -> String {
         
-        if let session: Session = pickedCounterpointingSession {
+        if let session: Session = pickedSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)

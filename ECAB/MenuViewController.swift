@@ -39,6 +39,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         super.viewDidLoad()
 		
 		changePlayerButton.title = "Loading..."
+        
 		// Subscribe from notifications from Model
 		NSNotificationCenter.defaultCenter().addObserver(self,
 		                                                 selector: #selector(MenuViewController.dataLoaded),

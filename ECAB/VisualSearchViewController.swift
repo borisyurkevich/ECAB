@@ -23,7 +23,7 @@ class VisualSearchViewController: TestViewController,
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
-    private var board = VisualSearchBoard(stage: 0)
+    private var board = VisualSearchFactory(stage: 0)
     private let interSpacing:CGFloat = 27
 	private var timer = NSTimer()
 	private var timerLastStarted = NSDate()
@@ -155,7 +155,7 @@ class VisualSearchViewController: TestViewController,
                 self.updateInsets()
 				
                 // Request new board
-                self.board = VisualSearchBoard(stage: self.currentView)
+                self.board = VisualSearchFactory(stage: self.currentView)
 				self.checkedMarks = []
 				self.checkedTargets = []
                 
@@ -265,7 +265,7 @@ class VisualSearchViewController: TestViewController,
 			return
 		}
 		
-		self.board = VisualSearchBoard(stage: 10)
+		self.board = VisualSearchFactory(stage: 10)
 		
 		collectionView.performBatchUpdates({
 			

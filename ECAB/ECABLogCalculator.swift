@@ -434,17 +434,17 @@ class ECABLogCalculator {
     
     class func getVisualSustainResult(session: Session) -> VisualSustaineResult {
         
-        let delay = session.vsustAcceptedDelay!.doubleValue
+        let delay = session.acceptedDelay!.doubleValue
         let exposure = session.speed.doubleValue
-        let mdelay = session.vsustAcceptedDelay!.doubleValue
+        let mdelay = session.acceptedDelay!.doubleValue
         let score = session.score.integerValue
-        let misses = session.vsustMiss?.integerValue
-        let objectsTotal = session.vsustObjects!.integerValue
-        let animalsTotal = session.vsustAnimals!.integerValue
+        let misses = session.miss?.integerValue
+        let objectsTotal = session.objects!.integerValue
+        let animalsTotal = session.pictures!.integerValue
         let totalPics = objectsTotal + animalsTotal
         let falsePositives = session.errors.integerValue
         
-        let blank = session.vsustBlank!.doubleValue
+        let blank = session.blank!.doubleValue
         let interval = exposure + blank
         
         let result = VisualSustaineResult(delay: delay, totalPeriod: interval, totalExposure: exposure, maxDelay: mdelay, totalHits: score, totalMisses: misses!, totalFalseAndVE: falsePositives, totalPicturesDisplayd: totalPics, totalAnimalsDisplayed: animalsTotal)

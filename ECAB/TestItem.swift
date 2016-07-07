@@ -19,16 +19,16 @@ class TestItem {
     let image: UIImage!
     
     init(type: Fruit) {
+        
+        self.type = type
+        
         if (type == .🍎) {
-            self.type = .🍎
             self.isValuable = true
             self.image = UIImage(named: "red_apple")
         } else if (type == .🍏) {
-            self.type = .🍏
             self.isValuable = false
             self.image = UIImage(named: "white_apple")
         } else if (type == .🍓) {
-            self.type = .🍓
             self.isValuable = false
             self.image = UIImage(named: "red_strawberry")
         } else {

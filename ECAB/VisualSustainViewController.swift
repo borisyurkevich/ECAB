@@ -111,8 +111,8 @@ class VisualSustainViewController: CounterpointingViewController {
 		timeAcceptDelay = model.data.visSustAcceptedDelay!.doubleValue
 		
 		session.speed = timePictureVisible
-		session.vsustBlank = timeBlankSpaceVisible
-		session.vsustAcceptedDelay = timeAcceptDelay
+		session.blank = timeBlankSpaceVisible
+		session.acceptedDelay = timeAcceptDelay
 		
 		timeSinceAnimalAppeared = timeNever
 	}
@@ -255,8 +255,8 @@ class VisualSustainViewController: CounterpointingViewController {
 			} else {
 				countObjects += 1
 			}
-			session.vsustAnimals = countAnimals
-			session.vsustObjects = countObjects
+			session.pictures = countAnimals
+			session.objects = countObjects
 		}
 		
 		if timeBlankSpaceVisible >= model.kMinDelay {
@@ -364,8 +364,8 @@ class VisualSustainViewController: CounterpointingViewController {
 				let falsePositives = session.errors.integerValue
 				session.errors = NSNumber(integer: (falsePositives + 1))
 			} else if mistakeType == .Miss {
-				let misses = session.vsustMiss!.integerValue
-				session.vsustMiss = NSNumber(integer: (misses + 1))
+				let misses = session.miss!.integerValue
+				session.miss = NSNumber(integer: (misses + 1))
 			}
 		}
 	}
@@ -376,7 +376,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		if (action == .Hit) {
 			successfulAction = true
-			model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
+			model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared, type: SuccessType.Picture.rawValue)
 			
 		} else {
 			// To avoid changing data model we will use interval to store mistake type
@@ -400,7 +400,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			if myDelay == timeNever {
 				myDelay = 0
 			}
-			model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: myDelay)
+			model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: myDelay, type: SuccessType.Picture.rawValue)
 		}
 	}
 	
@@ -429,11 +429,14 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	private func isAnimal(pic: Picture) -> Bool {
-		var returnValue = false
-		if pic == .Pig || pic == .Cat || pic == .Dog || pic == .Horse || pic == .Fish || pic == .Mouse {
-			returnValue = true
-		}
-		return returnValue
+		return
+                pic == .Pig ||
+                pic == .Cat ||
+                pic == .Dog ||
+                pic == .Horse ||
+                pic == .Fish ||
+                pic == .Mouse
+			
 	}
 	
 	func gameOver() {

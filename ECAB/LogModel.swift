@@ -314,19 +314,20 @@ class LogModel {
 		}
 		
 		let exposure = session.speed.doubleValue
-		let blank = session.vsustBlank!.doubleValue
+		let blank = session.blank!.doubleValue
 		let interval = exposure + blank
-		let objectsTotal = session.vsustObjects!.intValue
-		let animalsTotal = session.vsustAnimals!.intValue
+        
+        let animalsTotal = session.pictures!.intValue
+		let objectsTotal = session.objects!.intValue
 		
 		let text = "\(gameName) (build \(build))\n\n" +
         "Player: \(session.player.name)\n" +
         "Interval = \(interval) exposure = \(exposure) " +
         "blank = \(blank) " +
-        "accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\n" +
+        "accepted delay = \(session.acceptedDelay!.doubleValue)\n" +
         "Objects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\n" +
         "Total score = \(session.score) moves = \(session.moves.count)\n" +
-        "False positives = \(session.errors) Misses = \(session.vsustMiss!)\n\n" +
+        "False positives = \(session.errors) Misses = \(session.miss!)\n\n" +
         "Comment: \(comment)\n\n" +
         "Session started: \(dateString)\n\n" +
         "\(details)"
@@ -348,19 +349,20 @@ class LogModel {
             if actualMove.positionY == VisualSustainSkip.FourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
+            
+            let moveType = (actualMove.type == SuccessType.Picture.rawValue) ? "Picture" : "Sound"
+
             if actualMove.success.boolValue {
                 
                 let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
-                
-                append = "picture \(actualMove.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+                append = "\(moveType) \(actualMove.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
             } else {
                 // Two mistakes type
                 if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    append = "picture \(actualMove.positionX) - False Positive \(fourMistakes)\n"
+                    append = "\(moveType) \(actualMove.positionX) - False Positive \(fourMistakes)\n"
                 } else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    append = "picture \(actualMove.positionX) - Miss \(fourMistakes)\n"
+                    append = "\(moveType) \(actualMove.positionX) - Miss \(fourMistakes)\n"
                 }
-                
             }
             
             if !spacePrinted && !actualMove.inverted.boolValue { // Not training
@@ -382,19 +384,24 @@ class LogModel {
         }
         
         let exposure = session.speed.doubleValue
-        let blank = session.vsustBlank!.doubleValue
+        let blank = session.blank!.doubleValue
         let interval = exposure + blank
-        let objectsTotal = session.vsustObjects!.intValue
-        let animalsTotal = session.vsustAnimals!.intValue
+        
+        let animalsPctures = session.pictures!.intValue
+        let animalsSounds = session.sounds!.intValue
+        
+        let objectsTotal = session.objects!.intValue
         
         let text = "\(gameName) (build \(build))\n\n" +
             "Player: \(session.player.name)\n" +
             "Interval = \(interval) exposure = \(exposure) " +
             "blank = \(blank) " +
-            "accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\n" +
-            "Objects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\n" +
+            "accepted delay = \(session.acceptedDelay!.doubleValue)\n" +
+            "Objects = \(objectsTotal)\n" +
+            "Animal pictures = \(animalsPctures) (doesn't count while in training)\n" +
+            "Animal sounds = \(animalsSounds) (doesn't count while in training)\n" +
             "Total score = \(session.score) moves = \(session.moves.count)\n" +
-            "False positives = \(session.errors) Misses = \(session.vsustMiss!)\n\n" +
+            "False positives = \(session.errors) Misses = \(session.miss!)\n\n" +
             "Comment: \(comment)\n\n" +
             "Session started: \(dateString)\n\n" +
             "\(details)"

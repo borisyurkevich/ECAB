@@ -13,13 +13,14 @@ import Foundation
 import CoreData
 
 extension Session {
-
     @NSManaged var bundleVersion: String?
     @NSManaged var imageSizeComment: String?
-    @NSManaged var vsustAnimals: NSNumber?
-    @NSManaged var vsustBlank: NSNumber?
-    @NSManaged var vsustMiss: NSNumber?
-    @NSManaged var vsustObjects: NSNumber?
-    @NSManaged var vsustAcceptedDelay: NSNumber?
-
+    
+    @NSManaged var pictures: NSNumber?
+    @NSManaged var sounds: NSNumber?
+    
+    @NSManaged var blank: NSNumber?
+    @NSManaged var miss: NSNumber?
+    @NSManaged var objects: NSNumber?
+    @NSManaged var acceptedDelay: NSNumber?
 }

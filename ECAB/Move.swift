@@ -17,6 +17,9 @@ class Move: NSManagedObject {
     @NSManaged var positionX: NSNumber
     @NSManaged var positionY: NSNumber
     @NSManaged var success: NSNumber
+    
+    @NSManaged var type: NSNumber
+    
     @NSManaged var session: Session
 
 }

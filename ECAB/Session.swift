@@ -30,5 +30,4 @@ class Session: NSManagedObject {
     @NSManaged var difficulty: NSNumber
     @NSManaged var failureScore: NSNumber
     @NSManaged var repeatCount: NSNumber
-
 }

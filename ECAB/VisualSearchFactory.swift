@@ -40,7 +40,7 @@ struct VisualSearchSpeed {
     static let hardMode = 30.0 // Default value, can be changed in CoreData
 }
 
-class VisualSearchBoard {
+class VisualSearchFactory {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
     var data = Array<TestItem>()
@@ -56,11 +56,13 @@ class VisualSearchBoard {
         numberOfCells = data.count
     }
     
+    let t = TestItem(type: .🍎) // target (red apple)
+    let w = TestItem(type: .🍏) // white apple
+    let s = TestItem(type: .🍓) // strawverry
+    
     func generateDefaultPattern(forScreen section: Int){
         var f = [TestItem]()
-        let t = TestItem(type: .🍎) // target (red apple)
-        let w = TestItem(type: .🍏) // white apple
-        let s = TestItem(type: .🍓) // strawverry
+
         
         // This is complicated patters copied from PDF file. I separated matrix
         // of fruits in the files to 4 different sections, 5 rows each,

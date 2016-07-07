@@ -26,6 +26,8 @@ class DualSustainViewController: CounterpointingViewController {
     // There's 2 arrays: training and game.
     var indexForCurrentSequence = 0
     
+    var animalType = SuccessType.Picture.rawValue
+    
     var pictureAutoPresent = false
     
     let totalMissesBeforeWarningPrompt = 4
@@ -45,7 +47,8 @@ class DualSustainViewController: CounterpointingViewController {
     let timeGameOver = 300.0 // Default is 300 seconds eg 5 mins
     
     var countTotalMissies = 0
-    var countAnimals = 0
+    var countPictureAnimals = 0
+    var countSoundAnimals = 0
     var countObjects = 0
     
     var imageVisibleOnScreen = UIImageView(image: UIImage(named: "white_rect"))
@@ -71,8 +74,8 @@ class DualSustainViewController: CounterpointingViewController {
         timeAcceptDelay = model.data.dualSustAcceptedDelay!.doubleValue
         
         session.speed = timePictureVisible
-        session.vsustBlank = timeBlankSpaceVisible
-        session.vsustAcceptedDelay = timeAcceptDelay
+        session.blank = timeBlankSpaceVisible
+        session.acceptedDelay = timeAcceptDelay
         
         timeSinceAnimalAppeared = timeNever
     }
@@ -91,8 +94,9 @@ class DualSustainViewController: CounterpointingViewController {
     func startTest() {
         trainingMode = false
         countObjects = 0
-        countAnimals = 0
-        
+        countPictureAnimals = 0
+        countSoundAnimals = 0
+
         timeToGameOver.invalidate()
         timeToGameOver = NSTimer.scheduledTimerWithTimeInterval(timeGameOver,
                                                                 target: self,
@@ -198,7 +202,7 @@ class DualSustainViewController: CounterpointingViewController {
         imageVisibleOnScreen.center = view.center;
         imageVisibleOnScreen.image = newImage
         
-        if isAnimal(gameSequence) {
+        if pictureIsAnimal(gameSequence) || soundIsAnimal(gameSequence) {
             timeSinceAnimalAppeared = 0
             timeToAcceptDelay.invalidate()
             timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(timersScale,
@@ -209,13 +213,17 @@ class DualSustainViewController: CounterpointingViewController {
         }
         
         if (!trainingMode) {
-            if isAnimal(gameSequence) {
-                countAnimals += 1
-            } else {
+            if pictureIsAnimal(gameSequence) {
+                countPictureAnimals += 1
+            } else if soundIsAnimal(gameSequence){
+                countSoundAnimals += 1
+            }else {
                 countObjects += 1
             }
-            session.vsustAnimals = countAnimals
-            session.vsustObjects = countObjects
+            
+            session.pictures = countPictureAnimals
+            session.sounds = countSoundAnimals
+            session.objects = countObjects
         }
         
         if timeBlankSpaceVisible >= model.kMinDelay {
@@ -259,7 +267,7 @@ class DualSustainViewController: CounterpointingViewController {
             countTotalMissies = 0
             
             playSound(.Positive)
-            log(.Hit)
+            log(.Hit, hitType: animalType.integerValue)
             
             // Prevents following taps to be sucesfull
             timeSinceAnimalAppeared = timeNever
@@ -276,26 +284,26 @@ class DualSustainViewController: CounterpointingViewController {
     
     private func noteMistake(mistakeType: PlayerAction) {
         
-        log(mistakeType)
+        log(mistakeType, hitType: SuccessType.Picture.rawValue)
         
         if !trainingMode {
             if mistakeType == .FalsePositive {
                 let falsePositives = session.errors.integerValue
                 session.errors = NSNumber(integer: (falsePositives + 1))
             } else if mistakeType == .Miss {
-                let misses = session.vsustMiss!.integerValue
-                session.vsustMiss = NSNumber(integer: (misses + 1))
+                let misses = session.miss!.integerValue
+                session.miss = NSNumber(integer: (misses + 1))
             }
         }
     }
     
-    private func log(action: PlayerAction) {
+    private func log(action: PlayerAction, hitType: NSNumber) {
         let screen = CGFloat(indexForCurrentSequence + 1)
         var successfulAction = false
         
         if (action == .Hit) {
             successfulAction = true
-            model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
+            model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared, type: hitType.integerValue)
         } else {
             // To avoid changing data model we will use interval to store mistake type
             var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
@@ -316,7 +324,7 @@ class DualSustainViewController: CounterpointingViewController {
             
             let delay = (timeSinceAnimalAppeared == timeNever) ? 0 : timeSinceAnimalAppeared;
             
-            model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: delay)
+            model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: delay, type: hitType.integerValue)
         }
     }
     
@@ -344,20 +352,25 @@ class DualSustainViewController: CounterpointingViewController {
         }
     }
     
-    private func isAnimal(gameSequence: GameSequence) -> Bool {
+    private func pictureIsAnimal(gameSequence: GameSequence) -> Bool {
+        animalType = SuccessType.Picture.rawValue
         return
-            (gameSequence.picture == Picture.Pig ||
+            gameSequence.picture == Picture.Pig ||
             gameSequence.picture == Picture.Cat ||
             gameSequence.picture == Picture.Dog ||
             gameSequence.picture == Picture.Horse ||
             gameSequence.picture == Picture.Fish ||
-            gameSequence.picture == Picture.Mouse) ||
-        
-            (gameSequence.sound == Sound.Pig ||
-            gameSequence.sound == Sound.Cat ||
-            gameSequence.sound == Sound.Dog ||
-            gameSequence.sound == Sound.Horse ||
-            gameSequence.sound == Sound.Fish)
+            gameSequence.picture == Picture.Mouse
+    }
+    
+    private func soundIsAnimal(gameSequence: GameSequence) -> Bool {
+        animalType = SuccessType.Sound.rawValue
+        return
+                gameSequence.sound == Sound.Pig ||
+                gameSequence.sound == Sound.Cat ||
+                gameSequence.sound == Sound.Dog ||
+                gameSequence.sound == Sound.Horse ||
+                gameSequence.sound == Sound.Fish
     }
     
     func gameOver() {

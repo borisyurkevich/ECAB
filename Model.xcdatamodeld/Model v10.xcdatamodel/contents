@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G24b" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G26a" minimumToolsVersion="Xcode 4.3">
     <entity name="Data" representedClassName="ECAB.Data" syncable="YES">
         <attribute name="dualSustAcceptedDelay" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="dualSustDelay" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -32,7 +32,8 @@
         <attribute name="screenNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="success" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="training" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="moves" inverseEntity="Session" syncable="YES"/>
     </entity>
     <entity name="Player" representedClassName="ECAB.Player" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -41,6 +42,8 @@
         <relationship name="selected" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="selectedPlayer" inverseEntity="Data" syncable="YES"/>
     </entity>
     <entity name="Session" representedClassName="ECAB.Session" syncable="YES">
+        <attribute name="acceptedDelay" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="blank" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="bundleVersion" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
@@ -48,26 +51,25 @@
         <attribute name="errors" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="failureScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="imageSizeComment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="miss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="misses" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="objects" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="pictures" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="repeatCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sounds" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="speed" attributeType="Double" defaultValueString="2" syncable="YES"/>
         <attribute name="totalOne" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="totalTwo" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="vsustAcceptedDelay" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="vsustAnimals" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="vsustBlank" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="vsustMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="vsustObjects" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="sessions" inverseEntity="Data" syncable="YES"/>
-        <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Move" syncable="YES"/>
+        <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Move" inverseName="session" inverseEntity="Move" syncable="YES"/>
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedSessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
         <element name="Data" positionX="-497" positionY="-117" width="128" height="255"/>
-        <element name="Move" positionX="-450" positionY="254" width="128" height="285"/>
+        <element name="Move" positionX="-450" positionY="254" width="128" height="300"/>
         <element name="Player" positionX="-101" positionY="-99" width="128" height="105"/>
-        <element name="Session" positionX="-270" positionY="-141" width="128" height="375"/>
+        <element name="Session" positionX="-270" positionY="-141" width="128" height="390"/>
     </elements>
 </model>

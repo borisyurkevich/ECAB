@@ -187,7 +187,7 @@ class Model {
 		save()
 	}
 	
-	func addMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Double, inverted: Bool, delay:Double) {
+    func addMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Double, inverted: Bool, delay:Double, type:NSNumber) {
 		let successMoveEntity = NSEntityDescription.entityForName("Move", inManagedObjectContext: managedContext)
 		let move = Move(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
 		
@@ -198,6 +198,7 @@ class Model {
 		move.intervalDouble = NSNumber(double: interval)
 		move.inverted = inverted
 		move.delay = delay
+        move.type = type
 		
 		let allSessions = data.sessions
 		let lastSession = allSessions.lastObject as! Session
