@@ -12,6 +12,9 @@ Counterpointing ➡️ Flanker, Visual Sustain.
 
 You will find Core Data model messy, `CounterpointingMove` object is overused. This is due to my efforts to preserve backwards compatibility. I've done lightweight migration since the early beginning. I can't accept any other Core Data changes.
 
+## Contribution
+If you want to contribute please make sure your changes doesn't affect current tests and can be only optional. For example, you can add more tests but do not modify anything in the current test flow.
+
 ## Contacts
 Not technical questions:
 Oliver Braddick: oliver.braddick@psy.ox.ac.uk
