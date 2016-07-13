@@ -32,7 +32,7 @@ class DualSustainFactory {
         GameSequence(p: .Sock, s: .Bike),
         GameSequence(p: .Leaf, s: .Spoon),
         GameSequence(p: .Ball, s: .Car),
-        GameSequence(p: .Pig, s: .Bed),
+        GameSequence(p: .Pig, s: .Bed), // P
         GameSequence(p: .Car, s: .Star),
         GameSequence(p: .Clock, s: .Ball),
         GameSequence(p: .Boat, s: .Boat),
@@ -42,7 +42,7 @@ class DualSustainFactory {
         GameSequence(p: .Sun, s: .Sock),
         GameSequence(p: .Book, s: .Bed),
         GameSequence(p: .Boot, s: .Book),
-        GameSequence(p: .Dog, s: .Star),
+        GameSequence(p: .Dog, s: .Star), // P
         GameSequence(p: .Tree, s: .Key),
         GameSequence(p: .Door, s: .Chair),
         GameSequence(p: .Bus, s: .Shoe),

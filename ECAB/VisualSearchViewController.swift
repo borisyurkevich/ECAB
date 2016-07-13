@@ -293,7 +293,7 @@ class VisualSearchViewController: TestViewController,
 				
         cell.backgroundColor = UIColor.redColor()
         
-        let aFruit:TestItem = self.board.data[indexPath.row]
+        let aFruit:VisualSearchFruit = self.board.data[indexPath.row]
         cell.imageView = UIImageView(frame: CGRectMake(0, 0, cellWidth, cellHeight));
         cell.imageView.image = aFruit.image
         cell.addSubview(cell.imageView)

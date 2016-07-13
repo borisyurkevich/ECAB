@@ -349,8 +349,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		let formattedValue = NSString(format: "%.01f", sender.value)
 		let number = Double(formattedValue as String)
 		secondSpeedLabel.text = "\(formattedValue) \(MenuConstants.second)"
-		
-		model.data.visSustAcceptedDelay = number
         
         if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
             model.data.visSustAcceptedDelay = number
@@ -392,7 +390,14 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	func validateAndHighliteBlankSpaceLabel() {
-		let currentDelay = model.data.visSustDelay.doubleValue
+        var currentDelay: Double = 0.0;
+        
+        if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
+            currentDelay = model.data.visSustDelay.doubleValue
+        } else if model.data.selectedGame == GamesIndex.DualSust.rawValue {
+            currentDelay = model.data.dualSustDelay.doubleValue
+        }
+        
 		if currentDelay < model.kMinDelay {
 			periodHelp.text = "Blank space time: \(currentDelay) \(MenuConstants.second) Ignored when less than a second"
 			periodHelp.textColor = UIColor.redColor()
@@ -439,7 +444,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                     detailVC.presentViewController(DualSustainViewController(), animated: true, completion: nil)
                 
                 case GameTitle.verbal.rawValue:
-                    detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)
+                    detailVC.presentViewController(VerbalOppositesViewController(), animated: true, completion: nil)
                 
                 case GameTitle.balloon.rawValue:
                     detailVC.presentViewController(VisualSustainViewController(), animated: true, completion: nil)

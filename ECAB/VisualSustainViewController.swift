@@ -31,8 +31,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	var pictureAutoPresent = false
 	
 	let totalMissesBeforeWarningPrompt = 4
-	let timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
-	let timersScale = 0.01 // Hundreds of a second
     var timeToPresentNextScreen = NSTimer()
     var timeToPresentWhiteSpace = NSTimer()
 	var timeToGameOver = NSTimer()
@@ -54,42 +52,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	let labelTagAttention = 1
 	let tagChangingGamePicture = 2
 	let timeWarningPromptRemainingOnScreen = 4.0
-
-	private enum Picture: String {
-		case Empty = "white_rect"
-		case Bed = "bed_inverse"
-		case Ball = "ball"
-		case Bike = "bike_inverse"
-		case Boat = "boat_inverse"
-		case Book = "book"
-		case Boot = "boot"
-		case Bus = "bus"
-		case Cake = "cake"
-		case Car = "car_inverse"
-		case Cat = "cat_inverse"
-		case Chair = "chair"
-		case Clock = "clock"
-		case Dog = "dog"
-		case Door = "door"
-		case Fish = "fish_iverse"
-		case Horse = "horse_inverse"
-		case Key = "key"
-		case Leaf = "leaf"
-		case Mouse = "mouse"
-		case Pig = "pig"
-		case Sock = "sock"
-		case Spoon = "spoon"
-		case Sun = "sun"
-		case Star = "star_yellow"
-		case Train = "train_inverse"
-		case Tree = "tree"
-	}
-	
-	private enum PlayerAction {
-		case Miss
-		case FalsePositive
-		case Hit
-	}
 	
 	private let practiceSequence: [Picture] = [.Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train, .Empty];
 	private let gameSequence: [Picture] = [.Sun, .Key, .Sock, .Boat, .Boot, .Pig, .Clock, .Car, .Book, .Door, .Cat, .Ball, .Bed, .Bus, .Horse, .Train, .Cake, .Leaf, .Dog, .Star, .Spoon, .Chair, .Bike, .Tree, .Fish, .Door, .Bus, .Ball, .Sun, .Horse, .Spoon, .Bed, .Leaf, .Boot, .Fish, .Star, .Cake, .Tree, .Sock, .Clock, .Book, .Cat, .Key, .Train, .Chair, .Pig,. Boat, .Car, .Bike, .Dog, .Bus, .Bed, .Sun, .Chair, .Dog, .Train, .Ball, .Horse, .Bike, .Leaf, .Sock, .Cake, .Boat, .Cat, .Key, .Door, .Tree, .Pig, .Spoon, .Clock, .Car, .Boot, .Book, .Fish, .Star, .Bike, .Clock, .Car, .Pig, .Boat, .Tree, .Cake, .Sock, .Bus, .Star, .Door, .Horse, .Spoon, .Ball, .Dog, .Boot, .Key, .Leaf, .Train, .Cat, .Chair, .Sun, .Bed, .Fish, .Book, .Cake, .Ball, .Star, .Bus, .Pig, .Train, .Boat, .Sun, .Fish, .Spoon, .Leaf, .Bed, .Dog, .Tree, .Door, .Boot, .Bike, .Cat, .Car, .Sock, .Chair, .Key, .Clock, .Book, .Horse, .Door,.Bike, .Car, .Leaf, .Cake, .Fish, .Bed, .Boot, .Horse, .Bus, .Train, .Sun, .Sock, .Chair, .Dog, .Star, .Ball, .Train, .Pig, .Key, .Clock, .Spoon, .Book, .Cat, .Boat, .Empty]
@@ -114,7 +76,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		session.blank = timeBlankSpaceVisible
 		session.acceptedDelay = timeAcceptDelay
 		
-		timeSinceAnimalAppeared = timeNever
+		timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
 	}
 	
 	func startAutoPresentPictures() {
@@ -242,7 +204,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		if isAnimal(pic) {
 			timeSinceAnimalAppeared = 0
 			timeToAcceptDelay.invalidate()
-			timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(timersScale,
+			timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(Constants.timersScale.rawValue.doubleValue,
 				target: self,
 				selector: #selector(VisualSustainViewController.updateAcceptedDelay),
 				userInfo: nil,
@@ -283,10 +245,10 @@ class VisualSustainViewController: CounterpointingViewController {
     }
 	
 	func updateAcceptedDelay() {
-		timeSinceAnimalAppeared += timersScale
+		timeSinceAnimalAppeared += Constants.timersScale.rawValue.doubleValue
 		if timeSinceAnimalAppeared > timeAcceptDelay {
 			timeToAcceptDelay.invalidate()
-			timeSinceAnimalAppeared = timeNever
+			timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
 			// Because stopwatch was alive long enough to reach its limit, 
 			// we know that animal was missed.
 			noteMistake(.Miss)
@@ -342,7 +304,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			log(.Hit)
 			
 			// Prevents following taps to be sucesfull
-			timeSinceAnimalAppeared = timeNever
+			timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
 			timeToAcceptDelay.invalidate()
 			
 			if !trainingMode {
@@ -397,7 +359,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 			
 			var myDelay = timeSinceAnimalAppeared
-			if myDelay == timeNever {
+			if myDelay == Constants.timeNever.rawValue.doubleValue {
 				myDelay = 0
 			}
 			model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: myDelay, type: SuccessType.Picture.rawValue)
@@ -465,7 +427,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func quit() {
 		gamePaused = true
 		
-		if timeSinceAnimalAppeared != timeNever {
+		if timeSinceAnimalAppeared != Constants.timeNever.rawValue.doubleValue {
 			// Last animal was missed
 			noteMistake(.Miss)
 		}

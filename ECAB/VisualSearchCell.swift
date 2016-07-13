@@ -10,6 +10,6 @@ import UIKit
 
 class VisualSearchCell: UICollectionViewCell
 {
-    var fruit: TestItem!
+    var fruit: VisualSearchFruit!
     var imageView  = UIImageView()
 }

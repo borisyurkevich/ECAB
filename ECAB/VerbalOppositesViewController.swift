@@ -1,23 +1,27 @@
 //
-//  DualSustainViewController.swift
+//  VerbalOppositesViewController.swift
 //  ECAB
 //
-//  Created by Raphaël Bertin on 29/06/2016.
+//  Created by Raphaël Bertin on 13/07/2016.
 //  Copyright © 2016 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
 import UIKit
 
-class DualSustainViewController: CounterpointingViewController {
+class VerbalOppositesViewController: CounterpointingViewController {
     
     private struct Labels {
-        let practice = NSLocalizedString("Practice : Touch the screen every time\nyou see OR hear one of the animals", comment: "dual sustain")
-        let gameReady = NSLocalizedString("Keep touch the screen every time\nyou see OR hear one of the animals", comment: "dual sustain")
-        let reminder = NSLocalizedString("Remember, touch the screen every time you see OR hear an animal", comment: "dual sustain. Appear when subjects ignores x amount of targets")
-        let gameEnd = NSLocalizedString("Stop.", comment: "dual sustain")
-        let testOver = NSLocalizedString("Test is Over", comment: "dual sustain alert title")
-        let testOverBody = NSLocalizedString("You've been running the test for %@", comment: "dual sustain alert body")
-        let testOverAction = NSLocalizedString("Stop the test", comment: "dual sustain alert ok")
+        let practice1 = NSLocalizedString("Practice 1 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
+        let practice2 = NSLocalizedString("Practice 2 : Say the OPPOSITE animal name (CAT or DOG)", comment: "verbal opposites")
+        let game1 = NSLocalizedString("Game 1 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
+        let game2 = NSLocalizedString("Game 1 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
+        let game3 = NSLocalizedString("Game 1 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
+        let game4 = NSLocalizedString("Game 1 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
+
+        let gameEnd = NSLocalizedString("Stop.", comment: "verbal opposites")
+        let testOver = NSLocalizedString("Test is Over", comment: "verbal opposites alert title")
+        let testOverBody = NSLocalizedString("You've been running the test for %@", comment: "verbal opposites alert body")
+        let testOverAction = NSLocalizedString("Stop the test", comment: "verbal opposites alert ok")
     }
     
     private let labels = Labels()
@@ -26,26 +30,23 @@ class DualSustainViewController: CounterpointingViewController {
     // There's 2 arrays: training and game.
     var indexForCurrentSequence = 0
     
-    var animalType = SuccessType.Picture.rawValue
-    
     var pictureAutoPresent = false
     
     let totalMissesBeforeWarningPrompt = 4
+    
     var timeToPresentNextScreen = NSTimer()
     var timeToPresentWhiteSpace = NSTimer()
     var timeToGameOver = NSTimer()
     var dateAcceptDelayStart = NSDate()
     
+    var timePictureVisible: Double = 2 // Called "exposure" in the UI and log.
     var timeToAcceptDelay = NSTimer()
-    var timeAcceptDelay = 0.0 // from core data
+    var timeAcceptDelay: Double = 2 // from core data
     
     var timeSinceAnimalAppeared = 0.0
-    var timeBlankSpaceVisible = 0.0
-    var timePictureVisible = 0.0 // Called "exposure" in the UI and log.
     let timeGameOver = 300.0 // Default is 300 seconds eg 5 mins
     
     var countTotalMissies = 0
-    var countPictureAnimals = 0
     var countSoundAnimals = 0
     var countObjects = 0
     
@@ -55,10 +56,9 @@ class DualSustainViewController: CounterpointingViewController {
     let timeWarningPromptRemainingOnScreen = 4.0
     
     override func viewDidLoad() {
-        sessionType = GamesIndex.DualSust
-        greeingMessage = labels.practice
-        playSound(.Practice1)
-    
+        sessionType = GamesIndex.AuditorySust
+        greeingMessage = labels.practice1
+        
         super.viewDidLoad()
         
         imageVisibleOnScreen.frame = CGRectMake(0, 0, imageVisibleOnScreen.frame.size.width * 2, imageVisibleOnScreen.frame.size.height * 2)
@@ -67,12 +67,7 @@ class DualSustainViewController: CounterpointingViewController {
         imageVisibleOnScreen.tag = tagChangingGamePicture
         view.addSubview(imageVisibleOnScreen)
         
-        timePictureVisible = model.data.dualSustSpeed.doubleValue
-        timeBlankSpaceVisible = model.data.dualSustDelay.doubleValue
-        timeAcceptDelay = model.data.dualSustAcceptedDelay!.doubleValue
-        
         session.speed = timePictureVisible
-        session.blank = timeBlankSpaceVisible
         session.acceptedDelay = timeAcceptDelay
         
         timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
@@ -92,13 +87,12 @@ class DualSustainViewController: CounterpointingViewController {
     func startTest() {
         trainingMode = false
         countObjects = 0
-        countPictureAnimals = 0
         countSoundAnimals = 0
-
+        
         timeToGameOver.invalidate()
         timeToGameOver = NSTimer.scheduledTimerWithTimeInterval(timeGameOver,
                                                                 target: self,
-                                                                selector: #selector(DualSustainViewController.gameOver),
+                                                                selector: #selector(AuditorySustainViewController.gameOver),
                                                                 userInfo: nil,
                                                                 repeats: false)
     }
@@ -117,43 +111,47 @@ class DualSustainViewController: CounterpointingViewController {
         self.cleanView() // Removes labels only
         
         switch currentScreenShowing {
-            case 0:
-                // Swithing trainingMode bool needed when practice is restarted.
-                trainingMode = true
-                presentMessage(labels.practice)
-                playSound(.Practice1)
-                
-            case 1 ... DualSustainFactory.practiceSequence.count:
-                if !pictureAutoPresent {
-                    startAutoPresentPictures()
-                }
-                indexForCurrentSequence = currentScreenShowing - 1
-                updateView(DualSustainFactory.practiceSequence[indexForCurrentSequence])
-                playSound(DualSustainFactory.practiceSequence[indexForCurrentSequence].sound)
-                
-            case DualSustainFactory.practiceSequence.count + 1:
-                stopAutoPresentPictures()
-                presentMessage(labels.gameReady)
-                
-            case DualSustainFactory.practiceSequence.count + 2 ... (DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 1)):
-                if !pictureAutoPresent {
-                    startTest()
-                    startAutoPresentPictures()
-                }
-                indexForCurrentSequence = currentScreenShowing - (DualSustainFactory.practiceSequence.count + 2)
-                updateView(DualSustainFactory.gameSequence[indexForCurrentSequence])
-                playSound(DualSustainFactory.gameSequence[indexForCurrentSequence].sound)
+        case 0:
+            // Swithing trainingMode bool needed when practice is restarted.
+            trainingMode = true
+            presentMessage(labels.practice1)
             
-            case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 2):
-                stopAutoPresentPictures()
-                stopTest()
-                presentMessage(labels.gameEnd)
-                
-            case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 3):
-                presentPause()
-                
-            default:
-                break
+        case 1 ... AuditorySustainFactory.practiceSequence.count:
+            if !pictureAutoPresent {
+                startAutoPresentPictures()
+            }
+            indexForCurrentSequence = currentScreenShowing - 1
+            updateView(AuditorySustainFactory.practiceSequence[indexForCurrentSequence])
+            playSound(AuditorySustainFactory.practiceSequence[indexForCurrentSequence].sound)
+            
+        case AuditorySustainFactory.practiceSequence.count + 1:
+            stopAutoPresentPictures()
+            presentMessage(labels.game1)
+            playSound(Sound.EndOfPractice)
+            
+        case AuditorySustainFactory.practiceSequence.count + 2:
+            playSound(Sound.Game1)
+            
+        case AuditorySustainFactory.practiceSequence.count + 3 ... (AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 1)):
+            if !pictureAutoPresent {
+                startTest()
+                startAutoPresentPictures()
+            }
+            indexForCurrentSequence = currentScreenShowing - (AuditorySustainFactory.practiceSequence.count + 2)
+            updateView(AuditorySustainFactory.gameSequence[indexForCurrentSequence])
+            playSound(AuditorySustainFactory.gameSequence[indexForCurrentSequence].sound)
+            
+        case AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 2):
+            stopAutoPresentPictures()
+            stopTest()
+            presentMessage(labels.gameEnd)
+            playSound(Sound.EndOfGame)
+            
+        case AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 3):
+            presentPause()
+            
+        default:
+            break
         }
     }
     
@@ -170,7 +168,7 @@ class DualSustainViewController: CounterpointingViewController {
         timeToPresentWhiteSpace.invalidate()
         timeToPresentNextScreen.invalidate()
         stopTest()
-        currentScreenShowing = DualSustainFactory.practiceSequence.count + 2;
+        currentScreenShowing = AuditorySustainFactory.practiceSequence.count + 2;
         presentNextScreen()
     }
     
@@ -200,53 +198,33 @@ class DualSustainViewController: CounterpointingViewController {
         imageVisibleOnScreen.center = view.center;
         imageVisibleOnScreen.image = newImage
         
-        if pictureIsAnimal(gameSequence) || soundIsAnimal(gameSequence) {
+        if soundIsAnimal(gameSequence) {
             timeSinceAnimalAppeared = 0
             timeToAcceptDelay.invalidate()
             timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(Constants.timersScale.rawValue.doubleValue,
                                                                        target: self,
-                                                                       selector: #selector(DualSustainViewController.updateAcceptedDelay),
+                                                                       selector: #selector(AuditorySustainViewController.updateAcceptedDelay),
                                                                        userInfo: nil,
                                                                        repeats: true)
         }
         
         if (!trainingMode) {
-            if pictureIsAnimal(gameSequence) {
-                countPictureAnimals += 1
-                NSLog("Animal picture")
-            } else if soundIsAnimal(gameSequence){
+            if soundIsAnimal(gameSequence){
                 countSoundAnimals += 1
-                NSLog("Animal sound")
             }else {
                 countObjects += 1
             }
             
-            session.pictures = countPictureAnimals
             session.sounds = countSoundAnimals
             session.objects = countObjects
         }
         
-        if timeBlankSpaceVisible >= model.kMinDelay {
-            
-            timeToPresentWhiteSpace.invalidate()
-            timeToPresentWhiteSpace = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible,
-                                                                             target: self,
-                                                                             selector: #selector(DualSustainViewController.showWhiteSpace),
-                                                                             userInfo: nil,
-                                                                             repeats: false)
-        }
-        
         timeToPresentNextScreen.invalidate()
-        timeToPresentNextScreen = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible + timeBlankSpaceVisible,
+        timeToPresentNextScreen = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible,
                                                                          target: self,
                                                                          selector: #selector(TestViewController.presentNextScreen),
                                                                          userInfo: nil,
                                                                          repeats: false)
-    }
-    
-    func showWhiteSpace() {
-        let whiteSpace = UIImage(named: Picture.Empty.rawValue)
-        self.imageVisibleOnScreen.image = whiteSpace
     }
     
     func updateAcceptedDelay() {
@@ -267,7 +245,7 @@ class DualSustainViewController: CounterpointingViewController {
             countTotalMissies = 0
             
             playSound(.Positive)
-            log(.Hit, hitType: animalType.integerValue)
+            log(.Hit, hitType: SuccessType.Sound.rawValue.integerValue)
             
             // Prevents following taps to be sucesfull
             timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
@@ -284,7 +262,7 @@ class DualSustainViewController: CounterpointingViewController {
     
     private func noteMistake(mistakeType: PlayerAction) {
         
-        log(mistakeType, hitType: SuccessType.Picture.rawValue)
+        log(mistakeType, hitType: SuccessType.Sound.rawValue)
         
         if !trainingMode {
             if mistakeType == .FalsePositive {
@@ -322,7 +300,7 @@ class DualSustainViewController: CounterpointingViewController {
                 showWarningPrompt()
             }
             
-            let delay = (timeSinceAnimalAppeared == Constants.timeNever.rawValue.doubleValue) ? 0 : timeSinceAnimalAppeared;
+            let delay = (timeSinceAnimalAppeared == Constants.timeNever) ? 0 : timeSinceAnimalAppeared;
             
             model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: delay, type: hitType.integerValue)
         }
@@ -352,21 +330,9 @@ class DualSustainViewController: CounterpointingViewController {
         }
     }
     
-    private func pictureIsAnimal(gameSequence: GameSequence) -> Bool {
-        animalType = SuccessType.Picture.rawValue
-        return
-            gameSequence.picture == Picture.Pig ||
-            gameSequence.picture == Picture.Cat ||
-            gameSequence.picture == Picture.Dog ||
-            gameSequence.picture == Picture.Horse ||
-            gameSequence.picture == Picture.Fish ||
-            gameSequence.picture == Picture.Mouse
-    }
-    
     private func soundIsAnimal(gameSequence: GameSequence) -> Bool {
-        animalType = SuccessType.Sound.rawValue
         return
-                gameSequence.sound == Sound.Pig ||
+            gameSequence.sound == Sound.Pig ||
                 gameSequence.sound == Sound.Cat ||
                 gameSequence.sound == Sound.Dog ||
                 gameSequence.sound == Sound.Horse ||
@@ -392,7 +358,7 @@ class DualSustainViewController: CounterpointingViewController {
         presentViewController(alertView, animated: true, completion: nil)
     }
     
-    override  func getComment() -> String {
+    override func getComment() -> String {
         return session.comment
     }
     

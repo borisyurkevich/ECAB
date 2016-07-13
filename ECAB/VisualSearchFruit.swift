@@ -8,11 +8,7 @@
 
 import UIKit
 
-class TestItem {
-    
-    enum Fruit {
-        case 🍎, 🍏, 🍓
-    }
+class VisualSearchFruit {
     
     let type: Fruit
     let isValuable: Bool
@@ -34,8 +30,5 @@ class TestItem {
         } else {
             fatalError("Game peace can be only of certain type: 🍎, 🍏, or 🍓")
         }
-        
-        
     }
-   
 }

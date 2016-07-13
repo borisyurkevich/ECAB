@@ -43,7 +43,7 @@ struct VisualSearchSpeed {
 class VisualSearchFactory {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
-    var data = Array<TestItem>()
+    var data = Array<VisualSearchFruit>()
     private var apples = 0
     private var whiteApples = 0
     private var strawberries = 0
@@ -56,12 +56,12 @@ class VisualSearchFactory {
         numberOfCells = data.count
     }
     
-    let t = TestItem(type: .🍎) // target (red apple)
-    let w = TestItem(type: .🍏) // white apple
-    let s = TestItem(type: .🍓) // strawverry
+    let t = VisualSearchFruit(type: .🍎) // target (red apple)
+    let w = VisualSearchFruit(type: .🍏) // white apple
+    let s = VisualSearchFruit(type: .🍓) // strawverry
     
     func generateDefaultPattern(forScreen section: Int){
-        var f = [TestItem]()
+        var f = [VisualSearchFruit]()
 
         
         // This is complicated patters copied from PDF file. I separated matrix

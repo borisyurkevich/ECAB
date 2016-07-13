@@ -10,6 +10,11 @@ import Foundation
 import CoreData
 import UIKit
 
+enum Constants: NSNumber{
+    case timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
+    case timersScale = 0.01 // Hundreds of a second
+}
+
 enum GamesIndex: NSNumber {
     case VisualSearch = 0
     case Counterpointing = 1
@@ -75,6 +80,7 @@ enum Picture: String {
     case Star = "star_yellow"
     case Train = "train_inverse"
     case Tree = "tree"
+    case Icon_auditory = "icon_auditory"
 }
 
 enum Sound: String {
@@ -120,6 +126,10 @@ enum PlayerAction {
     case Miss
     case FalsePositive
     case Hit
+}
+
+enum Fruit {
+    case 🍎, 🍏, 🍓
 }
 
 enum MenuConstants: String {

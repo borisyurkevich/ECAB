@@ -215,14 +215,13 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			let navVC = splitViewController!.viewControllers.last as! UINavigationController
 			let detailVC = navVC.topViewController as! HistoryViewController
             
-            var cSessions = [Session]()
-            for session in model.data.sessions {
-                let cSession = session as! Session
-                if cSession.type.integerValue == model.data.selectedGame{
-                    cSessions.append(cSession)
+            var sessions = [Session]()
+            for case let session as Session in model.data.sessions {
+                if session.type.integerValue == model.data.selectedGame{
+                    sessions.append(session)
                 }
             }
-            let session = cSessions[indexPath.row]
+            let session = sessions[indexPath.row]
             model.managedContext.deleteObject(session)
             var error: NSError?
             do {
@@ -281,6 +280,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
                 break
             
             case GamesIndex.AuditorySust.rawValue:
+                detailVC.textView.text = logModel.generateAuditorySustainLogWithSession(pickedSession, gameName: gameName.rawValue)
                 break
             
             case GamesIndex.DualSust.rawValue:

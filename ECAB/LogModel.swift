@@ -353,7 +353,6 @@ class LogModel {
             let moveType = (actualMove.type == SuccessType.Picture.rawValue) ? "Picture" : "Sound"
 
             if actualMove.success.boolValue {
-                
                 let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
                 append = "\(moveType) \(actualMove.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
             } else {
@@ -387,9 +386,6 @@ class LogModel {
         let blank = session.blank!.doubleValue
         let interval = exposure + blank
         
-        let animalsPctures = session.pictures!.intValue
-        let animalsSounds = session.sounds!.intValue
-        
         let objectsTotal = session.objects!.intValue
         
         let text = "\(gameName) (build \(build))\n\n" +
@@ -398,8 +394,75 @@ class LogModel {
             "blank = \(blank) " +
             "accepted delay = \(session.acceptedDelay!.doubleValue)\n" +
             "Objects = \(objectsTotal)\n" +
-            "Animal pictures = \(animalsPctures) (doesn't count while in training)\n" +
-            "Animal sounds = \(animalsSounds) (doesn't count while in training)\n" +
+            "Animal pictures = \(session.pictures!.intValue) (doesn't count while in training)\n" +
+            "Animal sounds = \(session.sounds!.intValue) (doesn't count while in training)\n" +
+            "Total score = \(session.score) moves = \(session.moves.count)\n" +
+            "False positives = \(session.errors) Misses = \(session.miss!)\n\n" +
+            "Comment: \(comment)\n\n" +
+            "Session started: \(dateString)\n\n" +
+            "\(details)"
+        
+        return text
+    }
+    
+    func generateAuditorySustainLogWithSession(session: Session, gameName: String) -> String {
+        var details = ""
+        var counter = 1
+        
+        var spacePrinted = false
+        for move in session.moves {
+            let actualMove = move as! Move
+            
+            var append = ""
+            var fourMistakes = ""
+            if actualMove.positionY == VisualSustainSkip.FourSkips.rawValue {
+                fourMistakes = "[4 mistaken taps in a row]"
+            }
+            if actualMove.success.boolValue {
+                
+                let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
+                
+                append = "Sound \(actualMove.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+            } else {
+                // Two mistakes type
+                if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                    append = "Sound \(actualMove.positionX) - False Positive \(fourMistakes)\n"
+                } else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
+                    append = "Sound \(actualMove.positionX) - Miss \(fourMistakes)\n"
+                }
+                
+            }
+            
+            if !spacePrinted && !actualMove.inverted.boolValue { // Not training
+                details = details + "\n" + append
+                spacePrinted = true
+            } else {
+                details = details + append
+            }
+            counter += 1
+        }
+        
+        let dateString = formatter.stringFromDate(session.dateStart)
+        
+        let comment = session.comment
+        
+        var build = "unknown"
+        if let canonicBuild = session.bundleVersion as String? {
+            build = canonicBuild
+        }
+        
+        let exposure = session.speed.doubleValue
+        let blank = session.blank!.doubleValue
+        let interval = exposure + blank
+        
+        let objectsTotal = session.objects!.intValue
+        
+        let text = "\(gameName) (build \(build))\n\n" +
+            "Player: \(session.player.name)\n" +
+            "Interval = \(interval) exposure = \(exposure) " +
+            "blank = \(blank) " +
+            "accepted delay = \(session.acceptedDelay!.doubleValue)\n" +
+            "Objects = \(objectsTotal) animal sounds = \(session.sounds!.intValue) (doesn't count while in training)\n" +
             "Total score = \(session.score) moves = \(session.moves.count)\n" +
             "False positives = \(session.errors) Misses = \(session.miss!)\n\n" +
             "Comment: \(comment)\n\n" +
