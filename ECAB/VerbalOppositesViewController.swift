@@ -14,10 +14,10 @@ class VerbalOppositesViewController: CounterpointingViewController {
         let practice1 = NSLocalizedString("Practice 1 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
         let practice2 = NSLocalizedString("Practice 2 : Say the OPPOSITE animal name (CAT or DOG)", comment: "verbal opposites")
         let game1 = NSLocalizedString("Game 1 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
-        let game2 = NSLocalizedString("Game 1 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
-        let game3 = NSLocalizedString("Game 1 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
-        let game4 = NSLocalizedString("Game 1 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
-
+        let game2 = NSLocalizedString("Game 2 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
+        let game3 = NSLocalizedString("Game 3 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
+        let game4 = NSLocalizedString("Game 4 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
+        
         let gameEnd = NSLocalizedString("Stop.", comment: "verbal opposites")
         let testOver = NSLocalizedString("Test is Over", comment: "verbal opposites alert title")
         let testOverBody = NSLocalizedString("You've been running the test for %@", comment: "verbal opposites alert body")
@@ -32,23 +32,11 @@ class VerbalOppositesViewController: CounterpointingViewController {
     
     var pictureAutoPresent = false
     
-    let totalMissesBeforeWarningPrompt = 4
-    
-    var timeToPresentNextScreen = NSTimer()
-    var timeToPresentWhiteSpace = NSTimer()
     var timeToGameOver = NSTimer()
     var dateAcceptDelayStart = NSDate()
     
-    var timePictureVisible: Double = 2 // Called "exposure" in the UI and log.
-    var timeToAcceptDelay = NSTimer()
-    var timeAcceptDelay: Double = 2 // from core data
-    
     var timeSinceAnimalAppeared = 0.0
     let timeGameOver = 300.0 // Default is 300 seconds eg 5 mins
-    
-    var countTotalMissies = 0
-    var countSoundAnimals = 0
-    var countObjects = 0
     
     var imageVisibleOnScreen = UIImageView(image: UIImage(named: "white_rect"))
     let labelTagAttention = 1
@@ -56,8 +44,9 @@ class VerbalOppositesViewController: CounterpointingViewController {
     let timeWarningPromptRemainingOnScreen = 4.0
     
     override func viewDidLoad() {
-        sessionType = GamesIndex.AuditorySust
+        sessionType = GamesIndex.Verbal
         greeingMessage = labels.practice1
+        playSound(.Practice1)
         
         super.viewDidLoad()
         
@@ -66,9 +55,6 @@ class VerbalOppositesViewController: CounterpointingViewController {
         imageVisibleOnScreen.hidden = true
         imageVisibleOnScreen.tag = tagChangingGamePicture
         view.addSubview(imageVisibleOnScreen)
-        
-        session.speed = timePictureVisible
-        session.acceptedDelay = timeAcceptDelay
         
         timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
     }
@@ -86,20 +72,17 @@ class VerbalOppositesViewController: CounterpointingViewController {
     // Start and stop test is enabling logic to run the game in non training mode
     func startTest() {
         trainingMode = false
-        countObjects = 0
-        countSoundAnimals = 0
         
         timeToGameOver.invalidate()
         timeToGameOver = NSTimer.scheduledTimerWithTimeInterval(timeGameOver,
                                                                 target: self,
-                                                                selector: #selector(AuditorySustainViewController.gameOver),
+                                                                selector: #selector(VerbalOppositesViewController.gameOver),
                                                                 userInfo: nil,
                                                                 repeats: false)
     }
     
     func stopTest() {
         timeToGameOver.invalidate()
-        timeToAcceptDelay.invalidate()
         // We shoudn't invalidate all timers because that will prevent
         // screen from cleaning.
     }
@@ -115,39 +98,37 @@ class VerbalOppositesViewController: CounterpointingViewController {
             // Swithing trainingMode bool needed when practice is restarted.
             trainingMode = true
             presentMessage(labels.practice1)
+            playSound(.Practice1)
             
-        case 1 ... AuditorySustainFactory.practiceSequence.count:
+        case 1 ... VerbalOppositesFactory.practiceSequence1.count:
             if !pictureAutoPresent {
                 startAutoPresentPictures()
             }
             indexForCurrentSequence = currentScreenShowing - 1
-            updateView(AuditorySustainFactory.practiceSequence[indexForCurrentSequence])
-            playSound(AuditorySustainFactory.practiceSequence[indexForCurrentSequence].sound)
+            updateView(VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence])
             
-        case AuditorySustainFactory.practiceSequence.count + 1:
+        case VerbalOppositesFactory.practiceSequence1.count + 1:
             stopAutoPresentPictures()
             presentMessage(labels.game1)
             playSound(Sound.EndOfPractice)
             
-        case AuditorySustainFactory.practiceSequence.count + 2:
+        case VerbalOppositesFactory.practiceSequence1.count + 2:
             playSound(Sound.Game1)
             
-        case AuditorySustainFactory.practiceSequence.count + 3 ... (AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 1)):
+        case VerbalOppositesFactory.practiceSequence1.count + 3 ... (VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 1)):
             if !pictureAutoPresent {
                 startTest()
                 startAutoPresentPictures()
             }
-            indexForCurrentSequence = currentScreenShowing - (AuditorySustainFactory.practiceSequence.count + 2)
-            updateView(AuditorySustainFactory.gameSequence[indexForCurrentSequence])
-            playSound(AuditorySustainFactory.gameSequence[indexForCurrentSequence].sound)
+            indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
+            updateView(VerbalOppositesFactory.gameSequence1[indexForCurrentSequence])
             
-        case AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 2):
+        case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 2):
             stopAutoPresentPictures()
             stopTest()
             presentMessage(labels.gameEnd)
-            playSound(Sound.EndOfGame)
             
-        case AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 3):
+        case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 3):
             presentPause()
             
         default:
@@ -165,8 +146,6 @@ class VerbalOppositesViewController: CounterpointingViewController {
             }
         }
         
-        timeToPresentWhiteSpace.invalidate()
-        timeToPresentNextScreen.invalidate()
         stopTest()
         currentScreenShowing = AuditorySustainFactory.practiceSequence.count + 2;
         presentNextScreen()
@@ -187,161 +166,38 @@ class VerbalOppositesViewController: CounterpointingViewController {
     
     private func updateView(gameSequence: GameSequence) {
         
-        if gamePaused {
-            return
-        }
-        
-        let newImage = UIImage(named: gameSequence.picture.rawValue)
-        let newFrame = UIImageView(image: newImage)
-        
-        imageVisibleOnScreen.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
-        imageVisibleOnScreen.center = view.center;
-        imageVisibleOnScreen.image = newImage
-        
-        if soundIsAnimal(gameSequence) {
-            timeSinceAnimalAppeared = 0
-            timeToAcceptDelay.invalidate()
-            timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(Constants.timersScale.rawValue.doubleValue,
-                                                                       target: self,
-                                                                       selector: #selector(AuditorySustainViewController.updateAcceptedDelay),
-                                                                       userInfo: nil,
-                                                                       repeats: true)
-        }
-        
-        if (!trainingMode) {
-            if soundIsAnimal(gameSequence){
-                countSoundAnimals += 1
-            }else {
-                countObjects += 1
-            }
+        if !gamePaused {
+            let newImage = UIImage(named: gameSequence.picture.rawValue)
+            let newFrame = UIImageView(image: newImage)
             
-            session.sounds = countSoundAnimals
-            session.objects = countObjects
-        }
-        
-        timeToPresentNextScreen.invalidate()
-        timeToPresentNextScreen = NSTimer.scheduledTimerWithTimeInterval(timePictureVisible,
-                                                                         target: self,
-                                                                         selector: #selector(TestViewController.presentNextScreen),
-                                                                         userInfo: nil,
-                                                                         repeats: false)
-    }
-    
-    func updateAcceptedDelay() {
-        timeSinceAnimalAppeared += Constants.timersScale.rawValue.doubleValue
-        if timeSinceAnimalAppeared > timeAcceptDelay {
-            timeToAcceptDelay.invalidate()
-            timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
-            // Because stopwatch was alive long enough to reach its limit,
-            // we know that animal was missed.
-            noteMistake(.Miss)
+            imageVisibleOnScreen.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
+            imageVisibleOnScreen.center = view.center;
+            imageVisibleOnScreen.image = newImage
+            
+            timeSinceAnimalAppeared = 0
         }
     }
     
     override func tapHandler(touchLeft: Bool) {
         // Ignore touchLeft, whole screen is the target
+
+        playSound(.Positive)
+        log(.Hit, hitType: SuccessType.Sound.rawValue.integerValue)
         
-        if timeSinceAnimalAppeared <= timeAcceptDelay {
-            countTotalMissies = 0
-            
-            playSound(.Positive)
-            log(.Hit, hitType: SuccessType.Sound.rawValue.integerValue)
-            
-            // Prevents following taps to be sucesfull
-            timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
-            timeToAcceptDelay.invalidate()
-            
-            if !trainingMode {
-                session.score = NSNumber(integer: (session.score.integerValue + 1))
-            }
-            
-        } else {
-            noteMistake(.FalsePositive)
-        }
-    }
-    
-    private func noteMistake(mistakeType: PlayerAction) {
+        // Prevents following taps to be sucesfull
+        timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
         
-        log(mistakeType, hitType: SuccessType.Sound.rawValue)
-        
-        if !trainingMode {
-            if mistakeType == .FalsePositive {
-                let falsePositives = session.errors.integerValue
-                session.errors = NSNumber(integer: (falsePositives + 1))
-            } else if mistakeType == .Miss {
-                let misses = session.miss!.integerValue
-                session.miss = NSNumber(integer: (misses + 1))
-            }
-        }
+        presentNextScreen();
     }
     
     private func log(action: PlayerAction, hitType: NSNumber) {
         let screen = CGFloat(indexForCurrentSequence + 1)
-        var successfulAction = false
         
-        if (action == .Hit) {
-            successfulAction = true
-            model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared, type: hitType.integerValue)
-        } else {
-            // To avoid changing data model we will use interval to store mistake type
-            var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
-            if (action == .Miss) {
-                codedMistakeType = VisualSustainMistakeType.Miss.rawValue
-                countTotalMissies += 1 // for warning prompt
-                
-            } else if (action == .FalsePositive) {
-                codedMistakeType = VisualSustainMistakeType.FalsePositive.rawValue
-            }
-            
-            // -100 is special indicator, player skipped 4 turns, not has to be added to the log
-            var codedSkipWarning = VisualSustainSkip.NoSkip.rawValue
-            if countTotalMissies == totalMissesBeforeWarningPrompt {
-                codedSkipWarning = VisualSustainSkip.FourSkips.rawValue
-                showWarningPrompt()
-            }
-            
-            let delay = (timeSinceAnimalAppeared == Constants.timeNever.rawValue.doubleValue) ? 0 : timeSinceAnimalAppeared;
-            
-            model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: delay, type: hitType.integerValue)
-        }
-    }
-    
-    func showWarningPrompt() {
-        
-        playSound(.Negative)
-        
-        countTotalMissies = 0
-        let label = UILabel()
-        label.text = labels.practice1
-        label.font = UIFont.systemFontOfSize(32.0)
-        label.frame = CGRectMake(120, 610, 0, 0)
-        label.sizeToFit()
-        label.tag = labelTagAttention
-        view.addSubview(label)
-        
-        delay(timeWarningPromptRemainingOnScreen) {
-            for v in self.view.subviews {
-                if v.tag == self.labelTagAttention {
-                    if !v.isKindOfClass(UIButton) {
-                        v.removeFromSuperview()
-                    }
-                }
-            }
-        }
-    }
-    
-    private func soundIsAnimal(gameSequence: GameSequence) -> Bool {
-        return
-            gameSequence.sound == Sound.Pig ||
-                gameSequence.sound == Sound.Cat ||
-                gameSequence.sound == Sound.Dog ||
-                gameSequence.sound == Sound.Horse ||
-                gameSequence.sound == Sound.Fish
+        model.addMove(screen, positionY: 0, success: true, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared, type: hitType.integerValue)
     }
     
     func gameOver() {
         gamePaused = true
-        timeToAcceptDelay.invalidate()
         timeToGameOver.invalidate()
         
         let secondsPlayed = timeGameOver
@@ -364,11 +220,6 @@ class VerbalOppositesViewController: CounterpointingViewController {
     
     override func quit() {
         gamePaused = true
-        
-        if timeSinceAnimalAppeared != Constants.timeNever.rawValue.doubleValue {
-            // Last animal was missed
-            noteMistake(.Miss)
-        }
         
         if !trainingMode {
             stopTest()

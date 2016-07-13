@@ -53,9 +53,6 @@ class VisualSustainViewController: CounterpointingViewController {
 	let tagChangingGamePicture = 2
 	let timeWarningPromptRemainingOnScreen = 4.0
 	
-	private let practiceSequence: [Picture] = [.Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train, .Empty];
-	private let gameSequence: [Picture] = [.Sun, .Key, .Sock, .Boat, .Boot, .Pig, .Clock, .Car, .Book, .Door, .Cat, .Ball, .Bed, .Bus, .Horse, .Train, .Cake, .Leaf, .Dog, .Star, .Spoon, .Chair, .Bike, .Tree, .Fish, .Door, .Bus, .Ball, .Sun, .Horse, .Spoon, .Bed, .Leaf, .Boot, .Fish, .Star, .Cake, .Tree, .Sock, .Clock, .Book, .Cat, .Key, .Train, .Chair, .Pig,. Boat, .Car, .Bike, .Dog, .Bus, .Bed, .Sun, .Chair, .Dog, .Train, .Ball, .Horse, .Bike, .Leaf, .Sock, .Cake, .Boat, .Cat, .Key, .Door, .Tree, .Pig, .Spoon, .Clock, .Car, .Boot, .Book, .Fish, .Star, .Bike, .Clock, .Car, .Pig, .Boat, .Tree, .Cake, .Sock, .Bus, .Star, .Door, .Horse, .Spoon, .Ball, .Dog, .Boot, .Key, .Leaf, .Train, .Cat, .Chair, .Sun, .Bed, .Fish, .Book, .Cake, .Ball, .Star, .Bus, .Pig, .Train, .Boat, .Sun, .Fish, .Spoon, .Leaf, .Bed, .Dog, .Tree, .Door, .Boot, .Bike, .Cat, .Car, .Sock, .Chair, .Key, .Clock, .Book, .Horse, .Door,.Bike, .Car, .Leaf, .Cake, .Fish, .Bed, .Boot, .Horse, .Bus, .Train, .Sun, .Sock, .Chair, .Dog, .Star, .Ball, .Train, .Pig, .Key, .Clock, .Spoon, .Book, .Cat, .Boat, .Empty]
-	
 	override func viewDidLoad() {
 		sessionType = GamesIndex.VisualSust
         greeingMessage = labels.practice1
@@ -132,7 +129,7 @@ class VisualSustainViewController: CounterpointingViewController {
 				startAutoPresentPictures()
 			}
 			indexForCurrentSequence = currentScreenShowing - 3
-			updateView(practiceSequence[indexForCurrentSequence])
+			updateView(VisualSustainFactory.practiceSequence[indexForCurrentSequence].picture)
 			
 		case 24:
 			stopAutoPresentPictures()
@@ -144,7 +141,7 @@ class VisualSustainViewController: CounterpointingViewController {
 				startAutoPresentPictures()
 			}
 			indexForCurrentSequence = currentScreenShowing - 25
-			updateView(gameSequence[indexForCurrentSequence])
+			updateView(VisualSustainFactory.gameSequence[indexForCurrentSequence].picture)
 			
 		case 176:
 			stopAutoPresentPictures()
