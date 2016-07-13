@@ -300,7 +300,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
                 showWarningPrompt()
             }
             
-            let delay = (timeSinceAnimalAppeared == Constants.timeNever) ? 0 : timeSinceAnimalAppeared;
+            let delay = (timeSinceAnimalAppeared == Constants.timeNever.rawValue.doubleValue) ? 0 : timeSinceAnimalAppeared;
             
             model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: delay, type: hitType.integerValue)
         }
@@ -312,7 +312,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
         
         countTotalMissies = 0
         let label = UILabel()
-        label.text = labels.reminder
+        label.text = labels.practice1
         label.font = UIFont.systemFontOfSize(32.0)
         label.frame = CGRectMake(120, 610, 0, 0)
         label.sizeToFit()
