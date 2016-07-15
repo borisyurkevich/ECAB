@@ -12,11 +12,9 @@
 		6F6220731D3675F00068DCB0 /* VerbalOppositesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6220721D3675F00068DCB0 /* VerbalOppositesFactory.swift */; };
 		6F6220751D3678B00068DCB0 /* VerbalOppositesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6220741D3678B00068DCB0 /* VerbalOppositesViewController.swift */; };
 		6F6220771D367CE70068DCB0 /* VisualSustainFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6220761D367CE70068DCB0 /* VisualSustainFactory.swift */; };
-		6F6C6D271D36944B008E572B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6C6D261D36944B008E572B /* AudioToolbox.framework */; };
-		6F6C6D291D369450008E572B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6C6D281D369450008E572B /* AVFoundation.framework */; };
-		6F6C6D2D1D3694BE008E572B /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F6C6D2A1D3694BE008E572B /* AcousticModelEnglish.bundle */; };
-		6F6C6D2E1D3694BE008E572B /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6C6D2B1D3694BE008E572B /* OpenEars.framework */; };
-		6F6C6D2F1D3694BE008E572B /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6C6D2C1D3694BE008E572B /* Slt.framework */; };
+		6F6C6D3D1D36A1CB008E572B /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F6C6D3A1D36A1CB008E572B /* AcousticModelEnglish.bundle */; };
+		6F6C6D3E1D36A1CB008E572B /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6C6D3B1D36A1CB008E572B /* OpenEars.framework */; };
+		6F6C6D3F1D36A1CB008E572B /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6C6D3C1D36A1CB008E572B /* Slt.framework */; };
 		6F73F7151D23979A00ECB924 /* DualSustainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F73F7141D23979A00ECB924 /* DualSustainViewController.swift */; };
 		6F73F7521D23C7B500ECB924 /* DualSustainFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F73F7511D23C7B500ECB924 /* DualSustainFactory.swift */; };
 		6F73F7541D23C82900ECB924 /* GameSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F73F7531D23C82900ECB924 /* GameSequence.swift */; };
@@ -56,6 +54,7 @@
 		6F73F7981D23D4A800ECB924 /* CounterpointingFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F73F7971D23D4A800ECB924 /* CounterpointingFactory.swift */; };
 		6F73F79A1D23D5E100ECB924 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F73F7991D23D5E100ECB924 /* Enumerations.swift */; };
 		6F7C5EE41D26799D009D742A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C5EE31D26799D009D742A /* Images.xcassets */; };
+		6FA82F4A1D38E09500518261 /* SpeechRecognitionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA82F491D38E09500518261 /* SpeechRecognitionHelper.swift */; };
 		910367F31A7E3B4900522B2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* Model.swift */; };
 		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
 		910791E51C5EA21200199A5D /* ECABLogCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910791E41C5EA21200199A5D /* ECABLogCalculator.swift */; };
@@ -104,11 +103,10 @@
 		6F6220721D3675F00068DCB0 /* VerbalOppositesFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbalOppositesFactory.swift; sourceTree = "<group>"; };
 		6F6220741D3678B00068DCB0 /* VerbalOppositesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerbalOppositesViewController.swift; sourceTree = "<group>"; };
 		6F6220761D367CE70068DCB0 /* VisualSustainFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualSustainFactory.swift; sourceTree = "<group>"; };
-		6F6C6D261D36944B008E572B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		6F6C6D281D369450008E572B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		6F6C6D2A1D3694BE008E572B /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AcousticModelEnglish.bundle; path = ../../../Downloads/OpenEarsDistribution/Framework/AcousticModelEnglish.bundle; sourceTree = "<group>"; };
-		6F6C6D2B1D3694BE008E572B /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenEars.framework; path = ../../../Downloads/OpenEarsDistribution/Framework/OpenEars.framework; sourceTree = "<group>"; };
-		6F6C6D2C1D3694BE008E572B /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Slt.framework; path = ../../../Downloads/OpenEarsDistribution/Framework/Slt.framework; sourceTree = "<group>"; };
+		6F6C6D3A1D36A1CB008E572B /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		6F6C6D3B1D36A1CB008E572B /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		6F6C6D3C1D36A1CB008E572B /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		6F6C6D411D36A212008E572B /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		6F73F7141D23979A00ECB924 /* DualSustainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DualSustainViewController.swift; sourceTree = "<group>"; };
 		6F73F7511D23C7B500ECB924 /* DualSustainFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DualSustainFactory.swift; sourceTree = "<group>"; };
 		6F73F7531D23C82900ECB924 /* GameSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSequence.swift; sourceTree = "<group>"; };
@@ -148,6 +146,7 @@
 		6F73F7971D23D4A800ECB924 /* CounterpointingFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterpointingFactory.swift; sourceTree = "<group>"; };
 		6F73F7991D23D5E100ECB924 /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		6F7C5EE31D26799D009D742A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6FA82F491D38E09500518261 /* SpeechRecognitionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionHelper.swift; sourceTree = "<group>"; };
 		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayersTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9106F1281CA6AC5C00A88607 /* Model v10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v10.xcdatamodel"; sourceTree = "<group>"; };
@@ -198,10 +197,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F6C6D2F1D3694BE008E572B /* Slt.framework in Frameworks */,
-				6F6C6D291D369450008E572B /* AVFoundation.framework in Frameworks */,
-				6F6C6D271D36944B008E572B /* AudioToolbox.framework in Frameworks */,
-				6F6C6D2E1D3694BE008E572B /* OpenEars.framework in Frameworks */,
+				6F6C6D3F1D36A1CB008E572B /* Slt.framework in Frameworks */,
+				6F6C6D3E1D36A1CB008E572B /* OpenEars.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,16 +212,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6F6C6D301D3694F3008E572B /* Frameworks */ = {
+		6F6C6D391D36A1CB008E572B /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				6F6C6D2A1D3694BE008E572B /* AcousticModelEnglish.bundle */,
-				6F6C6D2B1D3694BE008E572B /* OpenEars.framework */,
-				6F6C6D2C1D3694BE008E572B /* Slt.framework */,
-				6F6C6D281D369450008E572B /* AVFoundation.framework */,
-				6F6C6D261D36944B008E572B /* AudioToolbox.framework */,
+				6F6C6D3A1D36A1CB008E572B /* AcousticModelEnglish.bundle */,
+				6F6C6D3B1D36A1CB008E572B /* OpenEars.framework */,
+				6F6C6D3C1D36A1CB008E572B /* Slt.framework */,
 			);
-			name = Frameworks;
+			path = Framework;
 			sourceTree = "<group>";
 		};
 		6F73F7501D23C7A500ECB924 /* Factories */ = {
@@ -295,9 +290,9 @@
 		91E5C3A51A6BD5C400905752 = {
 			isa = PBXGroup;
 			children = (
+				6F6C6D391D36A1CB008E572B /* Framework */,
 				91E5C3B01A6BD5C400905752 /* ECAB */,
 				91E5C3C81A6BD5C400905752 /* ECABTests */,
-				6F6C6D301D3694F3008E572B /* Frameworks */,
 				91E5C3AF1A6BD5C400905752 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -333,6 +328,8 @@
 				91E5C3B31A6BD5C400905752 /* AppDelegate.swift */,
 				91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */,
 				91E5C3B21A6BD5C400905752 /* Info.plist */,
+				6F6C6D411D36A212008E572B /* Bridging-Header.h */,
+				6FA82F491D38E09500518261 /* SpeechRecognitionHelper.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -526,7 +523,7 @@
 				6F73F77B1D23D08200ECB924 /* cat.mp3 in Resources */,
 				6F73F78D1D23D08200ECB924 /* star.mp3 in Resources */,
 				6F73F7901D23D08200ECB924 /* tree.mp3 in Resources */,
-				6F6C6D2D1D3694BE008E572B /* AcousticModelEnglish.bundle in Resources */,
+				6F6C6D3D1D36A1CB008E572B /* AcousticModelEnglish.bundle in Resources */,
 				6F73F77A1D23D08200ECB924 /* car.mp3 in Resources */,
 				6F73F7751D23D08200ECB924 /* bike.mp3 in Resources */,
 				6F73F7841D23D08200ECB924 /* game1.mp3 in Resources */,
@@ -588,6 +585,7 @@
 				910791E51C5EA21200199A5D /* ECABLogCalculator.swift in Sources */,
 				9130B7A11BD275E900D26708 /* Session+CoreDataProperties.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* VisualSearchViewController.swift in Sources */,
+				6FA82F4A1D38E09500518261 /* SpeechRecognitionHelper.swift in Sources */,
 				91C8A67A1B24C0AC001F081A /* CounterpointingViewController.swift in Sources */,
 				91379BE61B52A4A300E3C293 /* Session.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
@@ -680,6 +678,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "ECAB/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -716,6 +715,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "ECAB/Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -727,6 +727,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				INFOPLIST_FILE = ECAB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -742,6 +746,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
 				INFOPLIST_FILE = ECAB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

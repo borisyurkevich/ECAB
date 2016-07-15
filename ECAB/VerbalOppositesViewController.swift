@@ -8,6 +8,11 @@
 
 import UIKit
 
+var lmPath: String!
+var dicPath: String!
+var words: Array<String> = []
+var currentWord: String!
+
 class VerbalOppositesViewController: CounterpointingViewController {
     
     private struct Labels {
@@ -25,6 +30,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
     }
     
     private let labels = Labels()
+    private let speechRecognitionHelper = SpeechRecognitionHelper()
     
     // Place in array of pictures that appear on the screen.
     // There's 2 arrays: training and game.
@@ -57,6 +63,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
         view.addSubview(imageVisibleOnScreen)
         
         timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
+        
+        speechRecognitionHelper.startListening()
     }
     
     func startAutoPresentPictures() {
