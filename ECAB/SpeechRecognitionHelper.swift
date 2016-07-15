@@ -10,7 +10,7 @@ import Foundation
 
 class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     
-    static let THRESHOLD: Float = 3
+    static let THRESHOLD: Float = 3.5
     
     var openEarsEventsObserver = OEEventsObserver()
     var startupFailedDueToLackOfPermissions = Bool()

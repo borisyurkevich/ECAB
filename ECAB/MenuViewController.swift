@@ -99,6 +99,24 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	func showTheGame(game: GamesIndex) {
+        
+        // Hide all the controls
+        difControl.hidden = true
+        difficultyTitle.hidden = true
+        
+        speedLabel.hidden = true
+        speedStepper.hidden = true
+        speedLabelDescription.hidden = true
+
+        secondSpeedLabel.hidden = true
+        secondSpeedStepper.hidden = true
+        secondSpeedLabelDescription.hidden = true
+        speedLabelDescription.hidden = true
+        
+        periodControl.hidden = true
+        periodTitle.hidden = true
+        periodHelp.hidden = true
+        periodValue.hidden = true
 		
         // Set game title
 		title = model.games[model.data.selectedGame.integerValue].rawValue
@@ -107,19 +125,12 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             case .VisualSearch:
                 gameIcon.image = UIImage(named: "icon_visual")
                 difControl.hidden = false
+                difficultyTitle.hidden = false
+
                 speedLabel.hidden = false
                 speedLabelDescription.hidden = false
                 
                 speedStepper.hidden = false
-                secondSpeedLabel.hidden = true
-                secondSpeedStepper.hidden = true
-                secondSpeedLabelDescription.hidden = true
-                
-                // Third Control
-                periodControl.hidden = true
-                periodTitle.hidden = true
-                periodHelp.hidden = true
-                periodValue.hidden = true
                 
                 // Set difficulty toggle
                 difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
@@ -135,47 +146,11 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             case .Flanker:
                 gameIcon.image = UIImage(named: "icon_flanker")
                 
-                difficultyTitle.hidden = true
-                difControl.hidden = true
-                
-                speedLabel.hidden = true
-                speedStepper.hidden = true
-                
-                secondSpeedLabel.hidden = true
-                secondSpeedStepper.hidden = true
-                secondSpeedLabelDescription.hidden = true
-                speedLabelDescription.hidden = true
-                
-                // Third Control
-                periodControl.hidden = true
-                periodTitle.hidden = true
-                periodHelp.hidden = true
-                periodValue.hidden = true
-                
             case .Counterpointing:
                 gameIcon.image = UIImage(named: "icon_counter")
                 
-                difficultyTitle.hidden = true
-                difControl.hidden = true
-                
-                speedLabel.hidden = true
-                speedStepper.hidden = true
-                secondSpeedLabel.hidden = true
-                secondSpeedStepper.hidden = true
-                secondSpeedLabelDescription.hidden = true
-                speedLabelDescription.hidden = true
-                
-                // Third Control
-                periodControl.hidden = true
-                periodTitle.hidden = true
-                periodHelp.hidden = true
-                periodValue.hidden = true
-                
             case .VisualSust:
                 gameIcon.image = UIImage(named: "icon_sustained")
-                
-                difficultyTitle.hidden = true
-                difControl.hidden = true
                 
                 speedLabel.hidden = false
                 speedStepper.hidden = false
@@ -188,7 +163,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodTitle.hidden = false
                 periodHelp.hidden = false
                 periodValue.hidden = false
-                
                 
                 speedStepper.value = model.data.visSustSpeed.doubleValue
                 speedLabel.text = "\(model.data.visSustSpeed.doubleValue) \(MenuConstants.second)"
@@ -207,29 +181,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 
             case .AuditorySust:
                 gameIcon.image = UIImage(named: "icon_auditory")
-                
-                difficultyTitle.hidden = true
-                difControl.hidden = true
-                
-                speedLabel.hidden = true
-                speedStepper.hidden = true
-                secondSpeedLabel.hidden = true
-                secondSpeedStepper.hidden = true
-                secondSpeedLabelDescription.hidden = true
-                speedLabelDescription.hidden = true
-                
-                // Third Control
-                periodControl.hidden = true
-                periodTitle.hidden = true
-                periodHelp.hidden = true
-                periodValue.hidden = true
                 break;
             
             case .DualSust:
                 gameIcon.image = UIImage(named: "icon_dual")
-                
-                difficultyTitle.hidden = true
-                difControl.hidden = true
                 
                 speedLabel.hidden = false
                 speedStepper.hidden = false
@@ -261,40 +216,11 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 
             case .Verbal:
                 gameIcon.image = UIImage(named: "icon_verbal")
-                difficultyTitle.hidden = true
-                difControl.hidden = true
                 
-                speedLabel.hidden = true
-                speedStepper.hidden = true
-                secondSpeedLabel.hidden = true
-                secondSpeedStepper.hidden = true
-                secondSpeedLabelDescription.hidden = true
-                speedLabelDescription.hidden = true
-                
-                // Third Control
-                periodControl.hidden = true
-                periodTitle.hidden = true
-                periodHelp.hidden = true
-                periodValue.hidden = true
                 break;
                 
             case .Balloon:
                 gameIcon.image = UIImage(named: "icon_balloon")
-                difficultyTitle.hidden = true
-                difControl.hidden = true
-                
-                speedLabel.hidden = true
-                speedStepper.hidden = true
-                secondSpeedLabel.hidden = true
-                secondSpeedStepper.hidden = true
-                secondSpeedLabelDescription.hidden = true
-                speedLabelDescription.hidden = true
-                
-                // Third Control
-                periodControl.hidden = true
-                periodTitle.hidden = true
-                periodHelp.hidden = true
-                periodValue.hidden = true
                 break;
 		}
 	}
