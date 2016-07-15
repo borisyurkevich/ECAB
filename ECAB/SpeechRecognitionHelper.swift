@@ -115,7 +115,15 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     }
     
     func pocketsphinxDidReceiveHypothesis(hypothesis: String!, recognitionScore: String!, utteranceID: String!) {
-        print(hypothesis)
+        
+        // Send notification to the controller with the animal name and the score
+        NSNotificationCenter.defaultCenter().postNotificationName("speakAnimalName",
+                                                                  object:nil,
+                                                                  userInfo:[
+                                                                        "hypothesis": hypothesis,
+                                                                        "recognitionScore": recognitionScore
+                                                                        ])
+
     }
     
 }

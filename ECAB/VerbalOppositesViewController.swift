@@ -64,7 +64,49 @@ class VerbalOppositesViewController: CounterpointingViewController {
         
         timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
         
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(VerbalOppositesViewController.speakAnimalName(_:)),
+                                                         name: "speakAnimalName",
+                                                         object: nil)
+        
         speechRecognitionHelper.startListening()
+    }
+    
+    func speakAnimalName(notification: NSNotification) {
+        
+        let userInfo: Dictionary<String,String!> = notification.userInfo as! Dictionary<String,String!>
+        
+        let animalName = userInfo["hypothesis"]
+        _ = userInfo["recognitionScore"]
+        
+        print(animalName)
+        
+        switch currentScreenShowing {
+                
+            case 1 ... VerbalOppositesFactory.practiceSequence1.count:
+                if
+                    (VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
+                    (VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence].picture == Picture.Cat && animalName == "CAT")
+                {
+                    print("GOOD")
+                    presentNextScreen();
+                }
+                break
+            
+            /*case VerbalOppositesFactory.practiceSequence1.count + 1:
+                
+            case VerbalOppositesFactory.practiceSequence1.count + 2:
+            
+            case VerbalOppositesFactory.practiceSequence1.count + 3 ... (VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 1)):
+            
+            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 2):
+                
+            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 3):
+            */
+            
+            default:
+                break
+        }
     }
     
     func startAutoPresentPictures() {
@@ -102,45 +144,45 @@ class VerbalOppositesViewController: CounterpointingViewController {
         self.cleanView() // Removes labels only
         
         switch currentScreenShowing {
-        case 0:
-            // Swithing trainingMode bool needed when practice is restarted.
-            trainingMode = true
-            presentMessage(labels.practice1)
-            playSound(.Practice1)
-            
-        case 1 ... VerbalOppositesFactory.practiceSequence1.count:
-            if !pictureAutoPresent {
-                startAutoPresentPictures()
-            }
-            indexForCurrentSequence = currentScreenShowing - 1
-            updateView(VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence])
-            
-        case VerbalOppositesFactory.practiceSequence1.count + 1:
-            stopAutoPresentPictures()
-            presentMessage(labels.game1)
-            playSound(Sound.EndOfPractice)
-            
-        case VerbalOppositesFactory.practiceSequence1.count + 2:
-            playSound(Sound.Game1)
-            
-        case VerbalOppositesFactory.practiceSequence1.count + 3 ... (VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 1)):
-            if !pictureAutoPresent {
-                startTest()
-                startAutoPresentPictures()
-            }
-            indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
-            updateView(VerbalOppositesFactory.gameSequence1[indexForCurrentSequence])
-            
-        case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 2):
-            stopAutoPresentPictures()
-            stopTest()
-            presentMessage(labels.gameEnd)
-            
-        case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 3):
-            presentPause()
-            
-        default:
-            break
+            case 0:
+                // Swithing trainingMode bool needed when practice is restarted.
+                trainingMode = true
+                presentMessage(labels.practice1)
+                playSound(.Practice1)
+                
+            case 1 ... VerbalOppositesFactory.practiceSequence1.count:
+                if !pictureAutoPresent {
+                    startAutoPresentPictures()
+                }
+                indexForCurrentSequence = currentScreenShowing - 1
+                updateView(VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence])
+                
+            case VerbalOppositesFactory.practiceSequence1.count + 1:
+                stopAutoPresentPictures()
+                presentMessage(labels.game1)
+                playSound(Sound.EndOfPractice)
+                
+            case VerbalOppositesFactory.practiceSequence1.count + 2:
+                playSound(Sound.Game1)
+                
+            case VerbalOppositesFactory.practiceSequence1.count + 3 ... (VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 1)):
+                if !pictureAutoPresent {
+                    startTest()
+                    startAutoPresentPictures()
+                }
+                indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
+                updateView(VerbalOppositesFactory.gameSequence1[indexForCurrentSequence])
+                
+            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 2):
+                stopAutoPresentPictures()
+                stopTest()
+                presentMessage(labels.gameEnd)
+                
+            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 3):
+                presentPause()
+                
+            default:
+                break
         }
     }
     
