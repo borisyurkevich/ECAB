@@ -27,6 +27,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	@IBOutlet weak var periodTitle: UILabel!
 	@IBOutlet weak var periodHelp: UILabel!
 	@IBOutlet weak var difficultyTitle: UILabel!
+    @IBOutlet weak var randmomizeFlanker: UISwitch!
+    @IBOutlet weak var randomizeLabel: UILabel!
 	
     let model: Model = Model.sharedInstance
     
@@ -44,6 +46,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		model.setupWithContext(managedContext)
 		
 		difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
+        randmomizeFlanker.on = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
 	}
 	
 	func dataLoaded() {
@@ -86,6 +89,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			periodTitle.hidden = true
 			periodHelp.hidden = true
 			periodValue.hidden = true
+            
+            randmomizeFlanker.hidden = true
+            randomizeLabel.hidden = true
 			
 			
 			if model.data.visSearchDifficulty.integerValue == 0 {
@@ -115,6 +121,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			periodTitle.hidden = true
 			periodHelp.hidden = true
 			periodValue.hidden = true
+            
+            randmomizeFlanker.hidden = false
+            randomizeLabel.hidden = false
 			
 		case .Counterpointing:
 			gameIcon.image = UIImage(named: "dog")
@@ -134,6 +143,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			periodTitle.hidden = true
 			periodHelp.hidden = true
 			periodValue.hidden = true
+            
+            randmomizeFlanker.hidden = true
+            randomizeLabel.hidden = true
 			
 		case .VisualSust:
 			gameIcon.image = UIImage(named: "pig")
@@ -152,7 +164,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			periodTitle.hidden = false
 			periodHelp.hidden = false
 			periodValue.hidden = false
-			
+            
+            randmomizeFlanker.hidden = true
+            randomizeLabel.hidden = true
 			
 			speedStepper.value = model.data.visSustSpeed.doubleValue
 			speedLabel.text = "\(model.data.visSustSpeed.doubleValue) \(MenuConstants.second)"
@@ -240,6 +254,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		}
 		model.save()
 	}
+    
+    @IBAction func randomizedFlanker(sender: UISwitch) {
+        NSUserDefaults.standardUserDefaults().setBool(sender.on, forKey: "isFlankerRandmoized")
+    }
 	
 	func validateAndHighliteBlankSpaceLabel() {
 		let currentDelay = model.data.visSustDelay.doubleValue

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -245,6 +245,18 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XfC-0g-7aX">
+                                <rect key="frame" x="275" y="415" width="51" height="31"/>
+                                <connections>
+                                    <action selector="randomizedFlanker:" destination="8rJ-Kc-sve" eventType="valueChanged" id="m0t-fX-Kwa"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Randomize" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeW-w0-Rcu">
+                                <rect key="frame" x="258" y="454" width="84" height="19.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -272,6 +284,7 @@
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="NMr-BZ-QUH"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="top" secondItem="yyP-Sh-fUH" secondAttribute="bottom" constant="8" symbolic="YES" id="Nc9-hx-Pgj"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="bottom" secondItem="Boy-Rm-I1H" secondAttribute="bottom" id="Q6b-j0-3jO"/>
+                            <constraint firstItem="CeW-w0-Rcu" firstAttribute="top" secondItem="XfC-0g-7aX" secondAttribute="bottom" constant="8" id="Thb-aO-MGq"/>
                             <constraint firstItem="SBH-8k-glY" firstAttribute="top" secondItem="QGC-TC-80M" secondAttribute="bottom" constant="8" symbolic="YES" id="UFw-kc-6aA"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" constant="-190" id="UX9-Fv-9hd"/>
                             <constraint firstItem="fVo-Sy-Z8P" firstAttribute="top" secondItem="Tdc-cw-h2A" secondAttribute="bottom" constant="8" symbolic="YES" id="WGB-DW-eJf"/>
@@ -282,10 +295,12 @@
                             <constraint firstItem="p33-7n-QH8" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Z9w-QO-6bV"/>
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="firstBaseline" secondItem="yyP-Sh-fUH" secondAttribute="firstBaseline" id="aCg-EC-Osl"/>
                             <constraint firstItem="kJl-tE-Rnb" firstAttribute="top" secondItem="Boy-Rm-I1H" secondAttribute="bottom" constant="7" id="aeb-PS-Tde"/>
+                            <constraint firstItem="CeW-w0-Rcu" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="cTT-sE-8MO"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="top" secondItem="Bar-GU-NJl" secondAttribute="bottom" constant="7" id="dSF-bC-06x"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="dwt-sx-LUc"/>
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="trailing" secondItem="blY-ho-Ou9" secondAttribute="trailing" id="fVK-jW-xMK"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="ibh-S3-PF1"/>
+                            <constraint firstItem="XfC-0g-7aX" firstAttribute="top" secondItem="SP9-Gk-u5c" secondAttribute="bottom" constant="8" id="ks0-xi-GPc"/>
                             <constraint firstItem="XrF-Nf-R5f" firstAttribute="bottom" secondItem="Boy-Rm-I1H" secondAttribute="bottom" id="m0k-B2-iH4"/>
                             <constraint firstItem="QGC-TC-80M" firstAttribute="top" secondItem="NDk-cv-Gan" secondAttribute="bottom" constant="74" id="mxo-SW-P2B"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="top" secondItem="yyP-Sh-fUH" secondAttribute="bottom" constant="8" id="nY9-bg-aza"/>
@@ -299,6 +314,7 @@
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="top" secondItem="Bar-GU-NJl" secondAttribute="bottom" constant="8" id="tbX-Ju-i58"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="tyZ-WB-SpK"/>
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="baseline" secondItem="yyP-Sh-fUH" secondAttribute="baseline" id="un9-wr-duT"/>
+                            <constraint firstItem="XfC-0g-7aX" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="xpR-7V-PBj"/>
                             <constraint firstItem="blY-ho-Ou9" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" symbolic="YES" id="zaA-zn-Xiw"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="centerX" secondItem="yyP-Sh-fUH" secondAttribute="centerX" id="zmL-V1-BTg"/>
                             <constraint firstItem="kJl-tE-Rnb" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="zsE-8Y-dj6"/>
@@ -357,6 +373,8 @@
                         <outlet property="periodHelp" destination="fVo-Sy-Z8P" id="kOc-m4-xGm"/>
                         <outlet property="periodTitle" destination="Tdc-cw-h2A" id="Z4o-ho-U3t"/>
                         <outlet property="periodValue" destination="RQ3-hR-xgu" id="8eG-aC-UCH"/>
+                        <outlet property="randmomizeFlanker" destination="XfC-0g-7aX" id="Z5f-e1-bq8"/>
+                        <outlet property="randomizeLabel" destination="CeW-w0-Rcu" id="RUC-jM-sSe"/>
                         <outlet property="secondSpeedLabel" destination="Bar-GU-NJl" id="Lv7-C0-3WI"/>
                         <outlet property="secondSpeedLabelDescription" destination="kJl-tE-Rnb" id="YSF-KW-Oe4"/>
                         <outlet property="secondSpeedStepper" destination="Boy-Rm-I1H" id="A5A-Ze-hUe"/>
