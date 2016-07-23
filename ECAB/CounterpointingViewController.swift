@@ -14,7 +14,7 @@ class CounterpointingViewController: TestViewController {
 	var screenPresentedDate = NSDate()
 	var lastMistakeDate = NSDate().dateByAddingTimeInterval(0)
 	var greeingMessage = "Practice: touch the side with the dog"
-	var sessionType = 0
+	var sessionType = SessionType.Counterpointing.rawValue
 	private let pictureHeight: CGFloat = 197
 	private let pictureWidth: CGFloat = 281
 	var gameModeInversed = false

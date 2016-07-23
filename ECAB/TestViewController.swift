@@ -13,6 +13,13 @@
 import UIKit
 import AVFoundation
 
+enum SessionType: Int {
+    case Counterpointing
+    case Flanker
+    case VisualSustain
+    case FlankerRandomized
+}
+
 class TestViewController: UIViewController, UITextFieldDelegate {
 	
 	let model: Model = Model.sharedInstance

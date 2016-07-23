@@ -17,7 +17,13 @@ class FlankerViewController: CounterpointingViewController {
 
     override func viewDidLoad() {
 		greeingMessage = "Example stimuli..."
-		sessionType = 1
+        isFlankerRandomized = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
+        
+        if isFlankerRandomized {
+            sessionType = SessionType.FlankerRandomized.rawValue
+        } else {
+            sessionType = SessionType.Flanker.rawValue
+        }
         super.viewDidLoad()
 		
 		if (smallImages) {
@@ -27,7 +33,7 @@ class FlankerViewController: CounterpointingViewController {
 		}
 		
 		addTouchTargetButtons()
-        isFlankerRandomized = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
+        
     }
 	override func addTouchTargetButtons() {
 		
