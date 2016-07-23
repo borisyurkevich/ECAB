@@ -145,9 +145,9 @@ class LogModel {
             // This condition is to keep old data working.
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(r(newInterval)) ms \(inverted) \n"
+                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(r(newInterval)) sec. \(inverted) \n"
             } else {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) ms \(inverted) \n"
+                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) sec. \(inverted) \n"
             }
             
             if actualMove.poitionX == blankSpaceTag {
@@ -177,17 +177,17 @@ class LogModel {
             "Screens = \(session.moves.count)\n" +
             "Errors = \(session.errors)\n\n" +
             "non-conflict (blocks 1)\n" +
-            "total time 1 = \(r(result.timeBlockNonConflict)) msec \n" +
-            "mean reponse time 1 = \(r(result.nonConflictTimeMean)) msec \n" +
-            "median reponse time 1 = \(r(result.nonConflictTimeMedian)) msec" +
+            "total time 1 = \(r(result.timeBlockNonConflict)) sec. \n" +
+            "mean reponse time 1 = \(r(result.nonConflictTimeMean)) sec. \n" +
+            "median reponse time 1 = \(r(result.nonConflictTimeMedian)) sec." +
             "\n\n" +
             "conflict (blocks 2)\n" +
-            "total time 2 = \(r(result.timeBlockConflict)) msec \n" +
-            "mean reponse time 2 = \(r(result.conflictTimeMean)) msec \n" +
-            "median reponse time 2 = \(r(result.conflictTimeMedian)) msec" +
+            "total time 2 = \(r(result.timeBlockConflict)) sec. \n" +
+            "mean reponse time 2 = \(r(result.conflictTimeMean)) sec. \n" +
+            "median reponse time 2 = \(r(result.conflictTimeMedian)) sec." +
             "\n\n" +
-            "ratio total2 / total1  = \(r(resultRatio)) msec \n" +
-            "ratio median2 / median1 = \(r(mediansRatio)) msec" +
+            "ratio total2 / total1  = \(r(resultRatio)) sec. \n" +
+            "ratio median2 / median1 = \(r(mediansRatio)) sec." +
             "\n\n" +
             "Session started: \(dateString)\n\n" +
             "Build: \(build)\n" +

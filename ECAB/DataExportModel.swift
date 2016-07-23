@@ -409,7 +409,7 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), msec, , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), sec., , ,\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -472,7 +472,7 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), msec, , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), sec., , ,\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
