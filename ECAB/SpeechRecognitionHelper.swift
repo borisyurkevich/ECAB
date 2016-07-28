@@ -15,6 +15,11 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     var openEarsEventsObserver = OEEventsObserver()
     var startupFailedDueToLackOfPermissions = Bool()
     
+    var lmPath: String!
+    var dicPath: String!
+    var words: Array<String> = []
+    var currentWord: String!
+    
     override init() {
         super.init()
         

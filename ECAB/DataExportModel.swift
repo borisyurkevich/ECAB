@@ -364,9 +364,8 @@ class DataExportModel {
     private func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         
-        for move in visualSearchSession.moves {
-            let gameMove = move as! Move
-            let screenNumber = gameMove.screenNumber.integerValue
+        for case let move as Move in visualSearchSession.moves {
+            let screenNumber = move.screenNumber.integerValue
             
             var ignoreThisMove = false
             switch screenNumber {
@@ -376,24 +375,24 @@ class DataExportModel {
                 break
             }
             if !ignoreThisMove {
-                if gameMove.empty.boolValue == false {
+                if move.empty.boolValue == false {
                     // Success or failure
                     var sof = ""
-                    if gameMove.success.boolValue == true {
+                    if move.success.boolValue == true {
                         sof = "hit"
                     } else {
                         sof = "false"
                     }
                     // ve / repeat
                     var veor = ""
-                    if gameMove.`repeat`.boolValue == true {
+                    if move.`repeat`.boolValue == true {
                         veor = "repeat"
                     } else {
                         veor = "ve"
                     }
-                    let moveTimestamp = timeFormatter.stringFromDate(gameMove.date)
-                    let targetRow = gameMove.row
-                    let targetColumn = gameMove.column
+                    let moveTimestamp = timeFormatter.stringFromDate(move.date)
+                    let targetRow = move.row
+                    let targetColumn = move.column
                     
                     // CSV line
                     let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTimestamp)\n"
@@ -426,7 +425,7 @@ class DataExportModel {
                         header = "wrong header number"
                     }
                     // Time
-                    let headerTime = timeFormatter.stringFromDate(gameMove.date)
+                    let headerTime = timeFormatter.stringFromDate(move.date)
                     
                     // CSV line
                     let headerLine = "\(header),screen onset, , ,\(headerTime)\n"
@@ -444,27 +443,26 @@ class DataExportModel {
         var screenCount = 1
         var needHeader = true
         
-        for move in session.moves {
-            let gameMove = move as! Move
+        for case let move as Move in session.moves {
             
-            if (gameMove.positionX.integerValue >= 4 && gameMove.positionX.integerValue <= 23)
-            || (gameMove.positionX.integerValue >= 29 && gameMove.positionX.integerValue <= 48) {
+            if (move.positionX.integerValue >= 4 && move.positionX.integerValue <= 23)
+            || (move.positionX.integerValue >= 29 && move.positionX.integerValue <= 48) {
             
                 // Success or failure
                 var sof = ""
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     sof = "correct"
                 } else {
                     sof = "incorrect"
                 }
                 
                 var time: Double
-                if let newInterval = gameMove.intervalDouble as? Double {
+                if let newInterval = move.intervalDouble as? Double {
                     time = r(newInterval)
                 } else {
                     // Because I defined old interval as Integer I am chaning it to Double
                     // This condition is to keep old data working.
-                    time = gameMove.interval.doubleValue
+                    time = move.interval.doubleValue
                 }
                 
                 // CSV line
@@ -509,25 +507,24 @@ class DataExportModel {
         var headerCount = 0
         var screenCount = 1
         
-        for move in session.moves {
-            let gameMove = move as! Move
+        for case let move as Move in session.moves {
 
-            if gameMove.positionX != blankSpaceTag {
+            if move.positionX != blankSpaceTag {
                 // Success or failure
                 var sof = ""
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     sof = "correct"
                 } else {
                     sof = "incorrect"
                 }
 
                 var time: Double
-                if let newInterval = gameMove.intervalDouble as? Double {
+                if let newInterval = move.intervalDouble as? Double {
                     time = r(newInterval)
                 } else {
                     // Because I defined old interval as Integer I am chaning it to Double
                     // This condition is to keep old data working.
-                    time = gameMove.interval.doubleValue
+                    time = move.interval.doubleValue
                 }
                 
                 // CSV line
@@ -566,29 +563,28 @@ class DataExportModel {
         var collectionOfTableRows: Array<String> = Array()
         var spacePrinted = false
         
-        for move in session.moves {
-            let gameMove = move as! Move
+        for case let move as Move in session.moves {
             
             var line = ""
             var fourMistakes = ""
-            if gameMove.positionY == VisualSustainSkip.FourSkips.rawValue {
+            if move.positionY == VisualSustainSkip.FourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
-            if gameMove.success.boolValue {
+            if move.success.boolValue {
                 
-                let formattedDelay = String(format: "%.02f", gameMove.delay!.doubleValue)
+                let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
                 
-                line = "picture \(gameMove.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
+                line = "picture \(move.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
             } else {
                 // Two mistakes type
-                if (gameMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    line = "picture \(gameMove.positionX), False Positive, \(fourMistakes)\n"
-                } else if (gameMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    line = "picture \(gameMove.positionX), Miss, \(fourMistakes)\n"
+                if (move.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                    line = "picture \(move.positionX), False Positive, \(fourMistakes)\n"
+                } else if (move.interval == VisualSustainMistakeType.Miss.rawValue) {
+                    line = "picture \(move.positionX), Miss, \(fourMistakes)\n"
                 }
             }
             
-            if !spacePrinted && !gameMove.inverted.boolValue { // Not training
+            if !spacePrinted && !move.inverted.boolValue { // Not training
                 line = "\n" + line
                 spacePrinted = true
             }
@@ -603,29 +599,28 @@ class DataExportModel {
         var collectionOfTableRows: Array<String> = Array()
         var spacePrinted = false
         
-        for move in session.moves {
-            let gameMove = move as! Move
+        for case let move as Move in session.moves {
             
             var line = ""
             var fourMistakes = ""
-            if gameMove.positionY == VisualSustainSkip.FourSkips.rawValue {
+            if move.positionY == VisualSustainSkip.FourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
-            if gameMove.success.boolValue {
+            if move.success.boolValue {
                 
-                let formattedDelay = String(format: "%.02f", gameMove.delay!.doubleValue)
+                let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
                 
-                line = "picture \(gameMove.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
+                line = "picture \(move.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
             } else {
                 // Two mistakes type
-                if (gameMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    line = "picture \(gameMove.positionX), False Positive, \(fourMistakes)\n"
-                } else if (gameMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    line = "picture \(gameMove.positionX), Miss, \(fourMistakes)\n"
+                if (move.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                    line = "picture \(move.positionX), False Positive, \(fourMistakes)\n"
+                } else if (move.interval == VisualSustainMistakeType.Miss.rawValue) {
+                    line = "picture \(move.positionX), Miss, \(fourMistakes)\n"
                 }
             }
             
-            if !spacePrinted && !gameMove.inverted.boolValue { // Not training
+            if !spacePrinted && !move.inverted.boolValue { // Not training
                 line = "\n" + line
                 spacePrinted = true
             }

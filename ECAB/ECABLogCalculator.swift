@@ -96,21 +96,20 @@ class ECABLogCalculator {
         var searchThreeStart:NSDate?
         var searchThreeEnd:NSDate?
         
-        for move in session.moves {
-            let gameMove = move as! Move
+        for case let move as Move in session.moves {
             
-            let screenNum = gameMove.screenNumber.integerValue
+            let screenNum = move.screenNumber.integerValue
             
             // Every part inlude onset date in the empty move entity
             
             if screenNum == VisualSearchEasyModeView.MotorOne.rawValue || screenNum == VisualSearchHardModeView.MotorOne.rawValue {
                 if (motorOneStart == nil) {
-                    motorOneStart = gameMove.date
+                    motorOneStart = move.date
                 }
                 // End date will shift to the latest possible move on the screen
-                motorOneEnd = gameMove.date
+                motorOneEnd = move.date
                 
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     totals.motorHits1 += 1
                 } else {
                     totals.motorFalse1 += 1
@@ -118,11 +117,11 @@ class ECABLogCalculator {
                 
             } else if screenNum == VisualSearchEasyModeView.MotorTwo.rawValue || screenNum == VisualSearchHardModeView.MotorTwo.rawValue{
                 if (motorTwoStart == nil) {
-                    motorTwoStart = gameMove.date
+                    motorTwoStart = move.date
                 }
-                motorTwoEnd = gameMove.date
+                motorTwoEnd = move.date
                 
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     totals.motorHits2 += 1
                 } else {
                     totals.motorFalse2 += 1
@@ -130,11 +129,11 @@ class ECABLogCalculator {
                 
             } else if screenNum == VisualSearchEasyModeView.MotorThree.rawValue {
                 if (motorThreeStart == nil) {
-                    motorThreeStart = gameMove.date
+                    motorThreeStart = move.date
                 }
-                motorThreeEnd = gameMove.date
+                motorThreeEnd = move.date
                 
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     totals.motorHits3 += 1
                 } else {
                     totals.motorFalse3 += 1
@@ -142,11 +141,11 @@ class ECABLogCalculator {
                 
             } else if screenNum == VisualSearchEasyModeView.One.rawValue || screenNum == VisualSearchHardModeView.One.rawValue {
                 if (searchOneStart == nil) {
-                    searchOneStart = gameMove.date
+                    searchOneStart = move.date
                 }
-                searchOneEnd = gameMove.date
+                searchOneEnd = move.date
                 
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     totals.searchHits1 += 1
                 } else {
                     totals.searchFalse1 += 1
@@ -154,11 +153,11 @@ class ECABLogCalculator {
                 
             } else if screenNum == VisualSearchEasyModeView.Two.rawValue || screenNum == VisualSearchHardModeView.Two.rawValue {
                 if (searchTwoStart == nil) {
-                    searchTwoStart = gameMove.date
+                    searchTwoStart = move.date
                 }
-                searchTwoEnd = gameMove.date
+                searchTwoEnd = move.date
                 
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     totals.searchHits2 += 1
                 } else {
                     totals.searchFalse2 += 1
@@ -166,11 +165,11 @@ class ECABLogCalculator {
                 
             } else if screenNum == VisualSearchEasyModeView.Three.rawValue {
                 if (searchThreeStart == nil) {
-                    searchThreeStart = gameMove.date
+                    searchThreeStart = move.date
                 }
-                searchThreeEnd = gameMove.date
+                searchThreeEnd = move.date
                 
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     totals.searchHits3 += 1
                 } else {
                     totals.searchFalse3 += 1
@@ -260,7 +259,6 @@ class ECABLogCalculator {
         
         for m in session.moves {
             
-            
             if let move = m as? Move {
                 if let inerval = move.intervalDouble as? Double {
                     // Real test begin after 3 practice blocks.
@@ -340,7 +338,6 @@ class ECABLogCalculator {
         var nonConflictIntervals: Array<NSTimeInterval> = []
         
         for m in session.moves {
-            
         
             if let move = m as? Move {
                 if let inerval = move.intervalDouble as? Double {

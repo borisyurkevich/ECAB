@@ -171,16 +171,15 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		let formatter = NSDateFormatter()
 		formatter.dateFormat = "dd MMM yyyy HH:mm"
         
-        var cSessions = [Session]()
+        var sessions = [Session]()
         
-        for session in model.data.sessions {
-            let cSession = session as! Session
-            if cSession.type.integerValue == model.data.selectedGame {
-                cSessions.append(cSession)
+        for case let session as Session in model.data.sessions {
+            if session.type.integerValue == model.data.selectedGame {
+                sessions.append(session)
             }
         }
         
-        let session = cSessions[indexPath.row]
+        let session = sessions[indexPath.row]
         let dateStr = formatter.stringFromDate(session.dateStart)
         let label = "\(indexPath.row+1). \(dateStr)"
         cell.textLabel!.text = label
@@ -192,9 +191,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		
 		var returnValue = 0
         
-        for session in model.data.sessions {
-            let cSession = session as! Session
-            if cSession.type.integerValue == model.data.selectedGame {
+        for case let session as Session in model.data.sessions {
+            if session.type.integerValue == model.data.selectedGame {
                 returnValue += 1
             }
         }
@@ -251,15 +249,14 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		
 		let gameName = model.games[Int(model.data.selectedGame)]
         
-        var array = [Session]()
-        for session in model.data.sessions {
-            let cSession = session as! Session
-            if cSession.type.integerValue == model.data.selectedGame{
-                array.append(cSession)
+        var sessions = [Session]()
+        for case let session as Session in model.data.sessions {
+            if session.type.integerValue == model.data.selectedGame {
+                sessions.append(session)
             }
         }
         
-        let pickedSession = array[indexPath.row]
+        let pickedSession = sessions[indexPath.row]
         
         switch model.data.selectedGame {
             
@@ -288,6 +285,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
                 break
             
             case GamesIndex.Verbal.rawValue:
+                detailVC.textView.text = logModel.generateVebalOppositesLogWithSession(pickedSession, gameName: gameName.rawValue)
                 break
             
             case GamesIndex.Balloon.rawValue:
