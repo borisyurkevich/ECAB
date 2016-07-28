@@ -13,7 +13,7 @@ class AuditorySustainViewController: CounterpointingViewController {
     
     private struct Labels {
         let practice = NSLocalizedString("Practice : Touch the screen every time\nyou hear one of the animals", comment: "auditory sustain")
-        let gameReady = NSLocalizedString("Keep touch the screen every time\nyou hear one of the animals", comment: "auditory sustain")
+        let gameReady = NSLocalizedString("Game : Keep touch the screen every time\nyou hear one of the animals", comment: "auditory sustain")
         let reminder = NSLocalizedString("Remember, touch the screen every time you hear an animal", comment: "auditory sustain. Appear when subjects ignores x amount of targets")
         let gameEnd = NSLocalizedString("Stop.", comment: "auditory sustain")
         let testOver = NSLocalizedString("Test is Over", comment: "auditory sustain alert title")

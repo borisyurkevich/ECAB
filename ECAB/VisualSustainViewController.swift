@@ -4,7 +4,7 @@
 //
 //  All time here is counted in seconds. 1.0 - is one second double.
 //
-//  Created by Boris Yurkevich on 02/07/2015.
+//  Created by Raphael Bertin on 02/07/2015.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
@@ -395,7 +395,6 @@ class VisualSustainViewController: CounterpointingViewController {
                 pic == .Horse ||
                 pic == .Fish ||
                 pic == .Mouse
-			
 	}
 	
 	func gameOver() {

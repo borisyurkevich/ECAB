@@ -68,8 +68,6 @@ class VerbalOppositesViewController: CounterpointingViewController {
                                                          selector: #selector(VerbalOppositesViewController.speakAnimalName(_:)),
                                                          name: "speakAnimalName",
                                                          object: nil)
-        
-        speechRecognitionHelper.startListening()
     }
     
     func speakAnimalName(notification: NSNotification) {
@@ -81,42 +79,81 @@ class VerbalOppositesViewController: CounterpointingViewController {
         
         print(animalName)
         
+        let number1 = VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 4;
+        let number2 = number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count + 2;
+
         switch currentScreenShowing {
-                
-            case 1 ... VerbalOppositesFactory.practiceSequence1.count:
-                if
-                    (VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
+            
+        // Practice 1
+        case 1 ... VerbalOppositesFactory.practiceSequence1.count:
+            indexForCurrentSequence = currentScreenShowing - 1
+            if
+                (VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
                     (VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence].picture == Picture.Cat && animalName == "CAT")
-                {
-                    print("GOOD")
-                    presentNextScreen();
-                }
-                break
+            {
+                presentNextScreen();
+            }
+        // Practice 2
+        case VerbalOppositesFactory.practiceSequence1.count + 2 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 1:
+            indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
+            if
+                (VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence].picture == Picture.Dog && animalName == "CAT") ||
+                    (VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence].picture == Picture.Cat && animalName == "DOG")
+            {
+                presentNextScreen();
+            }
+        // Game 1
+        case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 2:
+            indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3 )
+            if
+                (VerbalOppositesFactory.gameSequence1[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
+                    (VerbalOppositesFactory.gameSequence1[indexForCurrentSequence].picture == Picture.Cat && animalName == "CAT")
+            {
+                presentNextScreen();
+            }
+        // Game 2
+        case number1 ... number1 + VerbalOppositesFactory.gameSequence2.count:
+            indexForCurrentSequence = currentScreenShowing - number1
+            if
+                (VerbalOppositesFactory.gameSequence2[indexForCurrentSequence].picture == Picture.Dog && animalName == "CAT") ||
+                    (VerbalOppositesFactory.gameSequence2[indexForCurrentSequence].picture == Picture.Cat && animalName == "DOG")
+            {
+                presentNextScreen();
+            }
+        // Game 3
+        case number1 + VerbalOppositesFactory.gameSequence2.count + 1 ... number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count:
+            indexForCurrentSequence = currentScreenShowing - (number1 + VerbalOppositesFactory.gameSequence2.count + 1)
+            if
+                (VerbalOppositesFactory.gameSequence3[indexForCurrentSequence].picture == Picture.Dog && animalName == "CAT") ||
+                    (VerbalOppositesFactory.gameSequence3[indexForCurrentSequence].picture == Picture.Cat && animalName == "DOG")
+            {
+                presentNextScreen();
+            }
+        // Game 4
+        case number2 ... number2 + VerbalOppositesFactory.gameSequence4.count - 1:
+            indexForCurrentSequence = currentScreenShowing - number2
+            if
+                (VerbalOppositesFactory.gameSequence4[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
+                    (VerbalOppositesFactory.gameSequence4[indexForCurrentSequence].picture == Picture.Cat && animalName == "CAT")
+            {
+                presentNextScreen();
+            }
             
-            /*case VerbalOppositesFactory.practiceSequence1.count + 1:
-                
-            case VerbalOppositesFactory.practiceSequence1.count + 2:
-            
-            case VerbalOppositesFactory.practiceSequence1.count + 3 ... (VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 1)):
-            
-            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 2):
-                
-            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 3):
-            */
-            
-            default:
-                break
+        default:
+            break
         }
     }
     
     func startAutoPresentPictures() {
         pictureAutoPresent = true
         imageVisibleOnScreen.hidden = false
+        speechRecognitionHelper.startListening()
     }
     
     func stopAutoPresentPictures() {
         pictureAutoPresent = false
         imageVisibleOnScreen.hidden = true
+        speechRecognitionHelper.stopListening()
     }
     
     // Start and stop test is enabling logic to run the game in non training mode
@@ -143,42 +180,107 @@ class VerbalOppositesViewController: CounterpointingViewController {
         
         self.cleanView() // Removes labels only
         
+        print("Test \(currentScreenShowing)")
+        
+        let number1 = VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 4;
+        
+        let number2 = number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count + 2;
+
         switch currentScreenShowing {
+            
+            // Practice 1 introduction
             case 0:
-                // Swithing trainingMode bool needed when practice is restarted.
+                // Switching trainingMode bool needed when practice is restarted.
                 trainingMode = true
                 presentMessage(labels.practice1)
-                playSound(.Practice1)
-                
+            
+            // Practice 1
             case 1 ... VerbalOppositesFactory.practiceSequence1.count:
                 if !pictureAutoPresent {
                     startAutoPresentPictures()
                 }
                 indexForCurrentSequence = currentScreenShowing - 1
                 updateView(VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence])
-                
+            
+            // Practice 2 introduction
             case VerbalOppositesFactory.practiceSequence1.count + 1:
                 stopAutoPresentPictures()
+                presentMessage(labels.practice2)
+            
+             // Practice 2
+            case VerbalOppositesFactory.practiceSequence1.count + 2 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 1:
+                if !pictureAutoPresent {
+                    startAutoPresentPictures()
+                }
+                indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
+                updateView(VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence])
+            
+            // Game 1 introduction
+            case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 2:
+                stopAutoPresentPictures()
                 presentMessage(labels.game1)
-                playSound(Sound.EndOfPractice)
-                
-            case VerbalOppositesFactory.practiceSequence1.count + 2:
-                playSound(Sound.Game1)
-                
-            case VerbalOppositesFactory.practiceSequence1.count + 3 ... (VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 1)):
+            
+            // Game 1
+            case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 2:
                 if !pictureAutoPresent {
                     startTest()
                     startAutoPresentPictures()
                 }
-                indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
+                indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3)
                 updateView(VerbalOppositesFactory.gameSequence1[indexForCurrentSequence])
+            
+            // Game 2 introduction
+            case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 3:
+                stopAutoPresentPictures()
+                presentMessage(labels.game2)
+            
+            // Game 2
+            case number1 ... number1 + VerbalOppositesFactory.gameSequence2.count - 1:
+                if !pictureAutoPresent {
+                    startTest()
+                    startAutoPresentPictures()
+                }
+                indexForCurrentSequence = currentScreenShowing - number1
+                updateView(VerbalOppositesFactory.gameSequence2[indexForCurrentSequence])
+            
+            // Game 3 introduction
+            case number1 + VerbalOppositesFactory.gameSequence2.count:
+                stopAutoPresentPictures()
+                presentMessage(labels.game3)
                 
-            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 2):
+            // Game 3
+            case number1 + VerbalOppositesFactory.gameSequence2.count + 1 ... number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count:
+                
+                if !pictureAutoPresent {
+                    startTest()
+                    startAutoPresentPictures()
+                }
+                indexForCurrentSequence = currentScreenShowing - (number1 + VerbalOppositesFactory.gameSequence2.count + 1)
+                updateView(VerbalOppositesFactory.gameSequence3[indexForCurrentSequence])
+            
+            // Game 4 introduction
+            case number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count + 1:
+                stopAutoPresentPictures()
+                presentMessage(labels.game4)
+            
+            // Game 4 
+            case number2 ... number2 + VerbalOppositesFactory.gameSequence4.count - 1:
+                
+                if !pictureAutoPresent {
+                    startTest()
+                    startAutoPresentPictures()
+                }
+                indexForCurrentSequence = currentScreenShowing - (number2)
+                updateView(VerbalOppositesFactory.gameSequence4[indexForCurrentSequence])
+            
+            // Stop message
+            case number2 + VerbalOppositesFactory.gameSequence4.count:
                 stopAutoPresentPictures()
                 stopTest()
                 presentMessage(labels.gameEnd)
-                
-            case VerbalOppositesFactory.gameSequence1.count + (VerbalOppositesFactory.practiceSequence1.count + 3):
+            
+            // Alert dialog to save results
+            case number2 + VerbalOppositesFactory.gameSequence4.count + 1:
                 presentPause()
                 
             default:
@@ -197,7 +299,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
         }
         
         stopTest()
-        currentScreenShowing = AuditorySustainFactory.practiceSequence.count + 2;
+        currentScreenShowing = VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 2;
         presentNextScreen()
     }
     

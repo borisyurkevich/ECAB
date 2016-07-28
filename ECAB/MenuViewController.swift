@@ -150,6 +150,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 gameIcon.image = UIImage(named: "icon_counter")
                 
             case .VisualSust:
+                
                 gameIcon.image = UIImage(named: "icon_sustained")
                 
                 speedLabel.hidden = false
