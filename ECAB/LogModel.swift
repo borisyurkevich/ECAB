@@ -25,12 +25,10 @@ class LogModel {
         let totals = ECABLogCalculator.getVisualSearchTotals(session)
         
 		for case let move as Move in session.moves {
-			
-			let gameMove = move as! Move
-			
+						
 			// Caluculate screen
 			var screenName = ""
-			let screenNum = gameMove.screenNumber.integerValue
+			let screenNum = move.screenNumber.integerValue
             var trainig = false
             
 			switch screenNum {
@@ -71,26 +69,26 @@ class LogModel {
 			
 			// Success or failure
 			var progress = ""
-			if gameMove.success.boolValue == true {
+			if move.success.boolValue == true {
 				progress = "success"
 			} else {
 				progress = "false positive"
 			}
 			
 			var `repeat` = ""
-			if gameMove.`repeat`.boolValue == true {
+			if move.`repeat`.boolValue == true {
 				`repeat` = "(repeat)"
 			} else {
 				`repeat` = "(unique)"
 			}
 			
-			let dateStr = smallFormatter.stringFromDate(gameMove.date)
+			let dateStr = smallFormatter.stringFromDate(move.date)
 			
 			var append: String
 			
-			if gameMove.empty.boolValue == false {
+			if move.empty.boolValue == false {
 				
-                append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) \n"
+                append = "\(counter)) \(screenName) Down: \(move.row) Across: \(move.column) \(dateStr) \(progress) \(`repeat`) \n"
 
 				counter += 1
 			} else {
@@ -475,8 +473,9 @@ class LogModel {
     func generateVebalOppositesLogWithSession(session: Session, gameName: String) -> String {
         var details = ""
         var counter = 1
-        
-        var spacePrinted = false
+        var gameCounter = 1
+        var moveCounter = 0
+
         for case let move as Move in session.moves {
             
             var append = ""
@@ -488,11 +487,12 @@ class LogModel {
             let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
             append = "Picture \(move.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
             
-            if !spacePrinted && !move.inverted.boolValue { // Not training
-                details = details + "\n" + append
-                spacePrinted = true
+            if move.positionX == blankSpaceTag {
+                details = details + "\nGame \(gameCounter) :\n"
+                gameCounter += 1
             } else {
                 details = details + append
+                moveCounter += 1
             }
             counter += 1
         }
@@ -506,12 +506,9 @@ class LogModel {
             build = canonicBuild
         }
         
-        let objectsTotal = session.objects!.intValue
-        
         let text = "\(gameName) (build \(build))\n\n" +
             "Player: \(session.player.name)\n" +
-            "Objects = \(objectsTotal)\n" +
-            "Total score = \(session.score) moves = \(session.moves.count)\n" +
+            "Moves = \(moveCounter)\n" +
             "Comment: \(comment)\n\n" +
             "Session started: \(dateString)\n\n" +
             "\(details)"

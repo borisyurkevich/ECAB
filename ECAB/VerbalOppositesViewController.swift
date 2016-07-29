@@ -33,6 +33,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
     
     var imageVisibleOnScreen = UIImageView(image: UIImage(named: "white_rect"));
     
+    var timeToAcceptDelay = NSTimer()
     var timeToGameOver = NSTimer()
     var dateAcceptDelayStart = NSDate()
     var timeSinceAnimalAppeared = 0.0
@@ -125,14 +126,26 @@ class VerbalOppositesViewController: CounterpointingViewController {
                 session.score = NSNumber(integer: (session.score.integerValue + 1))
             }
             
-            presentNextScreen();
+            timeSinceAnimalAppeared = 0
+            timeToAcceptDelay.invalidate()
+            timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(Constants.timersScale.rawValue.doubleValue,
+                                                                       target: self,
+                                                                       selector: #selector(VerbalOppositesViewController.updateDelay),
+                                                                       userInfo: nil,
+                                                                       repeats: true)
             
-            // Prevents following taps to be sucesfull
-            timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
+            presentNextScreen();
         }
     }
     
+    func updateDelay() {
+        timeSinceAnimalAppeared += Constants.timersScale.rawValue.doubleValue
+    }
+    
     func startAutoPresentPictures() {
+        if(!trainingMode){
+            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
+        }
         pictureAutoPresent = true
         imageVisibleOnScreen.hidden = false
         speechRecognitionHelper.startListening()
@@ -158,6 +171,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
     
     func stopTest() {
         timeToGameOver.invalidate()
+        timeToAcceptDelay.invalidate()
         // We shoudn't invalidate all timers because that will prevent
         // screen from cleaning.
     }
@@ -223,6 +237,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
                 if !pictureAutoPresent {
                     startTest()
                     startAutoPresentPictures()
+
                 }
                 indexForCurrentSequence = currentScreenShowing - number1
                 updateView(VerbalOppositesFactory.gameSequence2[indexForCurrentSequence])
@@ -320,6 +335,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
     
     func gameOver() {
         gamePaused = true
+        timeToAcceptDelay.invalidate()
         timeToGameOver.invalidate()
         
         let secondsPlayed = timeGameOver

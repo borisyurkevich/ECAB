@@ -13,42 +13,42 @@ class VerbalOppositesFactory {
     static let practiceSequence1: [GameSequence] =
         [
             GameSequence(p: .Cat),
-            GameSequence(p: .Cat),
+            /*GameSequence(p: .Cat),
             GameSequence(p: .Dog),
             GameSequence(p: .Dog),
-            GameSequence(p: .Cat),
+            GameSequence(p: .Cat),*/
         ]
     
     static let practiceSequence2: [GameSequence] =
         [
             GameSequence(p: .Dog),
-            GameSequence(p: .Dog),
+            /*GameSequence(p: .Dog),
             GameSequence(p: .Cat),
             GameSequence(p: .Dog),
-            GameSequence(p: .Cat),
+            GameSequence(p: .Cat),*/
         ]
     
     static let gameSequence1: [GameSequence] =
         [
             GameSequence(p: .Cat),
             GameSequence(p: .Dog),
-            GameSequence(p: .Cat),
-            GameSequence(p: .Cat),
-            GameSequence(p: .Dog),
+            /*GameSequence(p: .Cat),
             GameSequence(p: .Cat),
             GameSequence(p: .Dog),
+            GameSequence(p: .Cat),
+            GameSequence(p: .Dog),
             GameSequence(p: .Dog),
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
             GameSequence(p: .Cat),
-            GameSequence(p: .Dog)
+            GameSequence(p: .Dog)*/
         ]
     
     static let gameSequence2: [GameSequence] =
         [
             GameSequence(p: .Cat),
             GameSequence(p: .Dog),
-            GameSequence(p: .Cat),
+            /*GameSequence(p: .Cat),
             GameSequence(p: .Dog),
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
@@ -57,14 +57,14 @@ class VerbalOppositesFactory {
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
             GameSequence(p: .Dog),
-            GameSequence(p: .Dog),
+            GameSequence(p: .Dog),*/
         ]
     
     static let gameSequence3: [GameSequence] =
         [
             GameSequence(p: .Dog),
             GameSequence(p: .Dog),
-            GameSequence(p: .Cat),
+            /*GameSequence(p: .Cat),
             GameSequence(p: .Dog),
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
@@ -73,14 +73,14 @@ class VerbalOppositesFactory {
             GameSequence(p: .Cat),
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
-            GameSequence(p: .Cat),
+            GameSequence(p: .Cat),*/
         ]
     
     static let gameSequence4: [GameSequence] =
         [
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
-            GameSequence(p: .Cat),
+            /*GameSequence(p: .Cat),
             GameSequence(p: .Dog),
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
@@ -89,6 +89,6 @@ class VerbalOppositesFactory {
             GameSequence(p: .Dog),
             GameSequence(p: .Cat),
             GameSequence(p: .Dog),
-            GameSequence(p: .Cat),
+            GameSequence(p: .Cat),*/
         ]
 }
