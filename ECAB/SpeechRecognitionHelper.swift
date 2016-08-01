@@ -10,20 +10,24 @@ import Foundation
 
 class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     
-    static let THRESHOLD: Float = 3.5
-    
-    var openEarsEventsObserver = OEEventsObserver()
+    var openEarsEventsObserver = OEEventsObserver();
     var startupFailedDueToLackOfPermissions = Bool()
     
     var lmPath: String!
     var dicPath: String!
     var words: Array<String> = []
     var currentWord: String!
+    var isListening: Bool = false
     
+    static var helper = SpeechRecognitionHelper();
+    
+    static func engine() -> SpeechRecognitionHelper {
+        return helper;
+    }
+
     override init() {
         super.init()
         
-        openEarsEventsObserver = OEEventsObserver()
         openEarsEventsObserver.delegate = self
         
         let lmGenerator: OELanguageModelGenerator = OELanguageModelGenerator()
@@ -35,11 +39,18 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
         
         lmPath = lmGenerator.pathToSuccessfullyGeneratedLanguageModelWithRequestedName(name)
         dicPath = lmGenerator.pathToSuccessfullyGeneratedDictionaryWithRequestedName(name)
-        
-        OEPocketsphinxController.sharedInstance().vadThreshold = SpeechRecognitionHelper.THRESHOLD
+    }
+    
+    func setThreshold(th: Float) {
+        do {
+            try OEPocketsphinxController.sharedInstance().setActive(true)
+            //OEPocketsphinxController.sharedInstance().vadThreshold = th
+            OEPocketsphinxController.sharedInstance().secondsOfSilenceToDetect = 0.1
+        } catch _ { }
     }
     
     func pocketsphinxDidStartListening() {
+        isListening = true;
         print("Listening...")
     }
     
@@ -53,6 +64,7 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     
     func pocketsphinxDidStopListening() {
         print("Listening stopped")
+        isListening = false;
     }
     
     func pocketsphinxDidSuspendRecognition() {
@@ -81,18 +93,24 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     }
     
     func startListening() {
-        
-        do {
-            try OEPocketsphinxController.sharedInstance().setActive(true)
-        } catch {
-            print("Invalid Selection.")
+        if(!isListening){
+            isListening = true;
+            
+            do {
+                try OEPocketsphinxController.sharedInstance().setActive(true)
+            } catch {
+                print("Invalid Selection.")
+            }
+            
+            OEPocketsphinxController.sharedInstance().startListeningWithLanguageModelAtPath(lmPath, dictionaryAtPath: dicPath, acousticModelAtPath: OEAcousticModel.pathToModel("AcousticModelEnglish"), languageModelIsJSGF: false)
         }
-        
-        OEPocketsphinxController.sharedInstance().startListeningWithLanguageModelAtPath(lmPath, dictionaryAtPath: dicPath, acousticModelAtPath: OEAcousticModel.pathToModel("AcousticModelEnglish"), languageModelIsJSGF: false)
     }
     
     func stopListening() {
-        OEPocketsphinxController.sharedInstance().stopListening()
+        if(isListening){
+            isListening = false;
+            OEPocketsphinxController.sharedInstance().stopListening()
+        }
     }
     
     func addWords() {
@@ -107,7 +125,6 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     }
     
     func pocketsphinxFailedNoMicPermissions() {
-        
         NSLog("Local callback: The user has never set mic permissions or denied permission to this app's mic, so listening will not start.")
         self.startupFailedDueToLackOfPermissions = true
         if OEPocketsphinxController.sharedInstance().isListening {
@@ -123,11 +140,11 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
         
         // Send notification to the controller with the animal name and the score
         NSNotificationCenter.defaultCenter().postNotificationName("speakAnimalName",
-                                                                  object:nil,
-                                                                  userInfo:[
-                                                                        "hypothesis": hypothesis,
-                                                                        "recognitionScore": recognitionScore
-                                                                        ])
+                                                                    object:nil,
+                                                                    userInfo:[
+                                                                    "hypothesis": hypothesis,
+                                                                    "recognitionScore": recognitionScore
+                                                                    ])
 
     }
     

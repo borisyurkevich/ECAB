@@ -26,7 +26,6 @@ class VerbalOppositesViewController: CounterpointingViewController {
     }
     
     private let labels = Labels()
-    private let speechRecognitionHelper = SpeechRecognitionHelper()
     
     var indexForCurrentSequence = 0
     var pictureAutoPresent = false
@@ -62,6 +61,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
                                                          selector: #selector(VerbalOppositesViewController.speakAnimalName(_:)),
                                                          name: "speakAnimalName",
                                                          object: nil)
+        
+        SpeechRecognitionHelper.engine().setThreshold(model.data.threshold.floatValue)
     }
     
     func speakAnimalName(notification: NSNotification) {
@@ -148,13 +149,13 @@ class VerbalOppositesViewController: CounterpointingViewController {
         }
         pictureAutoPresent = true
         imageVisibleOnScreen.hidden = false
-        speechRecognitionHelper.startListening()
+        SpeechRecognitionHelper.engine().startListening()
     }
     
     func stopAutoPresentPictures() {
         pictureAutoPresent = false
         imageVisibleOnScreen.hidden = true
-        speechRecognitionHelper.stopListening()
+        SpeechRecognitionHelper.engine().stopListening()
     }
     
     // Start and stop test is enabling logic to run the game in non training mode
@@ -170,6 +171,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
     }
     
     func stopTest() {
+        SpeechRecognitionHelper.engine().stopListening()
+
         timeToGameOver.invalidate()
         timeToAcceptDelay.invalidate()
         // We shoudn't invalidate all timers because that will prevent

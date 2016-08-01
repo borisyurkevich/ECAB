@@ -15,24 +15,41 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     
     @IBOutlet weak var changePlayerButton: UIBarButtonItem!
 	@IBOutlet weak var gameIcon: UIImageView!
+    
 	@IBOutlet weak var difControl: UISegmentedControl!
+    @IBOutlet weak var difficultyTitle: UILabel!
+
 	@IBOutlet weak var speedLabel: UILabel!
 	@IBOutlet weak var speedStepper: UIStepper!
+    @IBOutlet weak var speedLabelDescription: UILabel!
+
 	@IBOutlet weak var secondSpeedStepper: UIStepper!
 	@IBOutlet weak var secondSpeedLabel: UILabel!
-	@IBOutlet weak var speedLabelDescription: UILabel!
 	@IBOutlet weak var secondSpeedLabelDescription: UILabel!
+    
 	@IBOutlet weak var periodValue: UILabel!
 	@IBOutlet weak var periodControl: UIStepper!
 	@IBOutlet weak var periodTitle: UILabel!
 	@IBOutlet weak var periodHelp: UILabel!
-	@IBOutlet weak var difficultyTitle: UILabel!
+    
+    @IBOutlet weak var thresholdLabel: UILabel!
+    @IBOutlet weak var thresholdStepper: UIStepper!
+    @IBOutlet weak var thresholdTitle: UILabel!
 	
     let model: Model = Model.sharedInstance
     
     private struct Segues {
         static let startApplesGame = "Start apples game"
         static let openSubjectsPopover = "Open subjects popover"
+    }
+    
+    @IBAction func adjustThreshold(sender: UIStepper) {
+        let formattedValue = NSString(format: "%.01f", sender.value)
+        let newValue = Float(formattedValue as String)!
+        
+        model.data.threshold = newValue
+        thresholdLabel.text = "\(formattedValue)"
+        model.save()
     }
     
     override func viewDidLoad() {
@@ -111,12 +128,15 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         secondSpeedLabel.hidden = true
         secondSpeedStepper.hidden = true
         secondSpeedLabelDescription.hidden = true
-        speedLabelDescription.hidden = true
         
         periodControl.hidden = true
         periodTitle.hidden = true
         periodHelp.hidden = true
         periodValue.hidden = true
+        
+        thresholdLabel.hidden = true
+        thresholdStepper.hidden = true
+        thresholdTitle.hidden = true
 		
         // Set game title
 		title = model.games[model.data.selectedGame.integerValue].rawValue
@@ -217,6 +237,14 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 
             case .Verbal:
                 gameIcon.image = UIImage(named: "icon_verbal")
+                
+                thresholdLabel.hidden = false
+                thresholdStepper.hidden = false
+                thresholdTitle.hidden = false
+                
+                let formattedValue = NSString(format: "%.01f", model.data.threshold.doubleValue)
+                thresholdLabel.text = "\(formattedValue)"
+                thresholdStepper.value = model.data.threshold.doubleValue
                 
                 break;
                 

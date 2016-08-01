@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -170,6 +170,18 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HcL-fg-3Ua" userLabel="Exposure Value">
+                                <rect key="frame" x="287" y="429" width="24" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Threshold" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HqR-Zd-yDQ" userLabel="Exposure Title">
+                                <rect key="frame" x="260" y="494" width="77" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="50" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="XrF-Nf-R5f" userLabel="Period">
                                 <rect key="frame" x="486" y="351" width="94" height="29"/>
                                 <connections>
@@ -245,11 +257,19 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" maximumValue="4" stepValue="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="3Qw-mw-qVE" userLabel="Exposure">
+                                <rect key="frame" x="252" y="458" width="94" height="29"/>
+                                <connections>
+                                    <action selector="adjustThreshold:" destination="8rJ-Kc-sve" eventType="valueChanged" id="i5v-cq-d3M"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="blY-ho-Ou9" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="0JR-d8-Bf0"/>
+                            <constraint firstItem="3Qw-mw-qVE" firstAttribute="top" secondItem="HcL-fg-3Ua" secondAttribute="bottom" constant="8" symbolic="YES" id="2VI-S7-xOb"/>
                             <constraint firstItem="QGC-TC-80M" firstAttribute="top" secondItem="NDk-cv-Gan" secondAttribute="bottom" constant="8" id="2rs-Br-f3S"/>
+                            <constraint firstItem="HcL-fg-3Ua" firstAttribute="centerX" secondItem="SP9-Gk-u5c" secondAttribute="centerX" id="3Z9-9O-CVZ"/>
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="top" secondItem="QGC-TC-80M" secondAttribute="bottom" constant="8" id="3nK-l9-M9m"/>
                             <constraint firstItem="Tdc-cw-h2A" firstAttribute="top" secondItem="XrF-Nf-R5f" secondAttribute="bottom" constant="8" id="5Cj-xO-exZ"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="top" secondItem="Bar-GU-NJl" secondAttribute="bottom" constant="8" id="6sw-Jd-EIA"/>
@@ -265,6 +285,7 @@
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="centerX" secondItem="p33-7n-QH8" secondAttribute="centerX" id="Idy-Yf-s94"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" symbolic="YES" id="Iel-YF-SAD"/>
                             <constraint firstItem="QGC-TC-80M" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="J8p-lK-iyU"/>
+                            <constraint firstItem="HqR-Zd-yDQ" firstAttribute="centerX" secondItem="3Qw-mw-qVE" secondAttribute="centerX" id="JKY-SR-kL2"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="bottom" secondItem="Bar-GU-NJl" secondAttribute="bottom" id="L5J-Yf-N7G"/>
                             <constraint firstItem="SP9-Gk-u5c" firstAttribute="centerX" secondItem="p33-7n-QH8" secondAttribute="centerX" id="LO9-G4-TJQ"/>
                             <constraint firstItem="kJl-tE-Rnb" firstAttribute="top" secondItem="Boy-Rm-I1H" secondAttribute="bottom" constant="8" symbolic="YES" id="LlP-Gm-jlI"/>
@@ -287,6 +308,7 @@
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="trailing" secondItem="blY-ho-Ou9" secondAttribute="trailing" id="fVK-jW-xMK"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="ibh-S3-PF1"/>
                             <constraint firstItem="XrF-Nf-R5f" firstAttribute="bottom" secondItem="Boy-Rm-I1H" secondAttribute="bottom" id="m0k-B2-iH4"/>
+                            <constraint firstItem="HcL-fg-3Ua" firstAttribute="baseline" secondItem="kJl-tE-Rnb" secondAttribute="baseline" id="mg4-l1-Oho"/>
                             <constraint firstItem="QGC-TC-80M" firstAttribute="top" secondItem="NDk-cv-Gan" secondAttribute="bottom" constant="74" id="mxo-SW-P2B"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="top" secondItem="yyP-Sh-fUH" secondAttribute="bottom" constant="8" id="nY9-bg-aza"/>
                             <constraint firstItem="XrF-Nf-R5f" firstAttribute="top" secondItem="RQ3-hR-xgu" secondAttribute="bottom" constant="8" symbolic="YES" id="ojz-Zu-9nh"/>
@@ -294,11 +316,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="fVo-Sy-Z8P" secondAttribute="trailing" id="qwt-ba-Yid"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" constant="-192" id="rLG-mB-vPM"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="leading" secondItem="QGC-TC-80M" secondAttribute="leading" id="rUY-GD-4Od"/>
+                            <constraint firstItem="HqR-Zd-yDQ" firstAttribute="top" secondItem="3Qw-mw-qVE" secondAttribute="bottom" constant="8" symbolic="YES" id="rwA-QE-ltM"/>
                             <constraint firstItem="yyP-Sh-fUH" firstAttribute="top" secondItem="QGC-TC-80M" secondAttribute="bottom" constant="8" id="s98-n5-6Wl"/>
                             <constraint firstItem="SBH-8k-glY" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="s9N-Sy-d2D"/>
                             <constraint firstItem="Boy-Rm-I1H" firstAttribute="top" secondItem="Bar-GU-NJl" secondAttribute="bottom" constant="8" id="tbX-Ju-i58"/>
                             <constraint firstItem="NDk-cv-Gan" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="tyZ-WB-SpK"/>
                             <constraint firstItem="Bar-GU-NJl" firstAttribute="baseline" secondItem="yyP-Sh-fUH" secondAttribute="baseline" id="un9-wr-duT"/>
+                            <constraint firstItem="HcL-fg-3Ua" firstAttribute="centerX" secondItem="3Qw-mw-qVE" secondAttribute="centerX" id="zUe-3e-8fA"/>
                             <constraint firstItem="blY-ho-Ou9" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" symbolic="YES" id="zaA-zn-Xiw"/>
                             <constraint firstItem="p33-7n-QH8" firstAttribute="centerX" secondItem="yyP-Sh-fUH" secondAttribute="centerX" id="zmL-V1-BTg"/>
                             <constraint firstItem="kJl-tE-Rnb" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="zsE-8Y-dj6"/>
@@ -363,6 +387,9 @@
                         <outlet property="speedLabel" destination="yyP-Sh-fUH" id="IZ5-aA-yYJ"/>
                         <outlet property="speedLabelDescription" destination="SP9-Gk-u5c" id="rbD-wj-zOX"/>
                         <outlet property="speedStepper" destination="p33-7n-QH8" id="ODa-ia-z3H"/>
+                        <outlet property="thresholdLabel" destination="HcL-fg-3Ua" id="FXK-i6-8Ct"/>
+                        <outlet property="thresholdStepper" destination="3Qw-mw-qVE" id="ibl-yj-Q0Y"/>
+                        <outlet property="thresholdTitle" destination="HqR-Zd-yDQ" id="0ft-93-i62"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

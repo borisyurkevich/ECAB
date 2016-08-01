@@ -75,14 +75,17 @@ class VisualSearchFactory {
 			
 		case VisualSearchEasyModeView.TrainingOne.rawValue:
 			f.append(s); f.append(w); f.append(t);
+            
 		case VisualSearchEasyModeView.TrainingTwo.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
+            
 		case VisualSearchEasyModeView.TrainingThree.rawValue:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
+            
 		case VisualSearchEasyModeView.MotorOne.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
@@ -113,6 +116,7 @@ class VisualSearchFactory {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
+            
 		case VisualSearchEasyModeView.MotorTwo.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -143,6 +147,7 @@ class VisualSearchFactory {
 			f.append(w); f.append(w); f.append(w);
 			f.append(t); f.append(w); f.append(w);
 			f.append(w);
+            
 		case VisualSearchEasyModeView.MotorThree.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -173,6 +178,7 @@ class VisualSearchFactory {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
+            
 		case VisualSearchEasyModeView.One.rawValue:
 			f.append(t); f.append(s); f.append(s);
 			f.append(w); f.append(w); f.append(s);
@@ -233,6 +239,7 @@ class VisualSearchFactory {
 			f.append(s); f.append(w); f.append(w);
 			f.append(t); f.append(s); f.append(s);
 			f.append(w);
+            
 		case VisualSearchEasyModeView.Three.rawValue:
 			f.append(t); f.append(s); f.append(w);
 			f.append(s); f.append(w); f.append(w);
@@ -263,18 +270,23 @@ class VisualSearchFactory {
 			f.append(t); f.append(w); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
+            
 		case 10:
             break
+            
 		case VisualSearchHardModeView.TrainingOne.rawValue:
 			f.append(s); f.append(w); f.append(t);
+            
 		case VisualSearchHardModeView.TrainingTwo.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
+            
 		case VisualSearchHardModeView.TrainingThree.rawValue:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
+            
 		case VisualSearchHardModeView.MotorOne.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
@@ -320,6 +332,7 @@ class VisualSearchFactory {
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
+            
 		case VisualSearchHardModeView.MotorTwo.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -365,6 +378,7 @@ class VisualSearchFactory {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
+            
 		case VisualSearchHardModeView.One.rawValue:
 			f.append(t); f.append(s); f.append(s);
 			f.append(w); f.append(w); f.append(s);
@@ -410,6 +424,7 @@ class VisualSearchFactory {
 			f.append(t); f.append(w); f.append(s);
 			f.append(s); f.append(w); f.append(w);
 			f.append(s);
+            
 		case VisualSearchHardModeView.Two.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(w); f.append(w);
@@ -455,6 +470,7 @@ class VisualSearchFactory {
 			f.append(t); f.append(w); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
+            
         default:
             print("⛔️ Set correct screen!")
         }

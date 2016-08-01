@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G26a" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G31" minimumToolsVersion="Xcode 4.3">
     <entity name="Data" representedClassName="ECAB.Data" syncable="YES">
         <attribute name="dualSustAcceptedDelay" optional="YES" attributeType="Double" defaultValueString="4" syncable="YES"/>
         <attribute name="dualSustDelay" optional="YES" attributeType="Double" defaultValueString="0.2" syncable="YES"/>
         <attribute name="dualSustSpeed" optional="YES" attributeType="Double" defaultValueString="1.5" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selectedGame" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="threshold" optional="YES" attributeType="Double" minValueString="0" maxValueString="4" defaultValueString="2" syncable="YES"/>
         <attribute name="visSearchDifficulty" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="visSearchSpeed" attributeType="Double" defaultValueString="20" syncable="YES"/>
         <attribute name="visSearchSpeedHard" attributeType="Double" defaultValueString="30" syncable="YES"/>
@@ -67,7 +68,7 @@
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedSessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Data" positionX="-14535" positionY="-99" width="128" height="253"/>
+        <element name="Data" positionX="-14535" positionY="-99" width="128" height="270"/>
         <element name="Move" positionX="-14355" positionY="267" width="128" height="300"/>
         <element name="Player" positionX="-14357" positionY="-258" width="128" height="105"/>
         <element name="Session" positionX="-14184" positionY="-117" width="128" height="390"/>

@@ -32,5 +32,6 @@ extension Data {
     @NSManaged var players: NSOrderedSet
     @NSManaged var selectedPlayer: Player
     @NSManaged var sessions: NSOrderedSet
-
+    
+    @NSManaged var threshold: NSNumber
 }
