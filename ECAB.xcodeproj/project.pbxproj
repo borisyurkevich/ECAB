@@ -55,6 +55,10 @@
 		6F73F79A1D23D5E100ECB924 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F73F7991D23D5E100ECB924 /* Enumerations.swift */; };
 		6F7C5EE41D26799D009D742A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C5EE31D26799D009D742A /* Images.xcassets */; };
 		6FA82F4A1D38E09500518261 /* SpeechRecognitionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA82F491D38E09500518261 /* SpeechRecognitionHelper.swift */; };
+		6FD224821D4F2B1E00252635 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD224811D4F2B1E00252635 /* SettingsViewController.swift */; };
+		6FD224871D4F32FE00252635 /* SettingsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD224861D4F32FE00252635 /* SettingsFactory.swift */; };
+		6FD224891D4F337F00252635 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD224881D4F337F00252635 /* Setting.swift */; };
+		6FFD12661D51003B00E1F8F7 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFD12651D51003B00E1F8F7 /* SettingsTableViewController.swift */; };
 		6FFFFD681D45249C006AF65B /* TextToSpeechHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFFD671D45249C006AF65B /* TextToSpeechHelper.swift */; };
 		910367F31A7E3B4900522B2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F21A7E3B4900522B2B /* Model.swift */; };
 		910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */; };
@@ -148,6 +152,10 @@
 		6F73F7991D23D5E100ECB924 /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		6F7C5EE31D26799D009D742A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6FA82F491D38E09500518261 /* SpeechRecognitionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionHelper.swift; sourceTree = "<group>"; };
+		6FD224811D4F2B1E00252635 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		6FD224861D4F32FE00252635 /* SettingsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsFactory.swift; sourceTree = "<group>"; };
+		6FD224881D4F337F00252635 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		6FFD12651D51003B00E1F8F7 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		6FFFFD671D45249C006AF65B /* TextToSpeechHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToSpeechHelper.swift; sourceTree = "<group>"; };
 		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		910367F81A7EC7CA00522B2B /* PlayersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayersTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -229,12 +237,22 @@
 			children = (
 				91F378461A754EA000D2F77B /* VisualSearchFactory.swift */,
 				6F73F7511D23C7B500ECB924 /* DualSustainFactory.swift */,
+				6FD224861D4F32FE00252635 /* SettingsFactory.swift */,
 				6F73F7971D23D4A800ECB924 /* CounterpointingFactory.swift */,
 				6F6220721D3675F00068DCB0 /* VerbalOppositesFactory.swift */,
 				6F6220701D36253A0068DCB0 /* AuditorySustainFactory.swift */,
 				6F6220761D367CE70068DCB0 /* VisualSustainFactory.swift */,
 			);
 			name = Factories;
+			sourceTree = "<group>";
+		};
+		6FD224851D4F2FC600252635 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6FD224811D4F2B1E00252635 /* SettingsViewController.swift */,
+				6FFD12651D51003B00E1F8F7 /* SettingsTableViewController.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		9131388F1C39384000E79987 /* History */ = {
@@ -314,6 +332,7 @@
 				91E5C3DA1A6C204500905752 /* Controller */,
 				91F448171B089A1C0082EB6A /* Data */,
 				6F73F7501D23C7A500ECB924 /* Factories */,
+				6FD224851D4F2FC600252635 /* Settings */,
 				9131388F1C39384000E79987 /* History */,
 				91E5C3DC1A6C205600905752 /* Model */,
 				91E5C3DB1A6C204D00905752 /* View */,
@@ -388,6 +407,7 @@
 				910367F21A7E3B4900522B2B /* Model.swift */,
 				91F3784A1A75529000D2F77B /* VisualSearchFruit.swift */,
 				6F73F7531D23C82900ECB924 /* GameSequence.swift */,
+				6FD224881D4F337F00252635 /* Setting.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -574,6 +594,7 @@
 				91279C6B1C282CBF00418A57 /* DataExportModel.swift in Sources */,
 				6F73F7521D23C7B500ECB924 /* DualSustainFactory.swift in Sources */,
 				6F73F7541D23C82900ECB924 /* GameSequence.swift in Sources */,
+				6FD224891D4F337F00252635 /* Setting.swift in Sources */,
 				91F378471A754EA000D2F77B /* VisualSearchFactory.swift in Sources */,
 				913544071B04058D00041AB6 /* SessionsTableViewController.swift in Sources */,
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
@@ -582,10 +603,12 @@
 				91F3784B1A75529000D2F77B /* VisualSearchFruit.swift in Sources */,
 				91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */,
 				91379BF21B52FEA600E3C293 /* Data.swift in Sources */,
+				6FD224871D4F32FE00252635 /* SettingsFactory.swift in Sources */,
 				6F6220751D3678B00068DCB0 /* VerbalOppositesViewController.swift in Sources */,
 				91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */,
 				6F73F7151D23979A00ECB924 /* DualSustainViewController.swift in Sources */,
 				910791E51C5EA21200199A5D /* ECABLogCalculator.swift in Sources */,
+				6FD224821D4F2B1E00252635 /* SettingsViewController.swift in Sources */,
 				9130B7A11BD275E900D26708 /* Session+CoreDataProperties.swift in Sources */,
 				91E5C4161A6C6CEC00905752 /* VisualSearchViewController.swift in Sources */,
 				6FFFFD681D45249C006AF65B /* TextToSpeechHelper.swift in Sources */,
@@ -594,6 +617,7 @@
 				91379BE61B52A4A300E3C293 /* Session.swift in Sources */,
 				910367F91A7EC7CA00522B2B /* PlayersTableViewController.swift in Sources */,
 				91B494871B3598B100FAEE8A /* TestViewController.swift in Sources */,
+				6FFD12661D51003B00E1F8F7 /* SettingsTableViewController.swift in Sources */,
 				910367F31A7E3B4900522B2B /* Model.swift in Sources */,
 				6F17CF5B1D0EB3750047C3BC /* AuditorySustainViewController.swift in Sources */,
 				6F73F79A1D23D5E100ECB924 /* Enumerations.swift in Sources */,

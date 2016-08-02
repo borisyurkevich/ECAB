@@ -10,6 +10,19 @@ import Foundation
 import CoreData
 import UIKit
 
+enum ValueType: NSNumber {
+    case Int = 0
+    case String = 1
+    case Float = 2
+    case Double = 3
+}
+
+enum SettingType: NSNumber {
+    case Slider = 0
+    case Switch = 1
+    case Stepper = 2
+}
+
 enum Constants: NSNumber{
     case timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
     case timersScale = 0.01 // Hundreds of a second

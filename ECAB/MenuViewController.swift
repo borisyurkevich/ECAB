@@ -67,6 +67,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	
 	func dataLoaded() {
         
+        TextToSpeechHelper.engine.say("hello world : my name is cortana");
+        
         // Select row in tableView
         let navVC = splitViewController!.viewControllers.first as! UINavigationController
         let testTVC = navVC.topViewController as! TestsTableViewController
