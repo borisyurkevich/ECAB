@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class DualSustainViewController: CounterpointingViewController {
     
@@ -57,7 +58,7 @@ class DualSustainViewController: CounterpointingViewController {
     override func viewDidLoad() {
         sessionType = GamesIndex.DualSust
         greeingMessage = labels.practice
-        playSound(.Practice1)
+        TextToSpeechHelper.say("Practice 1")
     
         super.viewDidLoad()
         
@@ -121,20 +122,21 @@ class DualSustainViewController: CounterpointingViewController {
                 // Swithing trainingMode bool needed when practice is restarted.
                 trainingMode = true
                 presentMessage(labels.practice)
-                playSound(.Practice1)
-                
+                TextToSpeechHelper.say("Practice 1")
+            
             case 1 ... DualSustainFactory.practiceSequence.count:
                 if !pictureAutoPresent {
                     startAutoPresentPictures()
                 }
                 indexForCurrentSequence = currentScreenShowing - 1
                 updateView(DualSustainFactory.practiceSequence[indexForCurrentSequence])
-                playSound(DualSustainFactory.practiceSequence[indexForCurrentSequence].sound)
-                
+                TextToSpeechHelper.say(DualSustainFactory.practiceSequence[indexForCurrentSequence].sound)
+            
             case DualSustainFactory.practiceSequence.count + 1:
                 stopAutoPresentPictures()
                 presentMessage(labels.gameReady)
-                
+                TextToSpeechHelper.say("Game 1")
+            
             case DualSustainFactory.practiceSequence.count + 2 ... (DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 1)):
                 if !pictureAutoPresent {
                     startTest()
@@ -142,13 +144,14 @@ class DualSustainViewController: CounterpointingViewController {
                 }
                 indexForCurrentSequence = currentScreenShowing - (DualSustainFactory.practiceSequence.count + 2)
                 updateView(DualSustainFactory.gameSequence[indexForCurrentSequence])
-                playSound(DualSustainFactory.gameSequence[indexForCurrentSequence].sound)
+                TextToSpeechHelper.say(DualSustainFactory.gameSequence[indexForCurrentSequence].sound)
             
             case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 2):
                 stopAutoPresentPictures()
                 stopTest()
                 presentMessage(labels.gameEnd)
-                
+                TextToSpeechHelper.say("End of game")
+            
             case DualSustainFactory.gameSequence.count + (DualSustainFactory.practiceSequence.count + 3):
                 presentPause()
                 
@@ -266,7 +269,6 @@ class DualSustainViewController: CounterpointingViewController {
         if timeSinceAnimalAppeared <= timeAcceptDelay {
             countTotalMissies = 0
             
-            playSound(.Positive)
             log(.Hit, hitType: animalType.integerValue)
             
             // Prevents following taps to be sucesfull
@@ -304,7 +306,12 @@ class DualSustainViewController: CounterpointingViewController {
         if (action == .Hit) {
             successfulAction = true
             model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared, type: hitType.integerValue)
+            
+            TextToSpeechHelper.positive()
         } else {
+            
+            TextToSpeechHelper.negative()
+
             // To avoid changing data model we will use interval to store mistake type
             var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
             if (action == .Miss) {
@@ -330,7 +337,7 @@ class DualSustainViewController: CounterpointingViewController {
     
     func showWarningPrompt() {
         
-        playSound(.Negative)
+        TextToSpeechHelper.negative()
         
         countTotalMissies = 0
         let label = UILabel()
@@ -366,11 +373,11 @@ class DualSustainViewController: CounterpointingViewController {
     private func soundIsAnimal(gameSequence: GameSequence) -> Bool {
         animalType = SuccessType.Sound.rawValue
         return
-                gameSequence.sound == Sound.Pig ||
-                gameSequence.sound == Sound.Cat ||
-                gameSequence.sound == Sound.Dog ||
-                gameSequence.sound == Sound.Horse ||
-                gameSequence.sound == Sound.Fish
+                gameSequence.sound.lowercaseString == "pig" ||
+                gameSequence.sound.lowercaseString == "cat" ||
+                gameSequence.sound.lowercaseString == "dog" ||
+                gameSequence.sound.lowercaseString == "horse" ||
+                gameSequence.sound.lowercaseString == "fish"
     }
     
     func gameOver() {

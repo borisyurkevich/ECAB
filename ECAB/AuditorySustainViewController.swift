@@ -23,8 +23,6 @@ class AuditorySustainViewController: CounterpointingViewController {
     
     private let labels = Labels()
     
-    // Place in array of pictures that appear on the screen.
-    // There's 2 arrays: training and game.
     var indexForCurrentSequence = 0
     
     var pictureAutoPresent = false
@@ -54,7 +52,7 @@ class AuditorySustainViewController: CounterpointingViewController {
     override func viewDidLoad() {
         sessionType = GamesIndex.AuditorySust
         greeingMessage = labels.practice
-        playSound(.Practice1)
+        TextToSpeechHelper.say("Practice 1")
         
         super.viewDidLoad()
         
@@ -112,7 +110,7 @@ class AuditorySustainViewController: CounterpointingViewController {
             // Swithing trainingMode bool needed when practice is restarted.
             trainingMode = true
             presentMessage(labels.practice)
-            playSound(.Practice1)
+            TextToSpeechHelper.say("Practice 1")
             
         case 1 ... AuditorySustainFactory.practiceSequence.count:
             if !pictureAutoPresent {
@@ -120,15 +118,15 @@ class AuditorySustainViewController: CounterpointingViewController {
             }
             indexForCurrentSequence = currentScreenShowing - 1
             updateView(AuditorySustainFactory.practiceSequence[indexForCurrentSequence])
-            playSound(AuditorySustainFactory.practiceSequence[indexForCurrentSequence].sound)
+            TextToSpeechHelper.say(AuditorySustainFactory.practiceSequence[indexForCurrentSequence].sound)
             
         case AuditorySustainFactory.practiceSequence.count + 1:
             stopAutoPresentPictures()
             presentMessage(labels.gameReady)
-            playSound(Sound.EndOfPractice)
+            TextToSpeechHelper.say("End of practice")
             
         case AuditorySustainFactory.practiceSequence.count + 2:
-            playSound(Sound.Game1)
+            TextToSpeechHelper.say("Game 1")
             
         case AuditorySustainFactory.practiceSequence.count + 3 ... (AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 1)):
             if !pictureAutoPresent {
@@ -137,13 +135,13 @@ class AuditorySustainViewController: CounterpointingViewController {
             }
             indexForCurrentSequence = currentScreenShowing - (AuditorySustainFactory.practiceSequence.count + 2)
             updateView(AuditorySustainFactory.gameSequence[indexForCurrentSequence])
-            playSound(AuditorySustainFactory.gameSequence[indexForCurrentSequence].sound)
+            TextToSpeechHelper.say(AuditorySustainFactory.gameSequence[indexForCurrentSequence].sound)
             
         case AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 2):
             stopAutoPresentPictures()
             stopTest()
             presentMessage(labels.gameEnd)
-            playSound(Sound.EndOfGame)
+            TextToSpeechHelper.say("End of game")
             
         case AuditorySustainFactory.gameSequence.count + (AuditorySustainFactory.practiceSequence.count + 3):
             presentPause()
@@ -242,7 +240,6 @@ class AuditorySustainViewController: CounterpointingViewController {
         if timeSinceAnimalAppeared <= timeAcceptDelay {
             countTotalMissies = 0
             
-            playSound(.Positive)
             log(.Hit, hitType: SuccessType.Sound.rawValue.integerValue)
             
             // Prevents following taps to be sucesfull
@@ -280,7 +277,11 @@ class AuditorySustainViewController: CounterpointingViewController {
         if (action == .Hit) {
             successfulAction = true
             model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared, type: hitType.integerValue)
+            
+            TextToSpeechHelper.positive()
         } else {
+            
+            TextToSpeechHelper.negative()
             // To avoid changing data model we will use interval to store mistake type
             var codedMistakeType = VisualSustainMistakeType.Unknown.rawValue
             if (action == .Miss) {
@@ -306,7 +307,7 @@ class AuditorySustainViewController: CounterpointingViewController {
     
     func showWarningPrompt() {
         
-        playSound(.Negative)
+        TextToSpeechHelper.negative()
         
         countTotalMissies = 0
         let label = UILabel()
@@ -330,11 +331,11 @@ class AuditorySustainViewController: CounterpointingViewController {
     
     private func soundIsAnimal(gameSequence: GameSequence) -> Bool {
         return
-            gameSequence.sound == Sound.Pig ||
-                gameSequence.sound == Sound.Cat ||
-                gameSequence.sound == Sound.Dog ||
-                gameSequence.sound == Sound.Horse ||
-                gameSequence.sound == Sound.Fish
+            gameSequence.sound.lowercaseString == "pig" ||
+                gameSequence.sound.lowercaseString == "cat" ||
+                gameSequence.sound.lowercaseString == "dog" ||
+                gameSequence.sound.lowercaseString == "horse" ||
+                gameSequence.sound.lowercaseString == "fish"
     }
     
     func gameOver() {

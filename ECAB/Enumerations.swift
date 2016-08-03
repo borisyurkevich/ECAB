@@ -10,19 +10,6 @@ import Foundation
 import CoreData
 import UIKit
 
-enum ValueType: NSNumber {
-    case Int = 0
-    case String = 1
-    case Float = 2
-    case Double = 3
-}
-
-enum SettingType: NSNumber {
-    case Slider = 0
-    case Switch = 1
-    case Stepper = 2
-}
-
 enum Constants: NSNumber{
     case timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
     case timersScale = 0.01 // Hundreds of a second
@@ -94,45 +81,6 @@ enum Picture: String {
     case Train = "train_inverse"
     case Tree = "tree"
     case Icon_auditory = "icon_auditory"
-}
-
-enum Sound: String {
-    case Positive = "positive"
-    case Negative = "negative"
-    case Attention = "attention"
-    case Practice1 = "practice1"
-    case EndOfPractice = "endofpractice"
-    case Game1 = "game1"
-    case EndOfGame = "endofgame"
-    
-    case Empty = "empty"
-    case Bed = "bed"
-    case Ball = "ball"
-    case Bike = "bike"
-    case Boat = "boat"
-    case Book = "book"
-    //case Boot = "boot"
-    case Bus = "bus"
-    case Cake = "cake"
-    case Car = "car"
-    case Cat = "cat"
-    case Chair = "chair"
-    case Clock = "clock"
-    case Dog = "dog"
-    case Door = "door"
-    case Fish = "fish"
-    case Horse = "horse"
-    case Key = "key"
-    case Leaf = "leaf"
-    //case Mouse = "mouse"
-    case Pig = "pig"
-    case Shoe = "shoe"
-    case Sock = "sock"
-    case Spoon = "spoon"
-    case Star = "star"
-    case Sun = "sun"
-    case Train = "train"
-    case Tree = "tree"
 }
 
 enum PlayerAction {

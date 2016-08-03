@@ -190,19 +190,19 @@ class CounterpointingViewController: TestViewController {
 			if !touchModeInverserd {
 				// tap on the left side of the screen
 				if leftTarget {
-                    playSound(.Positive)
+                    TextToSpeechHelper.positive()
 					result = true
 				} else {
-					playSound(.Positive)
+					TextToSpeechHelper.positive()
 					result = false
 				}
 			} else {
 				// tap on the left side of the screen
 				if leftTarget {
-					playSound(.Negative)
+					TextToSpeechHelper.negative()
 					result = false
 				} else {
-					playSound(.Positive)
+					TextToSpeechHelper.positive()
 					result = true
 				}
 			}
@@ -210,18 +210,18 @@ class CounterpointingViewController: TestViewController {
 			// Tap on right
 			if !touchModeInverserd {
 				if leftTarget {
-					playSound(.Negative)
+					TextToSpeechHelper.negative()
 					result = false
 				} else {
-					playSound(.Positive)
+					TextToSpeechHelper.positive()
 					result = true
 				}
 			} else {
 				if leftTarget {
-					playSound(.Positive)
+					TextToSpeechHelper.positive()
 					result = true
 				} else {
-					playSound(.Negative)
+					TextToSpeechHelper.negative()
 					result = false
 				}
 			}

@@ -12,19 +12,19 @@ import Foundation
 class GameSequence {
     
     let picture: Picture
-    let sound: Sound
+    let sound: String
 
     init(p: Picture) {
         picture = p;
-        sound = Sound.Empty;
+        sound = "";
     }
     
-    init(s: Sound) {
+    init(s: String) {
         picture = Picture.Empty;
         sound = s;
     }
     
-    init(p: Picture, s: Sound) {
+    init(p: Picture, s: String) {
         picture = p;
         sound = s;
     }

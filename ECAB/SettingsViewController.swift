@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     @IBOutlet weak var voiceInput: UITextField!
     @IBAction func speak(sender: UIButton) {
-        TextToSpeechHelper.engine.say(voiceInput.text!)
+        TextToSpeechHelper.say(voiceInput.text!)
     }
     
     @IBOutlet weak var rateSlider: UISlider!

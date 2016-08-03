@@ -46,7 +46,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
     override func viewDidLoad() {
         sessionType = GamesIndex.Verbal
         greeingMessage = labels.practice1
-        playSound(.Practice1)
+        TextToSpeechHelper.say("Practice 1")
         
         super.viewDidLoad()
         
@@ -62,7 +62,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
                                                          name: "speakAnimalName",
                                                          object: nil)
         
-        SpeechRecognitionHelper.engine().setThreshold(model.data.threshold.floatValue)
+        SpeechRecognitionHelper.sharedInstance().setThreshold(model.data.threshold.floatValue)
     }
     
     func speakAnimalName(notification: NSNotification) {
@@ -121,7 +121,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
         }
         
         if(hit){
-            
+            //TextToSpeechHelper.positive()
+
             if(!trainingMode){
                 log(.Hit, hitType: SuccessType.Picture.rawValue.integerValue)
                 session.score = NSNumber(integer: (session.score.integerValue + 1))
@@ -136,6 +137,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
                                                                        repeats: true)
             
             presentNextScreen();
+        }else{
+            //TextToSpeechHelper.negative()
         }
     }
     
@@ -149,13 +152,13 @@ class VerbalOppositesViewController: CounterpointingViewController {
         }
         pictureAutoPresent = true
         imageVisibleOnScreen.hidden = false
-        SpeechRecognitionHelper.engine().startListening()
+        SpeechRecognitionHelper.sharedInstance().startListening()
     }
     
     func stopAutoPresentPictures() {
         pictureAutoPresent = false
         imageVisibleOnScreen.hidden = true
-        SpeechRecognitionHelper.engine().stopListening()
+        SpeechRecognitionHelper.sharedInstance().stopListening()
     }
     
     // Start and stop test is enabling logic to run the game in non training mode
@@ -171,7 +174,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
     }
     
     func stopTest() {
-        SpeechRecognitionHelper.engine().stopListening()
+        SpeechRecognitionHelper.sharedInstance().stopListening()
 
         timeToGameOver.invalidate()
         timeToAcceptDelay.invalidate()
@@ -194,6 +197,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
                 // Switching trainingMode bool needed when practice is restarted.
                 trainingMode = true
                 presentMessage(labels.practice1)
+                TextToSpeechHelper.say("Practice 1")
             
             // Practice 1
             case 1 ... VerbalOppositesFactory.practiceSequence1.count:
@@ -207,6 +211,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
             case VerbalOppositesFactory.practiceSequence1.count + 1:
                 stopAutoPresentPictures()
                 presentMessage(labels.practice2)
+                TextToSpeechHelper.say("Practice 2")
             
              // Practice 2
             case VerbalOppositesFactory.practiceSequence1.count + 2 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 1:
@@ -220,6 +225,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
             case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 2:
                 stopAutoPresentPictures()
                 presentMessage(labels.game1)
+                TextToSpeechHelper.say("Game 1")
             
             // Game 1
             case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 2:
@@ -234,6 +240,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
             case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 3:
                 stopAutoPresentPictures()
                 presentMessage(labels.game2)
+                TextToSpeechHelper.say("Game 2")
             
             // Game 2
             case number1 ... number1 + VerbalOppositesFactory.gameSequence2.count - 1:
@@ -249,7 +256,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
             case number1 + VerbalOppositesFactory.gameSequence2.count:
                 stopAutoPresentPictures()
                 presentMessage(labels.game3)
-                
+                TextToSpeechHelper.say("Game 3")
+            
             // Game 3
             case number1 + VerbalOppositesFactory.gameSequence2.count + 1 ... number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count:
                 
@@ -264,6 +272,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
             case number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count + 1:
                 stopAutoPresentPictures()
                 presentMessage(labels.game4)
+                TextToSpeechHelper.say("Game 4")
             
             // Game 4 
             case number2 ... number2 + VerbalOppositesFactory.gameSequence4.count - 1:
@@ -280,6 +289,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
                 stopAutoPresentPictures()
                 stopTest()
                 presentMessage(labels.gameEnd)
+                TextToSpeechHelper.say("End of game")
             
             // Alert dialog to save results
             case number2 + VerbalOppositesFactory.gameSequence4.count + 1:

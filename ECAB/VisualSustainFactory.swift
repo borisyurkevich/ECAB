@@ -32,7 +32,6 @@ class VisualSustainFactory {
             GameSequence(p: .Clock),
             GameSequence(p: .Fish),
             GameSequence(p: .Train),
-            GameSequence(p: .Empty)
         ]
     
     static let gameSequence: [GameSequence] =
@@ -187,7 +186,6 @@ class VisualSustainFactory {
             GameSequence(p: .Book),
             GameSequence(p: .Cat),
             GameSequence(p: .Boat),
-            GameSequence(p: .Empty)
     ]
     
 }

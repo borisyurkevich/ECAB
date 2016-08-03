@@ -21,7 +21,7 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     
     static var helper = SpeechRecognitionHelper();
     
-    static func engine() -> SpeechRecognitionHelper {
+    static func sharedInstance() -> SpeechRecognitionHelper {
         return helper;
     }
 

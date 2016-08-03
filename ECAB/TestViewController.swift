@@ -41,13 +41,6 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 	// Doesnt affect Visual Search
 	// Affects Y offeset for the big buttons pn left and ride side
     
-    func playSound(sound: Sound) {
-        let soundURL = NSBundle.mainBundle().URLForResource(sound.rawValue, withExtension: "mp3");
-        var soundID:SystemSoundID = 1;
-        AudioServicesCreateSystemSoundID(soundURL!, &soundID);
-        AudioServicesPlaySystemSound(soundID);
-    }
-    
     func presentErrorAlert() {
         let errorAlert = UIAlertController(title: nil,
             message: "Couldn't play a sound.",

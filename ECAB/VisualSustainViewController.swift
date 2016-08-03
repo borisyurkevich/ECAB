@@ -116,6 +116,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			// Swithing trainingMode bool needed when practice is restarted.
 			trainingMode = true
 			presentMessage(labels.practice1)
+            TextToSpeechHelper.say("Practice 1")
 			
 		case 1:
 			showFirstView()
@@ -123,6 +124,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 2:
 			removeFirstView()
 			presentMessage(labels.practice2)
+            TextToSpeechHelper.say("Practice 2")
 			
 		case 3 ... 23:
 			if !pictureAutoPresent {
@@ -134,6 +136,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 24:
 			stopAutoPresentPictures()
 			presentMessage(labels.gameReady)
+            TextToSpeechHelper.say("Game 1")
 			
 		case 25 ... 175:
 			if !pictureAutoPresent {
@@ -147,6 +150,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			stopAutoPresentPictures()
 			stopTest()
 			presentMessage(labels.gameEnd)
+            TextToSpeechHelper.say("End of game")
 			
 		case 177:
 			presentPause()
@@ -297,8 +301,9 @@ class VisualSustainViewController: CounterpointingViewController {
 		if timeSinceAnimalAppeared <= timeAcceptDelay {
 			countTotalMissies = 0
 			
-			playSound(.Positive)
-			log(.Hit)
+            TextToSpeechHelper.positive();
+
+            log(.Hit)
 			
 			// Prevents following taps to be sucesfull
 			timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
@@ -365,7 +370,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	func showWarningPrompt() {
     
-		playSound(.Negative)
+        TextToSpeechHelper.negative()
         
 		countTotalMissies = 0
 		let label = UILabel()

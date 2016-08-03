@@ -11,10 +11,9 @@ import AVFoundation
 
 class TextToSpeechHelper : NSObject{
     
-    static let engine: TextToSpeechHelper = TextToSpeechHelper()
-    let synthesizer = AVSpeechSynthesizer()
+    static let synthesizer = AVSpeechSynthesizer()
     
-    func say(sentence: String){
+    static func say(sentence: String){
         let utterance = AVSpeechUtterance(string: " " + sentence + " ")
         utterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.speechVoices()[Model.sharedInstance.data.voiceName.integerValue].language)
         
@@ -23,5 +22,20 @@ class TextToSpeechHelper : NSObject{
         utterance.pitchMultiplier = Model.sharedInstance.data.voicePitch.floatValue;
 
         synthesizer.speakUtterance(utterance)
+    }
+    
+    static func positive(){
+        playMP3("positive")
+    }
+    
+    static func negative(){
+        playMP3("negative")
+    }
+    
+    static func playMP3(sound: String){
+        let soundURL = NSBundle.mainBundle().URLForResource(sound, withExtension: "mp3");
+        var soundID:SystemSoundID = 1;
+        AudioServicesCreateSystemSoundID(soundURL!, &soundID);
+        AudioServicesPlaySystemSound(soundID);
     }
 }

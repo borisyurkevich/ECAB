@@ -116,7 +116,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	func showTheGame(game: GamesIndex) {
-                
+        
         // Hide all the controls
         difControl.hidden = true
         difficultyTitle.hidden = true
@@ -170,7 +170,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 gameIcon.image = UIImage(named: "icon_counter")
                 
             case .VisualSust:
-                
                 gameIcon.image = UIImage(named: "icon_sustained")
                 
                 speedLabel.hidden = false
