@@ -27,12 +27,15 @@ class VerbalOppositesViewController: CounterpointingViewController {
     
     private let labels = Labels()
     
+    var currentSequence = VerbalOppositesFactory.practiceSequence1[0]
+
     var indexForCurrentSequence = 0
     var pictureAutoPresent = false
     
     var imageVisibleOnScreen = UIImageView(image: UIImage(named: "white_rect"));
     
     var timeToAcceptDelay = NSTimer()
+    var blueDotTimer = NSTimer()
     var timeToGameOver = NSTimer()
     var dateAcceptDelayStart = NSDate()
     var timeSinceAnimalAppeared = 0.0
@@ -76,53 +79,77 @@ class VerbalOppositesViewController: CounterpointingViewController {
         print(animalName)
         
         var hit: Bool = false;
+        
+        currentSequence = VerbalOppositesFactory.practiceSequence1[0];
     
         switch currentScreenShowing {
             
         // Practice 1
         case 1 ... VerbalOppositesFactory.practiceSequence1.count:
             indexForCurrentSequence = currentScreenShowing - 1
-            hit = (VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
-                    (VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence].picture == Picture.Cat && animalName == "CAT")
+            currentSequence = VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence]
+            hit = (currentSequence.picture == Picture.Dog && animalName == "DOG") ||
+                    (currentSequence.picture == Picture.Cat && animalName == "CAT")
             
         // Practice 2
         case VerbalOppositesFactory.practiceSequence1.count + 2 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 1:
             indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
-            hit = (VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence].picture == Picture.Dog && animalName == "CAT") ||
-                    (VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence].picture == Picture.Cat && animalName == "DOG")
+            currentSequence = VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence]
+            hit = (currentSequence.picture == Picture.Dog && animalName == "CAT") ||
+                    (currentSequence.picture == Picture.Cat && animalName == "DOG")
             
         // Game 1
         case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3 ... VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 2:
             indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3 )
-            hit = (VerbalOppositesFactory.gameSequence1[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
-                    (VerbalOppositesFactory.gameSequence1[indexForCurrentSequence].picture == Picture.Cat && animalName == "CAT")
+            currentSequence = VerbalOppositesFactory.gameSequence1[indexForCurrentSequence]
+            hit = (currentSequence.picture == Picture.Dog && animalName == "DOG") ||
+                    (currentSequence.picture == Picture.Cat && animalName == "CAT")
             
         // Game 2
         case number1 ... number1 + VerbalOppositesFactory.gameSequence2.count:
             indexForCurrentSequence = currentScreenShowing - number1
-            hit = (VerbalOppositesFactory.gameSequence2[indexForCurrentSequence].picture == Picture.Dog && animalName == "CAT") ||
-                    (VerbalOppositesFactory.gameSequence2[indexForCurrentSequence].picture == Picture.Cat && animalName == "DOG")
+            currentSequence = VerbalOppositesFactory.gameSequence2[indexForCurrentSequence]
+            hit = (currentSequence.picture == Picture.Dog && animalName == "CAT") ||
+                    (currentSequence.picture == Picture.Cat && animalName == "DOG")
             
             
         // Game 3
         case number1 + VerbalOppositesFactory.gameSequence2.count + 1 ... number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count:
             indexForCurrentSequence = currentScreenShowing - (number1 + VerbalOppositesFactory.gameSequence2.count + 1)
-            hit = (VerbalOppositesFactory.gameSequence3[indexForCurrentSequence].picture == Picture.Dog && animalName == "CAT") ||
-                    (VerbalOppositesFactory.gameSequence3[indexForCurrentSequence].picture == Picture.Cat && animalName == "DOG")
+            currentSequence = VerbalOppositesFactory.gameSequence3[indexForCurrentSequence]
+            hit = (currentSequence.picture == Picture.Dog && animalName == "CAT") ||
+                    (currentSequence.picture == Picture.Cat && animalName == "DOG")
             
         // Game 4
         case number2 ... number2 + VerbalOppositesFactory.gameSequence4.count - 1:
             indexForCurrentSequence = currentScreenShowing - number2
-            hit = (VerbalOppositesFactory.gameSequence4[indexForCurrentSequence].picture == Picture.Dog && animalName == "DOG") ||
-                    (VerbalOppositesFactory.gameSequence4[indexForCurrentSequence].picture == Picture.Cat && animalName == "CAT")
+            currentSequence = VerbalOppositesFactory.gameSequence4[indexForCurrentSequence]
+            hit = (currentSequence.picture == Picture.Dog && animalName == "DOG") ||
+                    (currentSequence.picture == Picture.Cat && animalName == "CAT")
             
         default:
             break
         }
         
         if(hit){
-            //TextToSpeechHelper.positive()
 
+            // Display blue dot for positive feedback
+            blueDotTimer = NSTimer.scheduledTimerWithTimeInterval(
+                0.5,
+                target: self,
+                selector: #selector(presentNextScreen),
+                userInfo: nil,
+                repeats: false)
+            
+            
+            let newImage = UIImage(named: "Blue Dot")
+            let newFrame = UIImageView(image: newImage)
+            
+            imageVisibleOnScreen.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
+            imageVisibleOnScreen.center = view.center;
+            imageVisibleOnScreen.image = newImage
+
+            // Log hit
             if(!trainingMode){
                 log(.Hit, hitType: SuccessType.Picture.rawValue.integerValue)
                 session.score = NSNumber(integer: (session.score.integerValue + 1))
@@ -135,8 +162,6 @@ class VerbalOppositesViewController: CounterpointingViewController {
                                                                        selector: #selector(VerbalOppositesViewController.updateDelay),
                                                                        userInfo: nil,
                                                                        repeats: true)
-            
-            presentNextScreen();
         }else{
             //TextToSpeechHelper.negative()
         }
@@ -183,6 +208,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
     }
     
     // Called eather from timer or from Next button in the menu bar
+    @objc
     override func presentNextScreen() {
         currentScreenShowing += 1
         
@@ -205,7 +231,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
                     startAutoPresentPictures()
                 }
                 indexForCurrentSequence = currentScreenShowing - 1
-                updateView(VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence])
+                currentSequence = VerbalOppositesFactory.practiceSequence1[indexForCurrentSequence]
+                updateView()
             
             // Practice 2 introduction
             case VerbalOppositesFactory.practiceSequence1.count + 1:
@@ -219,7 +246,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
                     startAutoPresentPictures()
                 }
                 indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + 2)
-                updateView(VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence])
+                currentSequence = VerbalOppositesFactory.practiceSequence2[indexForCurrentSequence]
+                updateView()
             
             // Game 1 introduction
             case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 2:
@@ -234,7 +262,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
                     startAutoPresentPictures()
                 }
                 indexForCurrentSequence = currentScreenShowing - (VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + 3)
-                updateView(VerbalOppositesFactory.gameSequence1[indexForCurrentSequence])
+                currentSequence = VerbalOppositesFactory.gameSequence1[indexForCurrentSequence]
+                updateView()
             
             // Game 2 introduction
             case VerbalOppositesFactory.practiceSequence1.count + VerbalOppositesFactory.practiceSequence2.count + VerbalOppositesFactory.gameSequence1.count + 3:
@@ -250,7 +279,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
 
                 }
                 indexForCurrentSequence = currentScreenShowing - number1
-                updateView(VerbalOppositesFactory.gameSequence2[indexForCurrentSequence])
+                currentSequence = VerbalOppositesFactory.gameSequence2[indexForCurrentSequence]
+                updateView()
             
             // Game 3 introduction
             case number1 + VerbalOppositesFactory.gameSequence2.count:
@@ -266,7 +296,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
                     startAutoPresentPictures()
                 }
                 indexForCurrentSequence = currentScreenShowing - (number1 + VerbalOppositesFactory.gameSequence2.count + 1)
-                updateView(VerbalOppositesFactory.gameSequence3[indexForCurrentSequence])
+                currentSequence = VerbalOppositesFactory.gameSequence3[indexForCurrentSequence]
+                updateView()
             
             // Game 4 introduction
             case number1 + VerbalOppositesFactory.gameSequence2.count + VerbalOppositesFactory.gameSequence3.count + 1:
@@ -282,7 +313,8 @@ class VerbalOppositesViewController: CounterpointingViewController {
                     startAutoPresentPictures()
                 }
                 indexForCurrentSequence = currentScreenShowing - (number2)
-                updateView(VerbalOppositesFactory.gameSequence4[indexForCurrentSequence])
+                currentSequence = VerbalOppositesFactory.gameSequence4[indexForCurrentSequence]
+                updateView()
             
             // Stop message
             case number2 + VerbalOppositesFactory.gameSequence4.count:
@@ -327,10 +359,9 @@ class VerbalOppositesViewController: CounterpointingViewController {
         }
     }
     
-    private func updateView(gameSequence: GameSequence) {
-        
+    private func updateView() {
         if !gamePaused {
-            let newImage = UIImage(named: gameSequence.picture.rawValue)
+            let newImage = UIImage(named: currentSequence.picture.rawValue)
             let newFrame = UIImageView(image: newImage)
             
             imageVisibleOnScreen.frame = CGRectMake(0, 0, newFrame.frame.size.width * 2, newFrame.frame.size.height * 2)
