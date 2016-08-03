@@ -18,7 +18,6 @@ class VerbalOppositesViewController: CounterpointingViewController {
         let game2 = NSLocalizedString("Game 2 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
         let game3 = NSLocalizedString("Game 3 : Say the OPPOSITE animal name (either CAT or DOG)", comment: "verbal opposites")
         let game4 = NSLocalizedString("Game 4 : Say the SAME animal name (either CAT or DOG)", comment: "verbal opposites")
-        
         let gameEnd = NSLocalizedString("Stop.", comment: "verbal opposites")
         let testOver = NSLocalizedString("Test is Over", comment: "verbal opposites alert title")
         let testOverBody = NSLocalizedString("You've been running the test for %@", comment: "verbal opposites alert body")
@@ -177,6 +176,7 @@ class VerbalOppositesViewController: CounterpointingViewController {
         }
         pictureAutoPresent = true
         imageVisibleOnScreen.hidden = false
+        
         SpeechRecognitionHelper.sharedInstance().startListening()
     }
     

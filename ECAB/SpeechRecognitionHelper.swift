@@ -17,7 +17,6 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     var dicPath: String!
     var words: Array<String> = []
     var currentWord: String!
-    var isListening: Bool = false
     
     static var helper = SpeechRecognitionHelper();
     
@@ -35,8 +34,8 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
         addWords()
         
         let name = "LanguageModelFileStarSaver"
-        lmGenerator.generateLanguageModelFromArray(words, withFilesNamed: name, forAcousticModelAtPath: OEAcousticModel.pathToModel("AcousticModelEnglish"))
         
+        lmGenerator.generateLanguageModelFromArray(words, withFilesNamed: name, forAcousticModelAtPath: OEAcousticModel.pathToModel("AcousticModelEnglish"))
         lmPath = lmGenerator.pathToSuccessfullyGeneratedLanguageModelWithRequestedName(name)
         dicPath = lmGenerator.pathToSuccessfullyGeneratedDictionaryWithRequestedName(name)
     }
@@ -44,13 +43,12 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     func setThreshold(th: Float) {
         do {
             try OEPocketsphinxController.sharedInstance().setActive(true)
-            //OEPocketsphinxController.sharedInstance().vadThreshold = th
+            OEPocketsphinxController.sharedInstance().vadThreshold = th
             OEPocketsphinxController.sharedInstance().secondsOfSilenceToDetect = 0.1
         } catch _ { }
     }
     
     func pocketsphinxDidStartListening() {
-        isListening = true;
         print("Listening...")
     }
     
@@ -64,7 +62,6 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     
     func pocketsphinxDidStopListening() {
         print("Listening stopped")
-        isListening = false;
     }
     
     func pocketsphinxDidSuspendRecognition() {
@@ -93,8 +90,7 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     }
     
     func startListening() {
-        if(!isListening){
-            isListening = true;
+        if(!OEPocketsphinxController.sharedInstance().isListening){
             
             do {
                 try OEPocketsphinxController.sharedInstance().setActive(true)
@@ -107,8 +103,7 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
     }
     
     func stopListening() {
-        if(isListening){
-            isListening = false;
+        if(OEPocketsphinxController.sharedInstance().isListening){
             OEPocketsphinxController.sharedInstance().stopListening()
         }
     }
@@ -119,21 +114,26 @@ class SpeechRecognitionHelper : NSObject, OEEventsObserverDelegate{
         words.append("DOG")
     }
     
-    func getNewWord() {
-        let randomWord = Int(arc4random_uniform(UInt32(words.count)))
-        currentWord = words[randomWord]
-    }
-    
     func pocketsphinxFailedNoMicPermissions() {
-        NSLog("Local callback: The user has never set mic permissions or denied permission to this app's mic, so listening will not start.")
-        self.startupFailedDueToLackOfPermissions = true
-        if OEPocketsphinxController.sharedInstance().isListening {
-            let error = OEPocketsphinxController.sharedInstance().stopListening() // Stop listening if we are listening.
-            if(error != nil) {
-                NSLog("Error while stopping listening in micPermissionCheckCompleted: %@", error);
-            }
-            startListening()
+        
+        if (AVAudioSession.sharedInstance().respondsToSelector(#selector(AVAudioSession.requestRecordPermission(_:)))) {
+            AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
+                if granted {
+                    self.startListening()
+                } else{
+                    NSLog("Local callback: The user has never set mic permissions or denied permission to this app's mic, so listening will not start.")
+                    self.startupFailedDueToLackOfPermissions = true
+                    if OEPocketsphinxController.sharedInstance().isListening {
+                        let error = OEPocketsphinxController.sharedInstance().stopListening() // Stop listening if we are listening.
+                        if(error != nil) {
+                            NSLog("Error while stopping listening in micPermissionCheckCompleted: %@", error);
+                        }
+                    }
+                }
+            })
         }
+        
+        
     }
     
     func pocketsphinxDidReceiveHypothesis(hypothesis: String!, recognitionScore: String!, utteranceID: String!) {
