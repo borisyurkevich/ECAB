@@ -16,11 +16,11 @@ class TextToSpeechHelper : NSObject{
     
     func say(sentence: String){
         let utterance = AVSpeechUtterance(string: " " + sentence + " ")
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-IE")
+        utterance.voice = AVSpeechSynthesisVoice(language: AVSpeechSynthesisVoice.speechVoices()[Model.sharedInstance.data.voiceName.integerValue].language)
         
         // Fix bug
-        utterance.rate = 0.4;
-        utterance.pitchMultiplier = 1.1;
+        utterance.rate = Model.sharedInstance.data.voiceRate.floatValue;
+        utterance.pitchMultiplier = Model.sharedInstance.data.voicePitch.floatValue;
 
         synthesizer.speakUtterance(utterance)
     }

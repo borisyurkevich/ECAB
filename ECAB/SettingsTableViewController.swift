@@ -24,7 +24,7 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let navVC = splitViewController!.viewControllers.last as! UINavigationController
         let settingslVC = navVC.topViewController as! SettingsViewController
-        settingslVC.showSettings(indexPath.row)
+        settingslVC.showSettings(data[indexPath.row][0])
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -67,8 +67,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	
 	func dataLoaded() {
         
-        TextToSpeechHelper.engine.say("hello world : my name is cortana");
-        
         // Select row in tableView
         let navVC = splitViewController!.viewControllers.first as! UINavigationController
         let testTVC = navVC.topViewController as! TestsTableViewController
@@ -118,6 +116,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	func showTheGame(game: GamesIndex) {
+        
+        TextToSpeechHelper.engine.say("hello world : my name is Angelina Jolie");
         
         // Hide all the controls
         difControl.hidden = true

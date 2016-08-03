@@ -13,6 +13,9 @@
         <attribute name="visSustAcceptedDelay" attributeType="Double" defaultValueString="4" syncable="YES"/>
         <attribute name="visSustDelay" attributeType="Double" defaultValueString="0.2" syncable="YES"/>
         <attribute name="visSustSpeed" attributeType="Double" defaultValueString="1.5" syncable="YES"/>
+        <attribute name="voiceName" optional="YES" attributeType="Integer 16" maxValueString="35" defaultValueString="7" syncable="YES"/>
+        <attribute name="voicePitch" optional="YES" attributeType="Double" minValueString="0.5" maxValueString="1.5" defaultValueString="1" syncable="YES"/>
+        <attribute name="voiceRate" optional="YES" attributeType="Double" defaultValueString="0.4" syncable="YES"/>
         <relationship name="players" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Player" inverseName="data" inverseEntity="Player" syncable="YES"/>
         <relationship name="selectedPlayer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="selected" inverseEntity="Player" syncable="YES"/>
         <relationship name="sessions" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Session" inverseName="data" inverseEntity="Session" syncable="YES"/>
@@ -68,7 +71,7 @@
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedSessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Data" positionX="-14535" positionY="-99" width="128" height="270"/>
+        <element name="Data" positionX="-14535" positionY="-99" width="128" height="315"/>
         <element name="Move" positionX="-14355" positionY="267" width="128" height="300"/>
         <element name="Player" positionX="-14357" positionY="-258" width="128" height="105"/>
         <element name="Session" positionX="-14184" positionY="-117" width="128" height="390"/>

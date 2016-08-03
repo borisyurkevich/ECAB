@@ -34,4 +34,7 @@ extension Data {
     @NSManaged var sessions: NSOrderedSet
     
     @NSManaged var threshold: NSNumber
+    @NSManaged var voiceRate: NSNumber
+    @NSManaged var voicePitch: NSNumber
+    @NSManaged var voiceName: NSNumber
 }

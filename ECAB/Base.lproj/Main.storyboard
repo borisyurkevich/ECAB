@@ -686,9 +686,76 @@
                     <view key="view" contentMode="scaleToFill" id="yro-mm-YiA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-VH-cRG" userLabel="Rate title">
+                                <rect key="frame" x="20" y="214" width="71" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.20000000000000001" maxValue="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-HK-GTj" userLabel="Rate action">
+                                <rect key="frame" x="204" y="209" width="349" height="31"/>
+                                <connections>
+                                    <action selector="changeRate:" destination="PbR-h0-ppv" eventType="valueChanged" id="gQK-Us-DAK"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKG-ru-0Vc" userLabel="Rate value">
+                                <rect key="frame" x="93" y="214" width="92" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pitch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YM1-FI-fEE" userLabel="Pitch title">
+                                <rect key="frame" x="20" y="266" width="71" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5th-BH-Pu0" userLabel="Pitch value">
+                                <rect key="frame" x="93" y="266" width="92" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.5" maxValue="1.5" translatesAutoresizingMaskIntoConstraints="NO" id="PUE-1R-duV" userLabel="Pitch action">
+                                <rect key="frame" x="204" y="266" width="349" height="31"/>
+                                <connections>
+                                    <action selector="setPitch:" destination="PbR-h0-ppv" eventType="valueChanged" id="Hdq-8f-0L7"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRw-9d-bOS">
+                                <rect key="frame" x="476" y="314" width="75" height="30"/>
+                                <state key="normal" title="Test voice"/>
+                                <connections>
+                                    <action selector="speak:" destination="PbR-h0-ppv" eventType="touchUpInside" id="iNV-3C-LdP"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q9v-hW-N9u">
+                                <rect key="frame" x="32" y="315" width="436" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hgd-Si-EIR">
+                                <rect key="frame" x="32" y="91" width="519" height="101"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="PbR-h0-ppv" id="QAJ-Rw-ZH5"/>
+                                    <outlet property="delegate" destination="PbR-h0-ppv" id="ifG-up-U2y"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="Vli-oR-qpl"/>
+                    <connections>
+                        <outlet property="pitchSlider" destination="PUE-1R-duV" id="kOT-sS-oeB"/>
+                        <outlet property="pitchTitle" destination="YM1-FI-fEE" id="2hF-1r-QoR"/>
+                        <outlet property="pitchValue" destination="5th-BH-Pu0" id="216-RF-D5G"/>
+                        <outlet property="rateSlider" destination="m9F-HK-GTj" id="9wK-Vg-xNT"/>
+                        <outlet property="rateTitle" destination="Mdz-VH-cRG" id="MXI-TD-IdV"/>
+                        <outlet property="rateValue" destination="IKG-ru-0Vc" id="4ab-VW-Z80"/>
+                        <outlet property="voiceInput" destination="q9v-hW-N9u" id="Ze7-uW-HDY"/>
+                        <outlet property="voicePicker" destination="Hgd-Si-EIR" id="ioC-IP-Yca"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e16-db-0Ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -703,7 +770,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" textLabel="fvQ-Mx-fKU" detailTextLabel="or6-O7-TrL" style="IBUITableViewCellStyleSubtitle" id="Ril-tK-f88">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" textLabel="fvQ-Mx-fKU" detailTextLabel="OAf-v1-Xc8" style="IBUITableViewCellStyleSubtitle" id="Ril-tK-f88">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ril-tK-f88" id="4Xv-tH-EHb">
@@ -717,7 +784,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="or6-O7-TrL">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OAf-v1-Xc8">
                                             <rect key="frame" x="15" y="25" width="41" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
