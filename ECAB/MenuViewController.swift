@@ -116,9 +116,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	}
 	
 	func showTheGame(game: GamesIndex) {
-        
-        TextToSpeechHelper.engine.say("hello world : my name is Angelina Jolie");
-        
+                
         // Hide all the controls
         difControl.hidden = true
         difficultyTitle.hidden = true
