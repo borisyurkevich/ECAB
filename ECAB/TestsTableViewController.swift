@@ -17,37 +17,28 @@ class TestsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let returnValue = model.games.count
         // Return the number of rows in the section.
-        return model.games.count
+        return returnValue
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) 
         
-        cell.textLabel!.text = model.games[indexPath.row].rawValue
+        cell.textLabel!.text = model.games[indexPath.row]
         
         return cell
     }
-    
-    // Select correct test row when the view is displayed
-    override func viewWillAppear(animated: Bool) {
-        if(model.data != nil){
-            selectRow(model.data.selectedGame.integerValue)
-        }
-    }
 	
 	// MARK: — Table View delegate
+	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		
 		model.data.selectedGame = indexPath.row
 		model.save()
+		
 		selectGame()
-    }
-    
-    func selectRow(index:Int) {
-        let rowToSelect:NSIndexPath = NSIndexPath(forRow: index, inSection: 0)
-        self.tableView.selectRowAtIndexPath(rowToSelect, animated: true, scrollPosition:UITableViewScrollPosition.None)
-        self.tableView(self.tableView, didSelectRowAtIndexPath: rowToSelect)
-    }
+	}
 	
 	func selectGame() {
 		
@@ -55,40 +46,16 @@ class TestsTableViewController: UITableViewController {
 		let detailVC = navVC.topViewController as! MenuViewController
 		
 		switch model.data.selectedGame {
-            case GamesIndex.VisualSearch.rawValue:
-                detailVC.showTheGame(.VisualSearch)
-                break;
-            
-            case GamesIndex.Counterpointing.rawValue:
-                detailVC.showTheGame(.Counterpointing)
-                break;
-            
-            case GamesIndex.Flanker.rawValue:
-                detailVC.showTheGame(.Flanker)
-                break;
-            
-            case GamesIndex.VisualSust.rawValue:
-                detailVC.showTheGame(.VisualSust)
-                break;
-            
-            case GamesIndex.AuditorySust.rawValue:
-                detailVC.showTheGame(.AuditorySust)
-                break;
-            
-            case GamesIndex.DualSust.rawValue:
-                detailVC.showTheGame(.DualSust)
-                break;
-                
-            case GamesIndex.Verbal.rawValue:
-                detailVC.showTheGame(.Verbal)
-                break;
-                
-            case GamesIndex.Balloon.rawValue:
-                detailVC.showTheGame(.Balloon)
-                break;
-            
-            default:
-                break
+		case GamesIndex.VisualSearch.rawValue:
+			detailVC.showTheGame(.VisualSearch);
+		case GamesIndex.Counterpointing.rawValue:
+			detailVC.showTheGame(.Counterpointing)
+		case GamesIndex.Flanker.rawValue:
+			detailVC.showTheGame(.Flanker)
+		case GamesIndex.VisualSust.rawValue:
+			detailVC.showTheGame(.VisualSust)
+		default:
+			break
 		}
 	}
 }

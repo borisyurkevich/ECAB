@@ -10,6 +10,40 @@ import Foundation
 import CoreData
 import UIKit
 
+enum GamesIndex: NSNumber {
+	case VisualSearch = 0
+	case Counterpointing = 1
+	case Flanker = 2
+	case VisualSust = 3
+}
+
+enum Difficulty: NSNumber {
+	case Easy = 0
+	case Hard = 1
+}
+
+struct MenuConstants {
+	static let second = "s"
+}
+
+struct GameTitle {
+	static let visual = "Visual Search"
+	static let counterpointing = "Counterpointing"
+	static let flanker = "Flanker"
+	static let visualSust = "Visual Sustained"
+}
+
+enum VisualSustainMistakeType: Double {
+	case Miss = 100
+	case FalsePositive = 200
+	case Unknown = 0
+}
+
+enum VisualSustainSkip: CGFloat {
+	case NoSkip = 0
+	case FourSkips = -100
+}
+
 // Needed to show blank space in the log between moves.
 let blankSpaceTag:CGFloat = -1.0
 
@@ -19,20 +53,13 @@ func r(x:NSTimeInterval) -> Double {
 }
 
 class Model {
-    let games = [GameTitle.visual,
-                 GameTitle.counterpointing,
-                 GameTitle.flanker,
-                 GameTitle.visualSust,
-                 GameTitle.auditorySust,
-                 GameTitle.dualSust,
-                 GameTitle.verbal,
-                 GameTitle.balloon
-    ]
+    let games = [GameTitle.visual, GameTitle.counterpointing, GameTitle.flanker, GameTitle.visualSust]
 	
 	var managedContext: NSManagedObjectContext!
 	
 	var data: Data!
 	
+	let titles = GameTitle()
 	let kMinDelay = 1.0
 	
     init() {
@@ -88,7 +115,9 @@ class Model {
 			
 			// If there's no current player,
 			// create new one
-            if data?.selectedPlayer == nil {
+			if data?.selectedPlayer != nil {
+				// Selected player found
+			} else {
 				if data.players.count == 0 {
 					addPlayer("Default")
 					// Default player added
@@ -126,10 +155,34 @@ class Model {
 		save()
     }
 	
-	func addSession(player: Player, type: Int) {
+	func addSession(player: Player) {
+		
+		// Insert new Session entity into Core Data
+		
 		let sessionEntity = NSEntityDescription.entityForName("Session", inManagedObjectContext: managedContext)
 		
 		let session = Session(entity: sessionEntity!, insertIntoManagedObjectContext: managedContext)
+		
+		session.dateStart = NSDate()
+		session.player = player
+		
+		// Build number
+		let bundleInfo = NSBundle.mainBundle().infoDictionary
+		let bundleVersion = bundleInfo!["CFBundleVersion"]
+		session.bundleVersion = bundleVersion! as? String
+		
+		// Insert the new Session into the Data set
+		let sessions = data.sessions.mutableCopy() as! NSMutableOrderedSet
+		sessions.addObject(session)
+		data.sessions = sessions.copy() as! NSOrderedSet
+		
+		save()
+	}
+	
+	func addCounterpointingSession(player: Player, type: Int) {
+		let sessionEntity = NSEntityDescription.entityForName("CounterpointingSession", inManagedObjectContext: managedContext)
+		
+		let session = CounterpointingSession(entity: sessionEntity!, insertIntoManagedObjectContext: managedContext)
 		
 		session.dateStart = NSDate()
 		session.player = player
@@ -141,9 +194,9 @@ class Model {
 		session.bundleVersion = bundleVersion! as? String
 		
 		// Insert the new Session into the Data set
-		let sessions = data.sessions.mutableCopy() as! NSMutableOrderedSet
+		let sessions = data.counterpointingSessions.mutableCopy() as! NSMutableOrderedSet
 		sessions.addObject(session)
-		data.sessions = sessions.copy() as! NSOrderedSet
+		data.counterpointingSessions = sessions.copy() as! NSOrderedSet
 		
 		save()
 	}
@@ -187,21 +240,20 @@ class Model {
 		save()
 	}
 	
-    func addMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Double, inverted: Bool, delay:Double, type:NSNumber) {
-		let successMoveEntity = NSEntityDescription.entityForName("Move", inManagedObjectContext: managedContext)
-		let move = Move(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
+	func addCounterpointingMove(positionX: CGFloat, positionY: CGFloat, success: Bool, interval: Double, inverted: Bool, delay:Double) {
+		let successMoveEntity = NSEntityDescription.entityForName("CounterpointingMove", inManagedObjectContext: managedContext)
+		let move = CounterpointingMove(entity: successMoveEntity!, insertIntoManagedObjectContext: managedContext)
 		
-		move.positionX = positionX
-		move.positionY = positionY
+		move.poitionX = positionX
+		move.poitionY = positionY
 		move.success = success
 		move.date = NSDate()
 		move.intervalDouble = NSNumber(double: interval)
 		move.inverted = inverted
 		move.delay = delay
-        move.type = type
 		
-		let allSessions = data.sessions
-		let lastSession = allSessions.lastObject as! Session
+		let allSessions = data.counterpointingSessions
+		let lastSession = allSessions.lastObject as! CounterpointingSession
 		
 		let allMoves = lastSession.moves.mutableCopy() as! NSMutableOrderedSet
 		allMoves.addObject(move)

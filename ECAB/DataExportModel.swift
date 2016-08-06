@@ -25,7 +25,8 @@ private enum MoveType {
 
 class DataExportModel {
 	
-    var pickedSession: Session? = nil
+    var pickedVisualSearchSession: Session? = nil
+    var pickedCounterpointingSession: CounterpointingSession? = nil
     
 	private let model = Model.sharedInstance
     private let msInOneSec = 1000.0 // Milliseconds in one second
@@ -37,7 +38,7 @@ class DataExportModel {
     private var returnValue = "empty line\n"
     
     init() {
-        gameName = model.games[Int(model.data.selectedGame)].rawValue
+        gameName = model.games[Int(model.data.selectedGame)]
         birth = "dd/MM/yy"
         age = "yy/mm"
         dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
@@ -48,34 +49,16 @@ class DataExportModel {
 		var returnValue: String? = nil
 		
 		switch model.data.selectedGame {
-            
-            case GamesIndex.VisualSearch.rawValue:
-                returnValue = createVisualSearchTable()
-            
-            case GamesIndex.Counterpointing.rawValue:
-                returnValue = createCounterpointingTable()
-            
-            case GamesIndex.Flanker.rawValue:
-                returnValue = createFlankerTable()
-            
-            case GamesIndex.VisualSust.rawValue:
-                returnValue = createVisualSustainedTable()
-            
-            case GameTitle.auditorySust.rawValue:
-                break
-                
-            case GameTitle.dualSust.rawValue:
-                returnValue = createDualSustainedTable()
-                break
-                
-            case GameTitle.verbal.rawValue:
-                break
-                
-            case GameTitle.balloon.rawValue:
-                break
-            
-            default:
-                break
+		case GamesIndex.VisualSearch.rawValue:
+			returnValue = createVisualSearchTable()
+        case GamesIndex.Counterpointing.rawValue:
+            returnValue = createCounterpointingTable()
+        case GamesIndex.Flanker.rawValue:
+            returnValue = createFlankerTable()
+        case GamesIndex.VisualSust.rawValue:
+            returnValue = createVisualSustainedTable()
+		default:
+			break
 		}
 		
 		return returnValue
@@ -83,27 +66,27 @@ class DataExportModel {
     
     func createVisualSearchTable() -> String {
         
-        if let session: Session = pickedSession {
-            let playerName = session.player.name
+        if let visualSearchSession: Session = pickedVisualSearchSession {
+            let playerName = visualSearchSession.player.name
             
-            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
-            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
+            let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
             
             var difficulty = "easy"
-            if session.difficulty == Difficulty.Hard.rawValue {
+            if visualSearchSession.difficulty == Difficulty.Hard.rawValue {
                 difficulty = "hard"
             }
-            let speed = session.speed.doubleValue
+            let speed = visualSearchSession.speed.doubleValue
             
-            let comments = session.comment
+            let comments = visualSearchSession.comment
             
             let screenComm = "*screen 3 should be blank throughout for 'hard' condition"
             let durationComm = "**set this to screen duration if it doesn't finish early"
             let header = "log of indivudual responces"
             
             // Create dynamic lines
-            let dynamicLines = createDynamicLinesForVSSession(session)
-            let t = ECABLogCalculator.getVisualSearchTotals(session)
+            let dynamicLines = createDynamicLinesForVSSession(visualSearchSession)
+            let t = ECABLogCalculator.getVisualSearchTotals(visualSearchSession)
             let avg = t.average
             
             let mht = t.motorHits1 + t.motorHits2 + t.motorHits3
@@ -167,7 +150,7 @@ class DataExportModel {
     
     func createCounterpointingTable() -> String {
         
-        if let session: Session = pickedSession {
+        if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -175,7 +158,7 @@ class DataExportModel {
             
             let comments = session.comment
             
-            let rows = createCounterpointingLines(session)
+            let rows = createCounterpointinLines(session)
             let t = ECABLogCalculator.getCounterpintingResult(session)
             
             let ratio = t.timeBlockConflict / t.timeBlockNonConflict
@@ -216,7 +199,7 @@ class DataExportModel {
     
     func createFlankerTable() -> String {
         
-        if let session: Session = pickedSession {
+        if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -279,7 +262,7 @@ class DataExportModel {
     
     func createVisualSustainedTable() -> String {
         
-        if let session: Session = pickedSession {
+        if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
             
             let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
@@ -319,53 +302,12 @@ class DataExportModel {
         return returnValue;
     }
     
-    func createDualSustainedTable() -> String {
-        
-        if let session: Session = pickedSession {
-            let playerName = session.player.name
-            
-            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
-            let timeStart = timeFormatter.stringFromDate(session.dateStart)
-            
-            let comments = session.comment
-            
-            let rows = createDualSustainedLines(session)
-            let t = ECABLogCalculator.getVisualSustainResult(session)
-            
-            returnValue = "ECAB Test               ,\(gameName)    ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
-                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
-                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "parameters              ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total period            ,\(t.totalPeriod),exposure              ,\(t.totalExposure)    ,max delay              ,\(t.maxDelay)  ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total pictures displayed,\(t.totalPicturesDisplayd),of which    ,\(t.totalAnimalsDisplayed),animals            ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total hits=             ,\(t.totalHits) ,                       ,                      ,                       ,               ,    \n" +
-                "total misses=           ,\(t.totalMisses),                      ,                      ,                       ,               ,    \n" +
-                "total false +ves        ,\(t.totalFalseAndVE),                  ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
-            "                        ,               ,                       ,                      ,                       ,               ,    \n"
-            
-            // Append dynamic rows: headers and moves
-            for line in rows {
-                returnValue += line
-            }
-        }
-        
-        return returnValue;
-    }
-    
     private func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         
-        for case let move as Move in visualSearchSession.moves {
-            let screenNumber = move.screenNumber.integerValue
+        for move in visualSearchSession.moves {
+            let gameMove = move as! Move
+            let screenNumber = gameMove.screenNumber.integerValue
             
             var ignoreThisMove = false
             switch screenNumber {
@@ -375,24 +317,24 @@ class DataExportModel {
                 break
             }
             if !ignoreThisMove {
-                if move.empty.boolValue == false {
+                if gameMove.empty.boolValue == false {
                     // Success or failure
                     var sof = ""
-                    if move.success.boolValue == true {
+                    if gameMove.success.boolValue == true {
                         sof = "hit"
                     } else {
                         sof = "false"
                     }
                     // ve / repeat
                     var veor = ""
-                    if move.`repeat`.boolValue == true {
+                    if gameMove.`repeat`.boolValue == true {
                         veor = "repeat"
                     } else {
                         veor = "ve"
                     }
-                    let moveTimestamp = timeFormatter.stringFromDate(move.date)
-                    let targetRow = move.row
-                    let targetColumn = move.column
+                    let moveTimestamp = timeFormatter.stringFromDate(gameMove.date)
+                    let targetRow = gameMove.row
+                    let targetColumn = gameMove.column
                     
                     // CSV line
                     let line = ",\(sof) \(veor), \(targetRow), \(targetColumn), \(moveTimestamp)\n"
@@ -425,7 +367,7 @@ class DataExportModel {
                         header = "wrong header number"
                     }
                     // Time
-                    let headerTime = timeFormatter.stringFromDate(move.date)
+                    let headerTime = timeFormatter.stringFromDate(gameMove.date)
                     
                     // CSV line
                     let headerLine = "\(header),screen onset, , ,\(headerTime)\n"
@@ -437,36 +379,37 @@ class DataExportModel {
         return collectionOfTableRows
     }
     
-    private func createCounterpointingLines(session: Session) -> Array<String> {
+    private func createCounterpointinLines(session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
         var screenCount = 1
         var needHeader = true
         
-        for case let move as Move in session.moves {
+        for move in session.moves {
+            let gameMove = move as! CounterpointingMove
             
-            if (move.positionX.integerValue >= 4 && move.positionX.integerValue <= 23)
-            || (move.positionX.integerValue >= 29 && move.positionX.integerValue <= 48) {
+            if (gameMove.poitionX.integerValue >= 4 && gameMove.poitionX.integerValue <= 23)
+            || (gameMove.poitionX.integerValue >= 29 && gameMove.poitionX.integerValue <= 48) {
             
                 // Success or failure
                 var sof = ""
-                if move.success.boolValue == true {
+                if gameMove.success.boolValue == true {
                     sof = "correct"
                 } else {
                     sof = "incorrect"
                 }
                 
                 var time: Double
-                if let newInterval = move.intervalDouble as? Double {
+                if let newInterval = gameMove.intervalDouble as? Double {
                     time = r(newInterval)
                 } else {
                     // Because I defined old interval as Integer I am chaning it to Double
                     // This condition is to keep old data working.
-                    time = move.interval.doubleValue
+                    time = gameMove.interval.doubleValue
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), msec, , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), sec., , ,\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -502,33 +445,34 @@ class DataExportModel {
         return collectionOfTableRows
     }
 
-    private func createFlankerLines(session: Session) -> Array<String> {
+    private func createFlankerLines(session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
         var screenCount = 1
         
-        for case let move as Move in session.moves {
+        for move in session.moves {
+            let gameMove = move as! CounterpointingMove
 
-            if move.positionX != blankSpaceTag {
+            if gameMove.poitionX != blankSpaceTag {
                 // Success or failure
                 var sof = ""
-                if move.success.boolValue == true {
+                if gameMove.success.boolValue == true {
                     sof = "correct"
                 } else {
                     sof = "incorrect"
                 }
 
                 var time: Double
-                if let newInterval = move.intervalDouble as? Double {
+                if let newInterval = gameMove.intervalDouble as? Double {
                     time = r(newInterval)
                 } else {
                     // Because I defined old interval as Integer I am chaning it to Double
                     // This condition is to keep old data working.
-                    time = move.interval.doubleValue
+                    time = gameMove.interval.doubleValue
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), msec, , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), sec., , ,\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -559,32 +503,33 @@ class DataExportModel {
         return collectionOfTableRows
     }
 
-    private func createVisualSustainedLines(session: Session) -> Array<String> {
+    private func createVisualSustainedLines(session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var spacePrinted = false
         
-        for case let move as Move in session.moves {
+        for move in session.moves {
+            let gameMove = move as! CounterpointingMove
             
             var line = ""
             var fourMistakes = ""
-            if move.positionY == VisualSustainSkip.FourSkips.rawValue {
+            if gameMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
-            if move.success.boolValue {
+            if gameMove.success.boolValue {
                 
-                let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
+                let formattedDelay = String(format: "%.02f", gameMove.delay!.doubleValue)
                 
-                line = "picture \(move.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
+                line = "picture \(gameMove.poitionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
             } else {
                 // Two mistakes type
-                if (move.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    line = "picture \(move.positionX), False Positive, \(fourMistakes)\n"
-                } else if (move.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    line = "picture \(move.positionX), Miss, \(fourMistakes)\n"
+                if (gameMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                    line = "picture \(gameMove.poitionX), False Positive, \(fourMistakes)\n"
+                } else if (gameMove.interval == VisualSustainMistakeType.Miss.rawValue) {
+                    line = "picture \(gameMove.poitionX), Miss, \(fourMistakes)\n"
                 }
             }
             
-            if !spacePrinted && !move.inverted.boolValue { // Not training
+            if !spacePrinted && !gameMove.inverted.boolValue { // Not training
                 line = "\n" + line
                 spacePrinted = true
             }
@@ -594,42 +539,5 @@ class DataExportModel {
         
         return collectionOfTableRows
     }
-    
-    private func createDualSustainedLines(session: Session) -> Array<String> {
-        var collectionOfTableRows: Array<String> = Array()
-        var spacePrinted = false
-        
-        for case let move as Move in session.moves {
-            
-            var line = ""
-            var fourMistakes = ""
-            if move.positionY == VisualSustainSkip.FourSkips.rawValue {
-                fourMistakes = "[4 mistaken taps in a row]"
-            }
-            if move.success.boolValue {
-                
-                let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
-                
-                line = "picture \(move.positionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
-            } else {
-                // Two mistakes type
-                if (move.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-                    line = "picture \(move.positionX), False Positive, \(fourMistakes)\n"
-                } else if (move.interval == VisualSustainMistakeType.Miss.rawValue) {
-                    line = "picture \(move.positionX), Miss, \(fourMistakes)\n"
-                }
-            }
-            
-            if !spacePrinted && !move.inverted.boolValue { // Not training
-                line = "\n" + line
-                spacePrinted = true
-            }
-            
-            collectionOfTableRows.append(line)
-        }
-        
-        return collectionOfTableRows
-    }
-
 }
 

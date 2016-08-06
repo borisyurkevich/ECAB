@@ -91,6 +91,7 @@ class PlayersTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
         // Make selected player current player
 		let data = model.data as Data
         let selectedPlayerEntity = data.players[indexPath.row] as! Player
@@ -99,29 +100,5 @@ class PlayersTableViewController: UITableViewController {
 		model.save()
 		
         delegate?.pickSubject()
-    }
-    
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return indexPath.row != 0
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle
-        editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete{
-
-            let player: Player = model.data.players[indexPath.row] as! Player
-            model.managedContext.deleteObject(player)
-            
-            var error: NSError?
-            do {
-                try model.managedContext.save()
-            } catch let error1 as NSError {
-                error = error1
-                print("Could not save after delete: \(error)")
-            }
-            
-            // Last step
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-        }
     }
 }

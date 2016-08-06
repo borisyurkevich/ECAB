@@ -40,10 +40,10 @@ struct VisualSearchSpeed {
     static let hardMode = 30.0 // Default value, can be changed in CoreData
 }
 
-class VisualSearchFactory {
+class VisualSearchBoard {
     var numberOfCells = 0
     private var numberOfObjectTypes = 3
-    var data = Array<VisualSearchFruit>()
+    var data = Array<TestItem>()
     private var apples = 0
     private var whiteApples = 0
     private var strawberries = 0
@@ -56,13 +56,11 @@ class VisualSearchFactory {
         numberOfCells = data.count
     }
     
-    let t = VisualSearchFruit(type: .🍎) // target (red apple)
-    let w = VisualSearchFruit(type: .🍏) // white apple
-    let s = VisualSearchFruit(type: .🍓) // strawverry
-    
     func generateDefaultPattern(forScreen section: Int){
-        var f = [VisualSearchFruit]()
-
+        var f = [TestItem]()
+        let t = TestItem(type: .🍎) // target (red apple)
+        let w = TestItem(type: .🍏) // white apple
+        let s = TestItem(type: .🍓) // strawverry
         
         // This is complicated patters copied from PDF file. I separated matrix
         // of fruits in the files to 4 different sections, 5 rows each,
@@ -75,17 +73,14 @@ class VisualSearchFactory {
 			
 		case VisualSearchEasyModeView.TrainingOne.rawValue:
 			f.append(s); f.append(w); f.append(t);
-            
 		case VisualSearchEasyModeView.TrainingTwo.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
-            
 		case VisualSearchEasyModeView.TrainingThree.rawValue:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
-            
 		case VisualSearchEasyModeView.MotorOne.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
@@ -116,7 +111,6 @@ class VisualSearchFactory {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-            
 		case VisualSearchEasyModeView.MotorTwo.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -147,7 +141,6 @@ class VisualSearchFactory {
 			f.append(w); f.append(w); f.append(w);
 			f.append(t); f.append(w); f.append(w);
 			f.append(w);
-            
 		case VisualSearchEasyModeView.MotorThree.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -178,7 +171,6 @@ class VisualSearchFactory {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-            
 		case VisualSearchEasyModeView.One.rawValue:
 			f.append(t); f.append(s); f.append(s);
 			f.append(w); f.append(w); f.append(s);
@@ -239,7 +231,6 @@ class VisualSearchFactory {
 			f.append(s); f.append(w); f.append(w);
 			f.append(t); f.append(s); f.append(s);
 			f.append(w);
-            
 		case VisualSearchEasyModeView.Three.rawValue:
 			f.append(t); f.append(s); f.append(w);
 			f.append(s); f.append(w); f.append(w);
@@ -270,23 +261,18 @@ class VisualSearchFactory {
 			f.append(t); f.append(w); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
-            
 		case 10:
             break
-            
 		case VisualSearchHardModeView.TrainingOne.rawValue:
 			f.append(s); f.append(w); f.append(t);
-            
 		case VisualSearchHardModeView.TrainingTwo.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(s);
-            
 		case VisualSearchHardModeView.TrainingThree.rawValue:
 			f.append(s); f.append(t); f.append(w); f.append(s); f.append(w); f.append(s);
 			f.append(w); f.append(s); f.append(s); f.append(w); f.append(s); f.append(w);
 			f.append(w); f.append(s); f.append(w); f.append(s); f.append(t); f.append(w);
-            
 		case VisualSearchHardModeView.MotorOne.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(t);
@@ -332,7 +318,6 @@ class VisualSearchFactory {
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-            
 		case VisualSearchHardModeView.MotorTwo.rawValue:
 			f.append(w); f.append(w); f.append(w);
 			f.append(w); f.append(w); f.append(w);
@@ -378,7 +363,6 @@ class VisualSearchFactory {
 			f.append(w); f.append(t); f.append(w);
 			f.append(w); f.append(w); f.append(w);
 			f.append(w);
-            
 		case VisualSearchHardModeView.One.rawValue:
 			f.append(t); f.append(s); f.append(s);
 			f.append(w); f.append(w); f.append(s);
@@ -424,7 +408,6 @@ class VisualSearchFactory {
 			f.append(t); f.append(w); f.append(s);
 			f.append(s); f.append(w); f.append(w);
 			f.append(s);
-            
 		case VisualSearchHardModeView.Two.rawValue:
 			f.append(s); f.append(w); f.append(t);
 			f.append(w); f.append(w); f.append(w);
@@ -470,7 +453,6 @@ class VisualSearchFactory {
 			f.append(t); f.append(w); f.append(w);
 			f.append(s); f.append(w); f.append(w);
 			f.append(w);
-            
         default:
             print("⛔️ Set correct screen!")
         }

@@ -16,25 +16,15 @@ extension Data {
 
     @NSManaged var id: String
     @NSManaged var selectedGame: NSNumber
-    
     @NSManaged var visSearchDifficulty: NSNumber
     @NSManaged var visSearchSpeed: NSNumber
     @NSManaged var visSearchSpeedHard: NSNumber
-    
     @NSManaged var visSustAcceptedDelay: NSNumber?
     @NSManaged var visSustSpeed: NSNumber
     @NSManaged var visSustDelay: NSNumber
-    
-    @NSManaged var dualSustAcceptedDelay: NSNumber?
-    @NSManaged var dualSustSpeed: NSNumber
-    @NSManaged var dualSustDelay: NSNumber
-    
+    @NSManaged var counterpointingSessions: NSOrderedSet
     @NSManaged var players: NSOrderedSet
     @NSManaged var selectedPlayer: Player
     @NSManaged var sessions: NSOrderedSet
-    
-    @NSManaged var threshold: NSNumber
-    @NSManaged var voiceRate: NSNumber
-    @NSManaged var voicePitch: NSNumber
-    @NSManaged var voiceName: NSNumber
+
 }

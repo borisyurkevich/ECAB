@@ -15,14 +15,14 @@ import CoreData
 extension Move {
 
 	@NSManaged var column: NSNumber
+	@NSManaged var date: NSDate
 	@NSManaged var empty: NSNumber
 	@NSManaged var `repeat`: NSNumber
 	@NSManaged var row: NSNumber
 	@NSManaged var screenNumber: NSNumber
+	@NSManaged var success: NSNumber
 	@NSManaged var training: NSNumber
+	@NSManaged var session: Session
     @NSManaged var extraTimeLeft: NSNumber?
-    
-    @NSManaged var delay: NSNumber?
-    @NSManaged var intervalDouble: NSNumber?
 
 }
