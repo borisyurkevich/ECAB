@@ -22,12 +22,20 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     private var selectedSession: Session?
     private var selectedCounterpointingSession:CounterpointingSession?
     
+    var counterpointingSessions = [CounterpointingSession]()
+    var flankerSessions = [CounterpointingSession]()
+    var visualSustainSessions = [CounterpointingSession]()
+    
+    let rowNameformatter = NSDateFormatter()
+    let fileNameformatter = NSDateFormatter()
+    
     @IBOutlet weak var actionButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        actionButton.enabled = false
+        rowNameformatter.dateFormat = "dd MMM yyyy HH:mm"
+        fileNameformatter.dateFormat = "ddMMM_HHmm"
     }
     
 	override func viewWillAppear(animated: Bool) {
@@ -35,9 +43,37 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		
 		title = model.games[Int(model.data.selectedGame)]
 		
-		// For some reason there's delay and table is not updated streight after
-		// game is finished.
-		tableView.reloadData()
+        
+        actionButton.enabled = false
+        
+        // Build sessions
+        counterpointingSessions.removeAll()
+        flankerSessions.removeAll()
+        visualSustainSessions.removeAll()
+        
+        for session in model.data.counterpointingSessions {
+            
+            let mySession = session as! CounterpointingSession
+            let sessionType = SessionType(rawValue: mySession.type.integerValue)!
+            
+            switch sessionType {
+                
+            case .Counterpointing:
+                counterpointingSessions.append(mySession)
+                
+            case .Flanker, .FlankerRandomized:
+                
+                flankerSessions.append(mySession)
+                
+            case .VisualSustain:
+                
+                visualSustainSessions.append(mySession)
+            }
+        }
+        
+        // Need to reload table to show possible
+        // new elements.
+        tableView.reloadData()
 	}
     
     // Export
@@ -83,9 +119,6 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     }
     
     func writeFileAndReturnURL() -> NSURL? {
-        
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "ddMMM_HHmm"
 
         var fileName = ""
         var dateName: String
@@ -93,25 +126,25 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         switch model.data.selectedGame {
         case GamesIndex.VisualSearch.rawValue:
             if let visualSearchSession: Session = selectedSession {
-                dateName = formatter.stringFromDate(visualSearchSession.dateStart)
+                dateName = fileNameformatter.stringFromDate(visualSearchSession.dateStart)
                 fileName = "VisualSearch_\(dateName).csv"
             }
         break
         case GamesIndex.VisualSust.rawValue:
             if let counterpointingSession = selectedCounterpointingSession {
-                dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                dateName = fileNameformatter.stringFromDate(counterpointingSession.dateStart)
                 fileName = "VisualSustain_\(dateName).csv"
             }
         break
         case GamesIndex.Counterpointing.rawValue:
             if let counterpointingSession = selectedCounterpointingSession {
-                dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                dateName = fileNameformatter.stringFromDate(counterpointingSession.dateStart)
                 fileName = "Counterpoining_\(dateName).csv"
             }
         break
         case GamesIndex.Flanker.rawValue:
             if let counterpointingSession = selectedCounterpointingSession {
-                dateName = formatter.stringFromDate(counterpointingSession.dateStart)
+                dateName = fileNameformatter.stringFromDate(counterpointingSession.dateStart)
                 fileName = "Flanker_\(dateName).csv"
             }
         break
@@ -157,61 +190,35 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
 		
-		// Date
-		let formatter = NSDateFormatter()
-		formatter.dateFormat = "dd MMM yyyy HH:mm"
-		
 		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
+		
+        case GamesIndex.VisualSearch.rawValue:
 			let session = model.data.sessions[indexPath.row] as! Session
-			let dateStr = formatter.stringFromDate(session.dateStart)
+			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
 			
 		case GamesIndex.Counterpointing.rawValue:
 			
-			var cSessions = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == SessionType.Counterpointing.rawValue {
-					cSessions.append(cSession)
-				}
-			}
-			
-			let session = cSessions[indexPath.row]
-			let dateStr = formatter.stringFromDate(session.dateStart)
+			let session = counterpointingSessions[indexPath.row]
+			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
 			
 		case GamesIndex.Flanker.rawValue:
-			var fSessions = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let fSession = session as! CounterpointingSession
-				if fSession.type == SessionType.Flanker.rawValue
-                || fSession.type == SessionType.FlankerRandomized.rawValue {
-                
-					fSessions.append(fSession)
-				}
-			}
 			
-			let session = fSessions[indexPath.row]
-			let dateStr = formatter.stringFromDate(session.dateStart)
+			let session = flankerSessions[indexPath.row]
+			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
 			
 		case GamesIndex.VisualSust.rawValue:
-			var fSessions = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let fSession = session as! CounterpointingSession
-				if fSession.type.integerValue == SessionType.VisualSustain.rawValue {
-					fSessions.append(fSession)
-				}
-			}
 			
-			let session = fSessions[indexPath.row]
-			let dateStr = formatter.stringFromDate(session.dateStart)
+			let session = visualSustainSessions[indexPath.row]
+			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
 			let label = "\(indexPath.row+1). \(dateStr)"
 			cell.textLabel!.text = label
+            
 		default:
 			break;
 		}
@@ -224,34 +231,21 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		
 		switch model.data.selectedGame {
 		case GamesIndex.VisualSearch.rawValue:
-			returnValue = model.data.sessions.count
-			break
+			
+            returnValue = model.data.sessions.count
+			
 		case GamesIndex.Counterpointing.rawValue:
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == SessionType.Counterpointing.rawValue {
-					returnValue += 1
-				}
-			}
-			break
+			
+            returnValue = counterpointingSessions.count
+            
 		case GamesIndex.Flanker.rawValue:
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				
-                if cSession.type.integerValue == SessionType.Flanker.rawValue
-                || cSession.type.integerValue == SessionType.FlankerRandomized.rawValue {
-                
-					returnValue += 1
-				}
-			}
+            
+            returnValue = flankerSessions.count
+            
 		case GamesIndex.VisualSust.rawValue:
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				
-                if cSession.type.integerValue == SessionType.VisualSustain.rawValue {
-					returnValue += 1
-				}
-			}
+            
+            returnValue = visualSustainSessions.count
+            
 		default:
 			break
 		}
@@ -285,14 +279,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 					print("Could not save after delete: \(error)")
 				}
 			case GamesIndex.Counterpointing.rawValue:
-				var cSessions = [CounterpointingSession]()
-				for session in model.data.counterpointingSessions {
-					let cSession = session as! CounterpointingSession
-					if cSession.type.integerValue == 0 {
-						cSessions.append(cSession)
-					}
-				}
-				let session = cSessions[indexPath.row]
+
+				let session = counterpointingSessions[indexPath.row]
 				model.managedContext.deleteObject(session)
 				var error: NSError?
 				do {
@@ -302,14 +290,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 					print("Could not save after delete: \(error)")
 				}
 			case GamesIndex.Flanker.rawValue:
-				var fSessions = [CounterpointingSession]()
-				for session in model.data.counterpointingSessions {
-					let fSession = session as! CounterpointingSession
-					if fSession.type.integerValue == 1 {
-						fSessions.append(fSession)
-					}
-				}
-				let session = fSessions[indexPath.row]
+            
+				let session = flankerSessions[indexPath.row]
 				model.managedContext.deleteObject(session)
 				var error: NSError?
 				do {
@@ -319,14 +301,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 					print("Could not save after delete: \(error)")
 				}
 			case GamesIndex.VisualSust.rawValue:
-				var fSessions = [CounterpointingSession]()
-				for session in model.data.counterpointingSessions {
-					let fSession = session as! CounterpointingSession
-					if fSession.type.integerValue == 2 {
-						fSessions.append(fSession)
-					}
-				}
-				let session = fSessions[indexPath.row]
+				
+				let session = visualSustainSessions[indexPath.row]
 				model.managedContext.deleteObject(session)
 				var error: NSError?
 				do {
@@ -336,7 +312,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 					print("Could not save after delete: \(error)")
 				}
 			default:
-			break
+                break
 			}
 		
 			// Last step
@@ -347,15 +323,9 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let navVC = splitViewController!.viewControllers.last as! UINavigationController!
-		let detailVC = navVC.topViewController as! HistoryViewController
 		
-		let formatter = NSDateFormatter()
-		formatter.locale = NSLocale.autoupdatingCurrentLocale()
-		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss:S"
-		let smallFormatter = NSDateFormatter()
-		smallFormatter.locale = NSLocale.autoupdatingCurrentLocale()
-		smallFormatter.dateFormat = "HH:mm:ss:S"
+        let navVC = splitViewController!.viewControllers.last as! UINavigationController!
+		let detailVC = navVC.topViewController as! HistoryViewController
 		
 		let gameName = model.games[Int(model.data.selectedGame)]
         
@@ -370,14 +340,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			selectedSession = pickedSession
             
 		case GamesIndex.Counterpointing.rawValue:
-			var array = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == SessionType.Counterpointing.rawValue {
-					array.append(cSession)
-				}
-			}
-			let pickedSession = array[indexPath.row]
+
+			let pickedSession = counterpointingSessions[indexPath.row]
 			let counterpointingLog = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = counterpointingLog
 			detailVC.helpMessage.text = ""
@@ -386,17 +350,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			selectedCounterpointingSession = pickedSession
             
 		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
-			var array = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-                
-				if cSession.type.integerValue == SessionType.Flanker.rawValue
-                || cSession.type.integerValue == SessionType.FlankerRandomized.rawValue {
-                
-					array.append(cSession)
-				}
-			}
-			let pickedSession = array[indexPath.row]
+			
+            let pickedSession = flankerSessions[indexPath.row]
 			let text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName)
 			detailVC.textView.text = text
 			detailVC.helpMessage.text = ""
@@ -405,14 +360,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			selectedCounterpointingSession = pickedSession
             
 		case GamesIndex.VisualSust.rawValue:
-			var array = [CounterpointingSession]()
-			for session in model.data.counterpointingSessions {
-				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == SessionType.VisualSustain.rawValue {
-					array.append(cSession)
-				}
-			}
-			let pickedSession = array[indexPath.row]
+			
+            let pickedSession = visualSustainSessions[indexPath.row]
 			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName)
 			detailVC.helpMessage.text = ""
 			
