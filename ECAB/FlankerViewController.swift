@@ -382,44 +382,49 @@ class FlankerViewController: CounterpointingViewController {
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
                 trainingMode = false
                 gameModeInversed = true
-            case 24: // 0 1i
+            case 24: // 0
                 updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
-                gameModeInversed = false
-            case 25: // 1 2n
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
-            case 26: // 2 3n
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
                 gameModeInversed = true
-            case 27: // 3 4i
+            case 25: // 1
+                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                gameModeInversed = false
+            case 26: // 2
+                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                gameModeInversed = false
+            case 27: // 3
                 updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
-                gameModeInversed = false
-            case 28: // 4 5n
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
                 gameModeInversed = true
-            case 29: // 5 6i
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+            case 28: // 4
+                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
                 gameModeInversed = false
-            case 30: // 6 7n
+            case 29: // 5
+                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                gameModeInversed = true
+            case 30: // 6
                 updateScreen(.Fish, middle: .Mouse, right: .Mouse)
-            case 31: // 7 8n
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
-            case 32: // 8 9n
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-            case 33: // 9 10n
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
-                gameModeInversed = true
-            case 34: // 10 11i
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-            case 35: // 11 12i
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
                 gameModeInversed = false
-            case 36: // 12 13n
+            case 31: // 7
+                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+            case 32: // 8
+                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+            case 33: // 9
+                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                gameModeInversed = false
+            case 34: // 10
+                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                gameModeInversed = true
+            case 35: // 11
+                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                gameModeInversed = true
+            case 36: // 12
                 updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
-            case 37: // 13 14i
+                gameModeInversed = false
+            case 37: // 13
                 gameModeInversed = true
                 updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
-            case 38: // 14 15i
+            case 38: // 14
                 updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                gameModeInversed = false
             case 39:
                 presentMessage("...stop")
             case 40:
@@ -427,42 +432,43 @@ class FlankerViewController: CounterpointingViewController {
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
                 trainingMode = false
                 gameModeInversed = false
-            case 41: // 15 16n
+            case 41: // 15
                 updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
-            case 42: // 16 17n
+            case 42: // 16
                 updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-            case 43: // 17 18n
+            case 43: // 17
                 updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-                gameModeInversed = true
-            case 44: // 18 19i
+            case 44: // 18
                 updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
-            case 45: // 19 20i
+                gameModeInversed = true
+            case 45: // 19
                 updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-            case 46: //20 21i
+            case 46: //20
                 updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-                gameModeInversed = false
-            case 47: //21 22n
+            case 47: //21
                 updateScreen(.Mouse, middle: .Mouse, right: .Fish)
-            case 48: //22 23n
+                gameModeInversed = false
+            case 48: //22
                 updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
-                gameModeInversed = true
-            case 49: //23 24i
+            case 49: //23
                 updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
-                gameModeInversed = false
-            case 50: //24 25n
+                gameModeInversed = true
+            case 50: //24
                 updateScreen(.Mouse, middle: .Fish, right: .Mouse)
-            case 51: //25 26i
+                gameModeInversed = false
+            case 51: //25
                 gameModeInversed = true
                 updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
-            case 52: //26 27i
+            case 52: //26
                 updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
-            case 53: //27 28i
+            case 53: //27
                 updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-            case 54: //28 29i
+            case 54: //28
                 updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
-                gameModeInversed = false
-            case 55:  //29 30n
+                gameModeInversed = true
+            case 55:  //29
                 updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                gameModeInversed = false
             case 56: 
                 presentMessage("...stop")
             case 57:
