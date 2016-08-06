@@ -4,7 +4,7 @@
 //
 //  All time here is counted in seconds. 1.0 - is one second double.
 //
-//  Created by Raphael Bertin on 02/07/2015.
+//  Created by Boris Yurkevich on 02/07/2015.
 //  Copyright (c) 2015 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 
@@ -31,6 +31,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	var pictureAutoPresent = false
 	
 	let totalMissesBeforeWarningPrompt = 4
+	let timeNever = 86400.0 // Seconds in a day. Assuming that accepted dealy will be no longer than a day.
+	let timersScale = 0.01 // Hundreds of a second
     var timeToPresentNextScreen = NSTimer()
     var timeToPresentWhiteSpace = NSTimer()
 	var timeToGameOver = NSTimer()
@@ -52,9 +54,48 @@ class VisualSustainViewController: CounterpointingViewController {
 	let labelTagAttention = 1
 	let tagChangingGamePicture = 2
 	let timeWarningPromptRemainingOnScreen = 4.0
+
+	private enum Picture: String {
+		case Empty = "white_rect"
+		case Bed = "bed_inverse"
+		case Ball = "ball"
+		case Bike = "bike_inverse"
+		case Boat = "boat_inverse"
+		case Book = "book"
+		case Boot = "boot"
+		case Bus = "bus"
+		case Cake = "cake"
+		case Car = "car_inverse"
+		case Cat = "cat_inverse"
+		case Chair = "chair"
+		case Clock = "clock"
+		case Dog = "dog"
+		case Door = "door"
+		case Fish = "fish_iverse"
+		case Horse = "horse_inverse"
+		case Key = "key"
+		case Leaf = "leaf"
+		case Mouse = "mouse"
+		case Pig = "pig"
+		case Sock = "sock"
+		case Spoon = "spoon"
+		case Sun = "sun"
+		case Star = "star_yellow"
+		case Train = "train_inverse"
+		case Tree = "tree"
+	}
+	
+	private enum PlayerAction {
+		case Miss
+		case FalsePositive
+		case Hit
+	}
+	
+	private let practiceSequence: [Picture] = [.Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train, .Empty];
+	private let gameSequence: [Picture] = [.Sun, .Key, .Sock, .Boat, .Boot, .Pig, .Clock, .Car, .Book, .Door, .Cat, .Ball, .Bed, .Bus, .Horse, .Train, .Cake, .Leaf, .Dog, .Star, .Spoon, .Chair, .Bike, .Tree, .Fish, .Door, .Bus, .Ball, .Sun, .Horse, .Spoon, .Bed, .Leaf, .Boot, .Fish, .Star, .Cake, .Tree, .Sock, .Clock, .Book, .Cat, .Key, .Train, .Chair, .Pig,. Boat, .Car, .Bike, .Dog, .Bus, .Bed, .Sun, .Chair, .Dog, .Train, .Ball, .Horse, .Bike, .Leaf, .Sock, .Cake, .Boat, .Cat, .Key, .Door, .Tree, .Pig, .Spoon, .Clock, .Car, .Boot, .Book, .Fish, .Star, .Bike, .Clock, .Car, .Pig, .Boat, .Tree, .Cake, .Sock, .Bus, .Star, .Door, .Horse, .Spoon, .Ball, .Dog, .Boot, .Key, .Leaf, .Train, .Cat, .Chair, .Sun, .Bed, .Fish, .Book, .Cake, .Ball, .Star, .Bus, .Pig, .Train, .Boat, .Sun, .Fish, .Spoon, .Leaf, .Bed, .Dog, .Tree, .Door, .Boot, .Bike, .Cat, .Car, .Sock, .Chair, .Key, .Clock, .Book, .Horse, .Door,.Bike, .Car, .Leaf, .Cake, .Fish, .Bed, .Boot, .Horse, .Bus, .Train, .Sun, .Sock, .Chair, .Dog, .Star, .Ball, .Train, .Pig, .Key, .Clock, .Spoon, .Book, .Cat, .Boat, .Empty]
 	
 	override func viewDidLoad() {
-		sessionType = GamesIndex.VisualSust
+		sessionType = 2
         greeingMessage = labels.practice1
         
 		super.viewDidLoad()
@@ -70,10 +111,10 @@ class VisualSustainViewController: CounterpointingViewController {
 		timeAcceptDelay = model.data.visSustAcceptedDelay!.doubleValue
 		
 		session.speed = timePictureVisible
-		session.blank = timeBlankSpaceVisible
-		session.acceptedDelay = timeAcceptDelay
+		session.vsustBlank = timeBlankSpaceVisible
+		session.vsustAcceptedDelay = timeAcceptDelay
 		
-		timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
+		timeSinceAnimalAppeared = timeNever
 	}
 	
 	func startAutoPresentPictures() {
@@ -116,7 +157,6 @@ class VisualSustainViewController: CounterpointingViewController {
 			// Swithing trainingMode bool needed when practice is restarted.
 			trainingMode = true
 			presentMessage(labels.practice1)
-            TextToSpeechHelper.say("Practice 1")
 			
 		case 1:
 			showFirstView()
@@ -124,19 +164,17 @@ class VisualSustainViewController: CounterpointingViewController {
 		case 2:
 			removeFirstView()
 			presentMessage(labels.practice2)
-            TextToSpeechHelper.say("Practice 2")
 			
 		case 3 ... 23:
 			if !pictureAutoPresent {
 				startAutoPresentPictures()
 			}
 			indexForCurrentSequence = currentScreenShowing - 3
-			updateView(VisualSustainFactory.practiceSequence[indexForCurrentSequence].picture)
+			updateView(practiceSequence[indexForCurrentSequence])
 			
 		case 24:
 			stopAutoPresentPictures()
 			presentMessage(labels.gameReady)
-            TextToSpeechHelper.say("Game 1")
 			
 		case 25 ... 175:
 			if !pictureAutoPresent {
@@ -144,13 +182,12 @@ class VisualSustainViewController: CounterpointingViewController {
 				startAutoPresentPictures()
 			}
 			indexForCurrentSequence = currentScreenShowing - 25
-			updateView(VisualSustainFactory.gameSequence[indexForCurrentSequence].picture)
+			updateView(gameSequence[indexForCurrentSequence])
 			
 		case 176:
 			stopAutoPresentPictures()
 			stopTest()
 			presentMessage(labels.gameEnd)
-            TextToSpeechHelper.say("End of game")
 			
 		case 177:
 			presentPause()
@@ -164,11 +201,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func skip() {
     
         // Removes 5 images on tutorial.
-        for v in view.subviews {
-            if v.isKindOfClass(UIImageView) {
-                v.removeFromSuperview()
-            }
-        }
+        removeFirstView()
         
         timeToPresentWhiteSpace.invalidate()
         timeToPresentNextScreen.invalidate()
@@ -205,21 +238,21 @@ class VisualSustainViewController: CounterpointingViewController {
 		if isAnimal(pic) {
 			timeSinceAnimalAppeared = 0
 			timeToAcceptDelay.invalidate()
-			timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(Constants.timersScale.rawValue.doubleValue,
+			timeToAcceptDelay = NSTimer.scheduledTimerWithTimeInterval(timersScale,
 				target: self,
 				selector: #selector(VisualSustainViewController.updateAcceptedDelay),
 				userInfo: nil,
 				repeats: true)
 		}
 		
-		if (!trainingMode) {
+		if (!trainingMode && pic != .Empty) {
 			if isAnimal(pic) {
 				countAnimals += 1
 			} else {
 				countObjects += 1
 			}
-			session.pictures = countAnimals
-			session.objects = countObjects
+			session.vsustAnimals = countAnimals
+			session.vsustObjects = countObjects
 		}
 		
 		if timeBlankSpaceVisible >= model.kMinDelay {
@@ -246,10 +279,10 @@ class VisualSustainViewController: CounterpointingViewController {
     }
 	
 	func updateAcceptedDelay() {
-		timeSinceAnimalAppeared += Constants.timersScale.rawValue.doubleValue
+		timeSinceAnimalAppeared += timersScale
 		if timeSinceAnimalAppeared > timeAcceptDelay {
 			timeToAcceptDelay.invalidate()
-			timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
+			timeSinceAnimalAppeared = timeNever
 			// Because stopwatch was alive long enough to reach its limit, 
 			// we know that animal was missed.
 			noteMistake(.Miss)
@@ -301,12 +334,11 @@ class VisualSustainViewController: CounterpointingViewController {
 		if timeSinceAnimalAppeared <= timeAcceptDelay {
 			countTotalMissies = 0
 			
-            TextToSpeechHelper.positive();
-
-            log(.Hit)
+			playSound(.Positive)
+			log(.Hit)
 			
 			// Prevents following taps to be sucesfull
-			timeSinceAnimalAppeared = Constants.timeNever.rawValue.doubleValue
+			timeSinceAnimalAppeared = timeNever
 			timeToAcceptDelay.invalidate()
 			
 			if !trainingMode {
@@ -328,8 +360,8 @@ class VisualSustainViewController: CounterpointingViewController {
 				let falsePositives = session.errors.integerValue
 				session.errors = NSNumber(integer: (falsePositives + 1))
 			} else if mistakeType == .Miss {
-				let misses = session.miss!.integerValue
-				session.miss = NSNumber(integer: (misses + 1))
+				let misses = session.vsustMiss!.integerValue
+				session.vsustMiss = NSNumber(integer: (misses + 1))
 			}
 		}
 	}
@@ -340,7 +372,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		if (action == .Hit) {
 			successfulAction = true
-			model.addMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared, type: SuccessType.Picture.rawValue)
+			model.addCounterpointingMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
 			
 		} else {
 			// To avoid changing data model we will use interval to store mistake type
@@ -361,16 +393,16 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 			
 			var myDelay = timeSinceAnimalAppeared
-			if myDelay == Constants.timeNever.rawValue.doubleValue {
+			if myDelay == timeNever {
 				myDelay = 0
 			}
-			model.addMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: myDelay, type: SuccessType.Picture.rawValue)
+			model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: myDelay)
 		}
 	}
 	
 	func showWarningPrompt() {
     
-        TextToSpeechHelper.negative()
+		playSound(.Negative)
         
 		countTotalMissies = 0
 		let label = UILabel()
@@ -393,13 +425,11 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	
 	private func isAnimal(pic: Picture) -> Bool {
-		return
-                pic == .Pig ||
-                pic == .Cat ||
-                pic == .Dog ||
-                pic == .Horse ||
-                pic == .Fish ||
-                pic == .Mouse
+		var returnValue = false
+		if pic == .Pig || pic == .Cat || pic == .Dog || pic == .Horse || pic == .Fish || pic == .Mouse {
+			returnValue = true
+		}
+		return returnValue
 	}
 	
 	func gameOver() {
@@ -428,7 +458,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func quit() {
 		gamePaused = true
 		
-		if timeSinceAnimalAppeared != Constants.timeNever.rawValue.doubleValue {
+		if timeSinceAnimalAppeared != timeNever {
 			// Last animal was missed
 			noteMistake(.Miss)
 		}
@@ -452,5 +482,20 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 		}
 	}
+    
+    override func presentPause() {
+        timeToPresentNextScreen.pause()
+        timeToPresentWhiteSpace.pause()
+        timeToGameOver.pause()
+        timeToAcceptDelay.pause()
+        
+        super.presentPause()
+    }
+    override func resumeTest() {
+        timeToPresentNextScreen.resume()
+        timeToPresentWhiteSpace.resume()
+        timeToGameOver.resume()
+        timeToAcceptDelay.resume()
+    }
 
 }

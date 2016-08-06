@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G24b" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 4.3">
     <entity name="CounterpointingMove" representedClassName="ECAB.CounterpointingMove" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="delay" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="interval" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="inverted" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
-        <attribute name="positionX" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="positionY" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="poitionX" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="poitionY" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="success" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CounterpointingSession" inverseName="moves" inverseEntity="CounterpointingSession" syncable="YES"/>
     </entity>
     <entity name="CounterpointingSession" representedClassName="ECAB.CounterpointingSession" syncable="YES">
-        <attribute name="animals" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="blank" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="bundleVersion" optional="YES" attributeType="String" defaultValueString="Unknown" syncable="YES"/>
         <attribute name="comment" attributeType="String" defaultValueString="no comment" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="errors" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="imageSizeComment" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="miss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="misses" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="objects" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="speed" attributeType="Double" defaultValueString="2" syncable="YES"/>
         <attribute name="totalOne" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="totalTwo" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="vsustAnimals" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="vsustBlank" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="vsustMiss" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="vsustObjects" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data" inverseName="counterpointingSessions" inverseEntity="Data" syncable="YES"/>
         <relationship name="moves" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="CounterpointingMove" inverseName="session" inverseEntity="CounterpointingMove" syncable="YES"/>
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedCounterpointingSessions" inverseEntity="Player" syncable="YES"/>
@@ -77,11 +77,11 @@
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedSessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CounterpointingMove" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="CounterpointingSession" positionX="0" positionY="0" width="128" height="315"/>
-        <element name="Data" positionX="0" positionY="0" width="128" height="225"/>
-        <element name="Move" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="Player" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Session" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="165"/>
+        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="315"/>
+        <element name="Data" positionX="-432" positionY="-99" width="128" height="225"/>
+        <element name="Move" positionX="-450" positionY="254" width="128" height="195"/>
+        <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
+        <element name="Session" positionX="-441" positionY="50" width="128" height="210"/>
     </elements>
 </model>

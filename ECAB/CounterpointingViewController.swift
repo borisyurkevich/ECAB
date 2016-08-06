@@ -14,27 +14,47 @@ class CounterpointingViewController: TestViewController {
 	var screenPresentedDate = NSDate()
 	var lastMistakeDate = NSDate().dateByAddingTimeInterval(0)
 	var greeingMessage = "Practice: touch the side with the dog"
-	var sessionType = GamesIndex.Counterpointing
+	var sessionType = SessionType.Counterpointing.rawValue
 	private let pictureHeight: CGFloat = 197
 	private let pictureWidth: CGFloat = 281
-	var gameModeInversed = false
-	var touchModeInverserd = false
+	
+    // For the log only. This inicates that's test enviroment build in a way to 
+    // confuse subject. Also used in Flanker.
+    var gameModeInversed = false
+    
+    // Responcible for success or false positive. When not inversed dog pointing 
+    // to the same place subject suppost to tap.
+    private var touchModeInverserd = false
 
 	var leftTarget = false // first screen will be with dog on right
-	var session: Session!
+	var session: CounterpointingSession!
 	private var totalOne = 0.0
 	private var totalTwo = 0.0
+    
+    var pauseDate: NSDate?
+    var pauseLength: NSTimeInterval?
 	
 	// MARK: Override
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		model.addSession(model.data.selectedPlayer, type: sessionType.rawValue.integerValue)
-		session = model.data.sessions.lastObject as! Session
+		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
+		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
 		presentMessage(greeingMessage)
 		addTouchTargetButtons()
 	}
+    
+    override func presentPause() {
+        
+        pauseDate = NSDate()
+        super.presentPause()
+    }
+    override func resumeTest() {
+        
+        pauseLength = NSDate().timeIntervalSinceDate(pauseDate!)
+        pauseDate = nil
+    }
 	
 	override func skip() {
 		// Skips current interval: eather practice or test
@@ -48,16 +68,16 @@ class CounterpointingViewController: TestViewController {
 		let testInverse = 27
 		
 		switch currentScreenShowing {
-            case -1 ... 2:
-                currentScreenShowing = test
-            case 3 ... 24:
-                currentScreenShowing = practiceInverse
-            case 25 ... 27:
-                currentScreenShowing = testInverse
-            case 28 ... 49:
-                return
-            default:
-                return
+		case -1 ... 2:
+			currentScreenShowing = test
+		case 3 ... 24:
+			currentScreenShowing = practiceInverse
+		case 25 ... 27:
+			currentScreenShowing = testInverse
+		case 28 ... 49:
+			return
+		default:
+			return
 		}
 		presentNextScreen()
 	}
@@ -101,13 +121,13 @@ class CounterpointingViewController: TestViewController {
 			// This is needed when practice is restarted.
 			presentMessage(greeingMessage)
 		case 1 ... 2:
-			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
+			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 3:
 			trainingMode = false
 			presentMessage("Touch the side with the dog as quickly as you can!")
-            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
+            model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 4 ... 23:
-			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
+			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 24:
 			presentMessage("...stop")
 		case 25:
@@ -115,15 +135,15 @@ class CounterpointingViewController: TestViewController {
 			gameModeInversed = true
 			touchModeInverserd = true
 			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
-            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
+            model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 26 ... 27:
-			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
+			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 28:
 			trainingMode = false
 			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
-            model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
+            model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 29 ... 48:
-			presentDogOnSide(CounterpointingFactory.gameSequence[currentScreenShowing]!)
+			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 49:
 			presentMessage("...stop")
 		case 50:
@@ -172,11 +192,9 @@ class CounterpointingViewController: TestViewController {
 	func handleTouchLeft() {
 		tapHandler(true)
 	}
-    
 	func handleTouchRight() {
 		tapHandler(false)
 	}
-    
 	func tapHandler(touchLeft: Bool){
 		// Determine Success or failure
 		
@@ -190,19 +208,19 @@ class CounterpointingViewController: TestViewController {
 			if !touchModeInverserd {
 				// tap on the left side of the screen
 				if leftTarget {
-                    TextToSpeechHelper.positive()
+					playSound(.Positive)
 					result = true
 				} else {
-					TextToSpeechHelper.positive()
+					playSound(.Negative)
 					result = false
 				}
 			} else {
 				// tap on the left side of the screen
 				if leftTarget {
-					TextToSpeechHelper.negative()
+					playSound(.Negative)
 					result = false
 				} else {
-					TextToSpeechHelper.positive()
+					playSound(.Positive)
 					result = true
 				}
 			}
@@ -210,32 +228,38 @@ class CounterpointingViewController: TestViewController {
 			// Tap on right
 			if !touchModeInverserd {
 				if leftTarget {
-					TextToSpeechHelper.negative()
+					playSound(.Negative)
 					result = false
 				} else {
-					TextToSpeechHelper.positive()
+					playSound(.Positive)
 					result = true
 				}
 			} else {
 				if leftTarget {
-					TextToSpeechHelper.positive()
+					playSound(.Positive)
 					result = true
 				} else {
-					TextToSpeechHelper.negative()
+					playSound(.Negative)
 					result = false
 				}
 			}
 		}
 		
         let currentTime = NSDate()
+        
         var startPoint = screenPresentedDate
+        
+        if let pauseInterval = pauseLength {
+            startPoint = screenPresentedDate.dateByAddingTimeInterval(pauseInterval)
+        }
+        
         if !result {
             startPoint = screenPresentedDate.laterDate(lastMistakeDate)
             lastMistakeDate = currentTime
         }
         let interval = currentTime.timeIntervalSinceDate(startPoint)
         let screen: CGFloat = CGFloat(currentScreenShowing)
-        model.addMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0, type: SuccessType.Picture.rawValue)
+        model.addCounterpointingMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0)
         
 		if !trainingMode {
         
@@ -277,4 +301,58 @@ class CounterpointingViewController: TestViewController {
 	override  func getComment() -> String {
 		return session.comment
 	}
+	
+	// Shows on which side of the screen dog are
+	private let dogSequence: [Side?] =
+	    [nil,
+		.Right,
+		.Left,
+		nil,
+		.Left,
+		.Right,
+		.Left,
+		.Left,
+		.Right,
+		.Right,
+		.Left,
+		.Right,
+		.Left,
+		.Left,
+		.Left,
+		.Right,
+		.Left,
+		.Right,
+		.Right,
+		.Right,
+		.Left,
+		.Left,
+		.Right,
+		.Right,
+		nil,
+		nil,
+		.Right,
+		.Left,
+		nil,
+		.Right,
+		.Left,
+		.Right,
+		.Left,
+		.Right,
+		.Right,
+		.Left,
+		.Right,
+		.Right,
+		.Right,
+		.Left,
+		.Left,
+		.Right,
+		.Right,
+		.Left,
+		.Left,
+		.Left,
+		.Right,
+		.Left,
+		.Left,
+		nil,
+		nil]
 }

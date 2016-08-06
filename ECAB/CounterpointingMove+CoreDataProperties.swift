@@ -1,8 +1,8 @@
 //
-//  Player+CoreDataProperties.swift
+//  CounterpointingMove+CoreDataProperties.swift
 //  ECAB
 //
-//  Created by Raphaël Bertin on 07/07/2016.
+//  Created by Boris Yurkevich on 26/03/2016.
 //  Copyright © 2016 Oliver Braddick and Jan Atkinson. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -12,11 +12,8 @@
 import Foundation
 import CoreData
 
-extension Player {
+extension CounterpointingMove {
 
-    @NSManaged var name: String?
-    @NSManaged var data: Data?
-    @NSManaged var playedSessions: NSSet?
-    @NSManaged var selected: Data?
-
+    @NSManaged var delay: NSNumber?
+    @NSManaged var intervalDouble: NSNumber?
 }

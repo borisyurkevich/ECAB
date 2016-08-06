@@ -19,7 +19,8 @@ class CoreDataStack
 	init() {
 		//1
 		let bundle = NSBundle.mainBundle()
-		let modelURL = bundle.URLForResource("Model", withExtension:"momd")
+		let modelURL =
+		bundle.URLForResource("Model", withExtension:"momd")
 		model = NSManagedObjectModel(contentsOfURL: modelURL!)!
 		
 		//2
@@ -30,12 +31,16 @@ class CoreDataStack
 		context.persistentStoreCoordinator = psc
 		
 		//4
-		let documentsURL = CoreDataStack.applicationDocumentsDirectory()
+		let documentsURL =
+		CoreDataStack.applicationDocumentsDirectory()
 		
-		let storeURL = documentsURL.URLByAppendingPathComponent("Model")
+		let storeURL =
+		documentsURL.URLByAppendingPathComponent("Model")
 		
-		let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+		let options = [NSMigratePersistentStoresAutomaticallyOption: true,
+			NSInferMappingModelAutomaticallyOption: true]
 
+		
 		var error: NSError? = nil
 		do {
 			store = try psc.addPersistentStoreWithType(NSSQLiteStoreType,
