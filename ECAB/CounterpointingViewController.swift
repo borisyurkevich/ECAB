@@ -17,8 +17,14 @@ class CounterpointingViewController: TestViewController {
 	var sessionType = SessionType.Counterpointing.rawValue
 	private let pictureHeight: CGFloat = 197
 	private let pictureWidth: CGFloat = 281
-	var gameModeInversed = false
-	var touchModeInverserd = false
+	
+    // For the log only. This inicates that's test enviroment build in a way to 
+    // confuse subject. Also used in Flanker.
+    var gameModeInversed = false
+    
+    // Responcible for success or false positive. When not inversed dog pointing 
+    // to the same place subject suppost to tap.
+    private var touchModeInverserd = false
 
 	var leftTarget = false // first screen will be with dog on right
 	var session: CounterpointingSession!
