@@ -173,7 +173,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			var cSessions = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 0 {
+				if cSession.type.integerValue == SessionType.Counterpointing.rawValue {
 					cSessions.append(cSession)
 				}
 			}
@@ -187,7 +187,9 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			var fSessions = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let fSession = session as! CounterpointingSession
-				if fSession.type.integerValue == 1 {
+				if fSession.type == SessionType.Flanker.rawValue
+                || fSession.type == SessionType.FlankerRandomized.rawValue {
+                
 					fSessions.append(fSession)
 				}
 			}
@@ -201,7 +203,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			var fSessions = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let fSession = session as! CounterpointingSession
-				if fSession.type.integerValue == 2 {
+				if fSession.type.integerValue == SessionType.VisualSustain.rawValue {
 					fSessions.append(fSession)
 				}
 			}
@@ -227,7 +229,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		case GamesIndex.Counterpointing.rawValue:
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 0 {
+				if cSession.type.integerValue == SessionType.Counterpointing.rawValue {
 					returnValue += 1
 				}
 			}
@@ -235,14 +237,18 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		case GamesIndex.Flanker.rawValue:
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 1 {
+				
+                if cSession.type.integerValue == SessionType.Flanker.rawValue
+                || cSession.type.integerValue == SessionType.FlankerRandomized.rawValue {
+                
 					returnValue += 1
 				}
 			}
 		case GamesIndex.VisualSust.rawValue:
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 2 {
+				
+                if cSession.type.integerValue == SessionType.VisualSustain.rawValue {
 					returnValue += 1
 				}
 			}
@@ -367,7 +373,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 0 {
+				if cSession.type.integerValue == SessionType.Counterpointing.rawValue {
 					array.append(cSession)
 				}
 			}
@@ -383,7 +389,10 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 1 {
+                
+				if cSession.type.integerValue == SessionType.Flanker.rawValue
+                || cSession.type.integerValue == SessionType.FlankerRandomized.rawValue {
+                
 					array.append(cSession)
 				}
 			}
@@ -399,7 +408,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			var array = [CounterpointingSession]()
 			for session in model.data.counterpointingSessions {
 				let cSession = session as! CounterpointingSession
-				if cSession.type.integerValue == 2 {
+				if cSession.type.integerValue == SessionType.VisualSustain.rawValue {
 					array.append(cSession)
 				}
 			}
