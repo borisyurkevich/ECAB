@@ -415,7 +415,19 @@ class ECABLogCalculator {
             nonConflictMedian = 0
         } else {
             let nonConflictMedianIndex = (Double(countBlock1 + countBlock4) + 1) / 2
-            nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
+            let index = Int(nonConflictMedianIndex)
+            if nonConflictIntervals.count <= index {
+                // Prevent crash on viewing log for very short sessions
+                if let firstItem = nonConflictIntervals.first {
+                    nonConflictMedian = firstItem
+                } else {
+                    nonConflictMedian = 0
+                }
+                
+            } else {
+                nonConflictMedian = nonConflictIntervals[index]
+            }
+            
         }
         
         var conflictMedian: NSTimeInterval
@@ -423,7 +435,17 @@ class ECABLogCalculator {
             conflictMedian = 0
         } else {
             let conflictMedianIndex = (Double(countBlock2 + countBlock3) + 1) / 2
-            conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+            let index = Int(conflictMedianIndex)
+            if conflictIntervals.count <= index {
+                // Prevent crash on viewing log for very short sessions
+                if let firstItem = conflictIntervals.first {
+                    conflictMedian = firstItem
+                } else {
+                    conflictMedian = 0
+                }
+            } else {
+                conflictMedian = conflictIntervals[index]
+            }
         }
         
         // Calculate the deviations of each data point from the mean,
