@@ -19,12 +19,12 @@ enum GamesIndex: NSNumber {
     case VisualSearch = 0
     case Counterpointing = 1
     case Flanker = 2
-    case FlankerRandomised = 3
-    case VisualSust = 4
-    case AuditorySust = 5
-    case DualSust = 6
-    case Verbal = 7
-    case Balloon = 8
+    case VisualSust = 3
+    case AuditorySust = 4
+    case DualSust = 5
+    case Verbal = 6
+    case Balloon = 7
+    case FlankerRandomised = 8
 }
 
 enum GameTitle: String {

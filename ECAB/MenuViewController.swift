@@ -68,7 +68,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		model.setupWithContext(managedContext)
 
         difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
-        randomizeFlanker.on = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
+        randomizeFlanker.on = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandomized")
     }
 	
 	func dataLoaded() {
@@ -172,7 +172,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                     speedStepper.value = model.data.visSearchSpeedHard.doubleValue
                 }
                 break
-            case .Flanker:
+            case .Flanker, .FlankerRandomised:
                 gameIcon.image = UIImage(named: "icon_flanker")
             
                 randomizeFlanker.hidden = false
@@ -261,10 +261,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             case .Balloon:
                 gameIcon.image = UIImage(named: "icon_balloon")
                 break
-            
-            default:
-            break
-            
 		}
 	}
 	
