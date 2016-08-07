@@ -24,13 +24,11 @@ class LogModel {
         
         let totals = ECABLogCalculator.getVisualSearchTotals(session)
         
-		for move in session.moves {
-			
-			let gameMove = move as! Move
-			
+		for case let move as Move in session.moves {
+						
 			// Caluculate screen
 			var screenName = ""
-			let screenNum = gameMove.screenNumber.integerValue
+			let screenNum = move.screenNumber.integerValue
             var trainig = false
             
 			switch screenNum {
@@ -71,26 +69,26 @@ class LogModel {
 			
 			// Success or failure
 			var progress = ""
-			if gameMove.success.boolValue == true {
+			if move.success.boolValue == true {
 				progress = "success"
 			} else {
 				progress = "false positive"
 			}
 			
 			var `repeat` = ""
-			if gameMove.`repeat`.boolValue == true {
+			if move.`repeat`.boolValue == true {
 				`repeat` = "(repeat)"
 			} else {
 				`repeat` = "(unique)"
 			}
 			
-			let dateStr = smallFormatter.stringFromDate(gameMove.date)
+			let dateStr = smallFormatter.stringFromDate(move.date)
 			
 			var append: String
 			
-			if gameMove.empty.boolValue == false {
+			if move.empty.boolValue == false {
 				
-                append = "\(counter)) \(screenName) Down: \(gameMove.row) Across: \(gameMove.column) \(dateStr) \(progress) \(`repeat`) \n"
+                append = "\(counter)) \(screenName) Down: \(move.row) Across: \(move.column) \(dateStr) \(progress) \(`repeat`) \n"
 
 				counter += 1
 			} else {
@@ -123,34 +121,34 @@ class LogModel {
 		return visualSearchLog;
 	}
 	
-	func generateCounterpointingLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateCounterpointingLogWithSession(session: Session, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		var status = "success"
 
-		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
-			if !actualMove.success.boolValue {
+		for case let move as Move in session.moves {
+			
+			if !move.success.boolValue {
 				status = "false positive"
 			} else {
 				status = "success"
 			}
 			
 			var inverted = "non-conflict"
-			if actualMove.inverted.boolValue {
+			if move.inverted.boolValue {
 				inverted = "conflict"
 			}
             
             // Because I defined old interval as Integer I am changing it to Double
             // This condition is to keep old data working.
             var append: String
-            if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(r(newInterval)) sec. \(inverted) \n"
+            if let newInterval = move.intervalDouble as? Double {
+                append = "\(counter)) \(status) screen:\(move.positionX) \(r(newInterval)) ms \(inverted) \n"
             } else {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) sec. \(inverted) \n"
+                append = "\(counter)) \(status) screen:\(move.positionX) \(move.interval.integerValue) ms \(inverted) \n"
             }
             
-            if actualMove.poitionX == blankSpaceTag {
+            if move.positionX == blankSpaceTag {
                 details = details + "\n"
             } else {
                 details = details + append
@@ -177,17 +175,17 @@ class LogModel {
             "Screens = \(session.moves.count)\n" +
             "Errors = \(session.errors)\n\n" +
             "non-conflict (blocks 1)\n" +
-            "total time 1 = \(r(result.timeBlockNonConflict)) sec. \n" +
-            "mean reponse time 1 = \(r(result.nonConflictTimeMean)) sec. \n" +
-            "median reponse time 1 = \(r(result.nonConflictTimeMedian)) sec." +
+            "total time 1 = \(r(result.timeBlockNonConflict)) msec \n" +
+            "mean reponse time 1 = \(r(result.nonConflictTimeMean)) msec \n" +
+            "median reponse time 1 = \(r(result.nonConflictTimeMedian)) msec" +
             "\n\n" +
             "conflict (blocks 2)\n" +
-            "total time 2 = \(r(result.timeBlockConflict)) sec. \n" +
-            "mean reponse time 2 = \(r(result.conflictTimeMean)) sec. \n" +
-            "median reponse time 2 = \(r(result.conflictTimeMedian)) sec." +
+            "total time 2 = \(r(result.timeBlockConflict)) msec \n" +
+            "mean reponse time 2 = \(r(result.conflictTimeMean)) msec \n" +
+            "median reponse time 2 = \(r(result.conflictTimeMedian)) msec" +
             "\n\n" +
-            "ratio total2 / total1  = \(r(resultRatio)) sec. \n" +
-            "ratio median2 / median1 = \(r(mediansRatio)) sec." +
+            "ratio total2 / total1  = \(r(resultRatio)) msec \n" +
+            "ratio median2 / median1 = \(r(mediansRatio)) msec" +
             "\n\n" +
             "Session started: \(dateString)\n\n" +
             "Build: \(build)\n" +
@@ -195,33 +193,33 @@ class LogModel {
 		return text
 	}
 	
-	func generateFlankerLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateFlankerLogWithSession(session: Session, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		var status = "success"
-		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
-			if !actualMove.success.boolValue {
+		for case let move as Move in session.moves {
+			
+			if !move.success.boolValue {
 				status = "false positive"
 			} else {
 				status = "success"
 			}
 			
 			var inverted = "non-conflict"
-			if actualMove.inverted.boolValue {
+			if move.inverted.boolValue {
 				inverted = "conflict"
 			}
 			
             var append: String
-            if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) s. \(inverted) \n"
+            if let newInterval = move.intervalDouble as? Double {
+                append = "\(counter)) \(status) screen: \(move.positionX) \(r(newInterval)) s. \(inverted) \n"
             } else {
                 // Because I defined old interval as Integer I am chaning it to Double
                 // This condition is to keep old data working.
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval) s. \(inverted) \n"
+                append = "\(counter)) \(status) screen: \(move.positionX) \(move.interval) s. \(inverted) \n"
             }
             
-            if actualMove.poitionX == blankSpaceTag {
+            if move.positionX == blankSpaceTag {
                 details = details + "\n"
 			} else {
 				details = details + append
@@ -267,35 +265,35 @@ class LogModel {
 		return text
 	}
 	
-	func generateVisualSustainLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateVisualSustainLogWithSession(session: Session, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		
 		var spacePrinted = false
-		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
+		for case let move as Move in session.moves {
+			
 			
 			var append = ""
 			var fourMistakes = ""
-			if actualMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+			if move.positionY == VisualSustainSkip.FourSkips.rawValue {
 				fourMistakes = "[4 mistaken taps in a row]"
 			}
-			if actualMove.success.boolValue {
+			if move.success.boolValue {
 				
-				let formattedDelay = String(format: "%.02f", actualMove.delay!.doubleValue)
+				let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
 				
-				append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+				append = "picture \(move.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
 			} else {
 				// Two mistakes type
-				if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
-					append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
-				} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
-					append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
+				if (move.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+					append = "picture \(move.positionX) - False Positive \(fourMistakes)\n"
+				} else if (move.interval == VisualSustainMistakeType.Miss.rawValue) {
+					append = "picture \(move.positionX) - Miss \(fourMistakes)\n"
 				}
 				
 			}
 			
-			if !spacePrinted && !actualMove.inverted.boolValue { // Not training
+			if !spacePrinted && !move.inverted.boolValue { // Not training
 				details = details + "\n" + append
 				spacePrinted = true
 			} else {
@@ -314,23 +312,207 @@ class LogModel {
 		}
 		
 		let exposure = session.speed.doubleValue
-		let blank = session.vsustBlank!.doubleValue
+		let blank = session.blank!.doubleValue
 		let interval = exposure + blank
-		let objectsTotal = session.vsustObjects!.intValue
-		let animalsTotal = session.vsustAnimals!.intValue
+        
+        let animalsTotal = session.pictures!.intValue
+		let objectsTotal = session.objects!.intValue
 		
 		let text = "\(gameName) (build \(build))\n\n" +
         "Player: \(session.player.name)\n" +
         "Interval = \(interval) exposure = \(exposure) " +
         "blank = \(blank) " +
-        "accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\n" +
+        "accepted delay = \(session.acceptedDelay!.doubleValue)\n" +
         "Objects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\n" +
         "Total score = \(session.score) moves = \(session.moves.count)\n" +
-        "False positives = \(session.errors) Misses = \(session.vsustMiss!)\n\n" +
+        "False positives = \(session.errors) Misses = \(session.miss!)\n\n" +
         "Comment: \(comment)\n\n" +
         "Session started: \(dateString)\n\n" +
         "\(details)"
         
 		return text
 	}
+    
+    func generateDualSustainLogWithSession(session: Session, gameName: String) -> String {
+                
+        var details = ""
+        var counter = 1
+        
+        var spacePrinted = false
+        for case let move as Move in session.moves {
+            
+            
+            var append = ""
+            var fourMistakes = ""
+            if move.positionY == VisualSustainSkip.FourSkips.rawValue {
+                fourMistakes = "[4 mistaken taps in a row]"
+            }
+            
+            let moveType = (move.type == SuccessType.Picture.rawValue) ? "Picture" : "Sound"
+
+            if move.success.boolValue {
+                let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
+                append = "\(moveType) \(move.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+            } else {
+                // Two mistakes type
+                if (move.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                    append = "\(moveType) \(move.positionX) - False Positive \(fourMistakes)\n"
+                } else if (move.interval == VisualSustainMistakeType.Miss.rawValue) {
+                    append = "\(moveType) \(move.positionX) - Miss \(fourMistakes)\n"
+                }
+            }
+            
+            if !spacePrinted && !move.inverted.boolValue { // Not training
+                details = details + "\n" + append
+                spacePrinted = true
+            } else {
+                details = details + append
+            }
+            counter += 1
+        }
+        
+        let dateString = formatter.stringFromDate(session.dateStart)
+        
+        let comment = session.comment
+        
+        var build = "unknown"
+        if let canonicBuild = session.bundleVersion as String? {
+            build = canonicBuild
+        }
+        
+        let exposure = session.speed.doubleValue
+        let blank = session.blank!.doubleValue
+        let interval = exposure + blank
+        
+        let objectsTotal = session.objects!.intValue
+        
+        let text = "\(gameName) (build \(build))\n\n" +
+            "Player: \(session.player.name)\n" +
+            "Interval = \(interval) exposure = \(exposure) " +
+            "blank = \(blank) " +
+            "accepted delay = \(session.acceptedDelay!.doubleValue)\n" +
+            "Objects = \(objectsTotal)\n" +
+            "Animal pictures = \(session.pictures!.intValue) (doesn't count while in training)\n" +
+            "Animal sounds = \(session.sounds!.intValue) (doesn't count while in training)\n" +
+            "Total score = \(session.score) moves = \(session.moves.count)\n" +
+            "False positives = \(session.errors) Misses = \(session.miss!)\n\n" +
+            "Comment: \(comment)\n\n" +
+            "Session started: \(dateString)\n\n" +
+            "\(details)"
+        
+        return text
+    }
+    
+    func generateAuditorySustainLogWithSession(session: Session, gameName: String) -> String {
+        var details = ""
+        var counter = 1
+        
+        var spacePrinted = false
+        for case let move as Move in session.moves {
+            
+            
+            var append = ""
+            var fourMistakes = ""
+            if move.positionY == VisualSustainSkip.FourSkips.rawValue {
+                fourMistakes = "[4 mistaken taps in a row]"
+            }
+            if move.success.boolValue {
+                
+                let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
+                
+                append = "Sound \(move.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+            } else {
+                // Two mistakes type
+                if (move.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                    append = "Sound \(move.positionX) - False Positive \(fourMistakes)\n"
+                } else if (move.interval == VisualSustainMistakeType.Miss.rawValue) {
+                    append = "Sound \(move.positionX) - Miss \(fourMistakes)\n"
+                }
+                
+            }
+            
+            if !spacePrinted && !move.inverted.boolValue { // Not training
+                details = details + "\n" + append
+                spacePrinted = true
+            } else {
+                details = details + append
+            }
+            counter += 1
+        }
+        
+        let dateString = formatter.stringFromDate(session.dateStart)
+        
+        let comment = session.comment
+        
+        var build = "unknown"
+        if let canonicBuild = session.bundleVersion as String? {
+            build = canonicBuild
+        }
+        
+        let exposure = session.speed.doubleValue
+        let blank = session.blank!.doubleValue
+        let interval = exposure + blank
+        
+        let objectsTotal = session.objects!.intValue
+        
+        let text = "\(gameName) (build \(build))\n\n" +
+            "Player: \(session.player.name)\n" +
+            "Interval = \(interval) exposure = \(exposure) " +
+            "blank = \(blank) " +
+            "accepted delay = \(session.acceptedDelay!.doubleValue)\n" +
+            "Objects = \(objectsTotal) animal sounds = \(session.sounds!.intValue) (doesn't count while in training)\n" +
+            "Total score = \(session.score) moves = \(session.moves.count)\n" +
+            "False positives = \(session.errors) Misses = \(session.miss!)\n\n" +
+            "Comment: \(comment)\n\n" +
+            "Session started: \(dateString)\n\n" +
+            "\(details)"
+        
+        return text
+    }
+    
+    func generateVebalOppositesLogWithSession(session: Session, gameName: String) -> String {
+        var details = ""
+        var counter = 1
+        var gameCounter = 1
+        var moveCounter = 0
+
+        for case let move as Move in session.moves {
+            
+            var append = ""
+            var fourMistakes = ""
+            if move.positionY == VisualSustainSkip.FourSkips.rawValue {
+                fourMistakes = "[4 mistaken taps in a row]"
+            }
+            
+            let formattedDelay = String(format: "%.02f", move.delay!.doubleValue)
+            append = "Picture \(move.positionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
+            
+            if move.positionX == blankSpaceTag {
+                details = details + "\nGame \(gameCounter) :\n"
+                gameCounter += 1
+            } else {
+                details = details + append
+                moveCounter += 1
+            }
+            counter += 1
+        }
+        
+        let dateString = formatter.stringFromDate(session.dateStart)
+        
+        let comment = session.comment
+        
+        var build = "unknown"
+        if let canonicBuild = session.bundleVersion as String? {
+            build = canonicBuild
+        }
+        
+        let text = "\(gameName) (build \(build))\n\n" +
+            "Player: \(session.player.name)\n" +
+            "Moves = \(moveCounter)\n" +
+            "Comment: \(comment)\n\n" +
+            "Session started: \(dateString)\n\n" +
+            "\(details)"
+        
+        return text
+    }
 }

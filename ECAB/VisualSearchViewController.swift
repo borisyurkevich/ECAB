@@ -23,7 +23,7 @@ class VisualSearchViewController: TestViewController,
 
     private var cellWidth:CGFloat = 190 // only for the first training view - very big
     private var cellHeight:CGFloat = 190
-    private var board = VisualSearchBoard(stage: 0)
+    private var board = VisualSearchFactory(stage: 0)
     private let interSpacing:CGFloat = 27
 	private var timer = NSTimer()
 	private var timerLastStarted = NSDate()
@@ -88,7 +88,7 @@ class VisualSearchViewController: TestViewController,
         collectionView.registerClass(VisualSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Insert fresh session entity
-		model.addSession(model.data.selectedPlayer)
+        model.addSession(model.data.selectedPlayer, type: model.data.selectedGame.integerValue);
         session = model.data.sessions.lastObject as! Session
 		session.speed = gameSpeed
 		session.difficulty = model.data.visSearchDifficulty
@@ -100,14 +100,15 @@ class VisualSearchViewController: TestViewController,
 		
 		backButton.setTitle("Back", forState: UIControlState.Normal)
 	}
-    
-    override func presentPause() {
-        timer.pause()
-        super.presentPause()
-    }
-    override func resumeTest() {
-        timer.resume()
-    }
+	
+	override func presentPause() {
+		timer.pause()
+		super.presentPause()
+	}
+	
+	override func resumeTest() {
+		timer.resume()
+	}
 	
 	var isGameStarted = false
 	func startGame() {
@@ -163,7 +164,7 @@ class VisualSearchViewController: TestViewController,
                 self.updateInsets()
 				
                 // Request new board
-                self.board = VisualSearchBoard(stage: self.currentView)
+                self.board = VisualSearchFactory(stage: self.currentView)
 				self.checkedMarks = []
 				self.checkedTargets = []
                 
@@ -273,7 +274,7 @@ class VisualSearchViewController: TestViewController,
 			return
 		}
 		
-		self.board = VisualSearchBoard(stage: 10)
+		self.board = VisualSearchFactory(stage: 10)
 		
 		collectionView.performBatchUpdates({
 			
@@ -301,7 +302,7 @@ class VisualSearchViewController: TestViewController,
 				
         cell.backgroundColor = UIColor.redColor()
         
-        let aFruit:TestItem = self.board.data[indexPath.row]
+        let aFruit:VisualSearchFruit = self.board.data[indexPath.row]
         cell.imageView = UIImageView(frame: CGRectMake(0, 0, cellWidth, cellHeight));
         cell.imageView.image = aFruit.image
         cell.addSubview(cell.imageView)
@@ -338,11 +339,7 @@ class VisualSearchViewController: TestViewController,
 		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
         
         // Sound
-        if cell.fruit.isValuable {
-            playSound(.Positive)
-        } else {
-            playSound(.Negative)
-        }
+        cell.fruit.isValuable ? TextToSpeechHelper.positive() : TextToSpeechHelper.negative();
 		
 		var isRepeat = false
 		for item in checkedMarks {

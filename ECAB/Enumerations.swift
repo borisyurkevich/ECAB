@@ -24,6 +24,7 @@ enum GamesIndex: NSNumber {
     case DualSust = 5
     case Verbal = 6
     case Balloon = 7
+    case FlankerRandomised = 8
 }
 
 enum GameTitle: String {

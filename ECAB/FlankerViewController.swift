@@ -20,9 +20,9 @@ class FlankerViewController: CounterpointingViewController {
         isFlankerRandomized = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
         
         if isFlankerRandomized {
-            sessionType = SessionType.FlankerRandomized.rawValue
+            sessionType = GamesIndex.FlankerRandomised
         } else {
-            sessionType = SessionType.Flanker.rawValue
+            sessionType = GamesIndex.Flanker
         }
         super.viewDidLoad()
 		
@@ -170,7 +170,7 @@ class FlankerViewController: CounterpointingViewController {
             case 7:
                 presentMessage("Practice 1. Ready...")
                 // Next line is to insert white space in the log.
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
             case 8:
                 updateScreen(.Fish, middle: .Mouse, right: .Mouse)
             case 9:
@@ -187,7 +187,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 15:
                 presentMessage("Practice 2. Ready")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
             case 16:
                 updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
             case 17:
@@ -204,7 +204,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 23:
                 presentMessage("Game 1. Ready...")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
                 gameModeInversed = false
                 trainingMode = false
             case 24: // 0
@@ -231,7 +231,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 35:
                 presentMessage("Game 2. Ready...")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
                 gameModeInversed = true
             case 36: // 10
                 updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
@@ -257,7 +257,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 47:
                 presentMessage("Game 3. Ready...")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
                 gameModeInversed = true
             case 48: // 20
                 updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
@@ -283,7 +283,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 59:
                 presentMessage("Game 4. Ready")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
                 gameModeInversed = false
             case 60: // 30
                 updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
@@ -345,7 +345,7 @@ class FlankerViewController: CounterpointingViewController {
             case 7:
                 presentMessage("Practice 1. Ready...")
                 // Next line is to insert white space in the log.
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
             case 8:
                 updateScreen(.Fish, middle: .Mouse, right: .Mouse)
             case 9:
@@ -362,7 +362,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 15:
                 presentMessage("Practice 2. Ready")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
             case 16:
                 updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
             case 17:
@@ -379,7 +379,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 23:
                 presentMessage("Game 1. Ready...")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
                 trainingMode = false
                 gameModeInversed = true
             case 24: // 0
@@ -429,7 +429,7 @@ class FlankerViewController: CounterpointingViewController {
                 presentMessage("...stop")
             case 40:
                 presentMessage("Game 2. Ready...")
-                model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
+                model.addMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0, type: SuccessType.Picture.rawValue)
                 trainingMode = false
                 gameModeInversed = false
             case 41: // 15

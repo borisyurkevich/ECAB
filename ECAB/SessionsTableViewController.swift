@@ -20,60 +20,22 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     // http://stackoverflow.com/a/32746567/1162044
 	
     private var selectedSession: Session?
-    private var selectedCounterpointingSession:CounterpointingSession?
-    
-    var counterpointingSessions = [CounterpointingSession]()
-    var flankerSessions = [CounterpointingSession]()
-    var visualSustainSessions = [CounterpointingSession]()
-    
-    let rowNameformatter = NSDateFormatter()
-    let fileNameformatter = NSDateFormatter()
     
     @IBOutlet weak var actionButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        rowNameformatter.dateFormat = "dd MMM yyyy HH:mm"
-        fileNameformatter.dateFormat = "ddMMM_HHmm"
+        actionButton.enabled = false
     }
     
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		title = model.games[Int(model.data.selectedGame)]
+		title = model.games[Int(model.data.selectedGame)].rawValue
 		
-        
-        actionButton.enabled = false
-        
-        // Build sessions
-        counterpointingSessions.removeAll()
-        flankerSessions.removeAll()
-        visualSustainSessions.removeAll()
-        
-        for session in model.data.counterpointingSessions {
-            
-            let mySession = session as! CounterpointingSession
-            let sessionType = SessionType(rawValue: mySession.type.integerValue)!
-            
-            switch sessionType {
-                
-            case .Counterpointing:
-                counterpointingSessions.append(mySession)
-                
-            case .Flanker, .FlankerRandomized:
-                
-                flankerSessions.append(mySession)
-                
-            case .VisualSustain:
-                
-                visualSustainSessions.append(mySession)
-            }
-        }
-        
-        // Need to reload table to show possible
-        // new elements.
-        tableView.reloadData()
+		// For some reason there's delay and table is not updated streight after
+		// game is finished.
+		tableView.reloadData()
 	}
     
     // Export
@@ -103,6 +65,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
             documentInteractionController!.presentOpenInMenuFromBarButtonItem(actionButton, animated: true)
         }
     }
+    
     func presentActivityViewController() {
         if let url = writeFileAndReturnURL() {
             let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
@@ -119,45 +82,59 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     }
     
     func writeFileAndReturnURL() -> NSURL? {
+        
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "ddMMM_HHmm"
 
         var fileName = ""
         var dateName: String
         
         switch model.data.selectedGame {
-        case GamesIndex.VisualSearch.rawValue:
-            if let visualSearchSession: Session = selectedSession {
-                dateName = fileNameformatter.stringFromDate(visualSearchSession.dateStart)
-                fileName = "VisualSearch_\(dateName).csv"
-            }
-        break
-        case GamesIndex.VisualSust.rawValue:
-            if let counterpointingSession = selectedCounterpointingSession {
-                dateName = fileNameformatter.stringFromDate(counterpointingSession.dateStart)
-                fileName = "VisualSustain_\(dateName).csv"
-            }
-        break
-        case GamesIndex.Counterpointing.rawValue:
-            if let counterpointingSession = selectedCounterpointingSession {
-                dateName = fileNameformatter.stringFromDate(counterpointingSession.dateStart)
-                fileName = "Counterpoining_\(dateName).csv"
-            }
-        break
-        case GamesIndex.Flanker.rawValue:
-            if let counterpointingSession = selectedCounterpointingSession {
-                dateName = fileNameformatter.stringFromDate(counterpointingSession.dateStart)
-                fileName = "Flanker_\(dateName).csv"
-            }
-        break
-        default:
-        break
+            case GamesIndex.VisualSearch.rawValue:
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
+                    fileName = "VisualSearch_\(dateName).csv"
+                }
+                break
+            case GamesIndex.VisualSust.rawValue:
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
+                    fileName = "VisualSustain_\(dateName).csv"
+                }
+                break
+            case GamesIndex.Counterpointing.rawValue:
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
+                    fileName = "Counterpoining_\(dateName).csv"
+                }
+                break
+            case GamesIndex.Flanker.rawValue:
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
+                    fileName = "Flanker_\(dateName).csv"
+                }
+                break
+            case GameTitle.auditorySust.rawValue:
+                break
+            case GameTitle.dualSust.rawValue:
+                if let session = selectedSession {
+                    dateName = formatter.stringFromDate(session.dateStart)
+                    fileName = "DualSustain_\(dateName).csv"
+                }
+                break
+            case GameTitle.verbal.rawValue:
+                break
+            case GameTitle.balloon.rawValue:
+                break
+            default:
+                break
         }
 
         let tempExportPath = NSTemporaryDirectory().stringByAppendingString(fileName)
         let url: NSURL! = NSURL(fileURLWithPath: tempExportPath)
         
         let exportManager = DataExportModel()
-        exportManager.pickedVisualSearchSession = selectedSession
-        exportManager.pickedCounterpointingSession = selectedCounterpointingSession
+        exportManager.pickedSession = selectedSession
         
         if let data = exportManager.export() {
             do {
@@ -190,66 +167,36 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
 		
-		switch model.data.selectedGame {
+		// Date
+		let formatter = NSDateFormatter()
+		formatter.dateFormat = "dd MMM yyyy HH:mm"
+        
+        var sessions = [Session]()
+        
+        for case let session as Session in model.data.sessions {
+            if session.type.integerValue == model.data.selectedGame {
+                sessions.append(session)
+            }
+        }
+        
+        let session = sessions[indexPath.row]
+        let dateStr = formatter.stringFromDate(session.dateStart)
+        let label = "\(indexPath.row+1). \(dateStr)"
+        cell.textLabel!.text = label
 		
-        case GamesIndex.VisualSearch.rawValue:
-			let session = model.data.sessions[indexPath.row] as! Session
-			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-			
-		case GamesIndex.Counterpointing.rawValue:
-			
-			let session = counterpointingSessions[indexPath.row]
-			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-			
-		case GamesIndex.Flanker.rawValue:
-			
-			let session = flankerSessions[indexPath.row]
-			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-			
-		case GamesIndex.VisualSust.rawValue:
-			
-			let session = visualSustainSessions[indexPath.row]
-			let dateStr = rowNameformatter.stringFromDate(session.dateStart)
-			let label = "\(indexPath.row+1). \(dateStr)"
-			cell.textLabel!.text = label
-            
-		default:
-			break;
-		}
 		return cell
 	}
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
 		var returnValue = 0
-		
-		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			
-            returnValue = model.data.sessions.count
-			
-		case GamesIndex.Counterpointing.rawValue:
-			
-            returnValue = counterpointingSessions.count
-            
-		case GamesIndex.Flanker.rawValue:
-            
-            returnValue = flankerSessions.count
-            
-		case GamesIndex.VisualSust.rawValue:
-            
-            returnValue = visualSustainSessions.count
-            
-		default:
-			break
-		}
-		
+        
+        for case let session as Session in model.data.sessions {
+            if session.type.integerValue == model.data.selectedGame {
+                returnValue += 1
+            }
+        }
+        
 		return returnValue
 	}
 	
@@ -265,55 +212,22 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		
 			let navVC = splitViewController!.viewControllers.last as! UINavigationController
 			let detailVC = navVC.topViewController as! HistoryViewController
-		
-			// Session to remove
-			switch model.data.selectedGame {
-			case GamesIndex.VisualSearch.rawValue:
-				let session = model.data.sessions[indexPath.row] as! Session
-				model.managedContext.deleteObject(session)
-				var error: NSError?
-				do {
-					try model.managedContext.save()
-				} catch let error1 as NSError {
-					error = error1
-					print("Could not save after delete: \(error)")
-				}
-			case GamesIndex.Counterpointing.rawValue:
-
-				let session = counterpointingSessions[indexPath.row]
-				model.managedContext.deleteObject(session)
-				var error: NSError?
-				do {
-					try model.managedContext.save()
-				} catch let error1 as NSError {
-					error = error1
-					print("Could not save after delete: \(error)")
-				}
-			case GamesIndex.Flanker.rawValue:
             
-				let session = flankerSessions[indexPath.row]
-				model.managedContext.deleteObject(session)
-				var error: NSError?
-				do {
-					try model.managedContext.save()
-				} catch let error1 as NSError {
-					error = error1
-					print("Could not save after delete: \(error)")
-				}
-			case GamesIndex.VisualSust.rawValue:
-				
-				let session = visualSustainSessions[indexPath.row]
-				model.managedContext.deleteObject(session)
-				var error: NSError?
-				do {
-					try model.managedContext.save()
-				} catch let error1 as NSError {
-					error = error1
-					print("Could not save after delete: \(error)")
-				}
-			default:
-                break
-			}
+            var sessions = [Session]()
+            for case let session as Session in model.data.sessions {
+                if session.type.integerValue == model.data.selectedGame{
+                    sessions.append(session)
+                }
+            }
+            let session = sessions[indexPath.row]
+            model.managedContext.deleteObject(session)
+            var error: NSError?
+            do {
+                try model.managedContext.save()
+            } catch let error1 as NSError {
+                error = error1
+                print("Could not save after delete: \(error)")
+            }
 		
 			// Last step
 			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -323,53 +237,67 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
-        let navVC = splitViewController!.viewControllers.last as! UINavigationController!
+		let navVC = splitViewController!.viewControllers.last as! UINavigationController!
 		let detailVC = navVC.topViewController as! HistoryViewController
+		
+		let formatter = NSDateFormatter()
+		formatter.locale = NSLocale.autoupdatingCurrentLocale()
+		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss:S"
+		let smallFormatter = NSDateFormatter()
+		smallFormatter.locale = NSLocale.autoupdatingCurrentLocale()
+		smallFormatter.dateFormat = "HH:mm:ss:S"
 		
 		let gameName = model.games[Int(model.data.selectedGame)]
         
-		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			let pickedSession = model.data.sessions[indexPath.row] as! Session
-			let visualSearchLog = logModel.generateVisualSearchLogWithSession(pickedSession, gameName: gameName)
-			detailVC.textView.text = visualSearchLog
-			detailVC.helpMessage.text = ""
-			
-            actionButton.enabled = true
-			selectedSession = pickedSession
+        var sessions = [Session]()
+        for case let session as Session in model.data.sessions {
+            if session.type.integerValue == model.data.selectedGame {
+                sessions.append(session)
+            }
+        }
+        
+        let pickedSession = sessions[indexPath.row]
+        
+        switch model.data.selectedGame {
             
-		case GamesIndex.Counterpointing.rawValue:
+            case GamesIndex.VisualSearch.rawValue:
+                detailVC.textView.text = logModel.generateVisualSearchLogWithSession(pickedSession, gameName: gameName.rawValue)
+                break
+            
+            case GamesIndex.Counterpointing.rawValue:
+                detailVC.textView.text = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName.rawValue)
+                break
+            
+            case GamesIndex.Flanker.rawValue:
+                detailVC.textView.text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName.rawValue)
+                break
+            
+            case GamesIndex.VisualSust.rawValue:
+                detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName.rawValue)
+                break
+            
+            case GamesIndex.AuditorySust.rawValue:
+                detailVC.textView.text = logModel.generateAuditorySustainLogWithSession(pickedSession, gameName: gameName.rawValue)
+                break
+            
+            case GamesIndex.DualSust.rawValue:
+                detailVC.textView.text = logModel.generateDualSustainLogWithSession(pickedSession, gameName: gameName.rawValue)
+                break
+            
+            case GamesIndex.Verbal.rawValue:
+                detailVC.textView.text = logModel.generateVebalOppositesLogWithSession(pickedSession, gameName: gameName.rawValue)
+                break
+            
+            case GamesIndex.Balloon.rawValue:
+                break
+                
+            default:
+                break
+        }
 
-			let pickedSession = counterpointingSessions[indexPath.row]
-			let counterpointingLog = logModel.generateCounterpointingLogWithSession(pickedSession, gameName: gameName)
-			detailVC.textView.text = counterpointingLog
-			detailVC.helpMessage.text = ""
-			
-            actionButton.enabled = true
-			selectedCounterpointingSession = pickedSession
-            
-		case GamesIndex.Flanker.rawValue: // Flanker - exact copy of Counterpointing
-			
-            let pickedSession = flankerSessions[indexPath.row]
-			let text = logModel.generateFlankerLogWithSession(pickedSession, gameName: gameName)
-			detailVC.textView.text = text
-			detailVC.helpMessage.text = ""
-			
-            actionButton.enabled = true
-			selectedCounterpointingSession = pickedSession
-            
-		case GamesIndex.VisualSust.rawValue:
-			
-            let pickedSession = visualSustainSessions[indexPath.row]
-			detailVC.textView.text = logModel.generateVisualSustainLogWithSession(pickedSession, gameName: gameName)
-			detailVC.helpMessage.text = ""
-			
-            actionButton.enabled = true
-			selectedCounterpointingSession = pickedSession
-            
-		default:
-			break
-		}
+        detailVC.helpMessage.text = ""
+        
+        actionButton.enabled = true
+        selectedSession = pickedSession
 	}
 }

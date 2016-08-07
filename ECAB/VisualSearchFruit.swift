@@ -8,34 +8,27 @@
 
 import UIKit
 
-class TestItem {
-    
-    enum Fruit {
-        case 🍎, 🍏, 🍓
-    }
+class VisualSearchFruit {
     
     let type: Fruit
     let isValuable: Bool
     let image: UIImage!
     
     init(type: Fruit) {
+        
+        self.type = type
+        
         if (type == .🍎) {
-            self.type = .🍎
             self.isValuable = true
             self.image = UIImage(named: "red_apple")
         } else if (type == .🍏) {
-            self.type = .🍏
             self.isValuable = false
             self.image = UIImage(named: "white_apple")
         } else if (type == .🍓) {
-            self.type = .🍓
             self.isValuable = false
             self.image = UIImage(named: "red_strawberry")
         } else {
             fatalError("Game peace can be only of certain type: 🍎, 🍏, or 🍓")
         }
-        
-        
     }
-   
 }
