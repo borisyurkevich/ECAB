@@ -147,6 +147,10 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Quit, pause, and comment
+    func resumeTest() {
+        // Override in subclass and resume timers
+    }
+    
     func presentPause() {
         gamePaused = true
         
@@ -176,11 +180,12 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             (okAction) -> Void in
             self.addComment(alertView)
             self.gamePaused = false
+            self.resumeTest()
         })
         
         alertView.addAction(quit)
         alertView.addAction(continueAction)
-
+        
         alertView.addTextFieldWithConfigurationHandler {
             (textField: UITextField!) -> Void in
             
@@ -191,11 +196,12 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             textField.text = self.getComment()
         }
         
-        presentViewController(alertView, animated: true) { 
+        presentViewController(alertView, animated: true) {
             activity.removeFromSuperview()
             self.pauseButton.setTitle("Pause", forState: .Normal)
         }
     }
+
     
     func addComment(alert: UIAlertController) {
         // Implement in subclassws

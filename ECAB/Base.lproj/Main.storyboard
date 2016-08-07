@@ -263,6 +263,18 @@
                                     <action selector="adjustThreshold:" destination="8rJ-Kc-sve" eventType="valueChanged" id="i5v-cq-d3M"/>
                                 </connections>
                             </stepper>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0HY-FM-Vua">
+                                <rect key="frame" x="274" y="352" width="51" height="31"/>
+                                <connections>
+                                    <action selector="randomizedFlanker:" destination="8rJ-Kc-sve" eventType="valueChanged" id="rHv-Za-bkR"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Exposure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ZK-vl-iAu" userLabel="Flanker Title">
+                                <rect key="frame" x="264" y="388" width="71" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -381,6 +393,9 @@
                         <outlet property="periodHelp" destination="fVo-Sy-Z8P" id="kOc-m4-xGm"/>
                         <outlet property="periodTitle" destination="Tdc-cw-h2A" id="Z4o-ho-U3t"/>
                         <outlet property="periodValue" destination="RQ3-hR-xgu" id="8eG-aC-UCH"/>
+                        <outlet property="randmomizeFlanker" destination="0HY-FM-Vua" id="l5r-IV-ndV"/>
+                        <outlet property="randomizeFlanker" destination="0HY-FM-Vua" id="RUv-N3-PN1"/>
+                        <outlet property="randomizeLabel" destination="3ZK-vl-iAu" id="vT7-aq-cYx"/>
                         <outlet property="secondSpeedLabel" destination="Bar-GU-NJl" id="Lv7-C0-3WI"/>
                         <outlet property="secondSpeedLabelDescription" destination="kJl-tE-Rnb" id="YSF-KW-Oe4"/>
                         <outlet property="secondSpeedStepper" destination="Boy-Rm-I1H" id="A5A-Ze-hUe"/>

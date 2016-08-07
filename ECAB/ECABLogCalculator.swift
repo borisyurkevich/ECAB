@@ -337,14 +337,14 @@ class ECABLogCalculator {
         var conflictIntervals: Array<NSTimeInterval> = []
         var nonConflictIntervals: Array<NSTimeInterval> = []
         
-        if session.type == SessionType.Flanker.rawValue {
+        if session.type == GamesIndex.Flanker.rawValue {
             
             for m in session.moves {
-                if let move = m as? CounterpointingMove {
+                if let move = m as? Move {
                     if let interval = move.intervalDouble as? Double {
                         // Real test begin after 3 practice blocks.
                         // on screen number 24
-                        switch move.poitionX.integerValue {
+                        switch move.positionX.integerValue {
                         case 24 ... 33:
                             timeBlock1 += interval
                             countBlock1 += 1
@@ -371,10 +371,10 @@ class ECABLogCalculator {
                 }
             } 
             
-        }else if session.type == SessionType.FlankerRandomized.rawValue {
+        }else if session.type == GamesIndex.FlankerRandomised.rawValue {
                 
             for m in session.moves {
-                guard let move = m as? CounterpointingMove else {
+                guard let move = m as? Move else {
                     exit(0)
                 }
                 guard let interval = move.intervalDouble as? Double else {
@@ -382,7 +382,7 @@ class ECABLogCalculator {
                 }
                 
                 // Separate this screens on conflict and not conflict.
-                switch move.poitionX.integerValue {
+                switch move.positionX.integerValue {
                 
                 // Inversed false.
                 case 24, 25, 27, 29, 30, 31, 32, 35, 36, 41, 42, 46, 47, 49, 50, 54, 55:

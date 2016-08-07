@@ -457,6 +457,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		
 		super.presentPause()
 	}
+    
 	override func resumeTest() {
 		timeToPresentNextScreen.resume()
 		timeToPresentWhiteSpace.resume()

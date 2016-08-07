@@ -36,7 +36,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     @IBOutlet weak var thresholdStepper: UIStepper!
     @IBOutlet weak var thresholdTitle: UILabel!
     
-    @IBOutlet weak var randmomizeFlanker: UISwitch!
+    @IBOutlet weak var randomizeFlanker: UISwitch!
     @IBOutlet weak var randomizeLabel: UILabel!
 	
     let model: Model = Model.sharedInstance
@@ -68,7 +68,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		model.setupWithContext(managedContext)
 
         difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
-        randmomizeFlanker.on = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
+        randomizeFlanker.on = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
     }
 	
 	func dataLoaded() {
@@ -144,7 +144,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         thresholdStepper.hidden = true
         thresholdTitle.hidden = true
         
-        randmomizeFlanker.hidden = true
+        randomizeFlanker.hidden = true
         randomizeLabel.hidden = true
 		
         // Set game title
@@ -171,16 +171,16 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                     speedLabel.text = "\(model.data.visSearchSpeedHard.doubleValue) \(MenuConstants.second)"
                     speedStepper.value = model.data.visSearchSpeedHard.doubleValue
                 }
-                
+                break
             case .Flanker:
                 gameIcon.image = UIImage(named: "icon_flanker")
-                
-                randmomizeFlanker.hidden = false
+            
+                randomizeFlanker.hidden = false
                 randomizeLabel.hidden = false
-                
+                break
             case .Counterpointing:
                 gameIcon.image = UIImage(named: "icon_counter")
-                
+                break
             case .VisualSust:
                 gameIcon.image = UIImage(named: "icon_sustained")
                 
@@ -210,10 +210,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
                 
                 validateAndHighliteBlankSpaceLabel()
-                
+                break
             case .AuditorySust:
                 gameIcon.image = UIImage(named: "icon_auditory")
-                break;
+                break
             
             case .DualSust:
                 gameIcon.image = UIImage(named: "icon_dual")
@@ -243,7 +243,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
                 periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
                 
-                break;
+                break
                 
             case .Verbal:
                 gameIcon.image = UIImage(named: "icon_verbal")
@@ -256,11 +256,15 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 thresholdLabel.text = "\(formattedValue)"
                 thresholdStepper.value = model.data.threshold.doubleValue
                 
-                break;
+                break
                 
             case .Balloon:
                 gameIcon.image = UIImage(named: "icon_balloon")
-                break;
+                break
+            
+            default:
+            break
+            
 		}
 	}
 	
@@ -360,8 +364,8 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 	
 	func validateAndHighliteBlankSpaceLabel() {
         var currentDelay: Double = 0.0;
-        
-        if model.data.selectedGame == GamesIndex.VisualSust.rawValue {
+                    
+        if model.data.selectedGame.integerValue == GamesIndex.VisualSust.rawValue {
             currentDelay = model.data.visSustDelay.doubleValue
         } else if model.data.selectedGame == GamesIndex.DualSust.rawValue {
             currentDelay = model.data.dualSustDelay.doubleValue
