@@ -13,13 +13,6 @@
 import UIKit
 import AVFoundation
 
-enum SessionType: Int {
-    case Counterpointing
-    case Flanker
-    case VisualSustain
-    case FlankerRandomized
-}
-
 class TestViewController: UIViewController, UITextFieldDelegate {
 	
 	let model: Model = Model.sharedInstance
@@ -47,47 +40,6 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 	var menuBarHeight: CGFloat = 0.0
 	// Doesnt affect Visual Search
 	// Affects Y offeset for the big buttons pn left and ride side
-	
-	enum Side {
-		case Left
-		case Right
-	}
-    
-    enum Sound {
-        case Positive
-        case Negative
-        case Attention
-    }
-    
-    func playSound(type: Sound) {
-    
-        switch type {
-        case .Positive:
-            if let soundURL = NSBundle.mainBundle().URLForResource("slide-magic", withExtension: "aif") {
-                var soundID:SystemSoundID = 1
-                AudioServicesCreateSystemSoundID(soundURL, &soundID)
-                AudioServicesPlaySystemSound(soundID)
-            } else {
-                presentErrorAlert()
-            }
-        case .Negative:
-            if let soundURL = NSBundle.mainBundle().URLForResource("beep-attention", withExtension: "aif") {
-                var soundID:SystemSoundID = 1
-                AudioServicesCreateSystemSoundID(soundURL, &soundID)
-                AudioServicesPlaySystemSound(soundID)
-            } else {
-                presentErrorAlert()
-            }
-        case .Attention:
-            if let soundURL = NSBundle.mainBundle().URLForResource("beep-piano", withExtension: "aif") {
-                var soundID:SystemSoundID = 1
-                AudioServicesCreateSystemSoundID(soundURL, &soundID)
-                AudioServicesPlaySystemSound(soundID)
-            } else {
-                presentErrorAlert()
-            }
-        }
-    }
     
     func presentErrorAlert() {
         let errorAlert = UIAlertController(title: nil,
@@ -153,9 +105,11 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 	func presentPreviousScreen() {
 		print("❌ Implement presentPreviousScreen() in \(self.description)")
 	}
+    
 	func presentNextScreen() {
 		print("❌ Implement presentNextScreen() in in \(self.description)")
 	}
+    
 	func skip() {
 		print("❌ Implement skip() in \(self.description)")
 	}
@@ -193,11 +147,6 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Quit, pause, and comment
-    
-    func resumeTest() {
-        // Override in subclass and resume timers
-    }
-    
     func presentPause() {
         gamePaused = true
         
@@ -227,7 +176,6 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             (okAction) -> Void in
             self.addComment(alertView)
             self.gamePaused = false
-            self.resumeTest()
         })
         
         alertView.addAction(quit)
@@ -248,12 +196,15 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             self.pauseButton.setTitle("Pause", forState: .Normal)
         }
     }
+    
     func addComment(alert: UIAlertController) {
         // Implement in subclassws
     }
+    
     func getComment() -> String? {
         return ""
     }
+    
     func quit() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }

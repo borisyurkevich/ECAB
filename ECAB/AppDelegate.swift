@@ -46,17 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     }
     
     func textForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String? {
-        if restrictionIdentifier == controlsRestrictionId {
-            return "Pause button"
-        }
-        return nil
+        return restrictionIdentifier == controlsRestrictionId ? "Pause button" : nil
     }
     
     func detailTextForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String? {
-        if restrictionIdentifier == controlsRestrictionId {
-            return "Pause and quit game at any time"
-        }
-        return nil
+        return restrictionIdentifier == controlsRestrictionId ? "Pause and quit game at any time" : nil
     }
     
     func guidedAccessRestrictionWithIdentifier(restrictionIdentifier: String,
