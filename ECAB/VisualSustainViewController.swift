@@ -164,11 +164,7 @@ class VisualSustainViewController: CounterpointingViewController {
 	override func skip() {
     
         // Removes 5 images on tutorial.
-        for v in view.subviews {
-            if v.isKindOfClass(UIImageView) {
-                v.removeFromSuperview()
-            }
-        }
+		removeFirstView()
         
         timeToPresentWhiteSpace.invalidate()
         timeToPresentNextScreen.invalidate()
@@ -212,7 +208,7 @@ class VisualSustainViewController: CounterpointingViewController {
 				repeats: true)
 		}
 		
-		if (!trainingMode) {
+		if (!trainingMode && pic != .Empty) {
 			if isAnimal(pic) {
 				countAnimals += 1
 			} else {
@@ -452,5 +448,19 @@ class VisualSustainViewController: CounterpointingViewController {
 			}
 		}
 	}
-
+	
+	override func presentPause() {
+		timeToPresentNextScreen.pause()
+		timeToPresentWhiteSpace.pause()
+		timeToGameOver.pause()
+		timeToAcceptDelay.pause()
+		
+		super.presentPause()
+	}
+	override func resumeTest() {
+		timeToPresentNextScreen.resume()
+		timeToPresentWhiteSpace.resume()
+		timeToGameOver.resume()
+		timeToAcceptDelay.resume()
+	}
 }

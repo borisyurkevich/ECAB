@@ -337,39 +337,71 @@ class ECABLogCalculator {
         var conflictIntervals: Array<NSTimeInterval> = []
         var nonConflictIntervals: Array<NSTimeInterval> = []
         
-        for m in session.moves {
-        
-            if let move = m as? Move {
-                if let inerval = move.intervalDouble as? Double {
-                    // Real test begin after 3 practice blocks.
-                    // on screen number 24
-                    switch move.positionX.integerValue {
-                    case 24 ... 33:
-                        timeBlock1 += inerval
-                        countBlock1 += 1
-                        nonConflictIntervals.append(inerval)
-                    case 36 ... 45:
-                        timeBlock2 += inerval
-                        countBlock2 += 1
-                        conflictIntervals.append(inerval)
-                    case 48 ... 57:
-                        timeBlock3 += inerval
-                        countBlock3 += 1
-                        conflictIntervals.append(inerval)
-                    case 60 ... 69:
-                        timeBlock4 += inerval
-                        countBlock4 += 1
-                        nonConflictIntervals.append(inerval)
-                    default:
-                        break
+        if session.type == SessionType.Flanker.rawValue {
+            
+            for m in session.moves {
+                if let move = m as? CounterpointingMove {
+                    if let interval = move.intervalDouble as? Double {
+                        // Real test begin after 3 practice blocks.
+                        // on screen number 24
+                        switch move.poitionX.integerValue {
+                        case 24 ... 33:
+                            timeBlock1 += interval
+                            countBlock1 += 1
+                            nonConflictIntervals.append(interval)
+                        case 36 ... 45:
+                            timeBlock2 += interval
+                            countBlock2 += 1
+                            conflictIntervals.append(interval)
+                        case 48 ... 57:
+                            timeBlock3 += interval
+                            countBlock3 += 1
+                            conflictIntervals.append(interval)
+                        case 60 ... 69:
+                            timeBlock4 += interval
+                            countBlock4 += 1
+                            nonConflictIntervals.append(interval)
+                        default:
+                            break
+                        }
+                    } else {
+                        print("Error in getFlankerResult()")
+                        exit(0)
                     }
                 }
-                
-            } else {
-                print("Error in getFlankerResult()")
-                exit(0)
-            }
+            } 
             
+        }else if session.type == SessionType.FlankerRandomized.rawValue {
+                
+            for m in session.moves {
+                guard let move = m as? CounterpointingMove else {
+                    exit(0)
+                }
+                guard let interval = move.intervalDouble as? Double else {
+                    exit(0)
+                }
+                
+                // Separate this screens on conflict and not conflict.
+                switch move.poitionX.integerValue {
+                
+                // Inversed false.
+                case 24, 25, 27, 29, 30, 31, 32, 35, 36, 41, 42, 46, 47, 49, 50, 54, 55:
+                    timeBlock1 += interval
+                    countBlock1 += 1
+                    nonConflictIntervals.append(interval)
+                    
+                // Inversed true.
+                case 26, 28, 33, 34, 37, 38, 43, 44, 45, 48, 51, 52, 53:
+                    timeBlock2 += interval
+                    countBlock2 += 1
+                    conflictIntervals.append(interval)
+                default:
+                    break
+                }
+            }
+        } else {
+            print("Error in getFlankerResult()")
+            exit(0)
         }
 
         let nonConflictTimeMean = (timeBlock1 + timeBlock4) / Double(countBlock1 + countBlock4)
@@ -384,7 +416,18 @@ class ECABLogCalculator {
             nonConflictMedian = 0
         } else {
             let nonConflictMedianIndex = (Double(countBlock1 + countBlock4) + 1) / 2
-            nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
+            let index = Int(nonConflictMedianIndex)
+            if nonConflictIntervals.count <= index {
+                // Prevent crash on viewing log for very short sessions
+                if let firstItem = nonConflictIntervals.first {
+                    nonConflictMedian = firstItem
+                } else {
+                    nonConflictMedian = 0
+                }
+                
+            } else {
+                nonConflictMedian = nonConflictIntervals[index]
+            }
         }
         
         var conflictMedian: NSTimeInterval
@@ -392,7 +435,17 @@ class ECABLogCalculator {
             conflictMedian = 0
         } else {
             let conflictMedianIndex = (Double(countBlock2 + countBlock3) + 1) / 2
-            conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+            let index = Int(conflictMedianIndex)
+            if conflictIntervals.count <= index {
+                // Prevent crash on viewing log for very short sessions
+                if let firstItem = conflictIntervals.first {
+                    conflictMedian = firstItem
+                } else {
+                    conflictMedian = 0
+                }
+            } else {
+                conflictMedian = conflictIntervals[index]
+            }
         }
         
         // Calculate the deviations of each data point from the mean,

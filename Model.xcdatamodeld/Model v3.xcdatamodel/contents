@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G24b" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="CounterpointingMove" representedClassName="ECAB.CounterpointingMove" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="interval" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="inverted" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
-        <attribute name="positionX" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="positionY" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="poitionX" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="poitionY" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="success" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CounterpointingSession" inverseName="moves" inverseEntity="CounterpointingSession" syncable="YES"/>
     </entity>
@@ -59,11 +59,11 @@
         <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="playedSessions" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CounterpointingMove" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="CounterpointingSession" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Data" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Move" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Player" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Session" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CounterpointingMove" positionX="-279" positionY="261" width="128" height="150"/>
+        <element name="CounterpointingSession" positionX="-288" positionY="54" width="128" height="30"/>
+        <element name="Data" positionX="-432" positionY="-99" width="128" height="133"/>
+        <element name="Move" positionX="-450" positionY="254" width="128" height="178"/>
+        <element name="Player" positionX="-74" positionY="-144" width="128" height="118"/>
+        <element name="Session" positionX="-441" positionY="50" width="128" height="195"/>
     </elements>
 </model>

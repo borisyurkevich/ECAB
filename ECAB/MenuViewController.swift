@@ -35,6 +35,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
     @IBOutlet weak var thresholdLabel: UILabel!
     @IBOutlet weak var thresholdStepper: UIStepper!
     @IBOutlet weak var thresholdTitle: UILabel!
+    
+    @IBOutlet weak var randmomizeFlanker: UISwitch!
+    @IBOutlet weak var randomizeLabel: UILabel!
 	
     let model: Model = Model.sharedInstance
     
@@ -63,6 +66,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		                                                 name: "dataLoaded",
 		                                                 object: nil)
 		model.setupWithContext(managedContext)
+
+        difControl.selectedSegmentIndex = model.data.visSearchDifficulty.integerValue
+        randmomizeFlanker.on = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
     }
 	
 	func dataLoaded() {
@@ -137,6 +143,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         thresholdLabel.hidden = true
         thresholdStepper.hidden = true
         thresholdTitle.hidden = true
+        
+        randmomizeFlanker.hidden = true
+        randomizeLabel.hidden = true
 		
         // Set game title
 		title = model.games[model.data.selectedGame.integerValue].rawValue
@@ -165,6 +174,9 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 
             case .Flanker:
                 gameIcon.image = UIImage(named: "icon_flanker")
+                
+                randmomizeFlanker.hidden = false
+                randomizeLabel.hidden = false
                 
             case .Counterpointing:
                 gameIcon.image = UIImage(named: "icon_counter")
@@ -231,7 +243,6 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
                 periodValue.text = "\(totalPeriod) \(MenuConstants.second)"
                 periodHelp.text = "Blank space time: \(delay) \(MenuConstants.second)"
                 
-                validateAndHighliteBlankSpaceLabel()
                 break;
                 
             case .Verbal:
@@ -342,6 +353,10 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		}
 		model.save()
 	}
+
+    @IBAction func randomizedFlanker(sender: UISwitch) {
+        NSUserDefaults.standardUserDefaults().setBool(sender.on, forKey: "isFlankerRandmoized")
+    }
 	
 	func validateAndHighliteBlankSpaceLabel() {
         var currentDelay: Double = 0.0;
