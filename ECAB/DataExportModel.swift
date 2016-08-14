@@ -54,7 +54,13 @@ class DataExportModel {
         case GamesIndex.Counterpointing.rawValue:
             returnValue = createCounterpointingTable()
         case GamesIndex.Flanker.rawValue:
-            returnValue = createFlankerTable()
+        
+            if pickedCounterpointingSession?.type.integerValue == SessionType.Flanker.rawValue {
+                returnValue = createFlankerTable()
+            } else if pickedCounterpointingSession?.type.integerValue == SessionType.FlankerRandomized.rawValue {
+                returnValue = createFlankerRandomTable()
+            }
+        
         case GamesIndex.VisualSust.rawValue:
             returnValue = createVisualSustainedTable()
 		default:
@@ -173,14 +179,14 @@ class DataExportModel {
                 "comments                ,\(comments)    ,                      ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                      ,                      ,                       ,               ,    \n" +
                 "non-conflict (blocks 1) ,               ,                      ,                      ,                       ,               ,    \n" +
-                "total time 1 =          ,\(r(t.timeBlockNonConflict)),msec     ,                      ,                       ,               ,    \n" +
-                "mean reponse time 1 =   ,\(r(t.nonConflictTimeMean)),msec      ,                      ,                       ,               ,    \n" +
-                "median reponse time 1 = ,\(r(t.nonConflictTimeMedian)),msec    ,                      ,                       ,               ,    \n" +
+                "total time 1 =          ,\(r(t.timeBlockNonConflict)),sec      ,                      ,                       ,               ,    \n" +
+                "mean reponse time 1 =   ,\(r(t.nonConflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
+                "median reponse time 1 = ,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                      ,                      ,                       ,               ,    \n" +
                 "conflict (blocks 2)     ,               ,                      ,                      ,                       ,               ,    \n" +
-                "total time 2 =          ,\(r(t.timeBlockConflict)),msec        ,                      ,                       ,               ,    \n" +
-                "mean reponse time 2 =   ,\(r(t.conflictTimeMean)),msec         ,                      ,                       ,               ,    \n" +
-                "median reponse time 2 = ,\(r(t.conflictTimeMedian)),msec       ,                      ,                       ,               ,    \n" +
+                "total time 2 =          ,\(r(t.timeBlockConflict)),sec         ,                      ,                       ,               ,    \n" +
+                "mean reponse time 2 =   ,\(r(t.conflictTimeMean)),sec          ,                      ,                       ,               ,    \n" +
+                "median reponse time 2 = ,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
                 "                         ,               ,                     ,                      ,                       ,               ,    \n" +
                 "ratio total2 / total1  = ,\(r(ratio))    ,                     ,                      ,                       ,               ,    \n" +
                 "ratio median2 / median1 =,\(r(mediansRatio)),                  ,                     ,                        ,               ,    \n" +
@@ -227,22 +233,22 @@ class DataExportModel {
                           "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "non-conflict (blocks 1+4),               ,                      ,                      ,                       ,               ,    \n" +
-                          "total time block 1 =    ,\(r(t.timeBlock1)),msec                ,                      ,                       ,               ,    \n" +
-                          "total time block 4 =    ,\(r(t.timeBlock4)),msec                ,                      ,                       ,               ,    \n" +
+                          "total time block 1 =    ,\(r(t.timeBlock1)),sec                 ,                      ,                       ,               ,    \n" +
+                          "total time block 4 =    ,\(r(t.timeBlock4)),sec                 ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "total time blocks 1+4 = ,\(r(t.nonConflictTime)),msec           ,                      ,                       ,               ,    \n" +
+                          "total time blocks 1+4 = ,\(r(t.nonConflictTime)),sec            ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "mean reponse time 1+4 = ,\(r(t.nonConflictTimeMean)),msec       ,                      ,                       ,               ,    \n" +
-                          "median reponse time 1+4 =,\(r(t.nonConflictTimeMedian)),msec    ,                      ,                       ,               ,    \n" +
+                          "mean reponse time 1+4 = ,\(r(t.nonConflictTimeMean)),sec        ,                      ,                       ,               ,    \n" +
+                          "median reponse time 1+4 =,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "conflicts (blocks 2+3),               ,                         ,                      ,                       ,               ,    \n" +
-                          "total time block 2 =    ,\(r(t.timeBlock2)),msec                ,                      ,                       ,               ,    \n" +
-                          "total time block 3 =    ,\(r(t.timeBlock3)),msec                ,                      ,                       ,               ,    \n" +
+                          "total time block 2 =    ,\(r(t.timeBlock2)),sec                 ,                      ,                       ,               ,    \n" +
+                          "total time block 3 =    ,\(r(t.timeBlock3)),sec                 ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "total time blocks 2+3 = ,\(r(t.conflictTime)),msec              ,                      ,                       ,               ,    \n" +
+                          "total time blocks 2+3 = ,\(r(t.conflictTime)),sec               ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "mean reponse time 2+3 = ,\(r(t.conflictTimeMean)),msec          ,                      ,                       ,               ,    \n" +
-                          "median reponse time 2+3 =,\(r(t.conflictTimeMedian)),msec       ,                      ,                       ,               ,    \n" +
+                          "mean reponse time 2+3 = ,\(r(t.conflictTimeMean)),sec           ,                      ,                       ,               ,    \n" +
+                          "median reponse time 2+3 =,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
@@ -250,6 +256,60 @@ class DataExportModel {
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n"
+            
+            // Append dynamic rows: headers and moves
+            for line in rows {
+                returnValue += line
+            }
+        }
+        
+        return returnValue;
+    }
+    
+    func createFlankerRandomTable() -> String {
+        
+        if let session: CounterpointingSession = pickedCounterpointingSession {
+            let playerName = session.player.name
+            
+            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
+            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            
+            let comments = session.comment
+            var imageInfo = "unknown image size"
+            if let definedImageInfo = session.imageSizeComment as String? {
+                imageInfo = definedImageInfo
+            }
+            
+            let rows = createFlankerRandomLines(session)
+            let t = ECABLogCalculator.getFlankerResult(session)
+            
+            let ratio = t.conflictTime / t.nonConflictTime
+            let mediansRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
+            
+            returnValue = "ECAB Test               ,\(gameName)    ,Randomized   ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
+                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
+                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "parameters              ,\(imageInfo)   ,                       ,                      ,                       ,               ,    \n" +
+                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "total non-conflict time =,\(r(t.nonConflictTime)),sec           ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "mean reponse time non conflict =,\(r(t.nonConflictTimeMean)),sec,                      ,                       ,               ,    \n" +
+                "median reponse time non conflict =,\(r(t.nonConflictTimeMedian)),sec ,                 ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "total conflict time =   ,\(r(t.conflictTime)),sec               ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "mean reponse time conflict =,\(r(t.conflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
+                "median reponse time conflict =,\(r(t.conflictTimeMedian)),sec      ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
+                "ratio of medians conflict/non-conflict total = ,\(r(mediansRatio)),                    ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
+                "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
+                "                        ,               ,                       ,                      ,                       ,               ,    \n"
             
             // Append dynamic rows: headers and moves
             for line in rows {
@@ -286,12 +346,12 @@ class DataExportModel {
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                 "total pictures displayed,\(t.totalPicturesDisplayd),of which    ,\(t.totalAnimalsDisplayed),animals            ,               ,    \n" +
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total hits=             ,\(t.totalHits) ,                       ,                      ,                       ,               ,    \n" +
-                "total misses=           ,\(t.totalMisses),                      ,                      ,                       ,               ,    \n" +
+                "total hits =            ,\(t.totalHits) ,                       ,                      ,                       ,               ,    \n" +
+                "total misses =          ,\(t.totalMisses),                      ,                      ,                       ,               ,    \n" +
                 "total false +ves        ,\(t.totalFalseAndVE),                  ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                 "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
-            "                        ,               ,                       ,                      ,                       ,               ,    \n"
+                "                        ,               ,                       ,                      ,                       ,               ,    \n"
             
             // Append dynamic rows: headers and moves
             for line in rows {
@@ -500,6 +560,55 @@ class DataExportModel {
             }
         }
 
+        return collectionOfTableRows
+    }
+    
+    private func createFlankerRandomLines(session: CounterpointingSession) -> Array<String> {
+        var collectionOfTableRows: Array<String> = Array()
+        var screenCount = 1
+        
+        collectionOfTableRows.append("Randmized,screen,response,time,,inversed ,case ,\n")
+        
+        for move in session.moves {
+            let gameMove = move as! CounterpointingMove
+            
+            if gameMove.poitionX != blankSpaceTag {
+                // Success or failure
+                var sof = ""
+                if gameMove.success.boolValue == true {
+                    sof = "correct"
+                } else {
+                    sof = "incorrect"
+                }
+                
+                var time: Double
+                if let newInterval = gameMove.intervalDouble as? Double {
+                    time = r(newInterval)
+                } else {
+                    // Because I defined old interval as Integer I am chaning it to Double
+                    // This condition is to keep old data working.
+                    time = gameMove.interval.doubleValue
+                }
+                
+                var inv = "normal"
+                if let sc = gameMove.poitionX.integerValue as Int? {
+                    switch sc {
+                        // TODO: Replace with the correct numers from Oliver.
+                        case 24, 25, 27, 29, 30, 31, 32, 35, 36, 41, 42, 46, 47, 49, 50, 54, 55:
+                        inv = "inversed"
+                        default:
+                        inv = "unknown"
+                    }
+                }
+                
+                // CSV line
+                let line = ",\(screenCount),\(sof), \(time), sec.,\(inv),\(gameMove.poitionX.stringValue),\n"
+                collectionOfTableRows.append(line)
+                
+                screenCount += 1
+            }
+        }
+        
         return collectionOfTableRows
     }
 
