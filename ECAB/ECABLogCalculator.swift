@@ -386,13 +386,13 @@ class ECABLogCalculator {
                 switch move.poitionX.integerValue {
                 
                 // Inversed false.
-                case 24, 25, 27, 29, 30, 31, 32, 35, 36, 41, 42, 46, 47, 49, 50, 54, 55:
+                case 25, 26, 28, 30, 31, 32, 33, 36, 41, 42, 43, 47, 48, 50, 55:
                     timeBlock1 += interval
                     countBlock1 += 1
                     nonConflictIntervals.append(interval)
                     
                 // Inversed true.
-                case 26, 28, 33, 34, 37, 38, 43, 44, 45, 48, 51, 52, 53:
+                case 24, 27, 29, 34, 35, 37, 38, 44, 45, 46, 49, 51, 52, 53, 54:
                     timeBlock2 += interval
                     countBlock2 += 1
                     conflictIntervals.append(interval)

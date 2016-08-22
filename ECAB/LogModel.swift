@@ -220,13 +220,25 @@ class LogModel {
                 // This condition is to keep old data working.
                 append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval) s. \(inverted) \n"
             }
+            counter += 1
             
-            if actualMove.poitionX == blankSpaceTag {
-                details = details + "\n"
-			} else {
-				details = details + append
-			}
-			counter += 1
+            if session.type == SessionType.Flanker.rawValue {
+            
+                if actualMove.poitionX == blankSpaceTag {
+                    details = details + append + "\n"
+                } else {
+                    details = details + append
+                }
+            } else if session.type == SessionType.FlankerRandomized.rawValue {
+            
+                switch actualMove.poitionX {
+                case 21:
+                    details = details + "\n"
+                    
+                default:
+                    details = details + append
+                }
+            }
 		}
 		
 		let dateString = formatter.stringFromDate(session.dateStart)
@@ -245,24 +257,51 @@ class LogModel {
     
         let result = ECABLogCalculator.getFlankerResult(session)
         let ratio = result.conflictTime / result.nonConflictTime
-        let text = "\(gameName)\n\n" +
-            "Player: \(session.player.name)\n\n" +
-            "Total score = \(session.score), moves = \(session.moves.count)\n" +
-            "Errors = \(session.errors)\n\n" +
-            "Comment: \(comment)\n\n" +
-            "Total 1 (non-conflict time) = \(r(result.nonConflictTime))\n" +
-            "total 2 (conflict time) = \(r(result.conflictTime))\n" +
-            "Ratio (block 2 + block 3 / block 1 + block 4) = \(r(ratio))\n\n" +
-            "Conflict time mean = \(r(result.conflictTimeMean))\n" +
-            "Conflict median = \(r(result.conflictTimeMedian))\n" +
-            "Conflict time standard deviation = \(r(result.conflictTimeStandardDeviation))\n" +
-            "Non conflict time mean = \(r(result.nonConflictTimeMean))\n" +
-            "Non conflict median = \(r(result.nonConflictTimeMedian))\n" +
-            "Non conflict time standard deviation = \(r(result.nonConflictTimeStandardDeviation))\n\n" +
-            "Session started: \(dateString)\n\n" +
-            "Build: \(build)\n" +
-            "Images: \(imageInfo)\n\n" +
-            "Moves:\n\n\(details)"
+        
+        var text = ""
+        
+        if session.type == SessionType.Flanker.rawValue {
+        
+            text = "\(gameName)\n\n" +
+                "Player: \(session.player.name)\n\n" +
+                "Total score = \(session.score), moves = \(session.moves.count)\n" +
+                "Errors = \(session.errors)\n\n" +
+                "Comment: \(comment)\n\n" +
+                "Total 1 (non-conflict time) = \(r(result.nonConflictTime))\n" +
+                "total 2 (conflict time) = \(r(result.conflictTime))\n" +
+                "Ratio (block 2 + block 3 / block 1 + block 4) = \(r(ratio))\n\n" +
+                "Conflict time mean = \(r(result.conflictTimeMean))\n" +
+                "Conflict median = \(r(result.conflictTimeMedian))\n" +
+                "Conflict time standard deviation = \(r(result.conflictTimeStandardDeviation))\n" +
+                "Non conflict time mean = \(r(result.nonConflictTimeMean))\n" +
+                "Non conflict median = \(r(result.nonConflictTimeMedian))\n" +
+                "Non conflict time standard deviation = \(r(result.nonConflictTimeStandardDeviation))\n\n" +
+                "Session started: \(dateString)\n\n" +
+                "Build: \(build)\n" +
+                "Images: \(imageInfo)\n\n" +
+                "Moves:\n\n\(details)"
+            
+        } else if session.type == SessionType.FlankerRandomized.rawValue {
+            
+            text = "\(gameName) Randomized.\n\n" +
+                "Player: \(session.player.name)\n\n" +
+                "Total score = \(session.score), moves = \(session.moves.count)\n" +
+                "Errors = \(session.errors)\n\n" +
+                "Comment: \(comment)\n\n" +
+                "Total 1 (non-conflict time) = \(r(result.nonConflictTime))\n" +
+                "total 2 (conflict time) = \(r(result.conflictTime))\n" +
+                "Ratio (conflict / non-conflcit) = \(r(ratio))\n\n" +
+                "Conflict time mean = \(r(result.conflictTimeMean))\n" +
+                "Conflict median = \(r(result.conflictTimeMedian))\n" +
+                "Conflict time standard deviation = \(r(result.conflictTimeStandardDeviation))\n" +
+                "Non conflict time mean = \(r(result.nonConflictTimeMean))\n" +
+                "Non conflict median = \(r(result.nonConflictTimeMedian))\n" +
+                "Non conflict time standard deviation = \(r(result.nonConflictTimeStandardDeviation))\n\n" +
+                "Session started: \(dateString)\n\n" +
+                "Build: \(build)\n" +
+                "Images: \(imageInfo)\n\n" +
+                "Moves:\n\n\(details)"
+        }
         
 		return text
 	}

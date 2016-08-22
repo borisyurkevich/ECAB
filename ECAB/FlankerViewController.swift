@@ -424,7 +424,7 @@ class FlankerViewController: CounterpointingViewController {
                 updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
             case 38: // 14
                 updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-                gameModeInversed = false
+                gameModeInversed = true
             case 39:
                 presentMessage("...stop")
             case 40:
@@ -477,5 +477,5 @@ class FlankerViewController: CounterpointingViewController {
                 break
             }
         }
-	}
+    }
 }
