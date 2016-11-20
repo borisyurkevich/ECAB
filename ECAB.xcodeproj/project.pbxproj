@@ -37,7 +37,6 @@
 		91E5C3BB1A6BD5C400905752 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3B91A6BD5C400905752 /* Main.storyboard */; };
 		91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BC1A6BD5C400905752 /* Images.xcassets */; };
 		91E5C3C01A6BD5C400905752 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */; };
-		91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3CB1A6BD5C400905752 /* ECABTests.swift */; };
 		91E5C3D71A6BDB5000905752 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D61A6BDB5000905752 /* MenuViewController.swift */; };
 		91E5C3D91A6BDD8300905752 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */; };
 		91E5C4161A6C6CEC00905752 /* VisualSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E5C4151A6C6CEC00905752 /* VisualSearchViewController.swift */; };
@@ -47,16 +46,6 @@
 		91FB39B21BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FB39B11BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift */; };
 		91FB39B41BDC406000CB2ABA /* Move+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FB39B31BDC406000CB2ABA /* Move+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		91E5C3C61A6BD5C400905752 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 91E5C3A61A6BD5C400905752 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 91E5C3AD1A6BD5C400905752;
-			remoteInfo = ECAB;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		910367F21A7E3B4900522B2B /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -99,9 +88,6 @@
 		91E5C3BA1A6BD5C400905752 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91E5C3BC1A6BD5C400905752 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		91E5C3BF1A6BD5C400905752 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		91E5C3C51A6BD5C400905752 /* ECABTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECABTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		91E5C3CA1A6BD5C400905752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91E5C3CB1A6BD5C400905752 /* ECABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECABTests.swift; sourceTree = "<group>"; };
 		91E5C3D61A6BDB5000905752 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MenuViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		91E5C4151A6C6CEC00905752 /* VisualSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = VisualSearchViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -115,13 +101,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		91E5C3AB1A6BD5C400905752 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		91E5C3C21A6BD5C400905752 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -157,7 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				91E5C3B01A6BD5C400905752 /* ECAB */,
-				91E5C3C81A6BD5C400905752 /* ECABTests */,
 				91E5C3AF1A6BD5C400905752 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -166,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				91E5C3AE1A6BD5C400905752 /* ECAB.app */,
-				91E5C3C51A6BD5C400905752 /* ECABTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,23 +169,6 @@
 				91E5C3B31A6BD5C400905752 /* AppDelegate.swift */,
 				91E5C3BE1A6BD5C400905752 /* LaunchScreen.xib */,
 				91E5C3B21A6BD5C400905752 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		91E5C3C81A6BD5C400905752 /* ECABTests */ = {
-			isa = PBXGroup;
-			children = (
-				91E5C3CB1A6BD5C400905752 /* ECABTests.swift */,
-				91E5C3C91A6BD5C400905752 /* Supporting Files */,
-			);
-			path = ECABTests;
-			sourceTree = "<group>";
-		};
-		91E5C3C91A6BD5C400905752 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				91E5C3CA1A6BD5C400905752 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -289,24 +249,6 @@
 			productReference = 91E5C3AE1A6BD5C400905752 /* ECAB.app */;
 			productType = "com.apple.product-type.application";
 		};
-		91E5C3C41A6BD5C400905752 /* ECABTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 91E5C3D21A6BD5C400905752 /* Build configuration list for PBXNativeTarget "ECABTests" */;
-			buildPhases = (
-				91E5C3C11A6BD5C400905752 /* Sources */,
-				91E5C3C21A6BD5C400905752 /* Frameworks */,
-				91E5C3C31A6BD5C400905752 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				91E5C3C71A6BD5C400905752 /* PBXTargetDependency */,
-			);
-			name = ECABTests;
-			productName = ECABTests;
-			productReference = 91E5C3C51A6BD5C400905752 /* ECABTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -325,11 +267,6 @@
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
-					91E5C3C41A6BD5C400905752 = {
-						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0810;
-						TestTargetID = 91E5C3AD1A6BD5C400905752;
-					};
 				};
 			};
 			buildConfigurationList = 91E5C3A91A6BD5C400905752 /* Build configuration list for PBXProject "ECAB" */;
@@ -346,7 +283,6 @@
 			projectRoot = "";
 			targets = (
 				91E5C3AD1A6BD5C400905752 /* ECAB */,
-				91E5C3C41A6BD5C400905752 /* ECABTests */,
 			);
 		};
 /* End PBXProject section */
@@ -362,13 +298,6 @@
 				91658E941B0D20E800879347 /* slide-magic.aif in Resources */,
 				91E5C3BD1A6BD5C400905752 /* Images.xcassets in Resources */,
 				91658E921B0D1B5700879347 /* beep-attention.aif in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		91E5C3C31A6BD5C400905752 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,23 +359,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		91E5C3C11A6BD5C400905752 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				91E5C3CC1A6BD5C400905752 /* ECABTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		91E5C3C71A6BD5C400905752 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 91E5C3AD1A6BD5C400905752 /* ECAB */;
-			targetProxy = 91E5C3C61A6BD5C400905752 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		91E5C3B91A6BD5C400905752 /* Main.storyboard */ = {
@@ -563,7 +476,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = AF8594QJUT;
 				INFOPLIST_FILE = ECAB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -580,42 +492,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = AF8594QJUT;
 				INFOPLIST_FILE = ECAB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 2.3;
-			};
-			name = Release;
-		};
-		91E5C3D31A6BD5C400905752 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = ECABTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ECAB.app/ECAB";
-			};
-			name = Debug;
-		};
-		91E5C3D41A6BD5C400905752 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ECABTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ECAB.app/ECAB";
 			};
 			name = Release;
 		};
@@ -636,15 +517,6 @@
 			buildConfigurations = (
 				91E5C3D01A6BD5C400905752 /* Debug */,
 				91E5C3D11A6BD5C400905752 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		91E5C3D21A6BD5C400905752 /* Build configuration list for PBXNativeTarget "ECABTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				91E5C3D31A6BD5C400905752 /* Debug */,
-				91E5C3D41A6BD5C400905752 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
