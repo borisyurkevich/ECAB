@@ -322,9 +322,11 @@
 					91E5C3AD1A6BD5C400905752 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = AF8594QJUT;
+						LastSwiftMigration = 0810;
 					};
 					91E5C3C41A6BD5C400905752 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 91E5C3AD1A6BD5C400905752;
 					};
 				};
@@ -557,6 +559,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -572,6 +575,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -587,6 +591,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ECAB.app/ECAB";
 			};
 			name = Debug;
@@ -599,6 +604,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ECAB.app/ECAB";
 			};
 			name = Release;
