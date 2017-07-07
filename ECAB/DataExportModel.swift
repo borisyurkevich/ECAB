@@ -12,15 +12,16 @@
 //
 
 import Foundation
+import CoreGraphics
 
 private enum MoveType {
-    case MoveTypeMotorOne
-    case MoveTypeMotorTwo
-    case MoveTypeMotorThree
-    case MoveTypeSearchOne
-    case MoveTypeSearchTwo
-    case MoveTypeSearchThree
-    case MoveTypeUnknown
+    case moveTypeMotorOne
+    case moveTypeMotorTwo
+    case moveTypeMotorThree
+    case moveTypeSearchOne
+    case moveTypeSearchTwo
+    case moveTypeSearchThree
+    case moveTypeUnknown
 }
 
 class DataExportModel {
@@ -33,15 +34,15 @@ class DataExportModel {
     private let gameName: String
     private let birth: String
     private let age: String
-    private let dateFormatter = NSDateFormatter()
-    private let timeFormatter = NSDateFormatter()
+    private let dateFormatter = DateFormatter()
+    private let timeFormatter = DateFormatter()
     private var returnValue = "empty line\n"
     
     init() {
         gameName = model.games[Int(model.data.selectedGame)]
         birth = "dd/MM/yy"
         age = "yy/mm"
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.dateStyle = DateFormatter.Style.short
         timeFormatter.dateFormat = "HH:mm:ss:SSS"
     }
     
@@ -49,19 +50,19 @@ class DataExportModel {
 		var returnValue: String? = nil
 		
 		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
+		case GamesIndex.visualSearch.rawValue:
 			returnValue = createVisualSearchTable()
-        case GamesIndex.Counterpointing.rawValue:
+        case GamesIndex.counterpointing.rawValue:
             returnValue = createCounterpointingTable()
-        case GamesIndex.Flanker.rawValue:
+        case GamesIndex.flanker.rawValue:
         
-            if pickedCounterpointingSession?.type.integerValue == SessionType.Flanker.rawValue {
+            if pickedCounterpointingSession?.type.intValue == SessionType.flanker.rawValue {
                 returnValue = createFlankerTable()
-            } else if pickedCounterpointingSession?.type.integerValue == SessionType.FlankerRandomized.rawValue {
+            } else if pickedCounterpointingSession?.type.intValue == SessionType.flankerRandomized.rawValue {
                 returnValue = createFlankerRandomTable()
             }
         
-        case GamesIndex.VisualSust.rawValue:
+        case GamesIndex.visualSust.rawValue:
             returnValue = createVisualSustainedTable()
 		default:
 			break
@@ -75,11 +76,11 @@ class DataExportModel {
         if let visualSearchSession: Session = pickedVisualSearchSession {
             let playerName = visualSearchSession.player.name
             
-            let dateStart: String = dateFormatter.stringFromDate(visualSearchSession.dateStart)
-            let timeStart = timeFormatter.stringFromDate(visualSearchSession.dateStart)
+            let dateStart: String = dateFormatter.string(from: visualSearchSession.dateStart as Date)
+            let timeStart = timeFormatter.string(from: visualSearchSession.dateStart as Date)
             
             var difficulty = "easy"
-            if visualSearchSession.difficulty == Difficulty.Hard.rawValue {
+            if visualSearchSession.difficulty == Difficulty.hard.rawValue {
                 difficulty = "hard"
             }
             let speed = visualSearchSession.speed.doubleValue
@@ -159,8 +160,8 @@ class DataExportModel {
         if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
             
-            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
-            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            let dateStart: String = dateFormatter.string(from: session.dateStart as Date)
+            let timeStart = timeFormatter.string(from: session.dateStart as Date)
             
             let comments = session.comment
             
@@ -208,8 +209,8 @@ class DataExportModel {
         if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
             
-            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
-            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            let dateStart: String = dateFormatter.string(from: session.dateStart as Date)
+            let timeStart = timeFormatter.string(from: session.dateStart as Date)
             
             let comments = session.comment
             var imageInfo = "unknown image size"
@@ -271,8 +272,8 @@ class DataExportModel {
         if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
             
-            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
-            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            let dateStart: String = dateFormatter.string(from: session.dateStart as Date)
+            let timeStart = timeFormatter.string(from: session.dateStart as Date)
             
             let comments = session.comment
             var imageInfo = "unknown image size"
@@ -325,8 +326,8 @@ class DataExportModel {
         if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
             
-            let dateStart: String = dateFormatter.stringFromDate(session.dateStart)
-            let timeStart = timeFormatter.stringFromDate(session.dateStart)
+            let dateStart: String = dateFormatter.string(from: session.dateStart as Date)
+            let timeStart = timeFormatter.string(from: session.dateStart as Date)
             
             let comments = session.comment
             
@@ -362,12 +363,12 @@ class DataExportModel {
         return returnValue;
     }
     
-    private func createDynamicLinesForVSSession(visualSearchSession: Session) -> Array<String> {
+    fileprivate func createDynamicLinesForVSSession(_ visualSearchSession: Session) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         
         for move in visualSearchSession.moves {
             let gameMove = move as! Move
-            let screenNumber = gameMove.screenNumber.integerValue
+            let screenNumber = gameMove.screenNumber.intValue
             
             var ignoreThisMove = false
             switch screenNumber {
@@ -392,7 +393,7 @@ class DataExportModel {
                     } else {
                         veor = "ve"
                     }
-                    let moveTimestamp = timeFormatter.stringFromDate(gameMove.date)
+                    let moveTimestamp = timeFormatter.string(from: gameMove.date as Date)
                     let targetRow = gameMove.row
                     let targetColumn = gameMove.column
                     
@@ -403,31 +404,31 @@ class DataExportModel {
                 } else {
                     var header = "header uknown"
                     switch screenNumber {
-                    case VisualSearchEasyModeView.MotorOne.rawValue:
+                    case VisualSearchEasyModeView.motorOne.rawValue:
                         header = "motor screen 1"
-                    case VisualSearchEasyModeView.MotorTwo.rawValue:
+                    case VisualSearchEasyModeView.motorTwo.rawValue:
                         header = "motor screen 2"
-                    case VisualSearchEasyModeView.MotorThree.rawValue:
+                    case VisualSearchEasyModeView.motorThree.rawValue:
                         header = "motor screen 3"
-                    case VisualSearchHardModeView.MotorOne.rawValue:
+                    case VisualSearchHardModeView.motorOne.rawValue:
                         header = "motor screen 1"
-                    case VisualSearchHardModeView.MotorTwo.rawValue:
+                    case VisualSearchHardModeView.motorTwo.rawValue:
                         header = "motor screen 2"
-                    case VisualSearchEasyModeView.One.rawValue:
+                    case VisualSearchEasyModeView.one.rawValue:
                         header = "search screen 1"
-                    case VisualSearchEasyModeView.Two.rawValue:
+                    case VisualSearchEasyModeView.two.rawValue:
                         header = "search screen 2"
-                    case VisualSearchEasyModeView.Three.rawValue:
+                    case VisualSearchEasyModeView.three.rawValue:
                         header = "search screen 3"
-                    case VisualSearchHardModeView.One.rawValue:
+                    case VisualSearchHardModeView.one.rawValue:
                         header = "search screen 1"
-                    case VisualSearchHardModeView.Two.rawValue:
+                    case VisualSearchHardModeView.two.rawValue:
                         header = "search screen 2"
                     default:
                         header = "wrong header number"
                     }
                     // Time
-                    let headerTime = timeFormatter.stringFromDate(gameMove.date)
+                    let headerTime = timeFormatter.string(from: gameMove.date as Date)
                     
                     // CSV line
                     let headerLine = "\(header),screen onset, , ,\(headerTime)\n"
@@ -439,7 +440,7 @@ class DataExportModel {
         return collectionOfTableRows
     }
     
-    private func createCounterpointinLines(session: CounterpointingSession) -> Array<String> {
+    fileprivate func createCounterpointinLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
         var screenCount = 1
@@ -448,8 +449,8 @@ class DataExportModel {
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
             
-            if (gameMove.poitionX.integerValue >= 4 && gameMove.poitionX.integerValue <= 23)
-            || (gameMove.poitionX.integerValue >= 29 && gameMove.poitionX.integerValue <= 48) {
+            if (gameMove.poitionX.intValue >= 4 && gameMove.poitionX.intValue <= 23)
+            || (gameMove.poitionX.intValue >= 29 && gameMove.poitionX.intValue <= 48) {
             
                 // Success or failure
                 var sof = ""
@@ -505,7 +506,7 @@ class DataExportModel {
         return collectionOfTableRows
     }
 
-    private func createFlankerLines(session: CounterpointingSession) -> Array<String> {
+    fileprivate func createFlankerLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
         var screenCount = 1
@@ -513,7 +514,8 @@ class DataExportModel {
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
 
-            if gameMove.poitionX != blankSpaceTag {
+            let positionX: CGFloat = CGFloat(gameMove.poitionX.doubleValue)
+            if positionX != blankSpaceTag {
                 // Success or failure
                 var sof = ""
                 if gameMove.success.boolValue == true {
@@ -563,7 +565,7 @@ class DataExportModel {
         return collectionOfTableRows
     }
     
-    private func createFlankerRandomLines(session: CounterpointingSession) -> Array<String> {
+    fileprivate func createFlankerRandomLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var screenCount = 1
         
@@ -572,7 +574,7 @@ class DataExportModel {
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
             
-            if gameMove.poitionX != blankSpaceTag {
+            if gameMove.poitionX.doubleValue != Double(blankSpaceTag) {
                 // Success or failure
                 var sof = ""
                 if gameMove.success.boolValue == true {
@@ -591,7 +593,7 @@ class DataExportModel {
                 }
                 
                 var inv = "normal"
-                if let sc = gameMove.poitionX.integerValue as Int? {
+                if let sc = gameMove.poitionX.intValue as Int? {
                     switch sc {
                         // TODO: Replace with the correct numers from Oliver.
                         case 24, 25, 27, 29, 30, 31, 32, 35, 36, 41, 42, 46, 47, 49, 50, 54, 55:
@@ -612,7 +614,7 @@ class DataExportModel {
         return collectionOfTableRows
     }
 
-    private func createVisualSustainedLines(session: CounterpointingSession) -> Array<String> {
+    fileprivate func createVisualSustainedLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var spacePrinted = false
         
@@ -621,7 +623,8 @@ class DataExportModel {
             
             var line = ""
             var fourMistakes = ""
-            if gameMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+            let poitionY = CGFloat(gameMove.poitionY.floatValue)
+            if poitionY == VisualSustainSkip.fourSkips.rawValue {
                 fourMistakes = "[4 mistaken taps in a row]"
             }
             if gameMove.success.boolValue {
@@ -631,9 +634,9 @@ class DataExportModel {
                 line = "picture \(gameMove.poitionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
             } else {
                 // Two mistakes type
-                if (gameMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+                if (gameMove.interval.doubleValue == VisualSustainMistakeType.falsePositive.rawValue) {
                     line = "picture \(gameMove.poitionX), False Positive, \(fourMistakes)\n"
-                } else if (gameMove.interval == VisualSustainMistakeType.Miss.rawValue) {
+                } else if (gameMove.interval.doubleValue == VisualSustainMistakeType.miss.rawValue) {
                     line = "picture \(gameMove.poitionX), Miss, \(fourMistakes)\n"
                 }
             }

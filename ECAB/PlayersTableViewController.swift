@@ -16,17 +16,17 @@ class PlayersTableViewController: UITableViewController {
     
     var delegate: SubjectPickerDelegate!
     
-    private let model: Model = Model.sharedInstance
-    private let reuseIdentifier = "Subject picker cell"
+    fileprivate let model: Model = Model.sharedInstance
+    fileprivate let reuseIdentifier = "Subject picker cell"
     
-    @IBAction func addPlayerHandler(sender: UIBarButtonItem) {
+    @IBAction func addPlayerHandler(_ sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "New player",
             message: "Add a name for a new player",
-            preferredStyle: .Alert)
+            preferredStyle: .alert)
         
         let saveAction = UIAlertAction(title: "Save",
-            style: .Default) { (action: UIAlertAction) -> Void in
+            style: .default) { (action: UIAlertAction) -> Void in
                 
                 let textField = alert.textFields![0] 
                 
@@ -36,17 +36,17 @@ class PlayersTableViewController: UITableViewController {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
-            style: .Cancel) { (action: UIAlertAction) -> Void in
+            style: .cancel) { (action: UIAlertAction) -> Void in
         }
         
-        alert.addTextFieldWithConfigurationHandler {
+        alert.addTextField {
             (textField: UITextField!) -> Void in
         }
         
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
         
-        presentViewController(alert,
+        present(alert,
             animated: true,
             completion: nil)
         
@@ -57,7 +57,7 @@ class PlayersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.registerClass(UITableViewCell.self,
+        tableView.register(UITableViewCell.self,
             forCellReuseIdentifier: reuseIdentifier)
         
         self.clearsSelectionOnViewWillAppear = true;
@@ -66,31 +66,31 @@ class PlayersTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.preferredContentSize = CGSizeMake(200, 200)
+        self.preferredContentSize = CGSize(width: 200, height: 200)
     }
     
     // MARK: - Table view data source
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath
-                            indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as UITableViewCell!
+    override func tableView(_ tableView: UITableView, cellForRowAt
+                            indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as UITableViewCell!
         
 		let data = model.data as Data
 		let players = data.players
 		let player = players[indexPath.row] as! Player
 								
-        let label: UILabel! = cell.textLabel
+        let label: UILabel! = cell!.textLabel
         label.text = player.name
-        return cell
+        return cell!
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.data.players.count
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         // Make selected player current player
 		let data = model.data as Data

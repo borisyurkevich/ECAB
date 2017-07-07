@@ -9,12 +9,12 @@
 import Foundation
 
 struct TotalVisualSearch {
-    var motorOneTotal: NSTimeInterval
-    var motorTwoTotal: NSTimeInterval
-    var motorThreeTotal: NSTimeInterval
-    var searchOneTotal: NSTimeInterval
-    var searchTwoTotal: NSTimeInterval
-    var searchThreeTotal: NSTimeInterval
+    var motorOneTotal: TimeInterval
+    var motorTwoTotal: TimeInterval
+    var motorThreeTotal: TimeInterval
+    var searchOneTotal: TimeInterval
+    var searchTwoTotal: TimeInterval
+    var searchThreeTotal: TimeInterval
     var average: Average
     var motorHits1 = 0
     var motorHits2 = 0
@@ -31,8 +31,8 @@ struct TotalVisualSearch {
 }
 
 struct CounterpointingResult {
-    let timeBlockNonConflict: NSTimeInterval
-    let timeBlockConflict: NSTimeInterval
+    let timeBlockNonConflict: TimeInterval
+    let timeBlockConflict: TimeInterval
     let conflictTimeMean: Double
     let conflictTimeMedian: Double
     let nonConflictTimeMean: Double
@@ -40,12 +40,12 @@ struct CounterpointingResult {
 }
 
 struct FlankerResult {
-    let timeBlock1:NSTimeInterval
-    let timeBlock2:NSTimeInterval
-    let timeBlock3:NSTimeInterval
-    let timeBlock4:NSTimeInterval
-    let conflictTime:NSTimeInterval
-    let nonConflictTime:NSTimeInterval
+    let timeBlock1:TimeInterval
+    let timeBlock2:TimeInterval
+    let timeBlock3:TimeInterval
+    let timeBlock4:TimeInterval
+    let conflictTime:TimeInterval
+    let nonConflictTime:TimeInterval
     
     let conflictTimeMean: Double
     let conflictTimeMedian: Double
@@ -78,7 +78,7 @@ struct Average {
 
 class ECABLogCalculator {
     
-    class func getVisualSearchTotals(session: Session) -> TotalVisualSearch {
+    class func getVisualSearchTotals(_ session: Session) -> TotalVisualSearch {
         
         let avg = Average(motor: 0, search: 0)
         
@@ -100,11 +100,11 @@ class ECABLogCalculator {
         for move in session.moves {
             let gameMove = move as! Move
             
-            let screenNum = gameMove.screenNumber.integerValue
+            let screenNum = gameMove.screenNumber.intValue
             
             // Every part inlude onset date in the empty move entity
             
-            if screenNum == VisualSearchEasyModeView.MotorOne.rawValue || screenNum == VisualSearchHardModeView.MotorOne.rawValue {
+            if screenNum == VisualSearchEasyModeView.motorOne.rawValue || screenNum == VisualSearchHardModeView.motorOne.rawValue {
                 if (motorOneStart == nil) {
                     motorOneStart = gameMove.date
                 }
@@ -117,7 +117,7 @@ class ECABLogCalculator {
                     totals.motorFalse1 += 1
                 }
                 
-            } else if screenNum == VisualSearchEasyModeView.MotorTwo.rawValue || screenNum == VisualSearchHardModeView.MotorTwo.rawValue{
+            } else if screenNum == VisualSearchEasyModeView.motorTwo.rawValue || screenNum == VisualSearchHardModeView.motorTwo.rawValue{
                 if (motorTwoStart == nil) {
                     motorTwoStart = gameMove.date
                 }
@@ -129,7 +129,7 @@ class ECABLogCalculator {
                     totals.motorFalse2 += 1
                 }
                 
-            } else if screenNum == VisualSearchEasyModeView.MotorThree.rawValue {
+            } else if screenNum == VisualSearchEasyModeView.motorThree.rawValue {
                 if (motorThreeStart == nil) {
                     motorThreeStart = gameMove.date
                 }
@@ -141,7 +141,7 @@ class ECABLogCalculator {
                     totals.motorFalse3 += 1
                 }
                 
-            } else if screenNum == VisualSearchEasyModeView.One.rawValue || screenNum == VisualSearchHardModeView.One.rawValue {
+            } else if screenNum == VisualSearchEasyModeView.one.rawValue || screenNum == VisualSearchHardModeView.one.rawValue {
                 if (searchOneStart == nil) {
                     searchOneStart = gameMove.date
                 }
@@ -153,7 +153,7 @@ class ECABLogCalculator {
                     totals.searchFalse1 += 1
                 }
                 
-            } else if screenNum == VisualSearchEasyModeView.Two.rawValue || screenNum == VisualSearchHardModeView.Two.rawValue {
+            } else if screenNum == VisualSearchEasyModeView.two.rawValue || screenNum == VisualSearchHardModeView.two.rawValue {
                 if (searchTwoStart == nil) {
                     searchTwoStart = gameMove.date
                 }
@@ -165,11 +165,12 @@ class ECABLogCalculator {
                     totals.searchFalse2 += 1
                 }
                 
-            } else if screenNum == VisualSearchEasyModeView.Three.rawValue {
+            } else if screenNum == VisualSearchEasyModeView.three.rawValue {
                 if (searchThreeStart == nil) {
                     searchThreeStart = gameMove.date
                 }
                 searchThreeEnd = gameMove.date
+                
                 
                 if gameMove.success.boolValue == true {
                     totals.searchHits3 += 1
@@ -180,27 +181,27 @@ class ECABLogCalculator {
             
         }
         if let m1s = motorOneStart, let m1e = motorOneEnd {
-            totals.motorOneTotal = r(m1e.timeIntervalSinceDate(m1s))
+            totals.motorOneTotal = r(m1e.timeIntervalSince(m1s as Date))
         }
         if let m2s = motorTwoStart, let m2e = motorTwoEnd {
-            totals.motorTwoTotal = r(m2e.timeIntervalSinceDate(m2s))
+            totals.motorTwoTotal = r(m2e.timeIntervalSince(m2s as Date))
         }
         if let m3s = motorThreeStart, let m3e = motorThreeEnd {
-            totals.motorThreeTotal = r(m3e.timeIntervalSinceDate(m3s))
+            totals.motorThreeTotal = r(m3e.timeIntervalSince(m3s as Date))
         }
         if let s1s = searchOneStart, let s1e = searchOneEnd {
-            totals.searchOneTotal = r(s1e.timeIntervalSinceDate(s1s))
+            totals.searchOneTotal = r(s1e.timeIntervalSince(s1s as Date))
         }
         if let s2s = searchTwoStart, let s2e = searchTwoEnd {
-            totals.searchTwoTotal = r(s2e.timeIntervalSinceDate(s2s))
+            totals.searchTwoTotal = r(s2e.timeIntervalSince(s2s as Date))
         }
         if let s3s = searchThreeStart, let s3e = searchThreeEnd {
-            totals.searchThreeTotal = r(s3e.timeIntervalSinceDate(s3s))
+            totals.searchThreeTotal = r(s3e.timeIntervalSince(s3s as Date))
         }
         
         // When not all targets hits totals need to be increased to the 
         // amount of time screen is visible
-        if session.difficulty == Difficulty.Easy.rawValue {
+        if session.difficulty == Difficulty.easy.rawValue {
             
             if totals.motorHits1 < VisualSearchTargets.easyMode[3] {
                totals.motorOneTotal = session.speed.doubleValue
@@ -221,7 +222,7 @@ class ECABLogCalculator {
                 totals.searchThreeTotal = session.speed.doubleValue
             }
             
-        } else if session.difficulty == Difficulty.Hard.rawValue {
+        } else if session.difficulty == Difficulty.hard.rawValue {
             
             if totals.motorHits1 < VisualSearchTargets.hardMode[3] {
                 totals.motorOneTotal = session.speed.doubleValue
@@ -249,22 +250,22 @@ class ECABLogCalculator {
         return totals
     }
     
-    class func getCounterpintingResult(session: CounterpointingSession) -> CounterpointingResult {
+    class func getCounterpintingResult(_ session: CounterpointingSession) -> CounterpointingResult {
         
-        var timeBlock1NonConflict:NSTimeInterval = 0
-        var timeBlock2Conflict:NSTimeInterval = 0
+        var timeBlock1NonConflict:TimeInterval = 0
+        var timeBlock2Conflict:TimeInterval = 0
         var countBlock1 = 0
         var countBlock2 = 0
         
-        var conflictIntervals: Array<NSTimeInterval> = []
-        var nonConflictIntervals: Array<NSTimeInterval> = []
+        var conflictIntervals: Array<TimeInterval> = []
+        var nonConflictIntervals: Array<TimeInterval> = []
         
         for m in session.moves {
             if let move = m as? CounterpointingMove {
                 if let inerval = move.intervalDouble as? Double {
                     // Real test begin after 3 practice blocks.
                     // on screen number 24
-                    switch move.poitionX.integerValue {
+                    switch move.poitionX.intValue {
                     case 4 ... 23:
                         timeBlock1NonConflict += inerval
                         countBlock1 += 1
@@ -289,10 +290,10 @@ class ECABLogCalculator {
         let conflictTimeMean = timeBlock2Conflict / Double(countBlock2)
         
         // Sort intervals in ascending order
-        nonConflictIntervals = nonConflictIntervals.sort({$0 < $1})
-        conflictIntervals = conflictIntervals.sort({$0 < $1})
+        nonConflictIntervals = nonConflictIntervals.sorted(by: {$0 < $1})
+        conflictIntervals = conflictIntervals.sorted(by: {$0 < $1})
         
-        var nonConflictMedian: NSTimeInterval
+        var nonConflictMedian: TimeInterval
         if nonConflictIntervals.isEmpty {
             nonConflictMedian = 0
         } else {
@@ -300,7 +301,7 @@ class ECABLogCalculator {
             nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
         }
         
-        var conflictMedian: NSTimeInterval
+        var conflictMedian: TimeInterval
         if conflictIntervals.isEmpty {
             conflictMedian = 0
         } else {
@@ -324,28 +325,28 @@ class ECABLogCalculator {
         return result
     }
     
-    class func getFlankerResult(session: CounterpointingSession) -> FlankerResult {
+    class func getFlankerResult(_ session: CounterpointingSession) -> FlankerResult {
     
-        var timeBlock1:NSTimeInterval = 0
-        var timeBlock2:NSTimeInterval = 0
-        var timeBlock3:NSTimeInterval = 0
-        var timeBlock4:NSTimeInterval = 0
+        var timeBlock1:TimeInterval = 0
+        var timeBlock2:TimeInterval = 0
+        var timeBlock3:TimeInterval = 0
+        var timeBlock4:TimeInterval = 0
         var countBlock1 = 0
         var countBlock2 = 0
         var countBlock3 = 0
         var countBlock4 = 0
         
-        var conflictIntervals: Array<NSTimeInterval> = []
-        var nonConflictIntervals: Array<NSTimeInterval> = []
+        var conflictIntervals: Array<TimeInterval> = []
+        var nonConflictIntervals: Array<TimeInterval> = []
         
-        if session.type == SessionType.Flanker.rawValue {
+        if session.type.intValue == SessionType.flanker.rawValue {
             
             for m in session.moves {
                 if let move = m as? CounterpointingMove {
                     if let interval = move.intervalDouble as? Double {
                         // Real test begin after 3 practice blocks.
                         // on screen number 24
-                        switch move.poitionX.integerValue {
+                        switch move.poitionX.intValue {
                         case 24 ... 33:
                             timeBlock1 += interval
                             countBlock1 += 1
@@ -372,7 +373,7 @@ class ECABLogCalculator {
                     exit(0)
                 }
             }
-        } else if session.type == SessionType.FlankerRandomized.rawValue {
+        } else if session.type.intValue == SessionType.flankerRandomized.rawValue {
             
             for m in session.moves {
                 guard let move = m as? CounterpointingMove else {
@@ -383,7 +384,7 @@ class ECABLogCalculator {
                 }
                 
                 // Separate this screens on conflict and not conflict.
-                switch move.poitionX.integerValue {
+                switch move.poitionX.intValue {
                 
                 // Inversed false.
                 case 25, 26, 28, 30, 31, 32, 33, 36, 41, 42, 43, 47, 48, 50, 55:
@@ -407,10 +408,10 @@ class ECABLogCalculator {
         let conflictTimeMean = (timeBlock2 + timeBlock3) / Double(countBlock2 + countBlock3)
         
         // Sort intervals in ascending order
-        nonConflictIntervals = nonConflictIntervals.sort({$0 < $1})
-        conflictIntervals = conflictIntervals.sort({$0 < $1})
+        nonConflictIntervals = nonConflictIntervals.sorted(by: {$0 < $1})
+        conflictIntervals = conflictIntervals.sorted(by: {$0 < $1})
         
-        var nonConflictMedian: NSTimeInterval
+        var nonConflictMedian: TimeInterval
         if nonConflictIntervals.isEmpty {
             nonConflictMedian = 0
         } else {
@@ -430,7 +431,7 @@ class ECABLogCalculator {
             
         }
         
-        var conflictMedian: NSTimeInterval
+        var conflictMedian: TimeInterval
         if conflictIntervals.isEmpty {
             conflictMedian = 0
         } else {
@@ -482,17 +483,17 @@ class ECABLogCalculator {
         return result
     }
     
-    class func getVisualSustainResult(session: CounterpointingSession) -> VisualSustaineResult {
+    class func getVisualSustainResult(_ session: CounterpointingSession) -> VisualSustaineResult {
         
         let delay = session.vsustAcceptedDelay!.doubleValue
         let exposure = session.speed.doubleValue
         let mdelay = session.vsustAcceptedDelay!.doubleValue
-        let score = session.score.integerValue
-        let misses = session.vsustMiss?.integerValue
-        let objectsTotal = session.vsustObjects!.integerValue
-        let animalsTotal = session.vsustAnimals!.integerValue
+        let score = session.score.intValue
+        let misses = session.vsustMiss?.intValue
+        let objectsTotal = session.vsustObjects!.intValue
+        let animalsTotal = session.vsustAnimals!.intValue
         let totalPics = objectsTotal + animalsTotal
-        let falsePositives = session.errors.integerValue
+        let falsePositives = session.errors.intValue
         
         let blank = session.vsustBlank!.doubleValue
         let interval = exposure + blank

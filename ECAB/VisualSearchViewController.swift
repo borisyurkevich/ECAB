@@ -25,12 +25,12 @@ class VisualSearchViewController: TestViewController,
     private var cellHeight:CGFloat = 190
     private var board = VisualSearchBoard(stage: 0)
     private let interSpacing:CGFloat = 27
-	private var timer = NSTimer()
+	private var timer = Timer()
 	private var timerLastStarted = NSDate()
     
     enum Mode: Int {
-        case Easy = 0
-        case Hard = 1
+        case easy = 0
+        case hard = 1
     }
 	
     private struct Insets {
@@ -55,7 +55,7 @@ class VisualSearchViewController: TestViewController,
 	
 	init() {
 		let flowLayout = UICollectionViewFlowLayout()
-		collectionView = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: flowLayout)
+		collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: flowLayout)
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -72,8 +72,8 @@ class VisualSearchViewController: TestViewController,
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		
-		if model.data.visSearchDifficulty == Mode.Hard.rawValue {
-			currentView = VisualSearchHardModeView.TrainingOne.rawValue
+		if model.data.visSearchDifficulty.intValue == Mode.hard.rawValue {
+			currentView = VisualSearchHardModeView.trainingOne.rawValue
 			numberOfTargets = VisualSearchTargets.hardMode
 			gameSpeed = model.data.visSearchSpeedHard.doubleValue
 		} else {
@@ -85,20 +85,20 @@ class VisualSearchViewController: TestViewController,
         boardFlowLayout = configureFlowLayout()
 		collectionView.setCollectionViewLayout(boardFlowLayout!, animated: true)
 		
-        collectionView.registerClass(VisualSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(VisualSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 		
 		// Insert fresh session entity
 		model.addSession(model.data.selectedPlayer)
         session = model.data.sessions.lastObject as! Session
-		session.speed = gameSpeed
+		session.speed = NSNumber(value: gameSpeed)
 		session.difficulty = model.data.visSearchDifficulty
 		
-        collectionView.backgroundColor = UIColor.whiteColor()
+        collectionView.backgroundColor = UIColor.white
 		
         // Disable scrolling
-        collectionView.scrollEnabled = false
+        collectionView.isScrollEnabled = false
 		
-		backButton.setTitle("Back", forState: UIControlState.Normal)
+		backButton.setTitle("Back", for: UIControlState())
 	}
     
     override func presentPause() {
@@ -117,9 +117,9 @@ class VisualSearchViewController: TestViewController,
 	}
 	
     let theViewWhenTestStartsNormal = 2 // Motor One - 1
-    let theViewWhenTestStartsHard = VisualSearchHardModeView.MotorOne.rawValue - 1
+    let theViewWhenTestStartsHard = VisualSearchHardModeView.motorOne.rawValue - 1
 	override func skip() {
-        if model.data.visSearchDifficulty == Mode.Easy.rawValue {
+        if model.data.visSearchDifficulty.intValue == Mode.easy.rawValue {
             currentView = theViewWhenTestStartsNormal
         } else {
             currentView = theViewWhenTestStartsHard
@@ -141,19 +141,19 @@ class VisualSearchViewController: TestViewController,
 		// Here we should set borard with new scene.
 		currentView += 1
 		
-        if model.data.visSearchDifficulty == Mode.Easy.rawValue {
+        if model.data.visSearchDifficulty.intValue == Mode.easy.rawValue {
             if currentView == 8 + 1 { // TODO Change 8 to enum
                 presentPause()
                 return
             }
-        } else if model.data.visSearchDifficulty == Mode.Hard.rawValue {
-            if currentView == VisualSearchHardModeView.Two.rawValue + 1 {
+        } else if model.data.visSearchDifficulty.intValue == Mode.hard.rawValue {
+            if currentView == VisualSearchHardModeView.two.rawValue + 1 {
                 presentPause()
                 return
             }
         }
 		        
-        UIView.transitionWithView(view, duration: transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+        UIView.transition(with: view, duration: transitionSpeed, options: UIViewAnimationOptions(), animations: {
             // animation...
             self.collectionView.alpha = 0.0
             
@@ -176,7 +176,7 @@ class VisualSearchViewController: TestViewController,
 				if (self.isGameStarted) {
 					
 					self.timer.invalidate()
-					self.timer = NSTimer.scheduledTimerWithTimeInterval(self.gameSpeed,
+					self.timer = Timer.scheduledTimer(timeInterval: self.gameSpeed,
 						target: self,
 						selector: #selector(VisualSearchViewController.showBlankScreen),
 						userInfo: nil,
@@ -184,7 +184,7 @@ class VisualSearchViewController: TestViewController,
 					self.timerLastStarted = NSDate()
 				}
 				
-                UIView.transitionWithView(self.view, duration: self.transitionSpeed, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                UIView.transition(with: self.view, duration: self.transitionSpeed, options: UIViewAnimationOptions(), animations: {
                     
                     self.collectionView.alpha = 1
                     
@@ -195,12 +195,12 @@ class VisualSearchViewController: TestViewController,
     
     func updateInsets() {
         var defaultSize:CGFloat = 70
-        if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
+        if self.model.data.visSearchDifficulty.intValue == Mode.hard.rawValue {
             defaultSize = 54
         }
         
         switch (self.currentView) {
-        case VisualSearchEasyModeView.TrainingOne.rawValue, VisualSearchHardModeView.TrainingOne.rawValue:
+        case VisualSearchEasyModeView.trainingOne.rawValue, VisualSearchHardModeView.trainingOne.rawValue:
             self.cellWidth = 190
             self.cellHeight = 190
             
@@ -208,20 +208,20 @@ class VisualSearchViewController: TestViewController,
             self.insetLeft = 172
             self.insetBottom = 10
             self.insetRight = 172
-        case VisualSearchEasyModeView.TrainingTwo.rawValue, VisualSearchHardModeView.TrainingTwo.rawValue:
+        case VisualSearchEasyModeView.trainingTwo.rawValue, VisualSearchHardModeView.trainingTwo.rawValue:
             self.cellWidth = 84
             self.cellHeight = 84
             self.insetTop = 220
             self.insetLeft = 340
             self.insetRight = 340
-        case VisualSearchEasyModeView.TrainingThree.rawValue, VisualSearchHardModeView.TrainingThree.rawValue:
+        case VisualSearchEasyModeView.trainingThree.rawValue, VisualSearchHardModeView.trainingThree.rawValue:
             self.cellWidth = defaultSize
             self.cellHeight = defaultSize
             self.insetTop = 230
             self.insetLeft = 200
             self.insetRight = 200
-        case VisualSearchEasyModeView.MotorOne.rawValue ... VisualSearchEasyModeView.MotorThree.rawValue,
-        VisualSearchHardModeView.MotorOne.rawValue ... VisualSearchHardModeView.MotorTwo.rawValue:
+        case VisualSearchEasyModeView.motorOne.rawValue ... VisualSearchEasyModeView.motorThree.rawValue,
+        VisualSearchHardModeView.motorOne.rawValue ... VisualSearchHardModeView.motorTwo.rawValue:
             // Real game starts on motor test
             // This is three motor screen tests
             self.startGame()
@@ -242,20 +242,20 @@ class VisualSearchViewController: TestViewController,
             self.isTraining = false
         }
         
-        if self.model.data.visSearchDifficulty == Mode.Hard.rawValue {
+        if self.model.data.visSearchDifficulty.intValue == Mode.hard.rawValue {
             //
             // Hard Mode.
             // Training #3 needs bigger left and right insets because items have
             // smaller size. The same size as hard motor and hard test.
-            if self.currentView == VisualSearchHardModeView.TrainingThree.rawValue {
+            if self.currentView == VisualSearchHardModeView.trainingThree.rawValue {
                 self.insetTop = 230 + 35 // 230 is easy mode. 35 is needed to rougly center the collection vertically
                 self.insetLeft = 245
                 self.insetRight = 245
             }
             
-            if self.currentView != VisualSearchHardModeView.TrainingOne.rawValue
-                && self.currentView != VisualSearchHardModeView.TrainingTwo.rawValue
-                && self.currentView != VisualSearchHardModeView.TrainingThree.rawValue {
+            if self.currentView != VisualSearchHardModeView.trainingOne.rawValue
+                && self.currentView != VisualSearchHardModeView.trainingTwo.rawValue
+                && self.currentView != VisualSearchHardModeView.trainingThree.rawValue {
                     //
                     // Motor and Normal Test has smaller insets on top
                     // in order to fit all items on the screen.
@@ -277,47 +277,47 @@ class VisualSearchViewController: TestViewController,
 		
 		collectionView.performBatchUpdates({
 			
-			self.collectionView.deleteSections(NSIndexSet(index: 0))
+			self.collectionView.deleteSections(IndexSet(integer: 0))
 
-			self.collectionView.insertSections(NSIndexSet(index: 0))
+			self.collectionView.insertSections(IndexSet(integer: 0))
 			
 		}, completion: nil)
 	}
 	
     // MARK: UICollectionViewDataSource
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.board.numberOfCells
     }
 
-    func collectionView(collectionView: UICollectionView,
-               cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell  = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! VisualSearchCell
+    func collectionView(_ collectionView: UICollectionView,
+               cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! VisualSearchCell
 		
 		// Remove all subviews
 		for subview in cell.subviews {
 			subview.removeFromSuperview()
 		}
 				
-        cell.backgroundColor = UIColor.redColor()
+        cell.backgroundColor = UIColor.red
         
         let aFruit:TestItem = self.board.data[indexPath.row]
-        cell.imageView = UIImageView(frame: CGRectMake(0, 0, cellWidth, cellHeight));
+        cell.imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight));
         cell.imageView.image = aFruit.image
         cell.addSubview(cell.imageView)
         
         cell.fruit = aFruit
             
         // In case cell was selected previously
-        cell.userInteractionEnabled = true
+        cell.isUserInteractionEnabled = true
                 
         return cell
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(cellWidth, cellHeight)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func configureFlowLayout() -> UICollectionViewFlowLayout {
@@ -333,15 +333,15 @@ class VisualSearchViewController: TestViewController,
     
     // MARK: UICollectionViewDelegate
 	
-	func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+	func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 		
-		let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! VisualSearchCell
+		let cell = self.collectionView.cellForItem(at: indexPath) as! VisualSearchCell
         
         // Sound
         if cell.fruit.isValuable {
-            playSound(.Positive)
+            playSound(.positive)
         } else {
-            playSound(.Negative)
+            playSound(.negative)
         }
 		
 		var isRepeat = false
@@ -363,13 +363,13 @@ class VisualSearchViewController: TestViewController,
 		var rows = 6
 		
 		switch currentView {
-		case 0, VisualSearchHardModeView.TrainingOne.rawValue:
+		case 0, VisualSearchHardModeView.trainingOne.rawValue:
 			total = 3
 			rows = 1
-		case 1, VisualSearchHardModeView.TrainingTwo.rawValue:
+		case 1, VisualSearchHardModeView.trainingTwo.rawValue:
 			total = 9
 			rows = 3
-		case 2, VisualSearchHardModeView.TrainingThree.rawValue:
+		case 2, VisualSearchHardModeView.trainingThree.rawValue:
 			total = 18
 			rows = 3
 		default:
@@ -410,13 +410,13 @@ class VisualSearchViewController: TestViewController,
 				cross.center.y = cell.contentView.center.y
 				
 				if (!isTraining) {
-					let times = session.score.integerValue
-					session.score = NSNumber(integer: (times + 1))
+					let times = session.score.intValue
+					session.score = NSNumber(value: (times + 1) as Int)
 				}
 				
 				var gameStage = currentView
-                if model.data.visSearchDifficulty == Mode.Hard.rawValue {
-					gameStage -= VisualSearchHardModeView.TrainingOne.rawValue
+                if model.data.visSearchDifficulty.intValue == Mode.hard.rawValue {
+					gameStage -= VisualSearchHardModeView.trainingOne.rawValue
 				}
 				
 				if checkedTargets.count == numberOfTargets[gameStage] {
@@ -434,8 +434,8 @@ class VisualSearchViewController: TestViewController,
 		} else {
 			// Not valuable fruit selected
 			if (!isTraining) {
-				let times = session.failureScore.integerValue
-				session.failureScore = NSNumber(integer: (times + 1))
+				let times = session.failureScore.intValue
+				session.failureScore = NSNumber(value: (times + 1) as Int)
 			}
 		}
 	}
@@ -449,26 +449,26 @@ class VisualSearchViewController: TestViewController,
 		shapeLayer.lineCap = kCALineCapRound
 		shapeLayer.lineJoin = kCALineJoinRound
 		shapeLayer.frame = self.view.layer.bounds
-		shapeLayer.backgroundColor = UIColor.clearColor().CGColor
+		shapeLayer.backgroundColor = UIColor.clear.cgColor
 		shapeLayer.fillColor = nil
 		
 		return shapeLayer
 	}
 	
-	func crossPath() -> CGPathRef {
+	func crossPath() -> CGPath {
 		let path = linePath()
 		
-		path.moveToPoint(CGPointMake(45, 78))
-		path.addLineToPoint(CGPointMake(77, 42))
-		path.moveToPoint(CGPointMake(45, 42))
-		path.addLineToPoint(CGPointMake(82, 78))
+		path.move(to: CGPoint(x: 45, y: 78))
+		path.addLine(to: CGPoint(x: 77, y: 42))
+		path.move(to: CGPoint(x: 45, y: 42))
+		path.addLine(to: CGPoint(x: 82, y: 78))
 		
-		return path.CGPath;
+		return path.cgPath;
 	}
 	
 	func linePath() -> UIBezierPath {
 		let path = UIBezierPath()
-		path.lineCapStyle = CGLineCap.Round
+		path.lineCapStyle = CGLineCap.round
 		path.lineWidth = 5
 		
 		return path
@@ -477,7 +477,7 @@ class VisualSearchViewController: TestViewController,
     override  func getComment() -> String {
         return session.comment
     }
-    override func addComment(alert: UIAlertController) {
+    override func addComment(_ alert: UIAlertController) {
         if let fields = alert.textFields {
             let textField = fields[0]
             if let existingComment = textField.text {
@@ -488,9 +488,9 @@ class VisualSearchViewController: TestViewController,
 	
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.destinationViewController.isKindOfClass(MenuViewController) {
-            let dest = segue.destinationViewController as! MenuViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination.isKind(of: MenuViewController.self) {
+            let dest = segue.destination as! MenuViewController
             dest.setNeedsStatusBarAppearanceUpdate()
         }
     }

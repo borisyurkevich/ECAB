@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import CoreGraphics
 
 class LogModel {
 	
-	let formatter = NSDateFormatter()
-	let smallFormatter = NSDateFormatter()
+	let formatter = DateFormatter()
+	let smallFormatter = DateFormatter()
 	init() {
 		formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss:S"
 		smallFormatter.dateFormat = "HH:mm:ss:S"
 	}
 	
-	func generateVisualSearchLogWithSession(session: Session, gameName: String) -> String {
+	func generateVisualSearchLogWithSession(_ session: Session, gameName: String) -> String {
 		var detailMoves = ""
 		var counter = 1
 		var emptyScreenCounter = 0
@@ -30,37 +31,37 @@ class LogModel {
 			
 			// Caluculate screen
 			var screenName = ""
-			let screenNum = gameMove.screenNumber.integerValue
+			let screenNum = gameMove.screenNumber.intValue
             var trainig = false
             
 			switch screenNum {
                 
-            case VisualSearchEasyModeView.TrainingOne.rawValue ... VisualSearchEasyModeView.TrainingThree.rawValue:
+            case VisualSearchEasyModeView.trainingOne.rawValue ... VisualSearchEasyModeView.trainingThree.rawValue:
                 
 				screenName = "Training \(screenNum + 1)"
                 trainig = true
                 
-            case VisualSearchHardModeView.TrainingOne.rawValue ... VisualSearchHardModeView.TrainingThree.rawValue:
+            case VisualSearchHardModeView.trainingOne.rawValue ... VisualSearchHardModeView.trainingThree.rawValue:
                 
                 screenName = "Training \(screenNum - 10)"
                 trainig = true
                 
-            case VisualSearchEasyModeView.MotorOne.rawValue ... VisualSearchEasyModeView.MotorThree.rawValue:
+            case VisualSearchEasyModeView.motorOne.rawValue ... VisualSearchEasyModeView.motorThree.rawValue:
                 
                 screenName = "Motor \(screenNum - 2)"
                 trainig = false
                 
-            case VisualSearchHardModeView.MotorOne.rawValue, VisualSearchHardModeView.MotorTwo.rawValue:
+            case VisualSearchHardModeView.motorOne.rawValue, VisualSearchHardModeView.motorTwo.rawValue:
 
                 screenName = "Motor \(screenNum - 13)"
                 trainig = false
 
-            case VisualSearchEasyModeView.One.rawValue ... VisualSearchEasyModeView.Three.rawValue:
+            case VisualSearchEasyModeView.one.rawValue ... VisualSearchEasyModeView.three.rawValue:
             
 				screenName = "Search \(screenNum - 5)"
                 trainig = false
 			
-            case VisualSearchHardModeView.One.rawValue, VisualSearchHardModeView.Two.rawValue:
+            case VisualSearchHardModeView.one.rawValue, VisualSearchHardModeView.two.rawValue:
                 
                 screenName = "Search \(screenNum - 15)"
                 trainig = false
@@ -84,7 +85,7 @@ class LogModel {
 				`repeat` = "(unique)"
 			}
 			
-			let dateStr = smallFormatter.stringFromDate(gameMove.date)
+			let dateStr = smallFormatter.string(from: gameMove.date as Date)
 			
 			var append: String
 			
@@ -105,10 +106,10 @@ class LogModel {
 			detailMoves = detailMoves + append
 		}
 		_ = session.dateStart.description
-		let dateStr = formatter.stringFromDate(session.dateStart)
+		let dateStr = formatter.string(from: session.dateStart as Date)
 		
 		var difficulty = "easy"
-		if session.difficulty == Difficulty.Hard.rawValue {
+		if session.difficulty == Difficulty.hard.rawValue {
 			difficulty = "hard"
 		}
 		
@@ -123,7 +124,7 @@ class LogModel {
 		return visualSearchLog;
 	}
 	
-	func generateCounterpointingLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateCounterpointingLogWithSession(_ session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		var status = "success"
@@ -147,10 +148,10 @@ class LogModel {
             if let newInterval = actualMove.intervalDouble as? Double {
                 append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(r(newInterval)) sec. \(inverted) \n"
             } else {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.integerValue) sec. \(inverted) \n"
+                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.intValue) sec. \(inverted) \n"
             }
             
-            if actualMove.poitionX == blankSpaceTag {
+            if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
                 details = details + "\n"
             } else {
                 details = details + append
@@ -159,7 +160,7 @@ class LogModel {
             counter += 1
 		}
 		
-		let dateString = formatter.stringFromDate(session.dateStart)
+		let dateString = formatter.string(from: session.dateStart as Date)
 				
 		let comment = session.comment
 		
@@ -195,7 +196,7 @@ class LogModel {
 		return text
 	}
 	
-	func generateFlankerLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateFlankerLogWithSession(_ session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		var status = "success"
@@ -222,14 +223,14 @@ class LogModel {
             }
             counter += 1
             
-            if session.type == SessionType.Flanker.rawValue {
+            if session.type.intValue == SessionType.flanker.rawValue {
             
-                if actualMove.poitionX == blankSpaceTag {
+                if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
                     details = details + append + "\n"
                 } else {
                     details = details + append
                 }
-            } else if session.type == SessionType.FlankerRandomized.rawValue {
+            } else if session.type.intValue == SessionType.flankerRandomized.rawValue {
             
                 switch actualMove.poitionX {
                 case 21:
@@ -241,7 +242,7 @@ class LogModel {
             }
 		}
 		
-		let dateString = formatter.stringFromDate(session.dateStart)
+		let dateString = formatter.string(from: session.dateStart as Date)
 		
 		let comment = session.comment
 		
@@ -260,7 +261,7 @@ class LogModel {
         
         var text = ""
         
-        if session.type == SessionType.Flanker.rawValue {
+        if session.type.intValue == SessionType.flanker.rawValue {
         
             text = "\(gameName)\n\n" +
                 "Player: \(session.player.name)\n\n" +
@@ -281,7 +282,7 @@ class LogModel {
                 "Images: \(imageInfo)\n\n" +
                 "Moves:\n\n\(details)"
             
-        } else if session.type == SessionType.FlankerRandomized.rawValue {
+        } else if session.type.intValue == SessionType.flankerRandomized.rawValue {
             
             text = "\(gameName) Randomized.\n\n" +
                 "Player: \(session.player.name)\n\n" +
@@ -306,7 +307,7 @@ class LogModel {
 		return text
 	}
 	
-	func generateVisualSustainLogWithSession(session: CounterpointingSession, gameName: String) -> String {
+	func generateVisualSustainLogWithSession(_ session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
 		var counter = 1
 		
@@ -316,7 +317,7 @@ class LogModel {
 			
 			var append = ""
 			var fourMistakes = ""
-			if actualMove.poitionY == VisualSustainSkip.FourSkips.rawValue {
+			if actualMove.poitionY.doubleValue == Double(VisualSustainSkip.fourSkips.rawValue) {
 				fourMistakes = "[4 mistaken taps in a row]"
 			}
 			if actualMove.success.boolValue {
@@ -326,9 +327,9 @@ class LogModel {
 				append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
 			} else {
 				// Two mistakes type
-				if (actualMove.interval == VisualSustainMistakeType.FalsePositive.rawValue) {
+				if (actualMove.interval.doubleValue == VisualSustainMistakeType.falsePositive.rawValue) {
 					append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
-				} else if (actualMove.interval == VisualSustainMistakeType.Miss.rawValue) {
+				} else if (actualMove.interval.doubleValue == VisualSustainMistakeType.miss.rawValue) {
 					append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
 				}
 				
@@ -343,7 +344,7 @@ class LogModel {
 			counter += 1
 		}
 		
-		let dateString = formatter.stringFromDate(session.dateStart)
+		let dateString = formatter.string(from: session.dateStart as Date)
 		
 		let comment = session.comment
 		
@@ -355,8 +356,8 @@ class LogModel {
 		let exposure = session.speed.doubleValue
 		let blank = session.vsustBlank!.doubleValue
 		let interval = exposure + blank
-		let objectsTotal = session.vsustObjects!.intValue
-		let animalsTotal = session.vsustAnimals!.intValue
+		let objectsTotal = session.vsustObjects!.int32Value
+		let animalsTotal = session.vsustAnimals!.int32Value
 		
 		let text = "\(gameName) (build \(build))\n\n" +
         "Player: \(session.player.name)\n" +
