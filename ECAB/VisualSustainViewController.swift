@@ -54,6 +54,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	let labelTagAttention = 1
 	let tagChangingGamePicture = 2
 	let timeWarningPromptRemainingOnScreen = 4.0
+    
+    private var isReactionLogged = false
 
 	private enum Picture: String {
 		case Empty = "white_rect"
@@ -234,8 +236,10 @@ class VisualSustainViewController: CounterpointingViewController {
 		imageVisibleOnScreen.frame = CGRect(x: 0, y: 0, width: newFrame.frame.size.width * 2, height: newFrame.frame.size.height * 2)
 		imageVisibleOnScreen.center = view.center;
 		imageVisibleOnScreen.image = newImage
-		
-		if isAnimal(pic) {
+        
+        
+        if isAnimal(pic) {
+            isReactionLogged = false
 			timeSinceAnimalAppeared = 0
 			timeToAcceptDelay.invalidate()
 			timeToAcceptDelay = Timer.scheduledTimer(timeInterval: timersScale,
@@ -344,10 +348,15 @@ class VisualSustainViewController: CounterpointingViewController {
 			if !trainingMode {
 				let score = session.score.intValue
 				session.score = NSNumber(value: (score + 1) as Int)
+                isReactionLogged = true
 			}
 			
 		} else {
-			noteMistake(.falsePositive)
+            // Not an animal
+            if !isReactionLogged {
+                noteMistake(.falsePositive)
+                isReactionLogged = true
+            }
 		}
 	}
 	
