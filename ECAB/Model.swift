@@ -34,9 +34,10 @@ struct GameTitle {
 }
 
 enum VisualSustainMistakeType: Double {
-	case miss = 100
-	case falsePositive = 200
-	case unknown = 0
+	case miss = 100.0
+	case falsePositive = 200.0
+    case repeated = 300.0
+	case unknown = 0.0
 }
 
 enum VisualSustainSkip: CGFloat {
@@ -246,6 +247,7 @@ class Model {
 		move.intervalDouble = NSNumber(value: interval as Double)
 		move.inverted = inverted as NSNumber
 		move.delay = delay as NSNumber
+        move.interval = NSNumber(value: interval)
 		
 		let allSessions = data.counterpointingSessions
 		let lastSession = allSessions.lastObject as! CounterpointingSession

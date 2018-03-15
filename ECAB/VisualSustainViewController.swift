@@ -91,6 +91,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		case miss
 		case falsePositive
 		case hit
+        case repeatedTouch
 	}
 	
 	private let practiceSequence: [Picture] = [.Ball, .Bus, .Boot, .Pig, .Sun, .Star, .Leaf, .Key, .Cat, .Bed, .Sock, .Horse, .Cake, .Boat, .Book, .Dog, .Car, .Clock, .Fish, .Train, .Empty];
@@ -356,6 +357,8 @@ class VisualSustainViewController: CounterpointingViewController {
             if !isReactionLogged {
                 noteMistake(.falsePositive)
                 isReactionLogged = true
+            } else {
+                log(.repeatedTouch)
             }
 		}
 	}
@@ -377,22 +380,27 @@ class VisualSustainViewController: CounterpointingViewController {
 	
 	private func log(_ action: PlayerAction) {
 		let screen = CGFloat(indexForCurrentSequence + 1)
-		var successfulAction = false
 		
 		if (action == .hit) {
-			successfulAction = true
-			model.addCounterpointingMove(screen, positionY: 0, success: successfulAction, interval: 0.0, inverted: trainingMode, delay:timeSinceAnimalAppeared)
+			model.addCounterpointingMove(screen, positionY: 0, success: true,
+                                         interval: 0.0, inverted: trainingMode,
+                                         delay:timeSinceAnimalAppeared)
 			
 		} else {
 			// To avoid changing data model we will use interval to store mistake type
 			var codedMistakeType = VisualSustainMistakeType.unknown.rawValue
-			if (action == .miss) {
-				codedMistakeType = VisualSustainMistakeType.miss.rawValue
-				countTotalMissies += 1 // for warning prompt
-				
-			} else if (action == .falsePositive) {
-				codedMistakeType = VisualSustainMistakeType.falsePositive.rawValue
-			}
+
+            switch action {
+            case .miss:
+                codedMistakeType = VisualSustainMistakeType.miss.rawValue
+                countTotalMissies += 1 // for warning prompt
+            case .falsePositive:
+                codedMistakeType = VisualSustainMistakeType.falsePositive.rawValue
+            case .repeatedTouch:
+                codedMistakeType = VisualSustainMistakeType.repeated.rawValue
+            case .hit:
+                fatalError()
+            }
 			
 			// -100 is special indicator, player skipped 4 turns, not has to be added to the log
 			var codedSkipWarning = VisualSustainSkip.noSkip.rawValue
@@ -405,7 +413,10 @@ class VisualSustainViewController: CounterpointingViewController {
 			if myDelay == timeNever {
 				myDelay = 0
 			}
-			model.addCounterpointingMove(screen, positionY: codedSkipWarning, success: false, interval: codedMistakeType, inverted: trainingMode, delay: myDelay)
+			model.addCounterpointingMove(screen, positionY: codedSkipWarning,
+                                         success: false,
+                                         interval: codedMistakeType,
+                                         inverted: trainingMode, delay: myDelay)
 		}
 	}
 	
