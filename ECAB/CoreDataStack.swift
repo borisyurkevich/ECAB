@@ -18,10 +18,10 @@ class CoreDataStack
 	
 	init() {
 		//1
-		let bundle = NSBundle.mainBundle()
+		let bundle = Bundle.main
 		let modelURL =
-		bundle.URLForResource("Model", withExtension:"momd")
-		model = NSManagedObjectModel(contentsOfURL: modelURL!)!
+		bundle.url(forResource: "Model", withExtension:"momd")
+		model = NSManagedObjectModel(contentsOf: modelURL!)!
 		
 		//2
 		psc = NSPersistentStoreCoordinator(managedObjectModel:model)
@@ -35,46 +35,41 @@ class CoreDataStack
 		CoreDataStack.applicationDocumentsDirectory()
 		
 		let storeURL =
-		documentsURL.URLByAppendingPathComponent("Model")
+		documentsURL.appendingPathComponent("Model")
 		
-		let options = [NSMigratePersistentStoresAutomaticallyOption: true,
-			NSInferMappingModelAutomaticallyOption: true]
-
+		let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
 		
-		var error: NSError? = nil
 		do {
-			store = try psc.addPersistentStoreWithType(NSSQLiteStoreType,
-				configuration: nil,
-				URL: storeURL,
+			store = try psc.addPersistentStore(ofType: NSSQLiteStoreType,
+				configurationName: nil,
+				at: storeURL,
 				options: options)
-		} catch let error1 as NSError {
-			error = error1
+		} catch let error as NSError {
 			store = nil
+            print("error core data stack init: \(error.localizedDescription)")
 		}
 		
 		if store == nil {
-			print("Error adding persistent store: \(error)")
+			print("Error adding persistent store.")
 			abort()
 		}
 	}
 	
 	func saveContext() {
-		var error: NSError? = nil
 		if context.hasChanges {
 			do {
 				try context.save()
 			} catch let error1 as NSError {
-				error = error1
-				print("Could not save: \(error), \(error?.userInfo)")
+				print("Could not save: \(error1.localizedDescription)")
 			}
 		}
 	}
 	
-	class func applicationDocumentsDirectory() -> NSURL {
-		let fileManager = NSFileManager.defaultManager()
+	class func applicationDocumentsDirectory() -> URL {
+		let fileManager = FileManager.default
 		
-		let urls = fileManager.URLsForDirectory(.DocumentDirectory,
-			inDomains: .UserDomainMask) 
+		let urls = fileManager.urls(for: .documentDirectory,
+			in: .userDomainMask) 
 		
 		return urls[0]
 	}

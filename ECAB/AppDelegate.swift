@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     var window: UIWindow?
 	lazy var coreDataStack = CoreDataStack()
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
 		let tabBarController = self.window!.rootViewController as! UITabBarController
@@ -28,11 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
         return true
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
 		coreDataStack.saveContext()
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
 		coreDataStack.saveContext()
     }
 
@@ -41,31 +41,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     let controlsRestrictionId = "net.borisy.ecab.ControlsRestrictionId"
     let notificationId = "kECABGuidedAccessNotification"
     
-    func guidedAccessRestrictionIdentifiers() -> [String]? {
+    var guidedAccessRestrictionIdentifiers: [String]? {
         return [controlsRestrictionId]
     }
     
-    func textForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String? {
+    func textForGuidedAccessRestriction(withIdentifier restrictionIdentifier: String) -> String? {
         if restrictionIdentifier == controlsRestrictionId {
             return "Pause button"
         }
         return nil
     }
     
-    func detailTextForGuidedAccessRestrictionWithIdentifier(restrictionIdentifier: String) -> String? {
+    func detailTextForGuidedAccessRestriction(withIdentifier restrictionIdentifier: String) -> String? {
         if restrictionIdentifier == controlsRestrictionId {
             return "Pause and quit game at any time"
         }
         return nil
     }
     
-    func guidedAccessRestrictionWithIdentifier(restrictionIdentifier: String,
-        didChangeState newRestrictionState: UIGuidedAccessRestrictionState) {
+    func guidedAccessRestriction(withIdentifier restrictionIdentifier: String,
+        didChange newRestrictionState: UIGuidedAccessRestrictionState) {
             
             if restrictionIdentifier == controlsRestrictionId
             {
-                let enabled = newRestrictionState != UIGuidedAccessRestrictionState.Deny
-                NSNotificationCenter.defaultCenter().postNotificationName(notificationId, object: nil, userInfo: ["restriction":enabled])
+                let enabled = newRestrictionState != UIGuidedAccessRestrictionState.deny
+                NotificationCenter.default.post(name: Notification.Name(rawValue: notificationId), object: nil, userInfo: ["restriction":enabled])
             }
     }
 }

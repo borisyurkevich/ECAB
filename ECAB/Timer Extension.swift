@@ -19,11 +19,11 @@ import ObjectiveC
 private var pauseStartKey:UInt8 = 0;
 private var previousFireDateKey:UInt8 = 0;
 
-extension NSTimer
+extension Timer
 {
     private var pauseStart: NSDate!{
         get{
-            return objc_getAssociatedObject(self, &pauseStartKey) as? NSDate;
+            return objc_getAssociatedObject(self, &pauseStartKey) as? NSDate
             
         }
         set(newValue)
@@ -34,7 +34,7 @@ extension NSTimer
     
     private var previousFireDate: NSDate!{
         get{
-            return objc_getAssociatedObject(self, &previousFireDateKey) as? NSDate;
+            return objc_getAssociatedObject(self, &previousFireDateKey) as? NSDate
             
         }
         set(newValue)
@@ -47,8 +47,8 @@ extension NSTimer
     func pause()
     {
         pauseStart = NSDate();
-        previousFireDate = self.fireDate;
-        self.fireDate = NSDate.distantFuture() ;
+        previousFireDate = self.fireDate as NSDate;
+        self.fireDate = Date.distantFuture ;
     }
     
     func resume()
@@ -56,7 +56,7 @@ extension NSTimer
         if(pauseStart != nil)
         {
             let pauseTime = -1 * pauseStart.timeIntervalSinceNow;
-            let date = NSDate(timeInterval:pauseTime, sinceDate:previousFireDate );
+            let date = Date(timeInterval:pauseTime, since:previousFireDate as Date );
             self.fireDate = date;
         }
         

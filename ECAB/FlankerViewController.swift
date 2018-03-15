@@ -17,12 +17,12 @@ class FlankerViewController: CounterpointingViewController {
 
     override func viewDidLoad() {
 		greeingMessage = "Example stimuli..."
-        isFlankerRandomized = NSUserDefaults.standardUserDefaults().boolForKey("isFlankerRandmoized")
+        isFlankerRandomized = UserDefaults.standard.bool(forKey: "isFlankerRandmoized")
         
         if isFlankerRandomized {
-            sessionType = SessionType.FlankerRandomized.rawValue
+            sessionType = SessionType.flankerRandomized.rawValue
         } else {
-            sessionType = SessionType.Flanker.rawValue
+            sessionType = SessionType.flanker.rawValue
         }
         super.viewDidLoad()
 		
@@ -37,48 +37,48 @@ class FlankerViewController: CounterpointingViewController {
     }
 	override func addTouchTargetButtons() {
 		
-		let screen = UIScreen.mainScreen().bounds
-		let screenAreaLeft = CGRectMake(0, menuBarHeight, barWidth, screen.size.height-menuBarHeight)
-		let screenAreaRight = CGRectMake(UIScreen.mainScreen().bounds.size.width - barWidth, menuBarHeight, barWidth, screen.size.height-menuBarHeight)
+		let screen = UIScreen.main.bounds
+		let screenAreaLeft = CGRect(x: 0, y: menuBarHeight, width: barWidth, height: screen.size.height-menuBarHeight)
+		let screenAreaRight = CGRect(x: UIScreen.main.bounds.size.width - barWidth, y: menuBarHeight, width: barWidth, height: screen.size.height-menuBarHeight)
 		let buttonLeft = UIButton(frame: screenAreaLeft)
 		let buttonRight = UIButton(frame: screenAreaRight)
-		buttonLeft.backgroundColor = UIColor.orangeColor()
-		buttonRight.backgroundColor = UIColor.greenColor()
-		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), forControlEvents: UIControlEvents.TouchDown)
-		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), forControlEvents: UIControlEvents.TouchDown)
+		buttonLeft.backgroundColor = UIColor.orange
+		buttonRight.backgroundColor = UIColor.green
+		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), for: UIControlEvents.touchDown)
+		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), for: UIControlEvents.touchDown)
 		
 		let star = UIImage(named: "star")
-		buttonLeft.setImage(star, forState: UIControlState.Normal)
-		buttonLeft.imageView!.contentMode = UIViewContentMode.Center
-		buttonRight.setImage(star, forState: UIControlState.Normal)
-		buttonRight.imageView!.contentMode = UIViewContentMode.Center
+		buttonLeft.setImage(star, for: UIControlState())
+		buttonLeft.imageView!.contentMode = UIViewContentMode.center
+		buttonRight.setImage(star, for: UIControlState())
+		buttonRight.imageView!.contentMode = UIViewContentMode.center
 		
 		view.addSubview(buttonLeft)
 		view.addSubview(buttonRight)
 	}
 	
 	enum Picture {
-		case Empty
-		case Mouse
-		case Fish
-		case MouseInverted
-		case FishInverted
+		case empty
+		case mouse
+		case fish
+		case mouseInverted
+		case fishInverted
 	}
 	
 	enum Position {
-		case Left
-		case Middle
-		case Right
+		case left
+		case middle
+		case right
 	}
 	
-	func updateScreen(left: Picture, middle: Picture, right: Picture) {
+	func updateScreen(_ left: Picture, middle: Picture, right: Picture) {
 		
-		addImage(left, position: Position.Left)
-		addImage(middle, position: Position.Middle)
-		addImage(right, position: Position.Right)
+		addImage(left, position: Position.left)
+		addImage(middle, position: Position.middle)
+		addImage(right, position: Position.right)
 	}
 	
-	func addImage(image: Picture, position:Position) {
+	func addImage(_ image: Picture, position:Position) {
 		
 		let fishImage = UIImage(named: "fish")
 		let mouseImage = UIImage(named: "mouse")
@@ -95,31 +95,31 @@ class FlankerViewController: CounterpointingViewController {
 		var imageView = UIImageView()
 		
 		switch image {
-		case .Mouse:
+		case .mouse:
 			imageView = UIImageView(image: mouseImage)
-			imageView.frame = CGRectMake(0, 0, mouseImage!.size.width*scaleFactor, mouseImage!.size.height*scaleFactor)
-		case .Fish:
+			imageView.frame = CGRect(x: 0, y: 0, width: mouseImage!.size.width*scaleFactor, height: mouseImage!.size.height*scaleFactor)
+		case .fish:
 			imageView = UIImageView(image: fishImage)
-			imageView.frame = CGRectMake(0, 0, fishImage!.size.width*scaleFactor, fishImage!.size.height*scaleFactor)
+			imageView.frame = CGRect(x: 0, y: 0, width: fishImage!.size.width*scaleFactor, height: fishImage!.size.height*scaleFactor)
 			leftTarget = false
-		case .MouseInverted:
+		case .mouseInverted:
 			imageView = UIImageView(image: mouseInvertedImage)
-			imageView.frame = CGRectMake(0, 0, mouseImage!.size.width*scaleFactor, mouseImage!.size.height*scaleFactor)
-		case .FishInverted:
+			imageView.frame = CGRect(x: 0, y: 0, width: mouseImage!.size.width*scaleFactor, height: mouseImage!.size.height*scaleFactor)
+		case .fishInverted:
 			imageView = UIImageView(image: fishInvertedImage)
-			imageView.frame = CGRectMake(0, 0, fishImage!.size.width*scaleFactor, fishImage!.size.height*scaleFactor)
+			imageView.frame = CGRect(x: 0, y: 0, width: fishImage!.size.width*scaleFactor, height: fishImage!.size.height*scaleFactor)
 			leftTarget = true
 		default:
 			break
 		}
 		
 		switch position {
-		case .Left:
-			imageView.center = CGPointMake(view.center.x - mouseOffset, view.center.y)
-		case .Middle:
-			imageView.center = CGPointMake(view.center.x, view.center.y)
-		case .Right:
-			imageView.center = CGPointMake(view.center.x + mouseOffset, view.center.y)
+		case .left:
+			imageView.center = CGPoint(x: view.center.x - mouseOffset, y: view.center.y)
+		case .middle:
+			imageView.center = CGPoint(x: view.center.x, y: view.center.y)
+		case .right:
+			imageView.center = CGPoint(x: view.center.x + mouseOffset, y: view.center.y)
 		}
 		
 		view.addSubview(imageView)
@@ -148,7 +148,7 @@ class FlankerViewController: CounterpointingViewController {
     
         currentScreenShowing += 1
         cleanView()
-        screenPresentedDate = NSDate()
+        screenPresentedDate = Date()
         
         if isFlankerRandomized == false {
             
@@ -156,50 +156,50 @@ class FlankerViewController: CounterpointingViewController {
             case 0:
                 presentMessage(greeingMessage)
             case 1:
-                updateScreen(.Empty, middle: .Fish, right: .Empty)
+                updateScreen(.empty, middle: .fish, right: .empty)
             case 2:
-                updateScreen(.Empty, middle: .FishInverted, right: .Empty)
+                updateScreen(.empty, middle: .fishInverted, right: .empty)
             case 3:
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 4:
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 5:
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 6:
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 7:
                 presentMessage("Practice 1. Ready...")
                 // Next line is to insert white space in the log.
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
             case 8:
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 9:
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
             case 10:
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 11:
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 12:
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
             case 13:
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 14:
                 presentMessage("...stop")
             case 15:
                 presentMessage("Practice 2. Ready")
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
             case 16:
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
             case 17:
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 18:
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 19:
-                updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
+                updateScreen(.mouse, middle: .mouse, right: .fishInverted)
             case 20:
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 21:
-                updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fish, middle: .mouseInverted, right: .mouseInverted)
             case 22:
                 presentMessage("...stop")
             case 23:
@@ -208,25 +208,25 @@ class FlankerViewController: CounterpointingViewController {
                 gameModeInversed = false
                 trainingMode = false
             case 24: // 0
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 25: // 1
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
             case 26: // 2
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fishInverted)
             case 27: // 3
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 28: // 4
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
             case 29: // 5
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 30: // 6
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
             case 31: // 7
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
             case 32: // 8
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 33: // 9
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 34:
                 presentMessage("...stop")
             case 35:
@@ -234,25 +234,25 @@ class FlankerViewController: CounterpointingViewController {
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
                 gameModeInversed = true
             case 36: // 10
-                updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fish, right: .mouseInverted)
             case 37: // 11
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 38: // 12
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
             case 39: // 13
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 40: // 14
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
             case 41: // 15
-                updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fish, middle: .mouseInverted, right: .mouseInverted)
             case 42: // 16
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 43: // 17
-                updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fish, right: .mouseInverted)
             case 44: // 18
-                updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
+                updateScreen(.mouse, middle: .mouse, right: .fishInverted)
             case 45: // 19
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 46:
                 presentMessage("...stop")
             case 47:
@@ -260,25 +260,25 @@ class FlankerViewController: CounterpointingViewController {
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
                 gameModeInversed = true
             case 48: // 20
-                updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
+                updateScreen(.mouse, middle: .mouse, right: .fishInverted)
             case 49: // 21
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 50: // 22
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 51: // 23
-                updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fish, middle: .mouseInverted, right: .mouseInverted)
             case 52: // 24
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
             case 53: // 25
-                updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fish, right: .mouseInverted)
             case 54: // 26
-                updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fish, middle: .mouseInverted, right: .mouseInverted)
             case 55: // 27
-                updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
+                updateScreen(.mouse, middle: .mouse, right: .fishInverted)
             case 56: // 28
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
             case 57: // 29
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 58:
                 presentMessage("...stop")
             case 59:
@@ -286,25 +286,25 @@ class FlankerViewController: CounterpointingViewController {
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
                 gameModeInversed = false
             case 60: // 30
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fishInverted)
             case 61: // 31
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 62: // 32
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
             case 63: // 33
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 64: // 34
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fishInverted)
             case 65: // 35
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 66: // 36
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fishInverted)
             case 67: // 37
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
             case 68: // 38
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 69: // 39
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
             case 70:
                 presentMessage("...stop")
             case 71:
@@ -331,50 +331,50 @@ class FlankerViewController: CounterpointingViewController {
             case 0:
                 presentMessage("Example stimuli...")
             case 1:
-                updateScreen(.Empty, middle: .Fish, right: .Empty)
+                updateScreen(.empty, middle: .fish, right: .empty)
             case 2:
-                updateScreen(.Empty, middle: .FishInverted, right: .Empty)
+                updateScreen(.empty, middle: .fishInverted, right: .empty)
             case 3:
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 4:
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 5:
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 6:
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 7:
                 presentMessage("Practice 1. Ready...")
                 // Next line is to insert white space in the log.
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
             case 8:
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 9:
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
             case 10:
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 11:
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 12:
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
             case 13:
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
             case 14:
                 presentMessage("...stop")
             case 15:
                 presentMessage("Practice 2. Ready")
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
             case 16:
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
             case 17:
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 18:
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 19:
-                updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
+                updateScreen(.mouse, middle: .mouse, right: .fishInverted)
             case 20:
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 21:
-                updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fish, middle: .mouseInverted, right: .mouseInverted)
             case 22:
                 presentMessage("...stop")
             case 23:
@@ -383,48 +383,48 @@ class FlankerViewController: CounterpointingViewController {
                 trainingMode = false
                 gameModeInversed = true
             case 24: // 0
-                updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fish, middle: .mouseInverted, right: .mouseInverted)
                 gameModeInversed = true
             case 25: // 1
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fishInverted)
                 gameModeInversed = false
             case 26: // 2
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fishInverted)
                 gameModeInversed = false
             case 27: // 3
-                updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fish, right: .mouseInverted)
                 gameModeInversed = true
             case 28: // 4
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
                 gameModeInversed = false
             case 29: // 5
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
                 gameModeInversed = true
             case 30: // 6
-                updateScreen(.Fish, middle: .Mouse, right: .Mouse)
+                updateScreen(.fish, middle: .mouse, right: .mouse)
                 gameModeInversed = false
             case 31: // 7
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 32: // 8
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 33: // 9
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
                 gameModeInversed = false
             case 34: // 10
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
                 gameModeInversed = true
             case 35: // 11
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
                 gameModeInversed = true
             case 36: // 12
-                updateScreen(.FishInverted, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fishInverted, middle: .mouseInverted, right: .mouseInverted)
                 gameModeInversed = false
             case 37: // 13
                 gameModeInversed = true
-                updateScreen(.MouseInverted, middle: .Fish, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fish, right: .mouseInverted)
             case 38: // 14
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
-                gameModeInversed = false
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
+                gameModeInversed = true
             case 39:
                 presentMessage("...stop")
             case 40:
@@ -433,41 +433,41 @@ class FlankerViewController: CounterpointingViewController {
                 trainingMode = false
                 gameModeInversed = false
             case 41: // 15
-                updateScreen(.MouseInverted, middle: .FishInverted, right: .MouseInverted)
+                updateScreen(.mouseInverted, middle: .fishInverted, right: .mouseInverted)
             case 42: // 16
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 43: // 17
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
             case 44: // 18
-                updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
+                updateScreen(.mouse, middle: .mouse, right: .fishInverted)
                 gameModeInversed = true
             case 45: // 19
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 46: //20
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
             case 47: //21
-                updateScreen(.Mouse, middle: .Mouse, right: .Fish)
+                updateScreen(.mouse, middle: .mouse, right: .fish)
                 gameModeInversed = false
             case 48: //22
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .FishInverted)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fishInverted)
             case 49: //23
-                updateScreen(.MouseInverted, middle: .MouseInverted, right: .Fish)
+                updateScreen(.mouseInverted, middle: .mouseInverted, right: .fish)
                 gameModeInversed = true
             case 50: //24
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
                 gameModeInversed = false
             case 51: //25
                 gameModeInversed = true
-                updateScreen(.Mouse, middle: .Mouse, right: .FishInverted)
+                updateScreen(.mouse, middle: .mouse, right: .fishInverted)
             case 52: //26
-                updateScreen(.Mouse, middle: .FishInverted, right: .Mouse)
+                updateScreen(.mouse, middle: .fishInverted, right: .mouse)
             case 53: //27
-                updateScreen(.FishInverted, middle: .Mouse, right: .Mouse)
+                updateScreen(.fishInverted, middle: .mouse, right: .mouse)
             case 54: //28
-                updateScreen(.Fish, middle: .MouseInverted, right: .MouseInverted)
+                updateScreen(.fish, middle: .mouseInverted, right: .mouseInverted)
                 gameModeInversed = true
             case 55:  //29
-                updateScreen(.Mouse, middle: .Fish, right: .Mouse)
+                updateScreen(.mouse, middle: .fish, right: .mouse)
                 gameModeInversed = false
             case 56: 
                 presentMessage("...stop")
@@ -477,5 +477,5 @@ class FlankerViewController: CounterpointingViewController {
                 break
             }
         }
-	}
+    }
 }

@@ -11,12 +11,12 @@ import AVFoundation
 
 class CounterpointingViewController: TestViewController {
 	
-	var screenPresentedDate = NSDate()
-	var lastMistakeDate = NSDate().dateByAddingTimeInterval(0)
+	var screenPresentedDate = Date()
+	var lastMistakeDate = Date().addingTimeInterval(0)
 	var greeingMessage = "Practice: touch the side with the dog"
-	var sessionType = SessionType.Counterpointing.rawValue
-	private let pictureHeight: CGFloat = 197
-	private let pictureWidth: CGFloat = 281
+	var sessionType = SessionType.counterpointing.rawValue
+	fileprivate let pictureHeight: CGFloat = 197
+	fileprivate let pictureWidth: CGFloat = 281
 	
     // For the log only. This inicates that's test enviroment build in a way to 
     // confuse subject. Also used in Flanker.
@@ -24,15 +24,15 @@ class CounterpointingViewController: TestViewController {
     
     // Responcible for success or false positive. When not inversed dog pointing 
     // to the same place subject suppost to tap.
-    private var touchModeInverserd = false
+    fileprivate var touchModeInverserd = false
 
 	var leftTarget = false // first screen will be with dog on right
 	var session: CounterpointingSession!
-	private var totalOne = 0.0
-	private var totalTwo = 0.0
+	fileprivate var totalOne = 0.0
+	fileprivate var totalTwo = 0.0
     
-    var pauseDate: NSDate?
-    var pauseLength: NSTimeInterval?
+    var pauseDate: Date?
+    var pauseLength: TimeInterval?
 	
 	// MARK: Override
 	
@@ -47,12 +47,12 @@ class CounterpointingViewController: TestViewController {
     
     override func presentPause() {
         
-        pauseDate = NSDate()
+        pauseDate = Date()
         super.presentPause()
     }
     override func resumeTest() {
         
-        pauseLength = NSDate().timeIntervalSinceDate(pauseDate!)
+        pauseLength = Date().timeIntervalSince(pauseDate!)
         pauseDate = nil
     }
 	
@@ -87,10 +87,10 @@ class CounterpointingViewController: TestViewController {
 		presentNextScreen()
 	}
 	
-	func presentDogOnSide(screenSide: Side) {
-		if screenSide == .Left {
+	func presentDogOnSide(_ screenSide: Side) {
+		if screenSide == .left {
 			presentDogOnLeft()
-		} else if screenSide == .Right {
+		} else if screenSide == .right {
 			presentDogOnRight()
 		}
 	}
@@ -98,7 +98,7 @@ class CounterpointingViewController: TestViewController {
 		leftTarget = true;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog"))
-		imageView.frame = CGRectMake(19, 260, pictureWidth, pictureHeight)
+		imageView.frame = CGRect(x: 19, y: 260, width: pictureWidth, height: pictureHeight)
 		view.addSubview(imageView)
 	}
 	
@@ -106,7 +106,7 @@ class CounterpointingViewController: TestViewController {
 		leftTarget = false;
 		
 		let imageView = UIImageView(image: UIImage(named: "dog_inverse"))
-		imageView.frame = CGRectMake(view.bounds.width-300, 260, pictureWidth, pictureHeight)
+		imageView.frame = CGRect(x: view.bounds.width-300, y: 260, width: pictureWidth, height: pictureHeight)
 		view.addSubview(imageView)
 	}
 	
@@ -114,7 +114,7 @@ class CounterpointingViewController: TestViewController {
 		currentScreenShowing += 1
 	
 		cleanView()
-		screenPresentedDate = NSDate()
+		screenPresentedDate = Date()
 		
 		switch currentScreenShowing {
 		case 0:
@@ -157,13 +157,13 @@ class CounterpointingViewController: TestViewController {
 	
 	func addTouchTargetButtons() {
 		
-		let screen = UIScreen.mainScreen().bounds
-		let screenAreaLeft = CGRectMake(0, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
-		let screenAreaRight = CGRectMake(screen.size.width/2, menuBarHeight, screen.size.width/2, screen.size.height-menuBarHeight)
+		let screen = UIScreen.main.bounds
+		let screenAreaLeft = CGRect(x: 0, y: menuBarHeight, width: screen.size.width/2, height: screen.size.height-menuBarHeight)
+		let screenAreaRight = CGRect(x: screen.size.width/2, y: menuBarHeight, width: screen.size.width/2, height: screen.size.height-menuBarHeight)
 		let buttonLeft = UIButton(frame: screenAreaLeft)
 		let buttonRight = UIButton(frame: screenAreaRight)
-		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), forControlEvents: UIControlEvents.TouchDown)
-		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), forControlEvents: UIControlEvents.TouchDown)
+		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), for: UIControlEvents.touchDown)
+		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), for: UIControlEvents.touchDown)
 		view.addSubview(buttonLeft)
 		view.addSubview(buttonRight)
 	}
@@ -178,12 +178,12 @@ class CounterpointingViewController: TestViewController {
         self.playerInteractionsDisabled = true
 	}
 	
-	func presentMessage(message: String){
+	func presentMessage(_ message: String){
 		let label = UILabel(frame: view.frame)
 		label.numberOfLines = 3
 		label.text = message
-		label.textAlignment = NSTextAlignment.Center
-		label.font = UIFont.systemFontOfSize(44)
+		label.textAlignment = NSTextAlignment.center
+		label.font = UIFont.systemFont(ofSize: 44)
 		view.addSubview(label)
         
         self.playerInteractionsDisabled = true
@@ -195,7 +195,7 @@ class CounterpointingViewController: TestViewController {
 	func handleTouchRight() {
 		tapHandler(false)
 	}
-	func tapHandler(touchLeft: Bool){
+	func tapHandler(_ touchLeft: Bool){
 		// Determine Success or failure
 		
         if playerInteractionsDisabled {
@@ -208,19 +208,19 @@ class CounterpointingViewController: TestViewController {
 			if !touchModeInverserd {
 				// tap on the left side of the screen
 				if leftTarget {
-					playSound(.Positive)
+					playSound(.positive)
 					result = true
 				} else {
-					playSound(.Negative)
+					playSound(.negative)
 					result = false
 				}
 			} else {
 				// tap on the left side of the screen
 				if leftTarget {
-					playSound(.Negative)
+					playSound(.negative)
 					result = false
 				} else {
-					playSound(.Positive)
+					playSound(.positive)
 					result = true
 				}
 			}
@@ -228,36 +228,36 @@ class CounterpointingViewController: TestViewController {
 			// Tap on right
 			if !touchModeInverserd {
 				if leftTarget {
-					playSound(.Negative)
+					playSound(.negative)
 					result = false
 				} else {
-					playSound(.Positive)
+					playSound(.positive)
 					result = true
 				}
 			} else {
 				if leftTarget {
-					playSound(.Positive)
+					playSound(.positive)
 					result = true
 				} else {
-					playSound(.Negative)
+					playSound(.negative)
 					result = false
 				}
 			}
 		}
 		
-        let currentTime = NSDate()
+        let currentTime = Date()
         
         var startPoint = screenPresentedDate
         
         if let pauseInterval = pauseLength {
-            startPoint = screenPresentedDate.dateByAddingTimeInterval(pauseInterval)
+            startPoint = screenPresentedDate.addingTimeInterval(pauseInterval)
         }
         
         if !result {
-            startPoint = screenPresentedDate.laterDate(lastMistakeDate)
+            startPoint = (screenPresentedDate as NSDate).laterDate(lastMistakeDate)
             lastMistakeDate = currentTime
         }
-        let interval = currentTime.timeIntervalSinceDate(startPoint)
+        let interval = currentTime.timeIntervalSince(startPoint)
         let screen: CGFloat = CGFloat(currentScreenShowing)
         model.addCounterpointingMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0)
         
@@ -270,14 +270,14 @@ class CounterpointingViewController: TestViewController {
 				} else {
 					totalTwo += interval
 				}
-				session.totalOne = totalOne
-				session.totalTwo = totalTwo
+				session.totalOne = NSNumber(value: totalOne)
+				session.totalTwo = NSNumber(value: totalTwo)
 
-				let score = session.score.integerValue
-				session.score = NSNumber(integer: (score + 1))
+				let score = session.score.intValue
+				session.score = NSNumber(value: (score + 1) as Int)
 			} else {
-				let errors = session.errors.integerValue
-				session.errors = NSNumber(integer: (errors + 1))
+				let errors = session.errors.intValue
+				session.errors = NSNumber(value: (errors + 1) as Int)
 			}
 		}
 		
@@ -290,7 +290,7 @@ class CounterpointingViewController: TestViewController {
 		}
 	}
 	
-	override func addComment(alert: UIAlertController) {
+	override func addComment(_ alert: UIAlertController) {
         if let fields = alert.textFields {
             let textField = fields[0]
             if let existingComment = textField.text {
@@ -303,56 +303,56 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	// Shows on which side of the screen dog are
-	private let dogSequence: [Side?] =
+	fileprivate let dogSequence: [Side?] =
 	    [nil,
-		.Right,
-		.Left,
+		.right,
+		.left,
 		nil,
-		.Left,
-		.Right,
-		.Left,
-		.Left,
-		.Right,
-		.Right,
-		.Left,
-		.Right,
-		.Left,
-		.Left,
-		.Left,
-		.Right,
-		.Left,
-		.Right,
-		.Right,
-		.Right,
-		.Left,
-		.Left,
-		.Right,
-		.Right,
+		.left,
+		.right,
+		.left,
+		.left,
+		.right,
+		.right,
+		.left,
+		.right,
+		.left,
+		.left,
+		.left,
+		.right,
+		.left,
+		.right,
+		.right,
+		.right,
+		.left,
+		.left,
+		.right,
+		.right,
 		nil,
 		nil,
-		.Right,
-		.Left,
+		.right,
+		.left,
 		nil,
-		.Right,
-		.Left,
-		.Right,
-		.Left,
-		.Right,
-		.Right,
-		.Left,
-		.Right,
-		.Right,
-		.Right,
-		.Left,
-		.Left,
-		.Right,
-		.Right,
-		.Left,
-		.Left,
-		.Left,
-		.Right,
-		.Left,
-		.Left,
+		.right,
+		.left,
+		.right,
+		.left,
+		.right,
+		.right,
+		.left,
+		.right,
+		.right,
+		.right,
+		.left,
+		.left,
+		.right,
+		.right,
+		.left,
+		.left,
+		.left,
+		.right,
+		.left,
+		.left,
 		nil,
 		nil]
 }

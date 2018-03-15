@@ -12,18 +12,18 @@ class TestsTableViewController: UITableViewController {
     
     let model = Model.sharedInstance
     
-    private let reuseIdentifier = "Games Table Cell"
+    fileprivate let reuseIdentifier = "Games Table Cell"
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let returnValue = model.games.count
         // Return the number of rows in the section.
         return returnValue
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) 
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) 
         
         cell.textLabel!.text = model.games[indexPath.row]
         
@@ -32,9 +32,9 @@ class TestsTableViewController: UITableViewController {
 	
 	// MARK: — Table View delegate
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
-		model.data.selectedGame = indexPath.row
+		model.data.selectedGame = NSNumber(value: indexPath.row)
 		model.save()
 		
 		selectGame()
@@ -46,14 +46,14 @@ class TestsTableViewController: UITableViewController {
 		let detailVC = navVC.topViewController as! MenuViewController
 		
 		switch model.data.selectedGame {
-		case GamesIndex.VisualSearch.rawValue:
-			detailVC.showTheGame(.VisualSearch);
-		case GamesIndex.Counterpointing.rawValue:
-			detailVC.showTheGame(.Counterpointing)
-		case GamesIndex.Flanker.rawValue:
-			detailVC.showTheGame(.Flanker)
-		case GamesIndex.VisualSust.rawValue:
-			detailVC.showTheGame(.VisualSust)
+		case GamesIndex.visualSearch.rawValue:
+			detailVC.showTheGame(.visualSearch);
+		case GamesIndex.counterpointing.rawValue:
+			detailVC.showTheGame(.counterpointing)
+		case GamesIndex.flanker.rawValue:
+			detailVC.showTheGame(.flanker)
+		case GamesIndex.visualSust.rawValue:
+			detailVC.showTheGame(.visualSust)
 		default:
 			break
 		}

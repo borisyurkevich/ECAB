@@ -14,10 +14,10 @@ import UIKit
 import AVFoundation
 
 enum SessionType: Int {
-    case Counterpointing
-    case Flanker
-    case VisualSustain
-    case FlankerRandomized
+    case counterpointing
+    case flanker
+    case visualSustain
+    case flankerRandomized
 }
 
 class TestViewController: UIViewController, UITextFieldDelegate {
@@ -29,10 +29,10 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 	let margin:CGFloat = 16
 	let buttonWidth:CGFloat = 100
 	
-	let pauseButton = UIButton(type: UIButtonType.System)
-	let nextButton = UIButton(type: UIButtonType.System)
-	let backButton = UIButton(type: UIButtonType.System)
-	let skipTrainingButton = UIButton(type: UIButtonType.System)
+	let pauseButton = UIButton(type: UIButtonType.system)
+	let nextButton = UIButton(type: UIButtonType.system)
+	let backButton = UIButton(type: UIButtonType.system)
+	let skipTrainingButton = UIButton(type: UIButtonType.system)
 	
 	var currentScreenShowing = 0
 
@@ -49,39 +49,39 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 	// Affects Y offeset for the big buttons pn left and ride side
 	
 	enum Side {
-		case Left
-		case Right
+		case left
+		case right
 	}
     
     enum Sound {
-        case Positive
-        case Negative
-        case Attention
+        case positive
+        case negative
+        case attention
     }
     
-    func playSound(type: Sound) {
+    func playSound(_ type: Sound) {
     
         switch type {
-        case .Positive:
-            if let soundURL = NSBundle.mainBundle().URLForResource("slide-magic", withExtension: "aif") {
+        case .positive:
+            if let soundURL = Bundle.main.url(forResource: "slide-magic", withExtension: "aif") {
                 var soundID:SystemSoundID = 1
-                AudioServicesCreateSystemSoundID(soundURL, &soundID)
+                AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundID)
                 AudioServicesPlaySystemSound(soundID)
             } else {
                 presentErrorAlert()
             }
-        case .Negative:
-            if let soundURL = NSBundle.mainBundle().URLForResource("beep-attention", withExtension: "aif") {
+        case .negative:
+            if let soundURL = Bundle.main.url(forResource: "beep-attention", withExtension: "aif") {
                 var soundID:SystemSoundID = 1
-                AudioServicesCreateSystemSoundID(soundURL, &soundID)
+                AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundID)
                 AudioServicesPlaySystemSound(soundID)
             } else {
                 presentErrorAlert()
             }
-        case .Attention:
-            if let soundURL = NSBundle.mainBundle().URLForResource("beep-piano", withExtension: "aif") {
+        case .attention:
+            if let soundURL = Bundle.main.url(forResource: "beep-piano", withExtension: "aif") {
                 var soundID:SystemSoundID = 1
-                AudioServicesCreateSystemSoundID(soundURL, &soundID)
+                AudioServicesCreateSystemSoundID(soundURL as CFURL, &soundID)
                 AudioServicesPlaySystemSound(soundID)
             } else {
                 presentErrorAlert()
@@ -92,55 +92,55 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     func presentErrorAlert() {
         let errorAlert = UIAlertController(title: nil,
             message: "Couldn't play a sound.",
-            preferredStyle: .Alert)
-        let okayAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         errorAlert.addAction(okayAction)
-        presentViewController(errorAlert, animated: true, completion: nil)
+        present(errorAlert, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		view.backgroundColor = UIColor.whiteColor()
+		view.backgroundColor = UIColor.white
 		
 		menuBarHeight = standardButtonHeight + (marginTop * 2)
 		
 		// Buttons
-		let screenSize: CGSize = UIScreen.mainScreen().bounds.size
+		let screenSize: CGSize = UIScreen.main.bounds.size
 		
-		backButton.setTitle("Restart", forState: UIControlState.Normal)
-		backButton.frame = CGRectMake(marginTop, marginTop, 0, 0)
+		backButton.setTitle("Restart", for: UIControlState())
+		backButton.frame = CGRect(x: marginTop, y: marginTop, width: 0, height: 0)
 		backButton.sizeToFit()
 		backButton.frame.size.width = buttonWidth
-		backButton.addTarget(self, action: #selector(TestViewController.presentPreviousScreen), forControlEvents: UIControlEvents.TouchUpInside)
-		backButton.tintColor = UIColor.grayColor()
+		backButton.addTarget(self, action: #selector(TestViewController.presentPreviousScreen), for: UIControlEvents.touchUpInside)
+		backButton.tintColor = UIColor.gray
 		addButtonBorder(backButton)
 
-		nextButton.setTitle("Next", forState: UIControlState.Normal)
-		nextButton.frame = CGRectMake(backButton.frame.maxX + margin, marginTop, 0, 0)
+		nextButton.setTitle("Next", for: UIControlState())
+		nextButton.frame = CGRect(x: backButton.frame.maxX + margin, y: marginTop, width: 0, height: 0)
 		nextButton.sizeToFit()
 		nextButton.frame.size.width = buttonWidth
-		nextButton.addTarget(self, action: #selector(TestViewController.presentNextScreen), forControlEvents: UIControlEvents.TouchUpInside)
-		nextButton.tintColor = UIColor.grayColor()
+		nextButton.addTarget(self, action: #selector(TestViewController.presentNextScreen), for: UIControlEvents.touchUpInside)
+		nextButton.tintColor = UIColor.gray
 		addButtonBorder(nextButton)
 		
-		skipTrainingButton.setTitle("Skip", forState: UIControlState.Normal)
-		skipTrainingButton.frame = CGRectMake(nextButton.frame.maxX + margin, marginTop, 0, 0)
+		skipTrainingButton.setTitle("Skip", for: UIControlState())
+		skipTrainingButton.frame = CGRect(x: nextButton.frame.maxX + margin, y: marginTop, width: 0, height: 0)
 		skipTrainingButton.sizeToFit()
 		skipTrainingButton.frame.size.width = buttonWidth
-		skipTrainingButton.tintColor = UIColor.grayColor()
-		skipTrainingButton.addTarget(self, action: #selector(TestViewController.skip), forControlEvents: UIControlEvents.TouchUpInside)
+		skipTrainingButton.tintColor = UIColor.gray
+		skipTrainingButton.addTarget(self, action: #selector(TestViewController.skip), for: UIControlEvents.touchUpInside)
 		addButtonBorder(skipTrainingButton)
 		
-		pauseButton.setTitle("Pause", forState: UIControlState.Normal)
-		pauseButton.frame = CGRectMake(screenSize.width - (backButton.frame.size.width + marginTop), marginTop, 0, 0)
+		pauseButton.setTitle("Pause", for: UIControlState())
+		pauseButton.frame = CGRect(x: screenSize.width - (backButton.frame.size.width + marginTop), y: marginTop, width: 0, height: 0)
 		pauseButton.sizeToFit()
 		pauseButton.frame.size.width = buttonWidth
-		pauseButton.addTarget(self, action: #selector(TestViewController.presentPause), forControlEvents: UIControlEvents.TouchUpInside)
-		pauseButton.tintColor = UIColor.grayColor()
+		pauseButton.addTarget(self, action: #selector(TestViewController.presentPause), for: UIControlEvents.touchUpInside)
+		pauseButton.tintColor = UIColor.gray
 		addButtonBorder(pauseButton)
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TestViewController.guidedAccessNotificationHandler(_:)), name: "kECABGuidedAccessNotification", object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(TestViewController.guidedAccessNotificationHandler(_:)), name: NSNotification.Name(rawValue: "kECABGuidedAccessNotification"), object: nil)
 		
 		view.addSubview(backButton)
 		view.addSubview(nextButton)
@@ -160,32 +160,28 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 		print("❌ Implement skip() in \(self.description)")
 	}
 	
-	func delay(delay:Double, closure:()->()) {
-		dispatch_after(
-			dispatch_time(
-				DISPATCH_TIME_NOW,
-				Int64(delay * Double(NSEC_PER_SEC))
-			),
-			dispatch_get_main_queue(), closure)
+	func delay(_ delay:Double, closure:@escaping ()->()) {
+		DispatchQueue.main.asyncAfter(
+			deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 	}
     
     // MARK: GUI
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    func addButtonBorder(button: UIButton) {
-        button.backgroundColor = UIColor.clearColor()
+    func addButtonBorder(_ button: UIButton) {
+        button.backgroundColor = UIColor.clear
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
-        button.layer.borderColor = button.tintColor!.CGColor
+        button.layer.borderColor = button.tintColor!.cgColor
     }
     
     // Removes everything, except, the buttons
     func cleanView() {
         for v in view.subviews {
-            if !v.isKindOfClass(UIButton) {
+            if !v.isKind(of: UIButton.self) {
                 v.removeFromSuperview()
             }
         }
@@ -201,29 +197,29 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     func presentPause() {
         gamePaused = true
         
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        pauseButton.setTitle("", forState: .Normal)
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        pauseButton.setTitle("", for: UIControlState())
         pauseButton.addSubview(activity)
         activity.startAnimating()
         
         // For some reason it takes long time, need to show something in UI.
         if #available(iOS 9.0, *) {
             activity.translatesAutoresizingMaskIntoConstraints = false
-            activity.centerYAnchor.constraintEqualToAnchor(pauseButton.centerYAnchor).active = true
-            activity.centerXAnchor.constraintEqualToAnchor(pauseButton.centerXAnchor).active = true
+            activity.centerYAnchor.constraint(equalTo: pauseButton.centerYAnchor).isActive = true
+            activity.centerXAnchor.constraint(equalTo: pauseButton.centerXAnchor).isActive = true
             
         } else {
             // Fallback on earlier versions
             // In this case inidcator is not centered in the button, not a big deal.
         }
         
-        let alertView = UIAlertController(title: "Pause", message: "Quit this test or add a comment.", preferredStyle: .Alert)
+        let alertView = UIAlertController(title: "Pause", message: "Quit this test or add a comment.", preferredStyle: .alert)
         
-        let quit = UIAlertAction(title: "Quit", style: .Default, handler: { (alertAction) -> Void in
+        let quit = UIAlertAction(title: "Quit", style: .default, handler: { (alertAction) -> Void in
             self.addComment(alertView)
             self.quit()
         })
-        let continueAction = UIAlertAction(title: "Continue", style: .Cancel, handler: {
+        let continueAction = UIAlertAction(title: "Continue", style: .cancel, handler: {
             (okAction) -> Void in
             self.addComment(alertView)
             self.gamePaused = false
@@ -233,29 +229,29 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         alertView.addAction(quit)
         alertView.addAction(continueAction)
 
-        alertView.addTextFieldWithConfigurationHandler {
+        alertView.addTextField {
             (textField: UITextField!) -> Void in
             
             textField.delegate = self
-            textField.clearButtonMode = .Always
+            textField.clearButtonMode = .always
             textField.placeholder = "Your comment"
-            textField.autocapitalizationType = .Sentences
+            textField.autocapitalizationType = .sentences
             textField.text = self.getComment()
         }
         
-        presentViewController(alertView, animated: true) { 
+        present(alertView, animated: true) { 
             activity.removeFromSuperview()
-            self.pauseButton.setTitle("Pause", forState: .Normal)
+            self.pauseButton.setTitle("Pause", for: UIControlState())
         }
     }
-    func addComment(alert: UIAlertController) {
+    func addComment(_ alert: UIAlertController) {
         // Implement in subclassws
     }
     func getComment() -> String? {
         return ""
     }
     func quit() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Other
@@ -269,15 +265,15 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func guidedAccessNotificationHandler(notification: NSNotification) {
+    func guidedAccessNotificationHandler(_ notification: Notification) {
         
         let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
-        pauseButton.enabled = enabled
+        pauseButton.isEnabled = enabled
         
-        if pauseButton.enabled == true {
-            pauseButton.hidden = false
+        if pauseButton.isEnabled == true {
+            pauseButton.isHidden = false
         } else {
-            pauseButton.hidden = true
+            pauseButton.isHidden = true
         }
         // Hide button completly
     }
