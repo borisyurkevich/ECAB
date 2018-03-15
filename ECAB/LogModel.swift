@@ -326,13 +326,13 @@ class LogModel {
 				
 				append = "picture \(actualMove.poitionX) - Success delay: \(formattedDelay) seconds \(fourMistakes)\n"
 			} else {
-				// Two mistakes type
 				if (actualMove.interval.doubleValue == VisualSustainMistakeType.falsePositive.rawValue) {
 					append = "picture \(actualMove.poitionX) - False Positive \(fourMistakes)\n"
 				} else if (actualMove.interval.doubleValue == VisualSustainMistakeType.miss.rawValue) {
 					append = "picture \(actualMove.poitionX) - Miss \(fourMistakes)\n"
-				}
-				
+                } else if (actualMove.interval.doubleValue == VisualSustainMistakeType.repeated.rawValue) {
+                    append = "picture \(actualMove.poitionX) - repeat\n"
+                }
 			}
 			
 			if !spacePrinted && !actualMove.inverted.boolValue { // Not training
