@@ -238,9 +238,9 @@ class VisualSustainViewController: CounterpointingViewController {
 		imageVisibleOnScreen.center = view.center;
 		imageVisibleOnScreen.image = newImage
         
+        isReactionLogged = false
         
         if isAnimal(pic) {
-            isReactionLogged = false
 			timeSinceAnimalAppeared = 0
 			timeToAcceptDelay.invalidate()
 			timeToAcceptDelay = Timer.scheduledTimer(timeInterval: timersScale,
