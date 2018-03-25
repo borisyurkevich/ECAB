@@ -257,18 +257,31 @@ class CounterpointingViewController: TestViewController {
             startPoint = (screenPresentedDate as NSDate).laterDate(lastMistakeDate)
             lastMistakeDate = currentTime
         }
-        let interval = currentTime.timeIntervalSince(startPoint)
+        
+        let interval: TimeInterval
+        let intervalSinceScreenChanged = currentTime.timeIntervalSince(startPoint)
+        let lastMistakeInterval = currentTime.timeIntervalSince(lastMistakeDate)
+        if result && intervalSinceScreenChanged > lastMistakeInterval {
+            interval = lastMistakeInterval
+        } else {
+            interval = intervalSinceScreenChanged
+        }
         let screen: CGFloat = CGFloat(currentScreenShowing)
-        model.addCounterpointingMove(screen, positionY: 0, success: result, interval: interval, inverted: gameModeInversed, delay:0.0)
+        model.addCounterpointingMove(screen,
+                                     positionY: 0,
+                                     success: result,
+                                     interval: interval,
+                                     inverted: gameModeInversed,
+                                     delay:0.0)
         
 		if !trainingMode {
         
 			if (result) {
 				// We don't want to increase time for the total if player made a mistake.
 				if (!gameModeInversed) {
-					totalOne += interval
+					totalOne += intervalSinceScreenChanged
 				} else {
-					totalTwo += interval
+					totalTwo += intervalSinceScreenChanged
 				}
 				session.totalOne = NSNumber(value: totalOne)
 				session.totalTwo = NSNumber(value: totalTwo)
