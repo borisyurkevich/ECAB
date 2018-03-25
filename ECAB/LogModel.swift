@@ -146,9 +146,9 @@ class LogModel {
             // This condition is to keep old data working.
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(r(newInterval)) sec. \(inverted) \n"
+                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) sec. \(inverted) \n"
             } else {
-                append = "\(counter)) \(status) screen:\(actualMove.poitionX) \(actualMove.interval.intValue) sec. \(inverted) \n"
+                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.intValue) sec. \(inverted) \n"
             }
             
             if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
