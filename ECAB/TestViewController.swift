@@ -267,7 +267,9 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     
     func guidedAccessNotificationHandler(_ notification: Notification) {
         
-        let enabled: Bool = notification.userInfo!["restriction"] as! Bool!
+        guard let enabled: Bool = notification.userInfo!["restriction"] as? Bool else {
+            return
+        }
         pauseButton.isEnabled = enabled
         
         if pauseButton.isEnabled == true {

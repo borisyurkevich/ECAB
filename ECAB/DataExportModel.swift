@@ -181,13 +181,13 @@ class DataExportModel {
                 "                        ,               ,                      ,                      ,                       ,               ,    \n" +
                 "non-conflict (blocks 1) ,               ,                      ,                      ,                       ,               ,    \n" +
                 "total time 1 =          ,\(r(t.timeBlockNonConflict)),sec      ,                      ,                       ,               ,    \n" +
-                "mean reponse time 1 =   ,\(r(t.nonConflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
-                "median reponse time 1 = ,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
+                "mean response time 1 =   ,\(r(t.nonConflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
+                "median response time 1 = ,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                      ,                      ,                       ,               ,    \n" +
                 "conflict (blocks 2)     ,               ,                      ,                      ,                       ,               ,    \n" +
                 "total time 2 =          ,\(r(t.timeBlockConflict)),sec         ,                      ,                       ,               ,    \n" +
-                "mean reponse time 2 =   ,\(r(t.conflictTimeMean)),sec          ,                      ,                       ,               ,    \n" +
-                "median reponse time 2 = ,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
+                "mean response time 2 =   ,\(r(t.conflictTimeMean)),sec          ,                      ,                       ,               ,    \n" +
+                "median response time 2 = ,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
                 "                         ,               ,                     ,                      ,                       ,               ,    \n" +
                 "ratio total2 / total1  = ,\(r(ratio))    ,                     ,                      ,                       ,               ,    \n" +
                 "ratio median2 / median1 =,\(r(mediansRatio)),                  ,                     ,                        ,               ,    \n" +
@@ -239,8 +239,8 @@ class DataExportModel {
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "total time blocks 1+4 = ,\(r(t.nonConflictTime)),sec            ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "mean reponse time 1+4 = ,\(r(t.nonConflictTimeMean)),sec        ,                      ,                       ,               ,    \n" +
-                          "median reponse time 1+4 =,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
+                          "mean response time 1+4 = ,\(r(t.nonConflictTimeMean)),sec        ,                      ,                       ,               ,    \n" +
+                          "median response time 1+4 =,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "conflicts (blocks 2+3),               ,                         ,                      ,                       ,               ,    \n" +
                           "total time block 2 =    ,\(r(t.timeBlock2)),sec                 ,                      ,                       ,               ,    \n" +
@@ -248,8 +248,8 @@ class DataExportModel {
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "total time blocks 2+3 = ,\(r(t.conflictTime)),sec               ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "mean reponse time 2+3 = ,\(r(t.conflictTimeMean)),sec           ,                      ,                       ,               ,    \n" +
-                          "median reponse time 2+3 =,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
+                          "mean response time 2+3 = ,\(r(t.conflictTimeMean)),sec           ,                      ,                       ,               ,    \n" +
+                          "median response time 2+3 =,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
@@ -298,13 +298,13 @@ class DataExportModel {
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                 "total non-conflict time =,\(r(t.nonConflictTime)),sec           ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "mean reponse time non conflict =,\(r(t.nonConflictTimeMean)),sec,                      ,                       ,               ,    \n" +
-                "median reponse time non conflict =,\(r(t.nonConflictTimeMedian)),sec ,                 ,                       ,               ,    \n" +
+                "mean response time non conflict =,\(r(t.nonConflictTimeMean)),sec,                      ,                       ,               ,    \n" +
+                "median response time non conflict =,\(r(t.nonConflictTimeMedian)),sec ,                 ,                       ,               ,    \n" +
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                 "total conflict time =   ,\(r(t.conflictTime)),sec               ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "mean reponse time conflict =,\(r(t.conflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
-                "median reponse time conflict =,\(r(t.conflictTimeMedian)),sec      ,                      ,                       ,               ,    \n" +
+                "mean response time conflict =,\(r(t.conflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
+                "median response time conflict =,\(r(t.conflictTimeMedian)),sec      ,                      ,                       ,               ,    \n" +
                 "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                 "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
                 "ratio of medians conflict/non-conflict total = ,\(r(mediansRatio)),                    ,                       ,               ,    \n" +

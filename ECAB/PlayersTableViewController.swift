@@ -75,7 +75,7 @@ class PlayersTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt
                             indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as UITableViewCell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
         
 		let data = model.data as Data
 		let players = data.players
