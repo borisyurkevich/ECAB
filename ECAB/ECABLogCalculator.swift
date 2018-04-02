@@ -353,19 +353,27 @@ class ECABLogCalculator {
                         switch move.poitionX.intValue {
                         case 24 ... 33:
                             timeBlock1 += interval
-                            countBlock1 += 1
+                            if move.success.boolValue {
+                                countBlock1 += 1
+                            }
                             nonConflictIntervals.append(interval)
                         case 36 ... 45:
                             timeBlock2 += interval
-                            countBlock2 += 1
+                            if move.success.boolValue {
+                                countBlock2 += 1
+                            }
                             conflictIntervals.append(interval)
                         case 48 ... 57:
                             timeBlock3 += interval
-                            countBlock3 += 1
+                            if move.success.boolValue {
+                                countBlock3 += 1
+                            }
                             conflictIntervals.append(interval)
                         case 60 ... 69:
                             timeBlock4 += interval
-                            countBlock4 += 1
+                            if move.success.boolValue {
+                                countBlock4 += 1
+                            }
                             nonConflictIntervals.append(interval)
                         default:
                             break
@@ -393,13 +401,17 @@ class ECABLogCalculator {
                 // Inversed false.
                 case 25, 26, 28, 30, 31, 32, 33, 36, 41, 42, 43, 47, 48, 50, 55:
                     timeBlock1 += interval
-                    countBlock1 += 1
+                    if move.success.boolValue {
+                        countBlock1 += 1
+                    }
                     nonConflictIntervals.append(interval)
                     
                 // Inversed true.
                 case 24, 27, 29, 34, 35, 37, 38, 44, 45, 46, 49, 51, 52, 53, 54:
                     timeBlock2 += interval
-                    countBlock2 += 1
+                    if move.success.boolValue {
+                        countBlock2 += 1
+                    }
                     conflictIntervals.append(interval)
                 default:
                     break
