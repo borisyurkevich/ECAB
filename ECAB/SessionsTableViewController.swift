@@ -316,8 +316,10 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
-        let navVC = splitViewController!.viewControllers.last as! UINavigationController!
-		let detailVC = navVC?.topViewController as! HistoryViewController
+        guard let navVC = splitViewController!.viewControllers.last as? UINavigationController else {
+            return
+        }
+		let detailVC = navVC.topViewController as! HistoryViewController
 		
 		let gameName = model.games[Int(model.data.selectedGame)]
         
