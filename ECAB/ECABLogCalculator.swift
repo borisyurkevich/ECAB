@@ -268,11 +268,15 @@ class ECABLogCalculator {
                     switch move.poitionX.intValue {
                     case 4 ... 23:
                         timeBlock1NonConflict += inerval
-                        countBlock1 += 1
+                        if move.success.boolValue {
+                            countBlock1 += 1
+                        }
                         nonConflictIntervals.append(inerval)
                     case 29 ... 48:
                         timeBlock2Conflict += inerval
-                        countBlock2 += 1
+                        if move.success.boolValue {
+                            countBlock2 += 1
+                        }
                         conflictIntervals.append(inerval)
                     default:
                         break
