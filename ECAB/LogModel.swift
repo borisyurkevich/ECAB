@@ -179,13 +179,13 @@ class LogModel {
             "Errors = \(session.errors)\n\n" +
             "non-conflict (blocks 1)\n" +
             "total time 1 = \(r(result.timeBlockNonConflict)) sec. \n" +
-            "mean reponse time 1 = \(r(result.nonConflictTimeMean)) sec. \n" +
-            "median reponse time 1 = \(r(result.nonConflictTimeMedian)) sec." +
+            "mean response time 1 = \(r(result.nonConflictTimeMean)) sec. \n" +
+            "median response time 1 = \(r(result.nonConflictTimeMedian)) sec." +
             "\n\n" +
             "conflict (blocks 2)\n" +
             "total time 2 = \(r(result.timeBlockConflict)) sec. \n" +
-            "mean reponse time 2 = \(r(result.conflictTimeMean)) sec. \n" +
-            "median reponse time 2 = \(r(result.conflictTimeMedian)) sec." +
+            "mean response time 2 = \(r(result.conflictTimeMean)) sec. \n" +
+            "median response time 2 = \(r(result.conflictTimeMedian)) sec." +
             "\n\n" +
             "ratio total2 / total1  = \(r(resultRatio)) sec. \n" +
             "ratio median2 / median1 = \(r(mediansRatio)) sec." +
