@@ -54,6 +54,7 @@ class CounterpointingViewController: TestViewController {
         
         pauseLength = Date().timeIntervalSince(pauseDate!)
         pauseDate = nil
+        screenPresentedDate = Date()
     }
 	
 	override func skip() {
@@ -248,10 +249,6 @@ class CounterpointingViewController: TestViewController {
         let currentTime = Date()
         
         var startPoint = screenPresentedDate
-        
-        if let pauseInterval = pauseLength {
-            startPoint = screenPresentedDate.addingTimeInterval(pauseInterval)
-        }
         
         if !result {
             startPoint = (screenPresentedDate as NSDate).laterDate(lastMistakeDate)
