@@ -244,7 +244,7 @@ class Model {
 		move.poitionY = NSNumber(value: Double(positionY))
 		move.success = success as NSNumber
 		move.date = NSDate()
-		move.intervalDouble = NSNumber(value: interval as Double)
+		move.intervalDouble = NSNumber(value: interval)
 		move.inverted = inverted as NSNumber
 		move.delay = delay as NSNumber
         move.interval = NSNumber(value: interval)
