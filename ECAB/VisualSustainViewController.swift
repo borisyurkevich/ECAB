@@ -278,12 +278,12 @@ class VisualSustainViewController: CounterpointingViewController {
             repeats: false)
 	}
     
-    func showWhiteSpace() {
+    @objc func showWhiteSpace() {
         let whiteSpace = UIImage(named: Picture.Empty.rawValue)
         self.imageVisibleOnScreen.image = whiteSpace
     }
 	
-	func updateAcceptedDelay() {
+	@objc func updateAcceptedDelay() {
 		timeSinceAnimalAppeared += timersScale
 		if timeSinceAnimalAppeared > timeAcceptDelay {
 			timeToAcceptDelay.invalidate()
@@ -452,7 +452,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		return returnValue
 	}
 	
-	func gameOver() {
+	@objc func gameOver() {
 		gamePaused = true
 		timeToAcceptDelay.invalidate()
 		timeToGameOver.invalidate()

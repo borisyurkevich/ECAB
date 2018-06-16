@@ -39,7 +39,7 @@ class DataExportModel {
     private var returnValue = "empty line\n"
     
     init() {
-        gameName = model.games[Int(model.data.selectedGame)]
+        gameName = model.games[model.data.selectedGame.intValue]
         birth = "dd/MM/yy"
         age = "yy/mm"
         dateFormatter.dateStyle = DateFormatter.Style.short

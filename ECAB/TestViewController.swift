@@ -150,13 +150,13 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Presentation
 	
-	func presentPreviousScreen() {
+	@objc func presentPreviousScreen() {
 		print("❌ Implement presentPreviousScreen() in \(self.description)")
 	}
-	func presentNextScreen() {
+	@objc func presentNextScreen() {
 		print("❌ Implement presentNextScreen() in in \(self.description)")
 	}
-	func skip() {
+	@objc func skip() {
 		print("❌ Implement skip() in \(self.description)")
 	}
 	
@@ -194,7 +194,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         // Override in subclass and resume timers
     }
     
-    func presentPause() {
+    @objc func presentPause() {
         gamePaused = true
         
         let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -265,7 +265,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func guidedAccessNotificationHandler(_ notification: Notification) {
+    @objc func guidedAccessNotificationHandler(_ notification: Notification) {
         
         guard let enabled: Bool = notification.userInfo!["restriction"] as? Bool else {
             return

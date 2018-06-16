@@ -263,7 +263,7 @@
 					91E5C3AD1A6BD5C400905752 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = AF8594QJUT;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -479,7 +479,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -495,7 +496,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -179,10 +179,10 @@ class CounterpointingViewController: TestViewController {
         self.playerInteractionsDisabled = true
 	}
 	
-	func handleTouchLeft() {
+	@objc func handleTouchLeft() {
 		tapHandler(true)
 	}
-	func handleTouchRight() {
+	@objc func handleTouchRight() {
 		tapHandler(false)
 	}
 	func tapHandler(_ touchLeft: Bool){
