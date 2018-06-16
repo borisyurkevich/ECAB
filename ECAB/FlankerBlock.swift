@@ -30,7 +30,7 @@ enum FlankerBlock: Int {
         case .conflict3:
             return "Block 3 Conflict"
         case .nonConflict4:
-            return "Block 3 Non Conflict"
+            return "Block 4 Non Conflict"
         }
     }
 }
