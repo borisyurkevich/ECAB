@@ -30,9 +30,6 @@ class CounterpointingViewController: TestViewController {
 	var session: CounterpointingSession!
 	fileprivate var totalOne = 0.0
 	fileprivate var totalTwo = 0.0
-    
-    var pauseDate: Date?
-    var pauseLength: TimeInterval?
 	
 	// MARK: Override
 	
@@ -45,15 +42,7 @@ class CounterpointingViewController: TestViewController {
 		addTouchTargetButtons()
 	}
     
-    override func presentPause() {
-        
-        pauseDate = Date()
-        super.presentPause()
-    }
     override func resumeTest() {
-        
-        pauseLength = Date().timeIntervalSince(pauseDate!)
-        pauseDate = nil
         screenPresentedDate = Date()
     }
 	
