@@ -169,12 +169,17 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	func presentMessage(_ message: String){
-		let label = UILabel(frame: view.frame)
-		label.numberOfLines = 3
-		label.text = message
-		label.textAlignment = NSTextAlignment.center
-		label.font = UIFont.systemFont(ofSize: 44)
-		view.addSubview(label)
+        let label = UILabel()
+        
+        label.numberOfLines = 0
+        label.textAlignment = NSTextAlignment.center
+        label.font = UIFont.systemFont(ofSize: 44)
+        label.text = message
+        label.preferredMaxLayoutWidth = 300.0
+        label.sizeToFit()
+        label.center = view.center
+
+        view.addSubview(label)
         
         self.playerInteractionsDisabled = true
 	}
