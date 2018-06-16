@@ -508,8 +508,12 @@ class DataExportModel {
 
     fileprivate func createFlankerLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
-        var headerCount = 0
+        var headerCount = 1
         var screenCount = 1
+        
+        // First header
+        let headerLine = "\(FlankerBlock.example.title),screen,response,time, , ,\n"
+        collectionOfTableRows.append(headerLine)
         
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
@@ -540,19 +544,11 @@ class DataExportModel {
                 screenCount += 1
                 
             } else {
-                var header = "header uknown"
-                
-                switch headerCount {
-                case 0:
-                    header = "non-conflict block 1"
-                case 1:
-                    header = "conflict block 2"
-                case 2:
-                    header = "conflict block 3"
-                case 3:
-                    header = "non-conflict block 4"
-                default:
-                    header = "header error"
+                let header: String
+                if let aHeader = FlankerBlock(rawValue: headerCount) {
+                    header = aHeader.title
+                } else {
+                    header = "Header Error"
                 }
                 headerCount += 1
     
