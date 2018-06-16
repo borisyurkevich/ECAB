@@ -219,7 +219,7 @@ class LogModel {
             } else {
                 // Because I defined old interval as Integer I am chaning it to Double
                 // This condition is to keep old data working.
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval) s. \(inverted) \n"
+                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.intValue) s. \(inverted) \n"
             }
             counter += 1
             

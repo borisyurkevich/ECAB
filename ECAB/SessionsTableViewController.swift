@@ -41,7 +41,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		title = model.games[Int(model.data.selectedGame)]
+		title = model.games[model.data.selectedGame.intValue]
 		
         
         actionButton.isEnabled = false
@@ -321,7 +321,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         }
 		let detailVC = navVC.topViewController as! HistoryViewController
 		
-		let gameName = model.games[Int(model.data.selectedGame)]
+		let gameName = model.games[model.data.selectedGame.intValue]
         
 		switch model.data.selectedGame {
 		case GamesIndex.visualSearch.rawValue:

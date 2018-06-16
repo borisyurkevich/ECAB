@@ -30,9 +30,6 @@ class CounterpointingViewController: TestViewController {
 	var session: CounterpointingSession!
 	fileprivate var totalOne = 0.0
 	fileprivate var totalTwo = 0.0
-    
-    var pauseDate: Date?
-    var pauseLength: TimeInterval?
 	
 	// MARK: Override
 	
@@ -45,15 +42,8 @@ class CounterpointingViewController: TestViewController {
 		addTouchTargetButtons()
 	}
     
-    override func presentPause() {
-        
-        pauseDate = Date()
-        super.presentPause()
-    }
     override func resumeTest() {
-        
-        pauseLength = Date().timeIntervalSince(pauseDate!)
-        pauseDate = nil
+        screenPresentedDate = Date()
     }
 	
 	override func skip() {
@@ -179,20 +169,25 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	func presentMessage(_ message: String){
-		let label = UILabel(frame: view.frame)
-		label.numberOfLines = 3
-		label.text = message
-		label.textAlignment = NSTextAlignment.center
-		label.font = UIFont.systemFont(ofSize: 44)
-		view.addSubview(label)
+        let label = UILabel()
+        
+        label.numberOfLines = 0
+        label.textAlignment = NSTextAlignment.center
+        label.font = UIFont.systemFont(ofSize: 44)
+        label.text = message
+        label.preferredMaxLayoutWidth = 300.0
+        label.sizeToFit()
+        label.center = view.center
+
+        view.addSubview(label)
         
         self.playerInteractionsDisabled = true
 	}
 	
-	func handleTouchLeft() {
+	@objc func handleTouchLeft() {
 		tapHandler(true)
 	}
-	func handleTouchRight() {
+	@objc func handleTouchRight() {
 		tapHandler(false)
 	}
 	func tapHandler(_ touchLeft: Bool){
@@ -248,10 +243,6 @@ class CounterpointingViewController: TestViewController {
         let currentTime = Date()
         
         var startPoint = screenPresentedDate
-        
-        if let pauseInterval = pauseLength {
-            startPoint = screenPresentedDate.addingTimeInterval(pauseInterval)
-        }
         
         if !result {
             startPoint = (screenPresentedDate as NSDate).laterDate(lastMistakeDate)

@@ -45,6 +45,7 @@
 		91F3784B1A75529000D2F77B /* TestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3784A1A75529000D2F77B /* TestItem.swift */; };
 		91FB39B21BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FB39B11BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift */; };
 		91FB39B41BDC406000CB2ABA /* Move+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FB39B31BDC406000CB2ABA /* Move+CoreDataProperties.swift */; };
+		E8E8834620D51B9B005D10A7 /* FlankerBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E8834520D51B9B005D10A7 /* FlankerBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 		91FB39B01BDBC84B00CB2ABA /* Model v7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model v7.xcdatamodel"; sourceTree = "<group>"; };
 		91FB39B11BDBC8FF00CB2ABA /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		91FB39B31BDC406000CB2ABA /* Move+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Move+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E8E8834520D51B9B005D10A7 /* FlankerBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlankerBlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				91E5C3D81A6BDD8300905752 /* HistoryViewController.swift */,
 				913138901C393AAB00E79987 /* LogModel.swift */,
 				91279C6A1C282CBF00418A57 /* DataExportModel.swift */,
+				E8E8834520D51B9B005D10A7 /* FlankerBlock.swift */,
 				910791E41C5EA21200199A5D /* ECABLogCalculator.swift */,
 			);
 			name = History;
@@ -263,7 +266,7 @@
 					91E5C3AD1A6BD5C400905752 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = AF8594QJUT;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -322,6 +325,7 @@
 				91E5C3B41A6BD5C400905752 /* AppDelegate.swift in Sources */,
 				9143468B1AFE8A65000FCF3A /* Model.xcdatamodeld in Sources */,
 				91D609BA1D133C2D00B8241C /* Timer Extension.swift in Sources */,
+				E8E8834620D51B9B005D10A7 /* FlankerBlock.swift in Sources */,
 				917E87901AAE466C00470759 /* TestsTableViewController.swift in Sources */,
 				91F3784B1A75529000D2F77B /* TestItem.swift in Sources */,
 				91B494851B35981E00FAEE8A /* FlankerViewController.swift in Sources */,
@@ -479,7 +483,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -495,7 +500,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.borisy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

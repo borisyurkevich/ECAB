@@ -39,7 +39,7 @@ class DataExportModel {
     private var returnValue = "empty line\n"
     
     init() {
-        gameName = model.games[Int(model.data.selectedGame)]
+        gameName = model.games[model.data.selectedGame.intValue]
         birth = "dd/MM/yy"
         age = "yy/mm"
         dateFormatter.dateStyle = DateFormatter.Style.short
@@ -236,7 +236,6 @@ class DataExportModel {
                           "non-conflict (blocks 1+4),               ,                      ,                      ,                       ,               ,    \n" +
                           "total time block 1 =    ,\(r(t.timeBlock1)),sec                 ,                      ,                       ,               ,    \n" +
                           "total time block 4 =    ,\(r(t.timeBlock4)),sec                 ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "total time blocks 1+4 = ,\(r(t.nonConflictTime)),sec            ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "mean response time 1+4 = ,\(r(t.nonConflictTimeMean)),sec        ,                      ,                       ,               ,    \n" +
@@ -245,12 +244,10 @@ class DataExportModel {
                           "conflicts (blocks 2+3),               ,                         ,                      ,                       ,               ,    \n" +
                           "total time block 2 =    ,\(r(t.timeBlock2)),sec                 ,                      ,                       ,               ,    \n" +
                           "total time block 3 =    ,\(r(t.timeBlock3)),sec                 ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "total time blocks 2+3 = ,\(r(t.conflictTime)),sec               ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "mean response time 2+3 = ,\(r(t.conflictTimeMean)),sec           ,                      ,                       ,               ,    \n" +
                           "median response time 2+3 =,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "                        ,               ,                       ,                      ,                       ,               ,    \n" +
                           "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
                           "ratio of medians conflict/non-conflict total = ,\(r(mediansRatio)),                    ,                       ,               ,    \n" +
@@ -508,8 +505,12 @@ class DataExportModel {
 
     fileprivate func createFlankerLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
-        var headerCount = 0
+        var headerCount = 1
         var screenCount = 1
+        
+        // First header
+        let headerLine = "\(FlankerBlock.example.title),screen,response,time, , ,\n"
+        collectionOfTableRows.append(headerLine)
         
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
@@ -540,19 +541,11 @@ class DataExportModel {
                 screenCount += 1
                 
             } else {
-                var header = "header uknown"
-                
-                switch headerCount {
-                case 0:
-                    header = "non-conflict block 1"
-                case 1:
-                    header = "conflict block 2"
-                case 2:
-                    header = "conflict block 3"
-                case 3:
-                    header = "non-conflict block 4"
-                default:
-                    header = "header error"
+                let header: String
+                if let aHeader = FlankerBlock(rawValue: headerCount) {
+                    header = aHeader.title
+                } else {
+                    header = "Header Error"
                 }
                 headerCount += 1
     

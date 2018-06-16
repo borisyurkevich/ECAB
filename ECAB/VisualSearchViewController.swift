@@ -266,7 +266,7 @@ class VisualSearchViewController: TestViewController,
         }
     }
 	
-	func showBlankScreen() {
+	@objc func showBlankScreen() {
 		
 		if currentView == numberOfTargets.count {
 			presentPause()
