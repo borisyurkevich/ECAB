@@ -120,7 +120,35 @@ class LogModel {
 			build = canonicBuild
 		}
         
-		let visualSearchLog = "\(gameName) \(difficulty) difficulty. \n\nPlayer name: \(session.player.name)\nExposure: \(session.speed.doubleValue)\n\nComment: \(comment)\n\nTotal score: \(session.score)\nFalse positives: \(session.failureScore)\n\nTime per target found[motor] = \(totals.average.motor)\nTime per target found[search] = \(totals.average.search)\nSearch time - motor time per target = \(totals.average.search - totals.average.motor)\n\nMotor 1 total = \(totals.motorOneTotal)\nMotor 2 total = \(totals.motorTwoTotal)\nMotor 3 total = \(totals.motorThreeTotal)\nSearch 1 total = \(totals.searchOneTotal)\nSearch 2 total = \(totals.searchTwoTotal)\nSearch 3 total = \(totals.searchThreeTotal)\n\nDetail moves:\n\nSession started: \(dateStr)\nBuild: \(build)\n\n\(detailMoves)"
+		let visualSearchLog =
+        """
+        \(gameName) \(difficulty) difficulty.
+        
+        Player name: \(session.player.name)
+        Exposure: \(session.speed.doubleValue)
+        
+        Comment: \(comment)
+        
+        Total score: \(session.score)
+        False positives: \(session.failureScore)
+        
+        Time per target found[motor] = \(totals.average.motor)
+        Time per target found[search] = \(totals.average.search)
+        Search time - motor time per target = \(totals.average.search - totals.average.motor)
+        
+        Motor 1 total = \(totals.motorOneTotal)
+        Motor 2 total = \(totals.motorTwoTotal)
+        Motor 3 total = \(totals.motorThreeTotal)
+        Search 1 total = \(totals.searchOneTotal)
+        Search 2 total = \(totals.searchTwoTotal)
+        Search 3 total = \(totals.searchThreeTotal)
+        Detail moves:\n\nSession started: \(dateStr)
+        
+        Build: \(build)
+        
+        
+        \(detailMoves)
+        """
 		return visualSearchLog;
 	}
 	
@@ -146,9 +174,9 @@ class LogModel {
             // This condition is to keep old data working.
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) sec. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(r(newInterval)) s. \(inverted) \n"
             } else {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.intValue) sec. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(actualMove.interval.intValue) s. \(inverted) \n"
             }
             
             if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
@@ -170,29 +198,51 @@ class LogModel {
 		}
 		
         let result = ECABLogCalculator.getCounterpintingResult(session)
-        let resultRatio = result.timeBlockConflict / result.timeBlockNonConflict
-        let mediansRatio = result.conflictTimeMedian / result.nonConflictTimeMedian
         
-		let text = "\(gameName)\n\n" + "Player: \(session.player.name)\n\n" +
-            "Comment: \(comment)\n\nTotal score = \(session.score)\n" +
-            "Screens = \(session.moves.count)\n" +
-            "Errors = \(session.errors)\n\n" +
-            "non-conflict (blocks 1)\n" +
-            "total time 1 = \(r(result.timeBlockNonConflict)) sec. \n" +
-            "mean response time 1 = \(r(result.nonConflictTimeMean)) sec. \n" +
-            "median response time 1 = \(r(result.nonConflictTimeMedian)) sec." +
-            "\n\n" +
-            "conflict (blocks 2)\n" +
-            "total time 2 = \(r(result.timeBlockConflict)) sec. \n" +
-            "mean response time 2 = \(r(result.conflictTimeMean)) sec. \n" +
-            "median response time 2 = \(r(result.conflictTimeMedian)) sec." +
-            "\n\n" +
-            "ratio total2 / total1  = \(r(resultRatio)) sec. \n" +
-            "ratio median2 / median1 = \(r(mediansRatio)) sec." +
-            "\n\n" +
-            "Session started: \(dateString)\n\n" +
-            "Build: \(build)\n" +
-            "Moves:\n\n\(details)"
+        guard let data = result.result else {
+            let error: String
+            if let custom = result.error {
+                error = custom
+            } else {
+                error = "Critical Error. Couldn't create this log, sorry."
+            }
+            return error
+        }
+        
+        let meanRatio = data.conflictTimeMean / data.nonConflictTimeMean
+        let mediansRatio = data.conflictTimeMedian / data.nonConflictTimeMedian
+        let timeRatio = data.timeBlockConflict / data.timeBlockNonConflict
+        
+		let text =
+        """
+        \(gameName)
+        Player: \(session.player.name)
+        Comment: \(comment)
+        Total score = \(session.score)
+        Screens = \(session.moves.count)
+        Errors = \(session.errors)
+        
+        Non-conflict (blocks 1)
+        Total time 1 = \(r(data.timeBlockNonConflict)) s.
+        Mean response time 1 = \(r(data.nonConflictTimeMean)) s.
+        Median response time 1 = \(r(data.nonConflictTimeMedian)) s.
+        
+        Conflict (blocks 2)
+        Total time 2 = \(r(data.timeBlockConflict)) s.
+        Mean response time 2 = \(r(data.conflictTimeMean)) s.
+        Median response time 2 = \(r(data.conflictTimeMedian)) s.
+        
+        Mean ratio (conflict / non-conflict) = \(r(meanRatio)) s.
+        Median ratio = \(r(mediansRatio)) s.
+        Total time ratio = \(r(timeRatio)) s.
+
+        Session started: \(dateString)
+        
+        Build: \(build)
+        Moves:
+        
+        \(details)
+        """
 		return text
 	}
 	
@@ -215,11 +265,11 @@ class LogModel {
 			
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) s. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(r(newInterval)) s. \(inverted) \n"
             } else {
                 // Because I defined old interval as Integer I am chaning it to Double
                 // This condition is to keep old data working.
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval) s. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(actualMove.interval.intValue) s. \(inverted) \n"
             }
             counter += 1
             
@@ -251,58 +301,54 @@ class LogModel {
 			build = definedBuild
 		}
 		
-		var imageInfo = "uknown"
+		var imageInfo = "unknown"
 		if let definedImageInfo = session.imageSizeComment as String? {
 			imageInfo = definedImageInfo
 		}
     
-        let result = ECABLogCalculator.getFlankerResult(session)
-        let ratio = result.conflictTime / result.nonConflictTime
-        
-        var text = ""
-        
-        if session.type.intValue == SessionType.flanker.rawValue {
-        
-            text = "\(gameName)\n\n" +
-                "Player: \(session.player.name)\n\n" +
-                "Total score = \(session.score), moves = \(session.moves.count)\n" +
-                "Errors = \(session.errors)\n\n" +
-                "Comment: \(comment)\n\n" +
-                "Total 1 (non-conflict time) = \(r(result.nonConflictTime))\n" +
-                "total 2 (conflict time) = \(r(result.conflictTime))\n" +
-                "Ratio (block 2 + block 3 / block 1 + block 4) = \(r(ratio))\n\n" +
-                "Conflict time mean = \(r(result.conflictTimeMean))\n" +
-                "Conflict median = \(r(result.conflictTimeMedian))\n" +
-                "Conflict time standard deviation = \(r(result.conflictTimeStandardDeviation))\n" +
-                "Non conflict time mean = \(r(result.nonConflictTimeMean))\n" +
-                "Non conflict median = \(r(result.nonConflictTimeMedian))\n" +
-                "Non conflict time standard deviation = \(r(result.nonConflictTimeStandardDeviation))\n\n" +
-                "Session started: \(dateString)\n\n" +
-                "Build: \(build)\n" +
-                "Images: \(imageInfo)\n\n" +
-                "Moves:\n\n\(details)"
-            
-        } else if session.type.intValue == SessionType.flankerRandomized.rawValue {
-            
-            text = "\(gameName) Randomized.\n\n" +
-                "Player: \(session.player.name)\n\n" +
-                "Total score = \(session.score), moves = \(session.moves.count)\n" +
-                "Errors = \(session.errors)\n\n" +
-                "Comment: \(comment)\n\n" +
-                "Total 1 (non-conflict time) = \(r(result.nonConflictTime))\n" +
-                "total 2 (conflict time) = \(r(result.conflictTime))\n" +
-                "Ratio (conflict / non-conflcit) = \(r(ratio))\n\n" +
-                "Conflict time mean = \(r(result.conflictTimeMean))\n" +
-                "Conflict median = \(r(result.conflictTimeMedian))\n" +
-                "Conflict time standard deviation = \(r(result.conflictTimeStandardDeviation))\n" +
-                "Non conflict time mean = \(r(result.nonConflictTimeMean))\n" +
-                "Non conflict median = \(r(result.nonConflictTimeMedian))\n" +
-                "Non conflict time standard deviation = \(r(result.nonConflictTimeStandardDeviation))\n\n" +
-                "Session started: \(dateString)\n\n" +
-                "Build: \(build)\n" +
-                "Images: \(imageInfo)\n\n" +
-                "Moves:\n\n\(details)"
+        guard let result = ECABLogCalculator.getFlankerResult(session).result else {
+            return "Couldn't create log. \(ECABLogCalculator.getFlankerResult(session).error ?? "")"
         }
+        
+        let meanRatio = result.conflictTimeMean / result.nonConflictTimeMean
+        let mediansRatio = result.conflictTimeMedian / result.nonConflictTimeMedian
+        let timeRatio = result.conflictTime / result.nonConflictTime
+        
+        let isRandomized = session.type.intValue == SessionType.flankerRandomized.rawValue
+        let firstLine: String
+        if isRandomized {
+            firstLine = "\(gameName)"
+        } else {
+            firstLine = "\(gameName) Randomised"
+        }
+        
+        let text =
+        """
+        \(firstLine)
+        Player: \(session.player.name)
+        Total score = \(session.score), moves = \(session.moves.count)
+        Errors = \(session.errors)
+        Comment: \(comment)
+        
+        Total 1 non-conflict time = \(r(result.nonConflictTime))
+        Total 2 conflict time = \(r(result.conflictTime))
+        Mean ratio (conflict / non-conflict) = \(r(meanRatio)) s.
+        Median ratio = \(r(mediansRatio)) s.
+        Total time ratio = \(r(timeRatio)) s.
+        Conflict time mean = \(r(result.conflictTimeMean))
+        Conflict median = \(r(result.conflictTimeMedian))
+        Conflict time standard deviation = \(r(result.conflictTimeStandardDeviation))
+        Non conflict time mean = \(r(result.nonConflictTimeMean))
+        Non conflict median = \(r(result.nonConflictTimeMedian))
+        Non conflict time standard deviation = \(r(result.nonConflictTimeStandardDeviation))
+        
+        Session started: \(dateString)
+        
+        Build: \(build)
+        Images: \(imageInfo)
+        
+        Moves:\n\n\(details)
+        """
         
 		return text
 	}
@@ -359,17 +405,23 @@ class LogModel {
 		let objectsTotal = session.vsustObjects!.int32Value
 		let animalsTotal = session.vsustAnimals!.int32Value
 		
-		let text = "\(gameName) (build \(build))\n\n" +
-        "Player: \(session.player.name)\n" +
-        "Interval = \(interval) exposure = \(exposure) " +
-        "blank = \(blank) " +
-        "accepted delay = \(session.vsustAcceptedDelay!.doubleValue)\n" +
-        "Objects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)\n" +
-        "Total score = \(session.score) moves = \(session.moves.count)\n" +
-        "False positives = \(session.errors) Misses = \(session.vsustMiss!)\n\n" +
-        "Comment: \(comment)\n\n" +
-        "Session started: \(dateString)\n\n" +
-        "\(details)"
+		let text = """
+        \(gameName) (build \(build))
+        
+        Player: \(session.player.name)
+        Interval = \(interval) exposure = \(exposure) blank = \(blank)
+        accepted delay = \(session.vsustAcceptedDelay!.doubleValue)
+        Objects = \(objectsTotal) animals = \(animalsTotal) (doesn't count while in training)
+        Total score = \(session.score)
+        moves = \(session.moves.count)
+        
+        False positives = \(session.errors) Misses = \(session.vsustMiss!)
+        Comment: \(comment)
+        
+        Session started: \(dateString)
+        
+        \(details)
+        """
         
 		return text
 	}

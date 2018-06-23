@@ -138,7 +138,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		timeToGameOver.invalidate()
 		timeToGameOver = Timer.scheduledTimer(timeInterval: timeGameOver,
 			target: self,
-			selector: #selector(VisualSustainViewController.gameOver),
+			selector: #selector(gameOver),
 			userInfo: nil,
 			repeats: false)
 	}
@@ -152,6 +152,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	// Called eather from timer or from Next button in the menu bar
 	override func presentNextScreen() {
 		currentScreenShowing += 1
+        
+        toggleNavigationButtons(isEnabled: false)
 		
 		self.cleanView() // Removes labels only
 		
@@ -163,6 +165,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 		case 1:
 			showFirstView()
+            toggleNavigationButtons(isEnabled: true)
 			
 		case 2:
 			removeFirstView()
@@ -193,7 +196,8 @@ class VisualSustainViewController: CounterpointingViewController {
 			presentMessage(labels.gameEnd)
 			
 		case 177:
-			presentPause()
+            // Last screen
+			toggleNavigationButtons(isEnabled: false)
 			
 		default:
 			break
@@ -234,7 +238,10 @@ class VisualSustainViewController: CounterpointingViewController {
 		let newImage = UIImage(named: pic.rawValue)
 		let newFrame = UIImageView(image: newImage)
 		
-		imageVisibleOnScreen.frame = CGRect(x: 0, y: 0, width: newFrame.frame.size.width * 2, height: newFrame.frame.size.height * 2)
+		imageVisibleOnScreen.frame = CGRect(x: 0,
+                                            y: 0,
+                                            width: newFrame.frame.size.width * 2,
+                                            height: newFrame.frame.size.height * 2)
 		imageVisibleOnScreen.center = view.center;
 		imageVisibleOnScreen.image = newImage
         
@@ -245,7 +252,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			timeToAcceptDelay.invalidate()
 			timeToAcceptDelay = Timer.scheduledTimer(timeInterval: timersScale,
 				target: self,
-				selector: #selector(VisualSustainViewController.updateAcceptedDelay),
+				selector: #selector(updateAcceptedDelay),
 				userInfo: nil,
 				repeats: true)
 		}
@@ -265,7 +272,7 @@ class VisualSustainViewController: CounterpointingViewController {
             timeToPresentWhiteSpace.invalidate()
             timeToPresentWhiteSpace = Timer.scheduledTimer(timeInterval: timePictureVisible,
                 target: self,
-                selector: #selector(VisualSustainViewController.showWhiteSpace),
+                selector: #selector(showWhiteSpace),
                 userInfo: nil,
                 repeats: false)
 		}
@@ -273,17 +280,17 @@ class VisualSustainViewController: CounterpointingViewController {
         timeToPresentNextScreen.invalidate()
         timeToPresentNextScreen = Timer.scheduledTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible,
             target: self,
-            selector: #selector(TestViewController.presentNextScreen),
+            selector: #selector(presentNextScreen),
             userInfo: nil,
             repeats: false)
 	}
     
-    func showWhiteSpace() {
+    @objc func showWhiteSpace() {
         let whiteSpace = UIImage(named: Picture.Empty.rawValue)
         self.imageVisibleOnScreen.image = whiteSpace
     }
 	
-	func updateAcceptedDelay() {
+	@objc func updateAcceptedDelay() {
 		timeSinceAnimalAppeared += timersScale
 		if timeSinceAnimalAppeared > timeAcceptDelay {
 			timeToAcceptDelay.invalidate()
@@ -452,7 +459,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		return returnValue
 	}
 	
-	func gameOver() {
+	@objc func gameOver() {
 		gamePaused = true
 		timeToAcceptDelay.invalidate()
 		timeToGameOver.invalidate()
@@ -504,18 +511,35 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
     
     override func presentPause() {
-        timeToPresentNextScreen.pause()
-        timeToPresentWhiteSpace.pause()
-        timeToGameOver.pause()
-        timeToAcceptDelay.pause()
+        timeToPresentNextScreen.invalidate()
+        timeToPresentWhiteSpace.invalidate()
+        timeToGameOver.invalidate()
+        timeToAcceptDelay.invalidate()
         
         super.presentPause()
     }
     override func resumeTest() {
-        timeToPresentNextScreen.resume()
-        timeToPresentWhiteSpace.resume()
-        timeToGameOver.resume()
-        timeToAcceptDelay.resume()
+        timeToPresentNextScreen = Timer.scheduledTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible,
+                                                       target: self,
+                                                       selector: #selector(presentNextScreen),
+                                                       userInfo: nil,
+                                                       repeats: false)
+        
+        timeToPresentWhiteSpace = Timer.scheduledTimer(timeInterval: timePictureVisible,
+                                                       target: self,
+                                                       selector: #selector(showWhiteSpace),
+                                                       userInfo: nil,
+                                                       repeats: false)
+        timeToGameOver = Timer.scheduledTimer(timeInterval: timeGameOver,
+                                              target: self,
+                                              selector: #selector(gameOver),
+                                              userInfo: nil,
+                                              repeats: false)
+        timeToAcceptDelay = Timer.scheduledTimer(timeInterval: timersScale,
+                                                 target: self,
+                                                 selector: #selector(updateAcceptedDelay),
+                                                 userInfo: nil,
+                                                 repeats: true)
     }
 
 }

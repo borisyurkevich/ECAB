@@ -26,7 +26,7 @@ class VisualSearchViewController: TestViewController,
     private var board = VisualSearchBoard(stage: 0)
     private let interSpacing:CGFloat = 27
 	private var timer = Timer()
-	private var timerLastStarted = NSDate()
+	private var timerLastStarted = Date()
     
     enum Mode: Int {
         case easy = 0
@@ -102,11 +102,16 @@ class VisualSearchViewController: TestViewController,
 	}
     
     override func presentPause() {
-        timer.pause()
+        timer.invalidate()
         super.presentPause()
     }
     override func resumeTest() {
-        timer.resume()
+        self.timer = Timer.scheduledTimer(timeInterval: self.gameSpeed,
+                                          target: self,
+                                          selector: #selector(VisualSearchViewController.showBlankScreen),
+                                          userInfo: nil,
+                                          repeats: false)
+        self.timerLastStarted = Date()
     }
 	
 	var isGameStarted = false
@@ -181,7 +186,7 @@ class VisualSearchViewController: TestViewController,
 						selector: #selector(VisualSearchViewController.showBlankScreen),
 						userInfo: nil,
 						repeats: false)
-					self.timerLastStarted = NSDate()
+					self.timerLastStarted = Date()
 				}
 				
                 UIView.transition(with: self.view, duration: self.transitionSpeed, options: UIViewAnimationOptions(), animations: {
@@ -266,7 +271,7 @@ class VisualSearchViewController: TestViewController,
         }
     }
 	
-	func showBlankScreen() {
+	@objc func showBlankScreen() {
 		
 		if currentView == numberOfTargets.count {
 			presentPause()

@@ -49,7 +49,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
         randmomizeFlanker.isOn = UserDefaults.standard.bool(forKey: "isFlankerRandmoized")
 	}
 	
-	func dataLoaded() {
+	@objc func dataLoaded() {
 		
 		switch model.data.selectedGame {
 		case GamesIndex.visualSearch.rawValue:

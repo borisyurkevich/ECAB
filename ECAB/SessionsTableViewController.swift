@@ -30,6 +30,22 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     let fileNameformatter = DateFormatter()
     
     @IBOutlet weak var actionButton: UIBarButtonItem!
+
+    @IBAction func tapEdit(_ sender: UIBarButtonItem) {
+        toggleEditMode()
+    }
+    
+    @objc func toggleEditMode() {
+        if tableView.isEditing {
+            tableView.setEditing(false, animated: true)
+            let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(toggleEditMode))
+            navigationItem.setLeftBarButton(editButton, animated: true)
+        } else {
+            tableView.setEditing(true, animated: true)
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(toggleEditMode))
+            navigationItem.setLeftBarButton(doneButton, animated: true)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +57,15 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		title = model.games[Int(model.data.selectedGame)]
-		
-        
+		title = model.games[model.data.selectedGame.intValue]
         actionButton.isEnabled = false
-        
+        rebuild()
+        // Need to reload table to show possible
+        // new elements.
+        tableView.reloadData()
+	}
+    
+    private func rebuild() {
         // Build sessions
         counterpointingSessions.removeAll()
         flankerSessions.removeAll()
@@ -70,11 +90,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
                 visualSustainSessions.append(mySession)
             }
         }
-        
-        // Need to reload table to show possible
-        // new elements.
-        tableView.reloadData()
-	}
+    }
     
     // Export
     
@@ -306,8 +322,10 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			default:
                 break
 			}
+            model.save()
 		
 			// Last step
+            rebuild()
 			tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
 			detailVC.textView.text = ""
 			detailVC.helpMessage.text = "Select any session from the left."
@@ -321,7 +339,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         }
 		let detailVC = navVC.topViewController as! HistoryViewController
 		
-		let gameName = model.games[Int(model.data.selectedGame)]
+		let gameName = model.games[model.data.selectedGame.intValue]
         
 		switch model.data.selectedGame {
 		case GamesIndex.visualSearch.rawValue:

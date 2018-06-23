@@ -30,9 +30,6 @@ class CounterpointingViewController: TestViewController {
 	var session: CounterpointingSession!
 	fileprivate var totalOne = 0.0
 	fileprivate var totalTwo = 0.0
-    
-    var pauseDate: Date?
-    var pauseLength: TimeInterval?
 	
 	// MARK: Override
 	
@@ -45,15 +42,8 @@ class CounterpointingViewController: TestViewController {
 		addTouchTargetButtons()
 	}
     
-    override func presentPause() {
-        
-        pauseDate = Date()
-        super.presentPause()
-    }
     override func resumeTest() {
-        
-        pauseLength = Date().timeIntervalSince(pauseDate!)
-        pauseDate = nil
+        screenPresentedDate = Date()
     }
 	
 	override func skip() {
@@ -111,6 +101,8 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	override func presentNextScreen() {
+        toggleNavigationButtons(isEnabled: false)
+        
 		currentScreenShowing += 1
 	
 		cleanView()
@@ -134,13 +126,13 @@ class CounterpointingViewController: TestViewController {
 			trainingMode = true
 			gameModeInversed = true
 			touchModeInverserd = true
-			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen")
+			presentMessage("Practice: don’t touch the dog, touch the OTHER side of the screen.")
             model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 26 ... 27:
 			presentDogOnSide(dogSequence[currentScreenShowing]!)
 		case 28:
 			trainingMode = false
-			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can")
+			presentMessage("When the dog comes up, touch the OTHER side of the screen as quickly as you can.")
             model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
 		case 29 ... 48:
 			presentDogOnSide(dogSequence[currentScreenShowing]!)
@@ -167,6 +159,12 @@ class CounterpointingViewController: TestViewController {
 		view.addSubview(buttonLeft)
 		view.addSubview(buttonRight)
 	}
+    
+    func toggleNavigationButtons(isEnabled: Bool) {
+        nextButton.isEnabled = isEnabled
+        backButton.isEnabled = isEnabled
+        skipTrainingButton.isEnabled = isEnabled
+    }
 	
 	func presentBlueDot() {
 		cleanView()
@@ -176,23 +174,29 @@ class CounterpointingViewController: TestViewController {
 		view.addSubview(dot)
         
         self.playerInteractionsDisabled = true
+        toggleNavigationButtons(isEnabled: true)
 	}
 	
 	func presentMessage(_ message: String){
-		let label = UILabel(frame: view.frame)
-		label.numberOfLines = 3
-		label.text = message
-		label.textAlignment = NSTextAlignment.center
-		label.font = UIFont.systemFont(ofSize: 44)
-		view.addSubview(label)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 450, height: 0))
+        
+        label.numberOfLines = 0
+        label.textAlignment = NSTextAlignment.center
+        label.font = UIFont.systemFont(ofSize: 44)
+        label.text = message
+        label.sizeToFit()
+        label.center = view.center
+
+        view.addSubview(label)
         
         self.playerInteractionsDisabled = true
+        toggleNavigationButtons(isEnabled: true)
 	}
 	
-	func handleTouchLeft() {
+	@objc func handleTouchLeft() {
 		tapHandler(true)
 	}
-	func handleTouchRight() {
+	@objc func handleTouchRight() {
 		tapHandler(false)
 	}
 	func tapHandler(_ touchLeft: Bool){
@@ -248,10 +252,6 @@ class CounterpointingViewController: TestViewController {
         let currentTime = Date()
         
         var startPoint = screenPresentedDate
-        
-        if let pauseInterval = pauseLength {
-            startPoint = screenPresentedDate.addingTimeInterval(pauseInterval)
-        }
         
         if !result {
             startPoint = (screenPresentedDate as NSDate).laterDate(lastMistakeDate)
