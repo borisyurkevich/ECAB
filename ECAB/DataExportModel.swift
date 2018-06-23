@@ -176,30 +176,30 @@ class DataExportModel {
             let timeRatio = t.timeBlockConflict / t.timeBlockNonConflict
             
             returnValue = """
-            ECAB Test                    ,\(gameName)    ,                   ,        ,  ,  ,
-                                         ,               ,                   ,        ,  ,  ,
-            ID                           ,\(playerName)  ,                   ,        ,  ,  ,
-            date of birth                ,\(birth)       ,age at test        ,\(age)  ,  ,  ,
-            date/time of test start      ,\(dateStart)   ,\(timeStart)       ,        ,  ,  ,
-                                         ,               ,                   ,        ,  ,  ,
-            comments                     ,\(comments)    ,                   ,        ,  ,  ,
-                                         ,               ,                   ,        ,  ,  ,
-            non-conflict (blocks 1)      ,               ,                   ,        ,  ,  ,
-            total time 1 =               ,\(r(t.timeBlockNonConflict)),s.    ,        ,  ,  ,
-            mean response time 1 =       ,\(r(t.nonConflictTimeMean)),s.     ,        ,  ,  ,
-            median response time 1 =     ,\(r(t.nonConflictTimeMedian)),s.   ,        ,  ,  ,
-                                         ,               ,                   ,        ,  ,  ,
-            conflict (blocks 2)          ,               ,                   ,        ,  ,  ,
-            total time 2 =               ,\(r(t.timeBlockConflict)),s.       ,        ,  ,  ,
-            mean response time 2 =       ,\(r(t.conflictTimeMean)),s.        ,        ,  ,  ,
-            median response time 2 =     ,\(r(t.conflictTimeMedian)),s.      ,        ,  ,  ,
-                                         ,               ,                   ,        ,  ,  ,
-            mean ratio (con / non c)     ,\(r(meanRatio)),                   ,        ,  ,  ,
-            median ratio                 ,\(r(medianRatio)),                 ,        ,  ,  ,
-            time ratio                   ,\(r(timeRatio)),                   ,        ,  ,  ,
-                                         ,               ,                   ,        ,  ,  ,
-            log of individual responses  ,               ,                   ,        ,  ,  ,
-                                         ,               ,                   ,        ,  ,  ,
+            ECAB Test                    ,\(gameName)    ,                   ,        ,
+                                         ,               ,                   ,        ,
+            ID                           ,\(playerName)  ,                   ,        ,
+            date of birth                ,\(birth)       ,age at test        ,\(age)  ,
+            date/time of test start      ,\(dateStart)   ,\(timeStart)       ,        ,
+                                         ,               ,                   ,        ,
+            comments                     ,\(comments)    ,                   ,        ,
+                                         ,               ,                   ,        ,
+            non-conflict (blocks 1)      ,               ,                   ,        ,
+            total time 1 =               ,\(r(t.timeBlockNonConflict)),s.    ,        ,
+            mean response time 1 =       ,\(r(t.nonConflictTimeMean)),s.     ,        ,
+            median response time 1 =     ,\(r(t.nonConflictTimeMedian)),s.   ,        ,
+                                         ,               ,                   ,        ,
+            conflict (blocks 2)          ,               ,                   ,        ,
+            total time 2 =               ,\(r(t.timeBlockConflict)),s.       ,        ,
+            mean response time 2 =       ,\(r(t.conflictTimeMean)),s.        ,        ,
+            median response time 2 =     ,\(r(t.conflictTimeMedian)),s.      ,        ,
+                                         ,               ,                   ,        ,
+            mean ratio (con / non c)     ,\(r(meanRatio)),                   ,        ,
+            median ratio                 ,\(r(medianRatio)),                 ,        ,
+            time ratio                   ,\(r(timeRatio)),                   ,        ,
+                                         ,               ,                   ,        ,
+            log of individual responses  ,               ,                   ,        ,
+            
             """
             
             // Append dynamic rows: headers and moves
@@ -239,37 +239,37 @@ class DataExportModel {
             }
             
             returnValue = """
-            ECAB Test               ,\(gameName) \(random)        ,            ,       , , ,
-                                  ,                             ,            ,       , , ,
-            ID                      ,\(playerName)                ,            ,       , , ,
-            date of birth           ,\(birth)                     ,age at test ,\(age) , , ,
-            date/time of test start ,\(dateStart)                 ,\(timeStart),       , , ,
-                                  ,                             ,            ,       , , ,
-            parameters              ,\(imageInfo)                 ,            ,       , , ,
-            comments                ,\(comments)                  ,            ,       , , ,
-                                  ,                             ,            ,       , , ,
-            non-conflict (block 1+4),                             ,            ,       , , ,
-            total time block 1      ,\(r(t.timeBlock1))           ,s.          ,       , , ,
-            total time block 4      ,\(r(t.timeBlock4))           ,s.          ,       , , ,
-            total time blocks 1+4   ,\(r(t.nonConflictTime))      ,s.          ,       , , ,
-                                  ,                             ,            ,       , , ,
-            mean response time 1+4  ,\(r(t.nonConflictTimeMean))  ,s.          ,       , , ,
-            median response time 1+4,\(r(t.nonConflictTimeMedian)),s.          ,       , , ,
-                                  ,                             ,            ,       , , ,
-            conflicts (blocks 2+3)  ,                             ,            ,       , , ,
-            total time block 2      ,\(r(t.timeBlock2))           ,s.          ,       , , ,
-            total time block 3      ,\(r(t.timeBlock3))           ,s.          ,       , , ,
-            total time blocks 2+3   ,\(r(t.conflictTime))         ,s.          ,       , , ,
-                                  ,                             ,            ,       , , ,
-            mean response time 2+3  ,\(r(t.conflictTimeMean))     ,s.          ,       , , ,
-            median response time 2+3,\(r(t.conflictTimeMedian))   ,s.          ,       , , ,
-                                  ,                             ,            ,       , , ,
-            mean ratio (con / non c),\(r(meanRatio))              ,            ,       , , ,
-            median ratio            ,\(r(medianRatio))            ,            ,       , , ,
-            time ratio              ,\(r(timeRatio))              ,            ,       , , ,
-                                    ,                             ,            ,       , , ,
-            log of ind. responses   ,                             ,            ,       , , ,
-                                  ,                             ,            ,       , , ,
+            ECAB Test               ,\(gameName) \(random)        ,            ,       ,
+                                  ,                             ,            ,         ,
+            ID                      ,\(playerName)                ,            ,       ,
+            date of birth           ,\(birth)                     ,age at test ,\(age) ,
+            date/time of test start ,\(dateStart)                 ,\(timeStart),       ,
+                                  ,                             ,            ,         ,
+            parameters              ,\(imageInfo)                 ,            ,       ,
+            comments                ,\(comments)                  ,            ,       ,
+                                  ,                             ,            ,         ,
+            non-conflict (block 1+4),                             ,            ,       ,
+            total time block 1      ,\(r(t.timeBlock1))           ,s.          ,       ,
+            total time block 4      ,\(r(t.timeBlock4))           ,s.          ,       ,
+            total time blocks 1+4   ,\(r(t.nonConflictTime))      ,s.          ,       ,
+                                  ,                             ,            ,         ,
+            mean response time 1+4  ,\(r(t.nonConflictTimeMean))  ,s.          ,       ,
+            median response time 1+4,\(r(t.nonConflictTimeMedian)),s.          ,       ,
+                                  ,                             ,            ,         ,
+            conflicts (blocks 2+3)  ,                             ,            ,       ,
+            total time block 2      ,\(r(t.timeBlock2))           ,s.          ,       ,
+            total time block 3      ,\(r(t.timeBlock3))           ,s.          ,       ,
+            total time blocks 2+3   ,\(r(t.conflictTime))         ,s.          ,       ,
+                                  ,                             ,            ,         ,
+            mean response time 2+3  ,\(r(t.conflictTimeMean))     ,s.          ,       ,
+            median response time 2+3,\(r(t.conflictTimeMedian))   ,s.          ,       ,
+                                  ,                             ,            ,         ,
+            mean ratio (con / non c),\(r(meanRatio))              ,            ,       ,
+            median ratio            ,\(r(medianRatio))            ,            ,       ,
+            time ratio              ,\(r(timeRatio))              ,            ,       ,
+                                    ,                             ,            ,       ,
+            log of ind. responses   ,                             ,            ,       ,
+            
             """
             
             // Append dynamic rows: headers and moves
@@ -313,7 +313,7 @@ class DataExportModel {
             total false +ves        ,\(t.totalFalseAndVE),                  ,                      ,           ,             ,
                                     ,               ,                       ,                      ,           ,             ,
             log of individual responses,            ,                       ,                      ,           ,             ,
-                                    ,               ,                       ,                      ,           ,             ,
+            
             """
             
             // Append dynamic rows: headers and moves
@@ -432,7 +432,7 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), s., , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), s.\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -455,7 +455,7 @@ class DataExportModel {
                     headerCount += 1
         
                     // CSV line
-                    let headerLine = "\(header),screen,response,time, , ,\n"
+                    let headerLine = "\(header),screen,response,time\n"
                     collectionOfTableRows.append(headerLine)
         
                     // Prevents duplicate headers
@@ -474,7 +474,7 @@ class DataExportModel {
         var screenCount = 1
         
         // First header
-        let headerLine = "\(FlankerBlock.example.title),screen,response,time, , ,\n"
+        let headerLine = "\(FlankerBlock.example.title),screen,response,time, ,\n"
         collectionOfTableRows.append(headerLine)
         
         for move in session.moves {
@@ -500,7 +500,7 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), s., , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), s.,\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -515,7 +515,7 @@ class DataExportModel {
                 headerCount += 1
     
                 // CSV line
-                let headerLine = "\(header),screen,response,time, , ,\n"
+                let headerLine = "\(header),screen,response,time, ,\n"
                 collectionOfTableRows.append(headerLine)
             }
         }
