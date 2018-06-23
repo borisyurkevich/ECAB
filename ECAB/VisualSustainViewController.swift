@@ -152,6 +152,8 @@ class VisualSustainViewController: CounterpointingViewController {
 	// Called eather from timer or from Next button in the menu bar
 	override func presentNextScreen() {
 		currentScreenShowing += 1
+        
+        toggleNavigationButtons(isEnabled: false)
 		
 		self.cleanView() // Removes labels only
 		
@@ -163,6 +165,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			
 		case 1:
 			showFirstView()
+            toggleNavigationButtons(isEnabled: true)
 			
 		case 2:
 			removeFirstView()
@@ -193,7 +196,8 @@ class VisualSustainViewController: CounterpointingViewController {
 			presentMessage(labels.gameEnd)
 			
 		case 177:
-			presentPause()
+            // Last screen
+			toggleNavigationButtons(isEnabled: false)
 			
 		default:
 			break
@@ -234,7 +238,10 @@ class VisualSustainViewController: CounterpointingViewController {
 		let newImage = UIImage(named: pic.rawValue)
 		let newFrame = UIImageView(image: newImage)
 		
-		imageVisibleOnScreen.frame = CGRect(x: 0, y: 0, width: newFrame.frame.size.width * 2, height: newFrame.frame.size.height * 2)
+		imageVisibleOnScreen.frame = CGRect(x: 0,
+                                            y: 0,
+                                            width: newFrame.frame.size.width * 2,
+                                            height: newFrame.frame.size.height * 2)
 		imageVisibleOnScreen.center = view.center;
 		imageVisibleOnScreen.image = newImage
         
@@ -265,7 +272,7 @@ class VisualSustainViewController: CounterpointingViewController {
             timeToPresentWhiteSpace.invalidate()
             timeToPresentWhiteSpace = Timer.scheduledTimer(timeInterval: timePictureVisible,
                 target: self,
-                selector: #selector(VisualSustainViewController.showWhiteSpace),
+                selector: #selector(showWhiteSpace),
                 userInfo: nil,
                 repeats: false)
 		}
@@ -273,7 +280,7 @@ class VisualSustainViewController: CounterpointingViewController {
         timeToPresentNextScreen.invalidate()
         timeToPresentNextScreen = Timer.scheduledTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible,
             target: self,
-            selector: #selector(TestViewController.presentNextScreen),
+            selector: #selector(presentNextScreen),
             userInfo: nil,
             repeats: false)
 	}

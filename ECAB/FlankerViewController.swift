@@ -76,6 +76,8 @@ class FlankerViewController: CounterpointingViewController {
 		addImage(left, position: Position.left)
 		addImage(middle, position: Position.middle)
 		addImage(right, position: Position.right)
+        
+        toggleNavigationButtons(isEnabled: false)
 	}
 	
 	func addImage(_ image: Picture, position:Position) {
