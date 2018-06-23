@@ -138,7 +138,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		timeToGameOver.invalidate()
 		timeToGameOver = Timer.scheduledTimer(timeInterval: timeGameOver,
 			target: self,
-			selector: #selector(VisualSustainViewController.gameOver),
+			selector: #selector(gameOver),
 			userInfo: nil,
 			repeats: false)
 	}
@@ -252,7 +252,7 @@ class VisualSustainViewController: CounterpointingViewController {
 			timeToAcceptDelay.invalidate()
 			timeToAcceptDelay = Timer.scheduledTimer(timeInterval: timersScale,
 				target: self,
-				selector: #selector(VisualSustainViewController.updateAcceptedDelay),
+				selector: #selector(updateAcceptedDelay),
 				userInfo: nil,
 				repeats: true)
 		}
@@ -511,18 +511,35 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
     
     override func presentPause() {
-        timeToPresentNextScreen.pause()
-        timeToPresentWhiteSpace.pause()
-        timeToGameOver.pause()
-        timeToAcceptDelay.pause()
+        timeToPresentNextScreen.invalidate()
+        timeToPresentWhiteSpace.invalidate()
+        timeToGameOver.invalidate()
+        timeToAcceptDelay.invalidate()
         
         super.presentPause()
     }
     override func resumeTest() {
-        timeToPresentNextScreen.resume()
-        timeToPresentWhiteSpace.resume()
-        timeToGameOver.resume()
-        timeToAcceptDelay.resume()
+        timeToPresentNextScreen = Timer.scheduledTimer(timeInterval: timePictureVisible + timeBlankSpaceVisible,
+                                                       target: self,
+                                                       selector: #selector(presentNextScreen),
+                                                       userInfo: nil,
+                                                       repeats: false)
+        
+        timeToPresentWhiteSpace = Timer.scheduledTimer(timeInterval: timePictureVisible,
+                                                       target: self,
+                                                       selector: #selector(showWhiteSpace),
+                                                       userInfo: nil,
+                                                       repeats: false)
+        timeToGameOver = Timer.scheduledTimer(timeInterval: timeGameOver,
+                                              target: self,
+                                              selector: #selector(gameOver),
+                                              userInfo: nil,
+                                              repeats: false)
+        timeToAcceptDelay = Timer.scheduledTimer(timeInterval: timersScale,
+                                                 target: self,
+                                                 selector: #selector(updateAcceptedDelay),
+                                                 userInfo: nil,
+                                                 repeats: true)
     }
 
 }
