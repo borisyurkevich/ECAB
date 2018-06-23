@@ -169,13 +169,12 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	func presentMessage(_ message: String){
-        let label = UILabel()
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 450, height: 0))
         
         label.numberOfLines = 0
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont.systemFont(ofSize: 44)
         label.text = message
-        label.preferredMaxLayoutWidth = 300.0
         label.sizeToFit()
         label.center = view.center
 
