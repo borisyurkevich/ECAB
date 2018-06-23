@@ -174,9 +174,9 @@ class LogModel {
             // This condition is to keep old data working.
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) s. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(r(newInterval)) s. \(inverted) \n"
             } else {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.intValue) s. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(actualMove.interval.intValue) s. \(inverted) \n"
             }
             
             if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
@@ -265,11 +265,11 @@ class LogModel {
 			
             var append: String
             if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(r(newInterval)) s. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(r(newInterval)) s. \(inverted) \n"
             } else {
                 // Because I defined old interval as Integer I am chaning it to Double
                 // This condition is to keep old data working.
-                append = "\(counter)) \(status) screen: \(actualMove.poitionX) \(actualMove.interval.intValue) s. \(inverted) \n"
+                append = "\(actualMove.poitionX)) \(status) \(actualMove.interval.intValue) s. \(inverted) \n"
             }
             counter += 1
             
