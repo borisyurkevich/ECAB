@@ -569,6 +569,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sessions" id="tUe-0J-V6O">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="J7p-Qp-fIc">
+                            <connections>
+                                <action selector="tapEdit:" destination="bYc-bL-klV" id="S2q-QI-3CV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="MPm-ga-JvH">
                             <connections>
                                 <action selector="handleExport:" destination="bYc-bL-klV" id="eA5-iH-EZU"/>
