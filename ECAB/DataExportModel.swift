@@ -169,7 +169,10 @@ class DataExportModel {
             let comments = session.comment
             
             let rows = createCounterpointinLines(session)
-            let t = ECABLogCalculator.getCounterpintingResult(session)
+            let data = ECABLogCalculator.getCounterpintingResult(session)
+            guard let t = data.result else {
+                return "Critical Error \(data.error ?? "")"
+            }
             
             let meanRatio = t.conflictTimeMean / t.nonConflictTimeMean
             let medianRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
@@ -226,7 +229,10 @@ class DataExportModel {
             }
             
             let rows = createFlankerLines(session)
-            let t = ECABLogCalculator.getFlankerResult(session)
+            let output = ECABLogCalculator.getFlankerResult(session)
+            guard let t = output.result else {
+                return "Couldn't create file. \(output.error ?? "")"
+            }
             
             let meanRatio = t.conflictTimeMean / t.nonConflictTimeMean
             let medianRatio = t.conflictTimeMedian / t.nonConflictTimeMedian

@@ -250,7 +250,7 @@ class ECABLogCalculator {
         return totals
     }
     
-    class func getCounterpintingResult(_ session: CounterpointingSession) -> CounterpointingResult {
+    class func getCounterpintingResult(_ session: CounterpointingSession) -> (result: CounterpointingResult?, error: String?) {
         
         var timeBlock1NonConflict:TimeInterval = 0
         var timeBlock2Conflict:TimeInterval = 0
@@ -282,10 +282,8 @@ class ECABLogCalculator {
                         break
                     }
                 }
-                
             } else {
-                print("Error in getFlankerResult()")
-                exit(0)
+                return (nil, "Error in getFlankerResult()")
             }
             
         }
@@ -301,16 +299,26 @@ class ECABLogCalculator {
         if nonConflictIntervals.isEmpty {
             nonConflictMedian = 0
         } else {
-            let nonConflictMedianIndex = (Double(countBlock1) + 1) / 2
-            nonConflictMedian = nonConflictIntervals[Int(nonConflictMedianIndex)]
+            let nonConflictMedianIndex = Int((Double(countBlock1) + 1) / 2)
+            if nonConflictMedianIndex < nonConflictIntervals.count {
+                nonConflictMedian = nonConflictIntervals[nonConflictMedianIndex]
+            } else {
+                // There's only 1 item in array.
+                nonConflictMedian = nonConflictIntervals.first!
+            }
         }
         
         var conflictMedian: TimeInterval
         if conflictIntervals.isEmpty {
             conflictMedian = 0
         } else {
-            let conflictMedianIndex = (Double(countBlock2) + 1) / 2
-            conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+            let conflictMedianIndex = Int((Double(countBlock2) + 1) / 2)
+            if conflictMedianIndex < conflictIntervals.count {
+                conflictMedian = conflictIntervals[Int(conflictMedianIndex)]
+            } else {
+                // There's only 1 item in array.
+                conflictMedian = conflictIntervals.first!
+            }
         }
         
         // Calculate the deviations of each data point from the mean,
@@ -326,10 +334,10 @@ class ECABLogCalculator {
         
         let result = CounterpointingResult(timeBlockNonConflict: timeBlock1NonConflict, timeBlockConflict: timeBlock2Conflict, conflictTimeMean: conflictTimeMean, conflictTimeMedian: conflictMedian, nonConflictTimeMean: nonConflictTimeMean, nonConflictTimeMedian: nonConflictMedian)
         
-        return result
+        return (result, nil)
     }
     
-    class func getFlankerResult(_ session: CounterpointingSession) -> FlankerResult {
+    class func getFlankerResult(_ session: CounterpointingSession) -> (result: FlankerResult?, error: String?) {
     
         var timeBlock1:TimeInterval = 0
         var timeBlock2:TimeInterval = 0
@@ -381,18 +389,18 @@ class ECABLogCalculator {
                     }
                     
                 } else {
-                    print("Error in getFlankerResult()")
-                    exit(0)
+                    let error = "Error in getFlankerResult()"
+                    return(nil, error)
                 }
             }
         } else if session.type.intValue == SessionType.flankerRandomized.rawValue {
             
             for m in session.moves {
                 guard let move = m as? CounterpointingMove else {
-                    exit(0)
+                    return(nil, "Failed to load moves for this game")
                 }
                 guard let interval = move.intervalDouble as? Double else {
-                    exit(0)
+                    return(nil, "Failed to load intervals for this game")
                 }
                 
                 // Separate this screens on conflict and not conflict.
@@ -496,7 +504,7 @@ class ECABLogCalculator {
                         nonConflictTimeMedian: nonConflictMedian,
              nonConflictTimeStandardDeviation: nonConflictStandardDeviation)
         
-        return result
+        return (result, nil)
     }
     
     class func getVisualSustainResult(_ session: CounterpointingSession) -> VisualSustaineResult {

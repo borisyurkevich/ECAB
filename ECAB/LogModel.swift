@@ -198,9 +198,20 @@ class LogModel {
 		}
 		
         let result = ECABLogCalculator.getCounterpintingResult(session)
-        let meanRatio = result.conflictTimeMean / result.nonConflictTimeMean
-        let mediansRatio = result.conflictTimeMedian / result.nonConflictTimeMedian
-        let timeRatio = result.timeBlockConflict / result.timeBlockNonConflict
+        
+        guard let data = result.result else {
+            let error: String
+            if let custom = result.error {
+                error = custom
+            } else {
+                error = "Critical Error. Couldn't create this log, sorry."
+            }
+            return error
+        }
+        
+        let meanRatio = data.conflictTimeMean / data.nonConflictTimeMean
+        let mediansRatio = data.conflictTimeMedian / data.nonConflictTimeMedian
+        let timeRatio = data.timeBlockConflict / data.timeBlockNonConflict
         
 		let text =
         """
@@ -212,14 +223,14 @@ class LogModel {
         Errors = \(session.errors)
         
         Non-conflict (blocks 1)
-        Total time 1 = \(r(result.timeBlockNonConflict)) s.
-        Mean response time 1 = \(r(result.nonConflictTimeMean)) s.
-        Median response time 1 = \(r(result.nonConflictTimeMedian)) s.
+        Total time 1 = \(r(data.timeBlockNonConflict)) s.
+        Mean response time 1 = \(r(data.nonConflictTimeMean)) s.
+        Median response time 1 = \(r(data.nonConflictTimeMedian)) s.
         
         Conflict (blocks 2)
-        Total time 2 = \(r(result.timeBlockConflict)) s.
-        Mean response time 2 = \(r(result.conflictTimeMean)) s.
-        Median response time 2 = \(r(result.conflictTimeMedian)) s.
+        Total time 2 = \(r(data.timeBlockConflict)) s.
+        Mean response time 2 = \(r(data.conflictTimeMean)) s.
+        Median response time 2 = \(r(data.conflictTimeMedian)) s.
         
         Mean ratio (conflict / non-conflict) = \(r(meanRatio)) s.
         Median ratio = \(r(mediansRatio)) s.
@@ -295,7 +306,9 @@ class LogModel {
 			imageInfo = definedImageInfo
 		}
     
-        let result = ECABLogCalculator.getFlankerResult(session)
+        guard let result = ECABLogCalculator.getFlankerResult(session).result else {
+            return "Couldn't create log. \(ECABLogCalculator.getFlankerResult(session).error ?? "")"
+        }
         
         let meanRatio = result.conflictTimeMean / result.nonConflictTimeMean
         let mediansRatio = result.conflictTimeMedian / result.nonConflictTimeMedian
