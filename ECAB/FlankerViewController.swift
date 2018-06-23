@@ -188,7 +188,7 @@ class FlankerViewController: CounterpointingViewController {
             case 14:
                 presentMessage("...stop")
             case 15:
-                presentMessage("Practice 2. Ready")
+                presentMessage("Practice 2. Ready...")
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
             case 16:
                 updateScreen(.fishInverted, middle: .mouse, right: .mouse)
@@ -284,7 +284,7 @@ class FlankerViewController: CounterpointingViewController {
             case 58:
                 presentMessage("...stop")
             case 59:
-                presentMessage("Game 4. Ready")
+                presentMessage("Game 4. Ready...")
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
                 gameModeInversed = false
             case 60: // 30
@@ -363,7 +363,7 @@ class FlankerViewController: CounterpointingViewController {
             case 14:
                 presentMessage("...stop")
             case 15:
-                presentMessage("Practice 2. Ready")
+                presentMessage("Practice 2. Ready...")
                 model.addCounterpointingMove(blankSpaceTag, positionY: 0, success: false, interval: 0.0, inverted: false, delay:0.0)
             case 16:
                 updateScreen(.fishInverted, middle: .mouse, right: .mouse)
