@@ -57,9 +57,9 @@ class DataExportModel {
         case GamesIndex.flanker.rawValue:
         
             if pickedCounterpointingSession?.type.intValue == SessionType.flanker.rawValue {
-                returnValue = createFlankerTable()
+                returnValue = createFlankerTable(isRandom: false)
             } else if pickedCounterpointingSession?.type.intValue == SessionType.flankerRandomized.rawValue {
-                returnValue = createFlankerRandomTable()
+                returnValue = createFlankerTable(isRandom: true)
             }
         
         case GamesIndex.visualSust.rawValue:
@@ -115,36 +115,38 @@ class DataExportModel {
             let avgDiff = "Search time - motor time per target"
             let avgDiffVal = avg.search - avg.motor
             
-            returnValue = "\(gameName)             ,               ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
-                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
-                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "parameters              ,\(difficulty)  ,                       ,                      ,\(speed) s             ,               ,    \n" +
-                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,motor 1                ,motor 2               ,motor 3                ,TOTAL          ,*   \n" +
-                "no of hits              ,               ,\(t.motorHits1)        ,\(t.motorHits2)       ,\(t.motorHits3)        ,\(mht)         ,    \n" +
-                "no of false positives   ,               ,\(t.motorFalse1)       ,\(t.motorFalse2)      ,\(t.motorFalse3)       ,\(mfpt)        ,    \n" +
-                "total time              ,               ,\(r(t.motorOneTotal))  ,\(r(t.motorTwoTotal)) ,\(r(t.motorThreeTotal)),\(r(mtt))      ,**  \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,search 1               ,search 2              ,search 3               ,               ,    \n" +
-                "no of hits              ,               ,\(t.searchHits1)       ,\(t.searchHits2)      ,\(t.searchHits3)       ,\(sht)         ,    \n" +
-                "no of false positives   ,               ,\(t.searchFalse1)      ,\(t.searchFalse2)     ,\(t.searchFalse3)      ,\(sfpt)        ,    \n" +
-                "total time              ,               ,\(r(t.searchOneTotal)) ,\(r(t.searchTwoTotal)),\(r(t.searchThreeTotal)),\(r(stt))      ,**  \n" +
-                "hits - false positives  ,               ,\(searchDiff1)         ,\(searchDiff2)        ,\(searchDiff3)         ,\(sht-sfpt)    ,    \n" +
-                "                        ,\(screenComm)  ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,\(durationComm),                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "\(avgMotor)             ,\(avg.motor)   ,                       ,                      ,                       ,               ,    \n" +
-                "\(avgSearch)            ,\(avg.search)  ,                       ,                      ,                       ,               ,    \n" +
-                "\(avgDiff)              ,\(avgDiffVal)  ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "\(header)               ,               ,                       ,                      ,                       ,               ,    \n" +
-            "                        ,               ,target row             ,target col            ,time                   ,               ,    \n"
+            returnValue = """
+            \(gameName)             ,               ,                       ,                      ,                       ,               ,  
+                                    ,               ,                       ,                      ,                       ,               ,  
+            ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,  
+            date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,  
+            date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,  
+                                    ,               ,                       ,                      ,                       ,               ,  
+            parameters              ,\(difficulty)  ,                       ,                      ,\(speed) s             ,               ,  
+            comments                ,\(comments)    ,                       ,                      ,                       ,               ,  
+                                    ,               ,                       ,                      ,                       ,               ,  
+                                    ,               ,                       ,                      ,                       ,               ,  
+                                    ,               ,motor 1                ,motor 2               ,motor 3                ,TOTAL          ,* 
+            no of hits              ,               ,\(t.motorHits1)        ,\(t.motorHits2)       ,\(t.motorHits3)        ,\(mht)         ,  
+            no of false positives   ,               ,\(t.motorFalse1)       ,\(t.motorFalse2)      ,\(t.motorFalse3)       ,\(mfpt)        ,  
+            total time              ,               ,\(r(t.motorOneTotal))  ,\(r(t.motorTwoTotal)) ,\(r(t.motorThreeTotal)),\(r(mtt))      ,**
+                                    ,               ,                       ,                      ,                       ,               ,  
+                                    ,               ,                       ,                      ,                       ,               ,  
+                                    ,               ,search 1               ,search 2              ,search 3               ,               ,  
+            no of hits              ,               ,\(t.searchHits1)       ,\(t.searchHits2)      ,\(t.searchHits3)       ,\(sht)         ,  
+            no of false positives   ,               ,\(t.searchFalse1)      ,\(t.searchFalse2)     ,\(t.searchFalse3)      ,\(sfpt)        ,  
+            total time              ,               ,\(r(t.searchOneTotal)) ,\(r(t.searchTwoTotal)),\(r(t.searchThreeTotal)),\(r(stt))     ,**
+            hits - false positives  ,               ,\(searchDiff1)         ,\(searchDiff2)        ,\(searchDiff3)         ,\(sht-sfpt)    ,  
+                                    ,\(screenComm)  ,                       ,                      ,                       ,               ,  
+                                    ,\(durationComm),                       ,                      ,                       ,               ,  
+                                    ,               ,                       ,                      ,                       ,               ,  
+            \(avgMotor)             ,\(avg.motor)   ,                       ,                      ,                       ,               ,  
+            \(avgSearch)            ,\(avg.search)  ,                       ,                      ,                       ,               ,  
+            \(avgDiff)              ,\(avgDiffVal)  ,                       ,                      ,                       ,               ,  
+                                    ,               ,                       ,                      ,                       ,               ,  
+            \(header)               ,               ,                       ,                      ,                       ,               ,  
+                                    ,               ,target row             ,target col            ,time                   ,               ,  
+            """
             
             // Append dynamic rows: headers and moves
             for line in dynamicLines {
@@ -168,32 +170,36 @@ class DataExportModel {
             let rows = createCounterpointinLines(session)
             let t = ECABLogCalculator.getCounterpintingResult(session)
             
-            let ratio = t.timeBlockConflict / t.timeBlockNonConflict
-            let mediansRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
+            let meanRatio = t.conflictTimeMean / t.nonConflictTimeMean
+            let medianRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
+            let timeRatio = t.timeBlockConflict / t.timeBlockNonConflict
             
-            returnValue = "ECAB Test     ,\(gameName)    ,                      ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
-                "ID                      ,\(playerName)  ,                      ,                      ,                       ,               ,    \n" +
-                "date of birth           ,\(birth)       ,age at test           ,\(age)                ,                       ,               ,    \n" +
-                "date/time of test start ,\(dateStart)   ,\(timeStart)          ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
-                "comments                ,\(comments)    ,                      ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
-                "non-conflict (blocks 1) ,               ,                      ,                      ,                       ,               ,    \n" +
-                "total time 1 =          ,\(r(t.timeBlockNonConflict)),sec      ,                      ,                       ,               ,    \n" +
-                "mean response time 1 =   ,\(r(t.nonConflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
-                "median response time 1 = ,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
-                "conflict (blocks 2)     ,               ,                      ,                      ,                       ,               ,    \n" +
-                "total time 2 =          ,\(r(t.timeBlockConflict)),sec         ,                      ,                       ,               ,    \n" +
-                "mean response time 2 =   ,\(r(t.conflictTimeMean)),sec          ,                      ,                       ,               ,    \n" +
-                "median response time 2 = ,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
-                "                         ,               ,                     ,                      ,                       ,               ,    \n" +
-                "ratio total2 / total1  = ,\(r(ratio))    ,                     ,                      ,                       ,               ,    \n" +
-                "ratio median2 / median1 =,\(r(mediansRatio)),                  ,                     ,                        ,               ,    \n" +
-                "                        ,               ,                      ,                      ,                       ,               ,    \n" +
-                "log of individual responses,            ,                      ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                      ,                      ,                       ,               ,    \n"
+            returnValue = """
+            ECAB Test                    ,\(gameName)    ,                   ,        ,  ,  ,
+                                         ,               ,                   ,        ,  ,  ,
+            ID                           ,\(playerName)  ,                   ,        ,  ,  ,
+            date of birth                ,\(birth)       ,age at test        ,\(age)  ,  ,  ,
+            date/time of test start      ,\(dateStart)   ,\(timeStart)       ,        ,  ,  ,
+                                         ,               ,                   ,        ,  ,  ,
+            comments                     ,\(comments)    ,                   ,        ,  ,  ,
+                                         ,               ,                   ,        ,  ,  ,
+            non-conflict (blocks 1)      ,               ,                   ,        ,  ,  ,
+            total time 1 =               ,\(r(t.timeBlockNonConflict)),s.    ,        ,  ,  ,
+            mean response time 1 =       ,\(r(t.nonConflictTimeMean)),s.     ,        ,  ,  ,
+            median response time 1 =     ,\(r(t.nonConflictTimeMedian)),s.   ,        ,  ,  ,
+                                         ,               ,                   ,        ,  ,  ,
+            conflict (blocks 2)          ,               ,                   ,        ,  ,  ,
+            total time 2 =               ,\(r(t.timeBlockConflict)),s.       ,        ,  ,  ,
+            mean response time 2 =       ,\(r(t.conflictTimeMean)),s.        ,        ,  ,  ,
+            median response time 2 =     ,\(r(t.conflictTimeMedian)),s.      ,        ,  ,  ,
+                                         ,               ,                   ,        ,  ,  ,
+            mean ratio (con / non c)     ,\(r(meanRatio)),                   ,        ,  ,  ,
+            median ratio                 ,\(r(medianRatio)),                 ,        ,  ,  ,
+            time ratio                   ,\(r(timeRatio)),                   ,        ,  ,  ,
+                                         ,               ,                   ,        ,  ,  ,
+            log of individual responses  ,               ,                   ,        ,  ,  ,
+                                         ,               ,                   ,        ,  ,  ,
+            """
             
             // Append dynamic rows: headers and moves
             for line in rows {
@@ -204,7 +210,7 @@ class DataExportModel {
         return returnValue;
     }
     
-    func createFlankerTable() -> String {
+    func createFlankerTable(isRandom: Bool) -> String {
         
         if let session: CounterpointingSession = pickedCounterpointingSession {
             let playerName = session.player.name
@@ -221,93 +227,49 @@ class DataExportModel {
             let rows = createFlankerLines(session)
             let t = ECABLogCalculator.getFlankerResult(session)
             
-            let ratio = t.conflictTime / t.nonConflictTime
-            let mediansRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
-            
-            returnValue = "ECAB Test               ,\(gameName)    ,                       ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
-                          "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
-                          "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "parameters              ,\(imageInfo)   ,                       ,                      ,                       ,               ,    \n" +
-                          "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "non-conflict (blocks 1+4),               ,                      ,                      ,                       ,               ,    \n" +
-                          "total time block 1 =    ,\(r(t.timeBlock1)),sec                 ,                      ,                       ,               ,    \n" +
-                          "total time block 4 =    ,\(r(t.timeBlock4)),sec                 ,                      ,                       ,               ,    \n" +
-                          "total time blocks 1+4 = ,\(r(t.nonConflictTime)),sec            ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "mean response time 1+4 = ,\(r(t.nonConflictTimeMean)),sec        ,                      ,                       ,               ,    \n" +
-                          "median response time 1+4 =,\(r(t.nonConflictTimeMedian)),sec     ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "conflicts (blocks 2+3),               ,                         ,                      ,                       ,               ,    \n" +
-                          "total time block 2 =    ,\(r(t.timeBlock2)),sec                 ,                      ,                       ,               ,    \n" +
-                          "total time block 3 =    ,\(r(t.timeBlock3)),sec                 ,                      ,                       ,               ,    \n" +
-                          "total time blocks 2+3 = ,\(r(t.conflictTime)),sec               ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "mean response time 2+3 = ,\(r(t.conflictTimeMean)),sec           ,                      ,                       ,               ,    \n" +
-                          "median response time 2+3 =,\(r(t.conflictTimeMedian)),sec        ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
-                          "ratio of medians conflict/non-conflict total = ,\(r(mediansRatio)),                    ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                          "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
-                          "                        ,               ,                       ,                      ,                       ,               ,    \n"
-            
-            // Append dynamic rows: headers and moves
-            for line in rows {
-                returnValue += line
-            }
-        }
-        
-        return returnValue;
-    }
-    
-    func createFlankerRandomTable() -> String {
-        
-        if let session: CounterpointingSession = pickedCounterpointingSession {
-            let playerName = session.player.name
-            
-            let dateStart: String = dateFormatter.string(from: session.dateStart as Date)
-            let timeStart = timeFormatter.string(from: session.dateStart as Date)
-            
-            let comments = session.comment
-            var imageInfo = "unknown image size"
-            if let definedImageInfo = session.imageSizeComment as String? {
-                imageInfo = definedImageInfo
+            let meanRatio = t.conflictTimeMean / t.nonConflictTimeMean
+            let medianRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
+            let timeRatio = t.conflictTime / t.nonConflictTime
+            let random: String
+            if isRandom {
+                random = "Randomised"
+            } else {
+                random = "Not randomised"
             }
             
-            let rows = createFlankerRandomLines(session)
-            let t = ECABLogCalculator.getFlankerResult(session)
-            
-            let ratio = t.conflictTime / t.nonConflictTime
-            let mediansRatio = t.conflictTimeMedian / t.nonConflictTimeMedian
-            
-            returnValue = "ECAB Test               ,\(gameName)    ,Randomized   ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
-                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
-                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "parameters              ,\(imageInfo)   ,                       ,                      ,                       ,               ,    \n" +
-                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total non-conflict time =,\(r(t.nonConflictTime)),sec           ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "mean response time non conflict =,\(r(t.nonConflictTimeMean)),sec,                      ,                       ,               ,    \n" +
-                "median response time non conflict =,\(r(t.nonConflictTimeMedian)),sec ,                 ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total conflict time =   ,\(r(t.conflictTime)),sec               ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "mean response time conflict =,\(r(t.conflictTimeMean)),sec       ,                      ,                       ,               ,    \n" +
-                "median response time conflict =,\(r(t.conflictTimeMedian)),sec      ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "ratio conflict/non-conflict total = ,\(r(ratio)),               ,                      ,                       ,               ,    \n" +
-                "ratio of medians conflict/non-conflict total = ,\(r(mediansRatio)),                    ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n"
+            returnValue = """
+            ECAB Test               ,\(gameName) \(random)        ,            ,       , , ,
+                                  ,                             ,            ,       , , ,
+            ID                      ,\(playerName)                ,            ,       , , ,
+            date of birth           ,\(birth)                     ,age at test ,\(age) , , ,
+            date/time of test start ,\(dateStart)                 ,\(timeStart),       , , ,
+                                  ,                             ,            ,       , , ,
+            parameters              ,\(imageInfo)                 ,            ,       , , ,
+            comments                ,\(comments)                  ,            ,       , , ,
+                                  ,                             ,            ,       , , ,
+            non-conflict (block 1+4),                             ,            ,       , , ,
+            total time block 1      ,\(r(t.timeBlock1))           ,s.          ,       , , ,
+            total time block 4      ,\(r(t.timeBlock4))           ,s.          ,       , , ,
+            total time blocks 1+4   ,\(r(t.nonConflictTime))      ,s.          ,       , , ,
+                                  ,                             ,            ,       , , ,
+            mean response time 1+4  ,\(r(t.nonConflictTimeMean))  ,s.          ,       , , ,
+            median response time 1+4,\(r(t.nonConflictTimeMedian)),s.          ,       , , ,
+                                  ,                             ,            ,       , , ,
+            conflicts (blocks 2+3)  ,                             ,            ,       , , ,
+            total time block 2      ,\(r(t.timeBlock2))           ,s.          ,       , , ,
+            total time block 3      ,\(r(t.timeBlock3))           ,s.          ,       , , ,
+            total time blocks 2+3   ,\(r(t.conflictTime))         ,s.          ,       , , ,
+                                  ,                             ,            ,       , , ,
+            mean response time 2+3  ,\(r(t.conflictTimeMean))     ,s.          ,       , , ,
+            median response time 2+3,\(r(t.conflictTimeMedian))   ,s.          ,       , , ,
+                                  ,                             ,            ,       , , ,
+            mean ratio (con / non c),\(r(meanRatio))              ,            ,       , , ,
+            median ratio            ,\(r(medianRatio))            ,            ,       , , ,
+            time ratio              ,\(r(timeRatio))              ,            ,       , , ,
+                                  ,                             ,            ,       , , ,
+            log of ind. responses   ,                             ,            ,       , , ,
+                                  ,                             ,            ,       , , ,
+            """
             
             // Append dynamic rows: headers and moves
             for line in rows {
@@ -331,25 +293,27 @@ class DataExportModel {
             let rows = createVisualSustainedLines(session)
             let t = ECABLogCalculator.getVisualSustainResult(session)
             
-            returnValue = "ECAB Test               ,\(gameName)    ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "ID                      ,\(playerName)  ,                       ,                      ,                       ,               ,    \n" +
-                "date of birth           ,\(birth)       ,age at test            ,\(age)                ,                       ,               ,    \n" +
-                "date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "parameters              ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total period            ,\(t.totalPeriod),exposure              ,\(t.totalExposure)    ,max delay              ,\(t.maxDelay)  ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "comments                ,\(comments)    ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total pictures displayed,\(t.totalPicturesDisplayd),of which    ,\(t.totalAnimalsDisplayed),animals            ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "total hits =            ,\(t.totalHits) ,                       ,                      ,                       ,               ,    \n" +
-                "total misses =          ,\(t.totalMisses),                      ,                      ,                       ,               ,    \n" +
-                "total false +ves        ,\(t.totalFalseAndVE),                  ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n" +
-                "log of individual responses,            ,                       ,                      ,                       ,               ,    \n" +
-                "                        ,               ,                       ,                      ,                       ,               ,    \n"
+            returnValue = """
+            ECAB Test               ,\(gameName)    ,                       ,                      ,           ,             ,
+                                    ,               ,                       ,                      ,           ,             ,
+            ID                      ,\(playerName)  ,                       ,                      ,           ,             ,
+            date of birth           ,\(birth)       ,age at test            ,\(age)                ,           ,             ,
+            date/time of test start ,\(dateStart)   ,\(timeStart)           ,                      ,           ,             ,
+                                    ,               ,                       ,                      ,           ,             ,
+            parameters              ,               ,                       ,                      ,           ,             ,
+            total period            ,\(t.totalPeriod),exposure              ,\(t.totalExposure)    ,max delay  ,\(t.maxDelay),
+                                    ,               ,                       ,                      ,           ,             ,
+            comments                ,\(comments)    ,                       ,                      ,           ,             ,
+                                    ,               ,                       ,                      ,           ,             ,
+            total pictures displayed,\(t.totalPicturesDisplayd),of which    ,\(t.totalAnimalsDisplayed),animals,             ,
+                                    ,               ,                       ,                      ,           ,             ,
+            total hits =            ,\(t.totalHits) ,                       ,                      ,           ,             ,
+            total misses =          ,\(t.totalMisses),                      ,                      ,           ,             ,
+            total false +ves        ,\(t.totalFalseAndVE),                  ,                      ,           ,             ,
+                                    ,               ,                       ,                      ,           ,             ,
+            log of individual responses,            ,                       ,                      ,           ,             ,
+                                    ,               ,                       ,                      ,           ,             ,
+            """
             
             // Append dynamic rows: headers and moves
             for line in rows {
@@ -399,7 +363,7 @@ class DataExportModel {
                     collectionOfTableRows.append(line)
                     
                 } else {
-                    var header = "header uknown"
+                    var header = "header unknown"
                     switch screenNumber {
                     case VisualSearchEasyModeView.motorOne.rawValue:
                         header = "motor screen 1"
@@ -467,7 +431,7 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), sec., , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), s., , ,\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -477,7 +441,7 @@ class DataExportModel {
             
                 if needHeader  {
                 
-                    var header = "header uknown"
+                    var header = "header unknown"
                     
                     switch headerCount {
                     case 0:
@@ -535,7 +499,7 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), sec., , ,\n"
+                let line = ",\(screenCount),\(sof), \(time), s., , ,\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -562,7 +526,7 @@ class DataExportModel {
         var collectionOfTableRows: Array<String> = Array()
         var screenCount = 1
         
-        collectionOfTableRows.append("Randmized,screen,response,time,,inversed ,case ,\n")
+        collectionOfTableRows.append("Randmised,screen,response,time,,inversed ,case ,\n")
         
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
@@ -597,7 +561,7 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), sec.,\(inv),\(gameMove.poitionX.stringValue),\n"
+                let line = ",\(screenCount),\(sof), \(time), s.,\(inv),\(gameMove.poitionX.stringValue),\n"
                 collectionOfTableRows.append(line)
                 
                 screenCount += 1
@@ -624,7 +588,7 @@ class DataExportModel {
                 
                 let formattedDelay = String(format: "%.02f", gameMove.delay!.doubleValue)
                 
-                line = "picture \(gameMove.poitionX), Success, delay:,\(formattedDelay) seconds, \(fourMistakes)\n"
+                line = "picture \(gameMove.poitionX), Success, delay:,\(formattedDelay) s., \(fourMistakes)\n"
             } else {
                 // Two mistakes type
                 if (gameMove.interval.doubleValue == VisualSustainMistakeType.falsePositive.rawValue) {
