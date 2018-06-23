@@ -145,7 +145,8 @@ class DataExportModel {
             \(avgDiff)              ,\(avgDiffVal)  ,                       ,                      ,                       ,               ,  
                                     ,               ,                       ,                      ,                       ,               ,  
             \(header)               ,               ,                       ,                      ,                       ,               ,  
-                                    ,               ,target row             ,target col            ,time                   ,               ,  
+                                    ,               ,target row             ,target col            ,time                   ,               ,
+            
             """
             
             // Append dynamic rows: headers and moves
@@ -266,7 +267,7 @@ class DataExportModel {
             mean ratio (con / non c),\(r(meanRatio))              ,            ,       , , ,
             median ratio            ,\(r(medianRatio))            ,            ,       , , ,
             time ratio              ,\(r(timeRatio))              ,            ,       , , ,
-                                  ,                             ,            ,       , , ,
+                                    ,                             ,            ,       , , ,
             log of ind. responses   ,                             ,            ,       , , ,
                                   ,                             ,            ,       , , ,
             """
