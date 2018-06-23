@@ -101,6 +101,8 @@ class CounterpointingViewController: TestViewController {
 	}
 	
 	override func presentNextScreen() {
+        toggleNavigationButtons(isEnabled: false)
+        
 		currentScreenShowing += 1
 	
 		cleanView()
@@ -157,6 +159,12 @@ class CounterpointingViewController: TestViewController {
 		view.addSubview(buttonLeft)
 		view.addSubview(buttonRight)
 	}
+    
+    func toggleNavigationButtons(isEnabled: Bool) {
+        nextButton.isEnabled = isEnabled
+        backButton.isEnabled = isEnabled
+        skipTrainingButton.isEnabled = isEnabled
+    }
 	
 	func presentBlueDot() {
 		cleanView()
@@ -166,6 +174,7 @@ class CounterpointingViewController: TestViewController {
 		view.addSubview(dot)
         
         self.playerInteractionsDisabled = true
+        toggleNavigationButtons(isEnabled: true)
 	}
 	
 	func presentMessage(_ message: String){
@@ -181,6 +190,7 @@ class CounterpointingViewController: TestViewController {
         view.addSubview(label)
         
         self.playerInteractionsDisabled = true
+        toggleNavigationButtons(isEnabled: true)
 	}
 	
 	@objc func handleTouchLeft() {
