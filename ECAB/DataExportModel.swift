@@ -411,7 +411,6 @@ class DataExportModel {
     fileprivate func createCounterpointinLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
-        var screenCount = 1
         var needHeader = true
         
         for move in session.moves {
@@ -438,10 +437,9 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), s.\n"
+                let line = ",\(gameMove.poitionX.intValue),\(sof), \(time), s.\n"
                 collectionOfTableRows.append(line)
                 
-                screenCount += 1
                 needHeader = true
                 
             } else {
@@ -477,7 +475,6 @@ class DataExportModel {
     fileprivate func createFlankerLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 1
-        var screenCount = 1
         
         // First header
         let headerLine = "\(FlankerBlock.example.title),screen,response,time, ,\n"
@@ -506,10 +503,8 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), s.,\n"
+                let line = ",\(positionX),\(sof), \(time), s.,\n"
                 collectionOfTableRows.append(line)
-                
-                screenCount += 1
                 
             } else {
                 let header: String
