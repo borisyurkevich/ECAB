@@ -151,42 +151,67 @@ class LogModel {
         """
 		return visualSearchLog;
 	}
-	
-	func generateCounterpointingLogWithSession(_ session: CounterpointingSession, gameName: String) -> String {
-		var details = ""
-		var counter = 1
-		var status = "success"
-
-		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
-			if !actualMove.success.boolValue {
-				status = "false positive"
-			} else {
-				status = "success"
-			}
-			
-			var inverted = "non-conflict"
-			if actualMove.inverted.boolValue {
-				inverted = "conflict"
-			}
-            
-            // Because I defined old interval as Integer I am changing it to Double
-            // This condition is to keep old data working.
-            var append: String
-            if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(actualMove.poitionX)) \(status) \(r(newInterval)) s. \(inverted) \n"
-            } else {
-                append = "\(actualMove.poitionX)) \(status) \(actualMove.interval.intValue) s. \(inverted) \n"
-            }
+    
+    /// Line by line creates log entry for every game move
+    func buildCounterpointStyleDetails(session: CounterpointingSession) -> String {
+        var details = ""
+        var realScreenNumber: Int = 1
+        var previous: Int = 0
+        
+        for move in session.moves {
+            let actualMove = move as! CounterpointingMove
             
             if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
+                // Blank Line.
                 details = details + "\n"
             } else {
+                let status: String
+                if actualMove.success.boolValue {
+                    status = "success"
+                } else {
+                    status = "false positive"
+                }
+                
+                let inverted: String
+                if actualMove.inverted.boolValue {
+                    inverted = "conflict"
+                } else {
+                    inverted = "non-conflict"
+                }
+                let screen: String
+                if realScreenNumber == previous {
+                    screen = realScreenNumber > 9 ? "   " : "  " // indentation
+                } else {
+                    screen = "\(realScreenNumber))"
+                }
+                let append: String
+                if let newInterval = actualMove.intervalDouble as? Double {
+                    append = "\(screen) \(status) \(r(newInterval)) s. \(inverted) index \(actualMove.poitionX.intValue)\n"
+                } else {
+                    // Because I defined old interval as Integer I am changing it to Double
+                    // This condition is to keep old data working.
+                    append = "\(screen) \(status) \(actualMove.interval.intValue) s. \(inverted) index \(actualMove.poitionX.intValue)\n"
+                }
                 details = details + append
+                
+                previous = realScreenNumber
+                
+                if actualMove.success.boolValue == true {
+                    realScreenNumber += 1
+                }
+                if let gameType = SessionType(rawValue: session.type.intValue) {
+                    let index = Model.testStartScreen(gameType: gameType)
+                    if actualMove.poitionX.intValue == index {
+                        // Reset
+                        realScreenNumber = 1
+                    }
+                }
             }
-            
-            counter += 1
-		}
+        }
+        return details
+    }
+	
+	func generateCounterpointingLogWithSession(_ session: CounterpointingSession, gameName: String) -> String {
 		
 		let dateString = formatter.string(from: session.dateStart as Date)
 				
@@ -212,6 +237,8 @@ class LogModel {
         let meanRatio = data.conflictTimeMean / data.nonConflictTimeMean
         let mediansRatio = data.conflictTimeMedian / data.nonConflictTimeMedian
         let timeRatio = data.timeBlockConflict / data.timeBlockNonConflict
+        
+        let details = buildCounterpointStyleDetails(session: session)
         
 		let text =
         """
@@ -245,52 +272,8 @@ class LogModel {
         """
 		return text
 	}
-	
+    
 	func generateFlankerLogWithSession(_ session: CounterpointingSession, gameName: String) -> String {
-		var details = ""
-		var counter = 1
-		var status = "success"
-		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
-			if !actualMove.success.boolValue {
-				status = "false positive"
-			} else {
-				status = "success"
-			}
-			
-			var inverted = "non-conflict"
-			if actualMove.inverted.boolValue {
-				inverted = "conflict"
-			}
-			
-            var append: String
-            if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(actualMove.poitionX)) \(status) \(r(newInterval)) s. \(inverted) \n"
-            } else {
-                // Because I defined old interval as Integer I am chaning it to Double
-                // This condition is to keep old data working.
-                append = "\(actualMove.poitionX)) \(status) \(actualMove.interval.intValue) s. \(inverted) \n"
-            }
-            counter += 1
-            
-            if session.type.intValue == SessionType.flanker.rawValue {
-            
-                if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
-                    details = details + append + "\n"
-                } else {
-                    details = details + append
-                }
-            } else if session.type.intValue == SessionType.flankerRandomized.rawValue {
-            
-                switch actualMove.poitionX {
-                case 21:
-                    details = details + "\n"
-                    
-                default:
-                    details = details + append
-                }
-            }
-		}
 		
 		let dateString = formatter.string(from: session.dateStart as Date)
 		
@@ -314,13 +297,14 @@ class LogModel {
         let mediansRatio = result.conflictTimeMedian / result.nonConflictTimeMedian
         let timeRatio = result.conflictTime / result.nonConflictTime
         
-        let isRandomized = session.type.intValue == SessionType.flankerRandomized.rawValue
         let firstLine: String
-        if isRandomized {
-            firstLine = "\(gameName)"
-        } else {
+        if session.type.intValue == SessionType.flankerRandomized.rawValue {
             firstLine = "\(gameName) Randomised"
+        } else {
+            firstLine = "\(gameName)"
         }
+        
+        let details = buildCounterpointStyleDetails(session: session)
         
         let text =
         """

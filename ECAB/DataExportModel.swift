@@ -411,18 +411,20 @@ class DataExportModel {
     fileprivate func createCounterpointinLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 0
-        var screenCount = 1
         var needHeader = true
+        var realScreen = 1
+        var previous = 0
         
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
+            let isSuccess = gameMove.success.boolValue
             
             if (gameMove.poitionX.intValue >= 4 && gameMove.poitionX.intValue <= 23)
             || (gameMove.poitionX.intValue >= 29 && gameMove.poitionX.intValue <= 48) {
             
                 // Success or failure
                 var sof = ""
-                if gameMove.success.boolValue == true {
+                if isSuccess {
                     sof = "correct"
                 } else {
                     sof = "incorrect"
@@ -438,11 +440,25 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), s.\n"
+                let line: String
+                if realScreen == previous {
+                    line = ",,\(sof), \(time), s.,\(gameMove.poitionX.intValue),\n"
+                } else {
+                    line = ",\(realScreen),\(sof), \(time), s.,\(gameMove.poitionX.intValue),\n"
+                }
                 collectionOfTableRows.append(line)
                 
-                screenCount += 1
                 needHeader = true
+                
+                previous = realScreen
+                if isSuccess {
+                    realScreen += 1
+                }
+                let startScreen = Model.testStartScreen(gameType: .counterpointing)
+                if gameMove.poitionX.intValue == startScreen {
+                    // Reset
+                    realScreen = 1
+                }
                 
             } else {
             
@@ -461,7 +477,7 @@ class DataExportModel {
                     headerCount += 1
         
                     // CSV line
-                    let headerLine = "\(header),screen,response,time\n"
+                    let headerLine = "\(header),screen,response,time,,index\n"
                     collectionOfTableRows.append(headerLine)
         
                     // Prevents duplicate headers
@@ -477,7 +493,8 @@ class DataExportModel {
     fileprivate func createFlankerLines(_ session: CounterpointingSession) -> Array<String> {
         var collectionOfTableRows: Array<String> = Array()
         var headerCount = 1
-        var screenCount = 1
+        var realScreen = 1
+        var previous = 0
         
         // First header
         let headerLine = "\(FlankerBlock.example.title),screen,response,time, ,\n"
@@ -485,12 +502,13 @@ class DataExportModel {
         
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
+            let isSuccess = gameMove.success.boolValue
 
             let positionX: CGFloat = CGFloat(gameMove.poitionX.doubleValue)
             if positionX != blankSpaceTag {
                 // Success or failure
                 var sof = ""
-                if gameMove.success.boolValue == true {
+                if isSuccess {
                     sof = "correct"
                 } else {
                     sof = "incorrect"
@@ -506,10 +524,23 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(screenCount),\(sof), \(time), s.,\n"
+                let line: String
+                if realScreen == previous {
+                    line = ",,\(sof), \(time), s.,\(gameMove.poitionX.intValue),\n"
+                } else {
+                    line = ",\(realScreen),\(sof), \(time), s.,\(gameMove.poitionX.intValue),\n"
+                }
                 collectionOfTableRows.append(line)
                 
-                screenCount += 1
+                previous = realScreen
+                if isSuccess {
+                    realScreen += 1
+                }
+                let startScreen = Model.testStartScreen(gameType: .flanker)
+                if gameMove.poitionX.intValue == startScreen {
+                    // Reset
+                    realScreen = 1
+                }
                 
             } else {
                 let header: String
@@ -521,7 +552,7 @@ class DataExportModel {
                 headerCount += 1
     
                 // CSV line
-                let headerLine = "\(header),screen,response,time, ,\n"
+                let headerLine = "\(header),screen,response,time,,index,\n"
                 collectionOfTableRows.append(headerLine)
             }
         }

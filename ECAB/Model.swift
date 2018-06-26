@@ -75,6 +75,17 @@ class Model {
         
         return Singleton.instance
     }
+    
+    static func testStartScreen(gameType: SessionType) -> Int {
+        switch gameType {
+        case .counterpointing:
+            return 2
+        case .flanker, .flankerRandomized:
+            return 21
+        case .visualSustain:
+            return 25
+        }
+    }
 	
 	func setupWithContext(_ context: NSManagedObjectContext) {
 		
