@@ -248,10 +248,13 @@ class LogModel {
 	
 	func generateFlankerLogWithSession(_ session: CounterpointingSession, gameName: String) -> String {
 		var details = ""
-		var counter = 1
-		var status = "success"
-		for move in session.moves {
-			let actualMove = move as! CounterpointingMove
+        let isRandomized = session.type.intValue == SessionType.flankerRandomized.rawValue
+        var realScreenNumber: Int = 1
+        var previous: Int = 1
+
+        for move in session.moves {
+            let actualMove = move as! CounterpointingMove
+            let status: String
 			if !actualMove.success.boolValue {
 				status = "false positive"
 			} else {
@@ -262,32 +265,35 @@ class LogModel {
 			if actualMove.inverted.boolValue {
 				inverted = "conflict"
 			}
-			
-            var append: String
-            if let newInterval = actualMove.intervalDouble as? Double {
-                append = "\(actualMove.poitionX)) \(status) \(r(newInterval)) s. \(inverted) \n"
+            
+            if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
+                // Blank Line.
+                details = details + "\n"
             } else {
-                // Because I defined old interval as Integer I am chaning it to Double
-                // This condition is to keep old data working.
-                append = "\(actualMove.poitionX)) \(status) \(actualMove.interval.intValue) s. \(inverted) \n"
-            }
-            counter += 1
-            
-            if session.type.intValue == SessionType.flanker.rawValue {
-            
-                if actualMove.poitionX.doubleValue == Double(blankSpaceTag) {
-                    details = details + append + "\n"
+                let screen: String
+                if realScreenNumber == previous && realScreenNumber != 1 {
+                    screen = realScreenNumber > 9 ? "   " : "  " // indentation
                 } else {
-                    details = details + append
+                    screen = "\(realScreenNumber))"
                 }
-            } else if session.type.intValue == SessionType.flankerRandomized.rawValue {
-            
-                switch actualMove.poitionX {
-                case 21:
-                    details = details + "\n"
-                    
-                default:
-                    details = details + append
+                let append: String
+                if let newInterval = actualMove.intervalDouble as? Double {
+                    append = "\(screen) \(status) \(r(newInterval)) s. \(inverted) index \(actualMove.poitionX.intValue)\n"
+                } else {
+                    // Because I defined old interval as Integer I am chaning it to Double
+                    // This condition is to keep old data working.
+                    append = "\(screen) \(status) \(actualMove.interval.intValue) s. \(inverted) index \(actualMove.poitionX.intValue)\n"
+                }
+                details = details + append
+                
+                previous = realScreenNumber
+                
+                if actualMove.success.boolValue == true {
+                    realScreenNumber += 1
+                }
+                if actualMove.poitionX.intValue == 21 {
+                    // Reset
+                    realScreenNumber = 1
                 }
             }
 		}
@@ -314,12 +320,11 @@ class LogModel {
         let mediansRatio = result.conflictTimeMedian / result.nonConflictTimeMedian
         let timeRatio = result.conflictTime / result.nonConflictTime
         
-        let isRandomized = session.type.intValue == SessionType.flankerRandomized.rawValue
         let firstLine: String
         if isRandomized {
-            firstLine = "\(gameName)"
-        } else {
             firstLine = "\(gameName) Randomised"
+        } else {
+            firstLine = "\(gameName)"
         }
         
         let text =

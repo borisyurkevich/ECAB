@@ -479,6 +479,8 @@ class DataExportModel {
         // First header
         let headerLine = "\(FlankerBlock.example.title),screen,response,time, ,\n"
         collectionOfTableRows.append(headerLine)
+        var realScreen = 1
+        var previous = 1
         
         for move in session.moves {
             let gameMove = move as! CounterpointingMove
@@ -503,8 +505,23 @@ class DataExportModel {
                 }
                 
                 // CSV line
-                let line = ",\(positionX),\(sof), \(time), s.,\n"
+                let line: String
+                if realScreen == previous && realScreen != 1 {
+                    line = ",,\(sof), \(time), s.,\(gameMove.poitionX.intValue),\n"
+                } else {
+                    line = ",\(realScreen),\(sof), \(time), s.,\(gameMove.poitionX.intValue),\n"
+                }
                 collectionOfTableRows.append(line)
+                
+                previous = realScreen
+                
+                if gameMove.success.boolValue == true {
+                    realScreen += 1
+                }
+                if gameMove.poitionX.intValue == 21 {
+                    // Reset
+                    realScreen = 1
+                }
                 
             } else {
                 let header: String
@@ -516,7 +533,7 @@ class DataExportModel {
                 headerCount += 1
     
                 // CSV line
-                let headerLine = "\(header),screen,response,time, ,\n"
+                let headerLine = "\(header),screen,response,time, ,index,\n"
                 collectionOfTableRows.append(headerLine)
             }
         }
