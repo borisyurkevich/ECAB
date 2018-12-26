@@ -100,6 +100,10 @@ class ECABLogCalculator {
         for move in session.moves {
             let gameMove = move as! Move
             
+            if gameMove.empty == true {
+                continue
+            }
+            
             let screenNum = gameMove.screenNumber.intValue
             
             // Every part inlude onset date in the empty move entity
