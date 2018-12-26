@@ -487,6 +487,7 @@ class VisualSearchViewController: TestViewController,
             let textField = fields[0]
             if let existingComment = textField.text {
                 self.session.comment = existingComment
+                self.model.save()
             }
         }
     }
