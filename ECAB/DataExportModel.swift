@@ -169,7 +169,7 @@ class DataExportModel {
             let comments = session.comment
             
             let rows = createCounterpointinLines(session)
-            let data = ECABLogCalculator.getCounterpintingResult(session)
+            let data = ECABLogCalculator.getCounterpointingResult(session)
             guard let t = data.result else {
                 return "Critical Error \(data.error ?? "")"
             }

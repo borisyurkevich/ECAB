@@ -222,7 +222,7 @@ class LogModel {
             build = canonicBuild
 		}
 		
-        let result = ECABLogCalculator.getCounterpintingResult(session)
+        let result = ECABLogCalculator.getCounterpointingResult(session)
         
         guard let data = result.result else {
             let error: String

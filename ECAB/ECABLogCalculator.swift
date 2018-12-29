@@ -254,7 +254,7 @@ class ECABLogCalculator {
         return totals
     }
     
-    class func getCounterpintingResult(_ session: CounterpointingSession) -> (result: CounterpointingResult?, error: String?) {
+    class func getCounterpointingResult(_ session: CounterpointingSession) -> (result: CounterpointingResult?, error: String?) {
         
         var timeBlock1NonConflict:TimeInterval = 0
         var timeBlock2Conflict:TimeInterval = 0
