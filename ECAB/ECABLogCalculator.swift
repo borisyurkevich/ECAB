@@ -9,12 +9,12 @@
 import Foundation
 
 struct TotalVisualSearch {
-    var motorOneTotal: TimeInterval
-    var motorTwoTotal: TimeInterval
-    var motorThreeTotal: TimeInterval
-    var searchOneTotal: TimeInterval
-    var searchTwoTotal: TimeInterval
-    var searchThreeTotal: TimeInterval
+    var motorOneTotal: TimeInterval = 0.0
+    var motorTwoTotal: TimeInterval = 0.0
+    var motorThreeTotal: TimeInterval = 0.0
+    var searchOneTotal: TimeInterval = 0.0
+    var searchTwoTotal: TimeInterval = 0.0
+    var searchThreeTotal: TimeInterval = 0.0
     var average: Average
     var motorHits1 = 0
     var motorHits2 = 0
@@ -28,6 +28,10 @@ struct TotalVisualSearch {
     var searchFalse1 = 0
     var searchFalse2 = 0
     var searchFalse3 = 0
+    
+    init() {
+        average = Average(motor: 0, search: 0)
+    }
 }
 
 struct CounterpointingResult {
@@ -76,13 +80,11 @@ struct Average {
 }
 
 
-class ECABLogCalculator {
+final class ECABLogCalculator {
     
     class func getVisualSearchTotals(_ session: Session) -> TotalVisualSearch {
         
-        let avg = Average(motor: 0, search: 0)
-        
-        var totals = TotalVisualSearch(motorOneTotal: 0, motorTwoTotal: 0, motorThreeTotal: 0, searchOneTotal: 0, searchTwoTotal: 0, searchThreeTotal: 0, average: avg, motorHits1: 0, motorHits2: 0, motorHits3: 0, searchHits1: 0, searchHits2: 0, searchHits3: 0, motorFalse1:  0, motorFalse2: 0, motorFalse3: 0, searchFalse1: 0, searchFalse2: 0, searchFalse3: 0)
+        var totals = TotalVisualSearch()
         
         var motorOneStart: NSDate?
         var motorOneEnd: NSDate?

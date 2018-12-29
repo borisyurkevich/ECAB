@@ -24,7 +24,7 @@ private enum MoveType {
     case moveTypeUnknown
 }
 
-class DataExportModel {
+final class DataExportModel {
 	
     var pickedVisualSearchSession: Session? = nil
     var pickedCounterpointingSession: CounterpointingSession? = nil
