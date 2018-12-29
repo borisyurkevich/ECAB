@@ -116,7 +116,10 @@ class ECABLogCalculator {
                 motorOneEnd = gameMove.date
                 
                 if gameMove.success.boolValue == true {
-                    totals.motorHits1 += 1
+                    // Don't count repeat moves.
+                    if gameMove.`repeat`.boolValue == false {
+                        totals.motorHits1 += 1
+                    }
                 } else {
                     totals.motorFalse1 += 1
                 }
@@ -128,7 +131,10 @@ class ECABLogCalculator {
                 motorTwoEnd = gameMove.date
                 
                 if gameMove.success.boolValue == true {
-                    totals.motorHits2 += 1
+                    // Don't count repeat moves.
+                    if gameMove.`repeat`.boolValue == false {
+                        totals.motorHits2 += 1
+                    }
                 } else {
                     totals.motorFalse2 += 1
                 }
@@ -140,7 +146,10 @@ class ECABLogCalculator {
                 motorThreeEnd = gameMove.date
                 
                 if gameMove.success.boolValue == true {
-                    totals.motorHits3 += 1
+                    // Don't count repeat moves.
+                    if gameMove.`repeat`.boolValue == false {
+                        totals.motorHits3 += 1
+                    }
                 } else {
                     totals.motorFalse3 += 1
                 }
@@ -152,7 +161,10 @@ class ECABLogCalculator {
                 searchOneEnd = gameMove.date
                 
                 if gameMove.success.boolValue == true {
-                    totals.searchHits1 += 1
+                    // Don't count repeat moves.
+                    if gameMove.`repeat`.boolValue == false {
+                        totals.searchHits1 += 1
+                    }
                 } else {
                     totals.searchFalse1 += 1
                 }
@@ -164,7 +176,10 @@ class ECABLogCalculator {
                 searchTwoEnd = gameMove.date
                 
                 if gameMove.success.boolValue == true {
-                    totals.searchHits2 += 1
+                    // Don't count repeat moves.
+                    if gameMove.`repeat`.boolValue == false {
+                        totals.searchHits2 += 1
+                    }
                 } else {
                     totals.searchFalse2 += 1
                 }
@@ -177,7 +192,10 @@ class ECABLogCalculator {
                 
                 
                 if gameMove.success.boolValue == true {
-                    totals.searchHits3 += 1
+                    // Don't count repeat moves.
+                    if gameMove.`repeat`.boolValue == false {
+                        totals.searchHits3 += 1
+                    }
                 } else {
                     totals.searchFalse3 += 1
                 }
