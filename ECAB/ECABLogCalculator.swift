@@ -84,7 +84,7 @@ final class ECABLogCalculator {
     
     class func getVisualSearchTotals(_ session: Session) -> TotalVisualSearch {
         
-        // Filters moves to find mathing screen number to block number.
+        // Filters moves to find matching screen number to block number.
         func startDate(_ moves: [Move], easyBlock: Int, hardBlock: Int?) -> NSDate? {
             let onsetTime: [Move]
             if let hardBlock = hardBlock {
@@ -95,8 +95,6 @@ final class ECABLogCalculator {
             guard onsetTime.count == 1 else { return nil }
             return onsetTime.first?.date
         }
-        
-        var totals = TotalVisualSearch()
         
         let castedMoves = session.moves.map { $0 as! Move }
         // Start date is taken from screen "onset" time.
@@ -121,6 +119,7 @@ final class ECABLogCalculator {
                                          easyBlock: VisualSearchEasyModeView.three.rawValue,
                                          hardBlock: nil)
         
+        var totals = TotalVisualSearch()
         var motorOneEnd: NSDate?
         var motorTwoEnd: NSDate?
         var motorThreeEnd: NSDate?
