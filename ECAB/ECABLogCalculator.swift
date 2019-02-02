@@ -84,42 +84,65 @@ final class ECABLogCalculator {
     
     class func getVisualSearchTotals(_ session: Session) -> TotalVisualSearch {
         
-        var totals = TotalVisualSearch()
+        // Filters moves to find matching screen number to block number.
+        func startDate(_ moves: [Move], easyBlock: Int, hardBlock: Int?) -> NSDate? {
+            let onsetTime: [Move]
+            if let hardBlock = hardBlock {
+                onsetTime = moves.filter { $0.screenNumber.intValue == easyBlock || $0.screenNumber.intValue == hardBlock }
+            } else {
+                onsetTime = moves.filter { $0.screenNumber.intValue == easyBlock }
+            }
+            guard onsetTime.count == 1 else { return nil }
+            return onsetTime.first?.date
+        }
         
-        var motorOneStart: NSDate?
+        let castedMoves = session.moves.map { $0 as! Move }
+        // Start date is taken from screen "onset" time.
+        let emptyMoves = castedMoves.filter { $0.empty == true }
+        
+        let motorOneStart = startDate(emptyMoves,
+                                      easyBlock: VisualSearchEasyModeView.motorOne.rawValue,
+                                      hardBlock: VisualSearchHardModeView.motorOne.rawValue)
+        let motorTwoStart = startDate(emptyMoves,
+                                      easyBlock: VisualSearchEasyModeView.motorTwo.rawValue,
+                                      hardBlock: VisualSearchHardModeView.motorTwo.rawValue)
+        let motorThreeStart = startDate(emptyMoves,
+                                        easyBlock: VisualSearchEasyModeView.motorThree.rawValue,
+                                        hardBlock: nil)
+        let searchOneStart = startDate(emptyMoves,
+                                       easyBlock: VisualSearchEasyModeView.one.rawValue,
+                                       hardBlock: VisualSearchHardModeView.one.rawValue)
+        let searchTwoStart = startDate(emptyMoves,
+                                       easyBlock: VisualSearchEasyModeView.two.rawValue,
+                                       hardBlock: VisualSearchHardModeView.two.rawValue)
+        let searchThreeStart = startDate(emptyMoves,
+                                         easyBlock: VisualSearchEasyModeView.three.rawValue,
+                                         hardBlock: nil)
+        
+        var totals = TotalVisualSearch()
         var motorOneEnd: NSDate?
-        var motorTwoStart: NSDate?
         var motorTwoEnd: NSDate?
-        var motorThreeStart: NSDate?
         var motorThreeEnd: NSDate?
-        var searchOneStart: NSDate?
         var searchOneEnd: NSDate?
-        var searchTwoStart: NSDate?
         var searchTwoEnd: NSDate?
-        var searchThreeStart:NSDate?
         var searchThreeEnd:NSDate?
         
-        for move in session.moves {
-            let gameMove = move as! Move
+        let nonEmptyMoves = castedMoves.filter { $0.empty == false }
+        
+        for move in nonEmptyMoves {
             
-            if gameMove.empty == true {
-                continue
-            }
-            
-            let screenNum = gameMove.screenNumber.intValue
+            let screenNum = move.screenNumber.intValue
             
             // Every part inlude onset date in the empty move entity
             
             if screenNum == VisualSearchEasyModeView.motorOne.rawValue || screenNum == VisualSearchHardModeView.motorOne.rawValue {
-                if (motorOneStart == nil) {
-                    motorOneStart = gameMove.date
-                }
-                // End date will shift to the latest possible move on the screen
-                motorOneEnd = gameMove.date
                 
-                if gameMove.success.boolValue == true {
+                // End date will shift to the latest possible move on the screen
+                motorOneEnd = move.date
+                
+                if move.success.boolValue == true {
                     // Don't count repeat moves.
-                    if gameMove.`repeat`.boolValue == false {
+                    if move.`repeat`.boolValue == false {
                         totals.motorHits1 += 1
                     }
                 } else {
@@ -127,14 +150,12 @@ final class ECABLogCalculator {
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.motorTwo.rawValue || screenNum == VisualSearchHardModeView.motorTwo.rawValue{
-                if (motorTwoStart == nil) {
-                    motorTwoStart = gameMove.date
-                }
-                motorTwoEnd = gameMove.date
                 
-                if gameMove.success.boolValue == true {
+                motorTwoEnd = move.date
+                
+                if move.success.boolValue == true {
                     // Don't count repeat moves.
-                    if gameMove.`repeat`.boolValue == false {
+                    if move.`repeat`.boolValue == false {
                         totals.motorHits2 += 1
                     }
                 } else {
@@ -142,14 +163,12 @@ final class ECABLogCalculator {
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.motorThree.rawValue {
-                if (motorThreeStart == nil) {
-                    motorThreeStart = gameMove.date
-                }
-                motorThreeEnd = gameMove.date
                 
-                if gameMove.success.boolValue == true {
+                motorThreeEnd = move.date
+                
+                if move.success.boolValue == true {
                     // Don't count repeat moves.
-                    if gameMove.`repeat`.boolValue == false {
+                    if move.`repeat`.boolValue == false {
                         totals.motorHits3 += 1
                     }
                 } else {
@@ -157,14 +176,12 @@ final class ECABLogCalculator {
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.one.rawValue || screenNum == VisualSearchHardModeView.one.rawValue {
-                if (searchOneStart == nil) {
-                    searchOneStart = gameMove.date
-                }
-                searchOneEnd = gameMove.date
                 
-                if gameMove.success.boolValue == true {
+                searchOneEnd = move.date
+                
+                if move.success.boolValue == true {
                     // Don't count repeat moves.
-                    if gameMove.`repeat`.boolValue == false {
+                    if move.`repeat`.boolValue == false {
                         totals.searchHits1 += 1
                     }
                 } else {
@@ -172,14 +189,12 @@ final class ECABLogCalculator {
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.two.rawValue || screenNum == VisualSearchHardModeView.two.rawValue {
-                if (searchTwoStart == nil) {
-                    searchTwoStart = gameMove.date
-                }
-                searchTwoEnd = gameMove.date
                 
-                if gameMove.success.boolValue == true {
+                searchTwoEnd = move.date
+                
+                if move.success.boolValue == true {
                     // Don't count repeat moves.
-                    if gameMove.`repeat`.boolValue == false {
+                    if move.`repeat`.boolValue == false {
                         totals.searchHits2 += 1
                     }
                 } else {
@@ -187,15 +202,13 @@ final class ECABLogCalculator {
                 }
                 
             } else if screenNum == VisualSearchEasyModeView.three.rawValue {
-                if (searchThreeStart == nil) {
-                    searchThreeStart = gameMove.date
-                }
-                searchThreeEnd = gameMove.date
+                
+                searchThreeEnd = move.date
                 
                 
-                if gameMove.success.boolValue == true {
+                if move.success.boolValue == true {
                     // Don't count repeat moves.
-                    if gameMove.`repeat`.boolValue == false {
+                    if move.`repeat`.boolValue == false {
                         totals.searchHits3 += 1
                     }
                 } else {
