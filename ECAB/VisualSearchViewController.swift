@@ -34,10 +34,10 @@ class VisualSearchViewController: TestViewController,
     }
 	
     private struct Insets {
-        static var top:CGFloat = 100
-        static let left:CGFloat = 10
+        static var top:CGFloat = 140
+        static let left:CGFloat = 60
         static let bottom:CGFloat = 10
-        static let right:CGFloat = 10
+        static let right:CGFloat = 60
     };
 	
 	// Inititial insets are very big
@@ -209,22 +209,22 @@ class VisualSearchViewController: TestViewController,
             self.cellWidth = 190
             self.cellHeight = 190
             
-            self.insetTop = 260
+            self.insetTop = 300
             self.insetLeft = 172
             self.insetBottom = 10
             self.insetRight = 172
         case VisualSearchEasyModeView.trainingTwo.rawValue, VisualSearchHardModeView.trainingTwo.rawValue:
             self.cellWidth = 84
             self.cellHeight = 84
-            self.insetTop = 220
-            self.insetLeft = 340
-            self.insetRight = 340
+            self.insetTop = 260
+            self.insetLeft = 390
+            self.insetRight = 390
         case VisualSearchEasyModeView.trainingThree.rawValue, VisualSearchHardModeView.trainingThree.rawValue:
             self.cellWidth = defaultSize
             self.cellHeight = defaultSize
-            self.insetTop = 230
-            self.insetLeft = 200
-            self.insetRight = 200
+            self.insetTop = 270
+            self.insetLeft = 250
+            self.insetRight = 250
         case VisualSearchEasyModeView.motorOne.rawValue ... VisualSearchEasyModeView.motorThree.rawValue,
         VisualSearchHardModeView.motorOne.rawValue ... VisualSearchHardModeView.motorTwo.rawValue:
             // Real game starts on motor test
