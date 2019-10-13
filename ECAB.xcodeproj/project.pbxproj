@@ -270,10 +270,9 @@
 			};
 			buildConfigurationList = 91E5C3A91A6BD5C400905752 /* Build configuration list for PBXProject "ECAB" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
