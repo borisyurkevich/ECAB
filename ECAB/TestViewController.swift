@@ -215,7 +215,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             // In this case inidcator is not centered in the button, not a big deal.
         }
         
-        let alertView = UIAlertController(title: "Pause", message: "Quit this test or add a comment.", preferredStyle: .alert)
+        let alertView = UIAlertController(title: "Pause", message: "Quit this test and add a comment.", preferredStyle: .alert)
         
         let quit = UIAlertAction(title: "Quit", style: .default, handler: { (alertAction) -> Void in
             self.addComment(alertView)

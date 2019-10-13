@@ -277,12 +277,15 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			switch title! {
 			case GameTitle.visual:
 				let gameVC = VisualSearchViewController()
+                gameVC.modalPresentationStyle = .fullScreen
 				detailVC.present(gameVC, animated: true, completion: nil)
 			case GameTitle.counterpointing:
 				let gameVC = CounterpointingViewController()
+                gameVC.modalPresentationStyle = .fullScreen
 				detailVC.present(gameVC, animated: true, completion: nil)
 			case GameTitle.flanker:
 				let gameVC = FlankerViewController()
+                gameVC.modalPresentationStyle = .fullScreen
 				
 				let alert = UIAlertController(title: "Small Images.", message: "Enable small images?", preferredStyle:.alert)
 				let okayAction = UIAlertAction(title: "Classic images (2x)", style: .default, handler: { (alertAction) -> Void in
@@ -299,9 +302,13 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 				
 			case GameTitle.visualSust:
 				let gameVC = VisualSustainViewController()
+                gameVC.modalPresentationStyle = .fullScreen
+                
 				detailVC.present(gameVC, animated: true, completion: nil)
 			default:
 				let gameVC = VisualSearchViewController()
+                gameVC.modalPresentationStyle = .fullScreen
+                
 				detailVC.present(gameVC, animated: true, completion: nil)
 			}
 		}
