@@ -119,7 +119,7 @@ class Model {
 					print("Could not save the Data: \(error1.localizedDescription)")
 				}
 			} else {
-				data = fetchedData[0] as! Data
+				data = fetchedData[0] as? Data
 			}
 			
 			// If there's no current player,

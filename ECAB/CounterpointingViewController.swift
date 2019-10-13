@@ -37,7 +37,7 @@ class CounterpointingViewController: TestViewController {
 		super.viewDidLoad()
 		
 		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
-		session = model.data.counterpointingSessions.lastObject as! CounterpointingSession
+		session = model.data.counterpointingSessions.lastObject as? CounterpointingSession
 		presentMessage(greeingMessage)
 		addTouchTargetButtons()
 	}

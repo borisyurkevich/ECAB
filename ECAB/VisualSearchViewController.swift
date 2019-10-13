@@ -89,7 +89,7 @@ class VisualSearchViewController: TestViewController,
 		
 		// Insert fresh session entity
 		model.addSession(model.data.selectedPlayer)
-        session = model.data.sessions.lastObject as! Session
+        session = model.data.sessions.lastObject as? Session
 		session.speed = NSNumber(value: gameSpeed)
 		session.difficulty = model.data.visSearchDifficulty
 		
