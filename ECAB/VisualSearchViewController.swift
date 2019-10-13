@@ -98,7 +98,7 @@ class VisualSearchViewController: TestViewController,
         // Disable scrolling
         collectionView.isScrollEnabled = false
 		
-		backButton.setTitle("Back", for: UIControlState())
+		backButton.setTitle("Back", for: UIControl.State())
 	}
     
     override func presentPause() {
@@ -158,7 +158,7 @@ class VisualSearchViewController: TestViewController,
             }
         }
 		        
-        UIView.transition(with: view, duration: transitionSpeed, options: UIViewAnimationOptions(), animations: {
+        UIView.transition(with: view, duration: transitionSpeed, options: UIView.AnimationOptions(), animations: {
             // animation...
             self.collectionView.alpha = 0.0
             
@@ -189,7 +189,7 @@ class VisualSearchViewController: TestViewController,
 					self.timerLastStarted = Date()
 				}
 				
-                UIView.transition(with: self.view, duration: self.transitionSpeed, options: UIViewAnimationOptions(), animations: {
+                UIView.transition(with: self.view, duration: self.transitionSpeed, options: UIView.AnimationOptions(), animations: {
                     
                     self.collectionView.alpha = 1
                     
@@ -328,7 +328,7 @@ class VisualSearchViewController: TestViewController,
     func configureFlowLayout() -> UICollectionViewFlowLayout {
         let returnValue = UICollectionViewFlowLayout()
         
-        returnValue.sectionInset = UIEdgeInsetsMake(insetTop, insetLeft, insetBottom, insetRight)
+        returnValue.sectionInset = UIEdgeInsets.init(top: insetTop, left: insetLeft, bottom: insetBottom, right: insetRight)
         
         returnValue.minimumInteritemSpacing = interSpacing
         returnValue.minimumLineSpacing = interSpacing
@@ -451,8 +451,8 @@ class VisualSearchViewController: TestViewController,
 		
 		shapeLayer.strokeEnd = 0
 		shapeLayer.lineWidth = 5
-		shapeLayer.lineCap = kCALineCapRound
-		shapeLayer.lineJoin = kCALineJoinRound
+		shapeLayer.lineCap = CAShapeLayerLineCap.round
+		shapeLayer.lineJoin = CAShapeLayerLineJoin.round
 		shapeLayer.frame = self.view.layer.bounds
 		shapeLayer.backgroundColor = UIColor.clear.cgColor
 		shapeLayer.fillColor = nil

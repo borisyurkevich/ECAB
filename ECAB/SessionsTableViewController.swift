@@ -96,11 +96,11 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     
     @IBAction func handleExport(_ sender: UIBarButtonItem) {
         
-        let exportDialog = UIAlertController(title: "Export", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let fileOption = UIAlertAction(title: "Export file", style: UIAlertActionStyle.default, handler: { action in
+        let exportDialog = UIAlertController(title: "Export", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        let fileOption = UIAlertAction(title: "Export file", style: UIAlertAction.Style.default, handler: { action in
             self.exportToCSV()
         })
-        let emailOption = UIAlertAction(title: "Send file", style: UIAlertActionStyle.default, handler: { action in
+        let emailOption = UIAlertAction(title: "Send file", style: UIAlertAction.Style.default, handler: { action in
             self.presentActivityViewController()
         })
         exportDialog.addAction(emailOption)
@@ -129,7 +129,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     
     func showAlert() {
         let errorAlert = UIAlertController(title: "No data to export", message: nil, preferredStyle: .alert)
-        let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.cancel, handler: nil)
+        let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertAction.Style.cancel, handler: nil)
         errorAlert.addAction(okayAction)
         navigationController?.present(errorAlert, animated: true, completion: nil)
     }
@@ -182,7 +182,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
                 let writeError = error as NSError
                 let message = "Error. Can't write a file: \(writeError)"
                 let errorAlert = UIAlertController(title: "Can't Write File", message: message, preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.cancel, handler: nil)
+                let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertAction.Style.cancel, handler: nil)
                 errorAlert.addAction(okayAction)
                 navigationController?.present(errorAlert, animated: true, completion: nil)
                 return nil
@@ -192,7 +192,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
         } else {
             let title = NSLocalizedString("Couldn't read this session", comment: "alert title")
             let errorAlert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-            let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertActionStyle.cancel, handler: nil)
+            let okayAction = UIAlertAction(title: NSLocalizedString("OK", comment: "alert"), style: UIAlertAction.Style.cancel, handler: nil)
             errorAlert.addAction(okayAction)
             navigationController?.present(errorAlert, animated: true, completion: nil)
             
@@ -276,8 +276,8 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 	}
 	
 	override func tableView(_ tableView: UITableView, commit
-		editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-		if editingStyle == UITableViewCellEditingStyle.delete {
+		editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == UITableViewCell.EditingStyle.delete {
 		
 			let navVC = splitViewController!.viewControllers.last as! UINavigationController
 			let detailVC = navVC.topViewController as! HistoryViewController
@@ -326,7 +326,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 		
 			// Last step
             rebuild()
-			tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+			tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
 			detailVC.textView.text = ""
 			detailVC.helpMessage.text = "Select any session from the left."
 		}

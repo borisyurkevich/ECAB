@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     var window: UIWindow?
 	lazy var coreDataStack = CoreDataStack()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
 		let tabBarController = self.window!.rootViewController as! UITabBarController
@@ -60,11 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     }
     
     func guidedAccessRestriction(withIdentifier restrictionIdentifier: String,
-        didChange newRestrictionState: UIGuidedAccessRestrictionState) {
+        didChange newRestrictionState: UIAccessibility.GuidedAccessRestrictionState) {
             
             if restrictionIdentifier == controlsRestrictionId
             {
-                let enabled = newRestrictionState != UIGuidedAccessRestrictionState.deny
+                let enabled = newRestrictionState != UIAccessibility.GuidedAccessRestrictionState.deny
                 NotificationCenter.default.post(name: Notification.Name(rawValue: notificationId), object: nil, userInfo: ["restriction":enabled])
             }
     }

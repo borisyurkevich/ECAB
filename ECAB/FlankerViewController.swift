@@ -44,14 +44,14 @@ class FlankerViewController: CounterpointingViewController {
 		let buttonRight = UIButton(frame: screenAreaRight)
 		buttonLeft.backgroundColor = UIColor.orange
 		buttonRight.backgroundColor = UIColor.green
-		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), for: UIControlEvents.touchDown)
-		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), for: UIControlEvents.touchDown)
+		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), for: UIControl.Event.touchDown)
+		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), for: UIControl.Event.touchDown)
 		
 		let star = UIImage(named: "star")
-		buttonLeft.setImage(star, for: UIControlState())
-		buttonLeft.imageView!.contentMode = UIViewContentMode.center
-		buttonRight.setImage(star, for: UIControlState())
-		buttonRight.imageView!.contentMode = UIViewContentMode.center
+		buttonLeft.setImage(star, for: UIControl.State())
+		buttonLeft.imageView!.contentMode = UIView.ContentMode.center
+		buttonRight.setImage(star, for: UIControl.State())
+		buttonRight.imageView!.contentMode = UIView.ContentMode.center
 		
 		view.addSubview(buttonLeft)
 		view.addSubview(buttonRight)

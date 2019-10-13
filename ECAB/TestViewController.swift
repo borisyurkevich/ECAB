@@ -29,10 +29,10 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 	let margin:CGFloat = 16
 	let buttonWidth:CGFloat = 100
 	
-	let pauseButton = UIButton(type: UIButtonType.system)
-	let nextButton = UIButton(type: UIButtonType.system)
-	let backButton = UIButton(type: UIButtonType.system)
-	let skipTrainingButton = UIButton(type: UIButtonType.system)
+	let pauseButton = UIButton(type: UIButton.ButtonType.system)
+	let nextButton = UIButton(type: UIButton.ButtonType.system)
+	let backButton = UIButton(type: UIButton.ButtonType.system)
+	let skipTrainingButton = UIButton(type: UIButton.ButtonType.system)
 	
 	var currentScreenShowing = 0
 
@@ -108,35 +108,35 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 		// Buttons
 		let screenSize: CGSize = UIScreen.main.bounds.size
 		
-		backButton.setTitle("Restart", for: UIControlState())
+		backButton.setTitle("Restart", for: UIControl.State())
 		backButton.frame = CGRect(x: marginTop, y: marginTop, width: 0, height: 0)
 		backButton.sizeToFit()
 		backButton.frame.size.width = buttonWidth
-		backButton.addTarget(self, action: #selector(TestViewController.presentPreviousScreen), for: UIControlEvents.touchUpInside)
+		backButton.addTarget(self, action: #selector(TestViewController.presentPreviousScreen), for: UIControl.Event.touchUpInside)
 		backButton.tintColor = UIColor.gray
 		addButtonBorder(backButton)
 
-		nextButton.setTitle("Next", for: UIControlState())
+		nextButton.setTitle("Next", for: UIControl.State())
 		nextButton.frame = CGRect(x: backButton.frame.maxX + margin, y: marginTop, width: 0, height: 0)
 		nextButton.sizeToFit()
 		nextButton.frame.size.width = buttonWidth
-		nextButton.addTarget(self, action: #selector(TestViewController.presentNextScreen), for: UIControlEvents.touchUpInside)
+		nextButton.addTarget(self, action: #selector(TestViewController.presentNextScreen), for: UIControl.Event.touchUpInside)
 		nextButton.tintColor = UIColor.gray
 		addButtonBorder(nextButton)
 		
-		skipTrainingButton.setTitle("Skip", for: UIControlState())
+		skipTrainingButton.setTitle("Skip", for: UIControl.State())
 		skipTrainingButton.frame = CGRect(x: nextButton.frame.maxX + margin, y: marginTop, width: 0, height: 0)
 		skipTrainingButton.sizeToFit()
 		skipTrainingButton.frame.size.width = buttonWidth
 		skipTrainingButton.tintColor = UIColor.gray
-		skipTrainingButton.addTarget(self, action: #selector(TestViewController.skip), for: UIControlEvents.touchUpInside)
+		skipTrainingButton.addTarget(self, action: #selector(TestViewController.skip), for: UIControl.Event.touchUpInside)
 		addButtonBorder(skipTrainingButton)
 		
-		pauseButton.setTitle("Pause", for: UIControlState())
+		pauseButton.setTitle("Pause", for: UIControl.State())
 		pauseButton.frame = CGRect(x: screenSize.width - (backButton.frame.size.width + marginTop), y: marginTop, width: 0, height: 0)
 		pauseButton.sizeToFit()
 		pauseButton.frame.size.width = buttonWidth
-		pauseButton.addTarget(self, action: #selector(TestViewController.presentPause), for: UIControlEvents.touchUpInside)
+		pauseButton.addTarget(self, action: #selector(TestViewController.presentPause), for: UIControl.Event.touchUpInside)
 		pauseButton.tintColor = UIColor.gray
 		addButtonBorder(pauseButton)
 		
@@ -199,8 +199,8 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     @objc func presentPause() {
         gamePaused = true
         
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        pauseButton.setTitle("", for: UIControlState())
+        let activity = UIActivityIndicatorView(style: .gray)
+        pauseButton.setTitle("", for: UIControl.State())
         pauseButton.addSubview(activity)
         activity.startAnimating()
         
@@ -243,7 +243,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         
         present(alertView, animated: true) { 
             activity.removeFromSuperview()
-            self.pauseButton.setTitle("Pause", for: UIControlState())
+            self.pauseButton.setTitle("Pause", for: UIControl.State())
         }
     }
     func addComment(_ alert: UIAlertController) {
