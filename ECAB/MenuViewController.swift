@@ -75,6 +75,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		switch game {
 		case .visualSearch:
 			gameIcon.image = UIImage(named: "red_apple")
+            difficultyTitle.isHidden = false
 			difControl.isHidden = false
 			speedLabel.isHidden = false
 			speedLabelDescription.isHidden = false
