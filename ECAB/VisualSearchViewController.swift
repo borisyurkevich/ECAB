@@ -34,10 +34,17 @@ class VisualSearchViewController: TestViewController,
     }
 	
     private struct Insets {
-        static var top:CGFloat = 140
-        static let left:CGFloat = 60
-        static let bottom:CGFloat = 10
-        static let right:CGFloat = 60
+        let top: CGFloat
+        let left: CGFloat
+        let bottom: CGFloat
+        let right: CGFloat
+        
+        init() {
+            top = 100
+            left = 10
+            bottom = 10
+            right = 10
+        }
     };
 	
 	// Inititial insets are very big
@@ -206,45 +213,47 @@ class VisualSearchViewController: TestViewController,
         
         switch (self.currentView) {
         case VisualSearchEasyModeView.trainingOne.rawValue, VisualSearchHardModeView.trainingOne.rawValue:
-            self.cellWidth = 190
-            self.cellHeight = 190
-            
-            self.insetTop = 300
-            self.insetLeft = 172
-            self.insetBottom = 10
-            self.insetRight = 172
+            cellWidth = 190
+            cellHeight = 190
+            insetTop = 260
+            insetLeft = 172
+            insetBottom = 10
+            insetRight = 172
         case VisualSearchEasyModeView.trainingTwo.rawValue, VisualSearchHardModeView.trainingTwo.rawValue:
-            self.cellWidth = 84
-            self.cellHeight = 84
-            self.insetTop = 260
-            self.insetLeft = 390
-            self.insetRight = 390
-        case VisualSearchEasyModeView.trainingThree.rawValue, VisualSearchHardModeView.trainingThree.rawValue:
-            self.cellWidth = defaultSize
-            self.cellHeight = defaultSize
-            self.insetTop = 270
-            self.insetLeft = 250
-            self.insetRight = 250
+            cellWidth = 84
+            cellHeight = 84
+            insetTop = 220
+            insetLeft = 340
+            insetRight = 340
+        case VisualSearchEasyModeView.trainingThree.rawValue,
+             VisualSearchHardModeView.trainingThree.rawValue:
+            cellWidth = defaultSize
+            cellHeight = defaultSize
+            insetTop = 230
+            insetLeft = 200
+            insetRight = 200
         case VisualSearchEasyModeView.motorOne.rawValue ... VisualSearchEasyModeView.motorThree.rawValue,
         VisualSearchHardModeView.motorOne.rawValue ... VisualSearchHardModeView.motorTwo.rawValue:
             // Real game starts on motor test
             // This is three motor screen tests
-            self.startGame()
-            self.cellWidth = defaultSize
-            self.cellHeight = defaultSize
-            self.insetTop = Insets.top
-            self.insetLeft = Insets.left
-            self.insetBottom = Insets.bottom
-            self.insetRight = Insets.right
+            startGame()
+            cellWidth = defaultSize
+            cellHeight = defaultSize
+            let insets = Insets()
+            insetTop = insets.top
+            insetLeft = insets.left
+            insetBottom = insets.bottom
+            insetRight = insets.right
         default:
             // This is normal game mode
-            self.cellWidth = defaultSize
-            self.cellHeight = defaultSize
-            self.insetTop = Insets.top
-            self.insetLeft = Insets.left
-            self.insetBottom = Insets.bottom
-            self.insetRight = Insets.right
-            self.isTraining = false
+            cellWidth = defaultSize
+            cellHeight = defaultSize
+            let insets = Insets()
+            insetTop = insets.top
+            insetLeft = insets.left
+            insetBottom = insets.bottom
+            insetRight = insets.right
+            isTraining = false
         }
         
         if self.model.data.visSearchDifficulty.intValue == Mode.hard.rawValue {
