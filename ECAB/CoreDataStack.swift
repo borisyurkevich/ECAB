@@ -26,7 +26,7 @@ class CoreDataStack
 		psc = NSPersistentStoreCoordinator(managedObjectModel:model)
 		
 		//3
-        context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+		context = NSManagedObjectContext()
 		context.persistentStoreCoordinator = psc
 		
 		//4
