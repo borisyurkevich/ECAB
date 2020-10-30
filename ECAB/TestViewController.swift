@@ -23,11 +23,14 @@ enum SessionType: Int {
 class TestViewController: UIViewController, UITextFieldDelegate {
 	
 	let model: Model = Model.sharedInstance
+    
+    let menu = UIView()
 	
-	let standardButtonHeight:CGFloat = 30
+	let menuHeight:CGFloat = 30
 	let marginTop:CGFloat = 16
 	let margin:CGFloat = 16
 	let buttonWidth:CGFloat = 100
+    let menuTag = 10
 	
 	let pauseButton = UIButton(type: UIButton.ButtonType.system)
 	let nextButton = UIButton(type: UIButton.ButtonType.system)
@@ -103,49 +106,74 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 		
 		view.backgroundColor = UIColor.white
 		
-		menuBarHeight = standardButtonHeight + (marginTop * 2)
+		menuBarHeight = menuHeight + (marginTop * 2)
 		
 		// Buttons
-		let screenSize: CGSize = UIScreen.main.bounds.size
 		
 		backButton.setTitle("Restart", for: UIControl.State())
-		backButton.frame = CGRect(x: marginTop, y: marginTop, width: 0, height: 0)
 		backButton.sizeToFit()
-		backButton.frame.size.width = buttonWidth
 		backButton.addTarget(self, action: #selector(TestViewController.presentPreviousScreen), for: UIControl.Event.touchUpInside)
 		backButton.tintColor = UIColor.gray
 		addButtonBorder(backButton)
 
 		nextButton.setTitle("Next", for: UIControl.State())
-		nextButton.frame = CGRect(x: backButton.frame.maxX + margin, y: marginTop, width: 0, height: 0)
 		nextButton.sizeToFit()
-		nextButton.frame.size.width = buttonWidth
 		nextButton.addTarget(self, action: #selector(TestViewController.presentNextScreen), for: UIControl.Event.touchUpInside)
 		nextButton.tintColor = UIColor.gray
 		addButtonBorder(nextButton)
 		
 		skipTrainingButton.setTitle("Skip", for: UIControl.State())
-		skipTrainingButton.frame = CGRect(x: nextButton.frame.maxX + margin, y: marginTop, width: 0, height: 0)
 		skipTrainingButton.sizeToFit()
-		skipTrainingButton.frame.size.width = buttonWidth
 		skipTrainingButton.tintColor = UIColor.gray
 		skipTrainingButton.addTarget(self, action: #selector(TestViewController.skip), for: UIControl.Event.touchUpInside)
 		addButtonBorder(skipTrainingButton)
 		
 		pauseButton.setTitle("Pause", for: UIControl.State())
-		pauseButton.frame = CGRect(x: screenSize.width - (backButton.frame.size.width + marginTop), y: marginTop, width: 0, height: 0)
 		pauseButton.sizeToFit()
-		pauseButton.frame.size.width = buttonWidth
 		pauseButton.addTarget(self, action: #selector(TestViewController.presentPause), for: UIControl.Event.touchUpInside)
 		pauseButton.tintColor = UIColor.gray
 		addButtonBorder(pauseButton)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(TestViewController.guidedAccessNotificationHandler(_:)), name: NSNotification.Name(rawValue: "kECABGuidedAccessNotification"), object: nil)
-		
-		view.addSubview(backButton)
-		view.addSubview(nextButton)
-		view.addSubview(skipTrainingButton)
-		view.addSubview(pauseButton)
+                
+        menu.translatesAutoresizingMaskIntoConstraints = false
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        skipTrainingButton.translatesAutoresizingMaskIntoConstraints = false
+        pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Tag the menu view to preserve it during Visual Sustain test.
+        menu.tag = menuTag
+    }
+    
+    func layoutMenu() {
+        menu.addSubview(backButton)
+        menu.addSubview(nextButton)
+        menu.addSubview(skipTrainingButton)
+        menu.addSubview(pauseButton)
+        
+        let screen = view.layoutMarginsGuide
+        
+        let constraints = [
+            menu.topAnchor.constraint(equalTo: screen.topAnchor),
+            menu.heightAnchor.constraint(equalToConstant: menuHeight),
+            menu.widthAnchor.constraint(equalTo: screen.widthAnchor),
+            menu.centerXAnchor.constraint(equalTo: screen.centerXAnchor),
+            
+            backButton.leftAnchor.constraint(equalTo: menu.leftAnchor),
+            backButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            
+            nextButton.leftAnchor.constraint(equalTo: backButton.rightAnchor, constant: margin),
+            nextButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            
+            skipTrainingButton.leftAnchor.constraint(equalTo: nextButton.rightAnchor, constant: margin),
+            skipTrainingButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            
+            pauseButton.rightAnchor.constraint(equalTo: screen.rightAnchor),
+            pauseButton.widthAnchor.constraint(equalToConstant: buttonWidth)
+            
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
     
     // MARK: Presentation

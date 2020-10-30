@@ -35,7 +35,10 @@ class CounterpointingViewController: TestViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+        
+        view.addSubview(menu)
+        layoutMenu()
+        
 		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
 		session = model.data.counterpointingSessions.lastObject as? CounterpointingSession
 		presentMessage(greeingMessage)
@@ -154,8 +157,8 @@ class CounterpointingViewController: TestViewController {
 		let screenAreaRight = CGRect(x: screen.size.width/2, y: menuBarHeight, width: screen.size.width/2, height: screen.size.height-menuBarHeight)
 		let buttonLeft = UIButton(frame: screenAreaLeft)
 		let buttonRight = UIButton(frame: screenAreaRight)
-		buttonLeft.addTarget(self, action: #selector(CounterpointingViewController.handleTouchLeft), for: UIControl.Event.touchDown)
-		buttonRight.addTarget(self, action: #selector(CounterpointingViewController.handleTouchRight), for: UIControl.Event.touchDown)
+		buttonLeft.addTarget(self, action: #selector(handleTouchLeft), for: .touchDown)
+		buttonRight.addTarget(self, action: #selector(handleTouchRight), for: .touchDown)
 		view.addSubview(buttonLeft)
 		view.addSubview(buttonRight)
 	}

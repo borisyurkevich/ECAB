@@ -332,10 +332,11 @@ class VisualSustainViewController: CounterpointingViewController {
 	}
 	func removeFirstView() {
 		for v in view.subviews {
-			if v.tag != labelTagAttention && v.tag != tagChangingGamePicture {
-				if !v.isKind(of: UIButton.self) {
-					v.removeFromSuperview()
-				}
+            if v.tag != menuTag &&
+               v.tag != labelTagAttention &&
+               v.tag != tagChangingGamePicture &&
+               !v.isKind(of: UIButton.self) { // do not remove 2 buttons covering entire screen to detect tap
+                v.removeFromSuperview()
 			}
 		}
 	}

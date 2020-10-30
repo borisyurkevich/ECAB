@@ -72,10 +72,11 @@ class VisualSearchViewController: TestViewController,
 	}
 	
     override func viewDidLoad() {
-		view = collectionView
         super.viewDidLoad()
-		
-		collectionView.frame = view.frame
+        layoutCollection()
+        view.addSubview(menu)
+        layoutMenu()
+        
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		
@@ -100,13 +101,35 @@ class VisualSearchViewController: TestViewController,
 		session.speed = NSNumber(value: gameSpeed)
 		session.difficulty = model.data.visSearchDifficulty
 		
-        collectionView.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.clear
 		
         // Disable scrolling
         collectionView.isScrollEnabled = false
 		
 		backButton.setTitle("Back", for: UIControl.State())
 	}
+    
+    private func layoutCollection() {
+        let height: CGFloat = 768
+        let width: CGFloat = 1024
+        
+        let margins = view.layoutMarginsGuide
+
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(collectionView)
+
+        let constraints = [
+            collectionView.widthAnchor.constraint(equalToConstant: width),
+            collectionView.heightAnchor.constraint(equalToConstant: height),
+
+            collectionView.centerXAnchor.constraint(equalTo: margins.centerXAnchor),
+            collectionView.centerYAnchor.constraint(equalTo: margins.centerYAnchor),
+
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
     
     override func presentPause() {
         timer.invalidate()
