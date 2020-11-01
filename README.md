@@ -1,24 +1,27 @@
 # ECAB
-iPad app for measuring child's attention abilities and diagnosing ADHD. ECAB (Early Childhood Attention Battery)
 
-This app has 4 different tests to measure children ability to focus. To get professional result it meant to be used with trained instructor. App just produces not normalised log. Please contact my clients if you need more information or normalisation.
+ECAB - Early Childhood Attention Battery. iPad app for measuring child's attention abilities and diagnosing ADHD.
 
-App has buttons which fire on touch down, not touch up. This is due to some children don't want to lift a finger after touch the screen.
+Contains 4 tests to measure children ability to focus. Meant to be used with trained instructor. App produces not normalised log output with raw timings. Please [contact my clients][1] if you need more information or normalisation.
 
-## App Model
+App has buttons which fire on touch down, not touch up. This is due to some children don't want to lift a finger after touching the screen.
+
+## Inheritance model.
+
 TestVC is a base class.
 TestVC ➡️ Visual Search, Counterpointing.
 Counterpointing ➡️ Flanker, Visual Sustain.
 
-You will find Core Data model messy, `CounterpointingMove` object is overused. This is due to my efforts to preserve backwards compatibility. I've done lightweight migration since the early beginning. I can't accept any other Core Data changes.
+The app uses Core Data and has some design specifics, like, `CounterpointingMove` object is reused for multiple tests. This is due to my efforts to preserve backwards compatibility. I've done lightweight migration since the early beginning and didn't had a chance to redesign the data model.
 
-## Contribution
-If you want to contribute please make sure your changes doesn't affect current tests and can be only optional. For example, you can add more tests but do not modify anything in the current test flow.
+## Contacts.
 
-## Contacts
 Not technical questions:
-Oliver Braddick: oliver.braddick@psy.ox.ac.uk
-Jan Atkinson: j.atkinson@ucl.ac.uk
+Oliver Braddick: [oliver.braddick@psy.ox.ac.uk][1]
+Jan Atkinson: [j.atkinson@ucl.ac.uk][2]
 
 Technical:
-Boris Yurkevich: boris.yurkevich@gmail.com
+- Create a GitHub issue.
+
+[1]: mailto:oliver.braddick@psy.ox.ac.uk
+[2]: mailto:j.atkinson@ucl.ac.uk
