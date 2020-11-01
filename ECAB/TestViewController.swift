@@ -155,9 +155,10 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         let screen = view.layoutMarginsGuide
         
         let constraints = [
-            menu.topAnchor.constraint(equalTo: screen.topAnchor),
+            menu.topAnchor.constraint(equalTo: screen.topAnchor, constant: margin),
             menu.heightAnchor.constraint(equalToConstant: menuHeight),
-            menu.widthAnchor.constraint(equalTo: screen.widthAnchor),
+            menu.leftAnchor.constraint(equalTo: screen.leftAnchor),
+            menu.rightAnchor.constraint(equalTo: screen.rightAnchor),
             menu.centerXAnchor.constraint(equalTo: screen.centerXAnchor),
             
             backButton.leftAnchor.constraint(equalTo: menu.leftAnchor),
