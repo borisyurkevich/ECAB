@@ -74,7 +74,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 		
 		switch game {
 		case .visualSearch:
-			gameIcon.image = UIImage(named: "red_apple")
+			gameIcon.image = UIImage(named: "menu_red_apple")
             difficultyTitle.isHidden = false
 			difControl.isHidden = false
 			speedLabel.isHidden = false
@@ -104,7 +104,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
 			}
 			
 		case .flanker:
-			gameIcon.image = UIImage(named: "fish")
+			gameIcon.image = UIImage(named: "menu_fish")
 			
 			difficultyTitle.isHidden = true
 			difControl.isHidden = true
@@ -127,7 +127,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             randomizeLabel.isHidden = false
 			
 		case .counterpointing:
-			gameIcon.image = UIImage(named: "dog")
+			gameIcon.image = UIImage(named: "menu_dog")
 			
 			difficultyTitle.isHidden = true
 			difControl.isHidden = true
@@ -149,7 +149,7 @@ class MenuViewController: UIViewController, SubjectPickerDelegate, UIPopoverPres
             randomizeLabel.isHidden = true
 			
 		case .visualSust:
-			gameIcon.image = UIImage(named: "pig")
+			gameIcon.image = UIImage(named: "menu_pig")
 			
 			difficultyTitle.isHidden = true
 			difControl.isHidden = true
