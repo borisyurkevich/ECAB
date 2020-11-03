@@ -212,7 +212,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     // Removes everything, except, the buttons
     func cleanView() {
         for v in view.subviews {
-            if !v.isKind(of: UIButton.self) {
+            if !v.isKind(of: UIButton.self) && v.tag != menuTag {
                 v.removeFromSuperview()
             }
         }
