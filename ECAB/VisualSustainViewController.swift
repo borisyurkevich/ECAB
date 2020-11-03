@@ -321,15 +321,29 @@ class VisualSustainViewController: CounterpointingViewController {
 		}
 		
 		pigImage.center = CGPoint(x: 200, y: 200)
-		dogImage.center = CGPoint(x: 800, y: 200)
+		dogImage.center = CGPoint(x: 840, y: 200)
 		fishImage.center = CGPoint(x: 200, y: 600)
-		horseImage.center = CGPoint(x: 800, y: 600)
+		horseImage.center = CGPoint(x: 840, y: 600)
 		catImage.center = view.center
-		
+        
+        let animals = UIView()
+        animals.backgroundColor = .clear
 		for image in images {
-			view.addSubview(image)
+			animals.addSubview(image)
 		}
-	}
+        view.addSubview(animals)
+        
+        animals.translatesAutoresizingMaskIntoConstraints = false
+        let height: CGFloat = 768
+        let width: CGFloat = 1024
+        let constraints = [
+            animals.widthAnchor.constraint(equalToConstant: width),
+            animals.heightAnchor.constraint(equalToConstant: height),
+            animals.topAnchor.constraint(equalTo: view.topAnchor, constant: menuBarHeight),
+            animals.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
 	func removeFirstView() {
 		for v in view.subviews {
             if v.tag != menuTag &&
