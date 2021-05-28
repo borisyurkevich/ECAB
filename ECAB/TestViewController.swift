@@ -32,10 +32,10 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 	let buttonWidth:CGFloat = 100
     let menuTag = 10
 	
-	let pauseButton = UIButton(type: UIButton.ButtonType.system)
-	let nextButton = UIButton(type: UIButton.ButtonType.system)
-	let backButton = UIButton(type: UIButton.ButtonType.system)
-	let skipTrainingButton = UIButton(type: UIButton.ButtonType.system)
+	let pauseButton = BorderedButton(type: UIButton.ButtonType.system)
+	let nextButton = BorderedButton(type: UIButton.ButtonType.system)
+	let backButton = BorderedButton(type: UIButton.ButtonType.system)
+	let skipTrainingButton = BorderedButton(type: UIButton.ButtonType.system)
 	
 	var currentScreenShowing = 0
 
@@ -112,28 +112,26 @@ class TestViewController: UIViewController, UITextFieldDelegate {
 		
 		backButton.setTitle("Restart", for: UIControl.State())
 		backButton.sizeToFit()
-		backButton.addTarget(self, action: #selector(TestViewController.presentPreviousScreen), for: UIControl.Event.touchUpInside)
+		backButton.addTarget(self, action: #selector(presentPreviousScreen), for: .touchUpInside)
+
 		backButton.tintColor = UIColor.gray
-		addButtonBorder(backButton)
 
 		nextButton.setTitle("Next", for: UIControl.State())
 		nextButton.sizeToFit()
-		nextButton.addTarget(self, action: #selector(TestViewController.presentNextScreen), for: UIControl.Event.touchUpInside)
+        nextButton.addTarget(self, action: #selector(presentNextScreen), for: .touchUpInside)
+
 		nextButton.tintColor = UIColor.gray
-		addButtonBorder(nextButton)
-		
+
 		skipTrainingButton.setTitle("Skip", for: UIControl.State())
 		skipTrainingButton.sizeToFit()
 		skipTrainingButton.tintColor = UIColor.gray
-		skipTrainingButton.addTarget(self, action: #selector(TestViewController.skip), for: UIControl.Event.touchUpInside)
-		addButtonBorder(skipTrainingButton)
-		
+        skipTrainingButton.addTarget(self, action: #selector(skip), for: .touchUpInside)
+
 		pauseButton.setTitle("Pause", for: UIControl.State())
 		pauseButton.sizeToFit()
-		pauseButton.addTarget(self, action: #selector(TestViewController.presentPause), for: UIControl.Event.touchUpInside)
+		pauseButton.addTarget(self, action: #selector(presentPause), for: .touchUpInside)
 		pauseButton.tintColor = UIColor.gray
-		addButtonBorder(pauseButton)
-		
+
 		NotificationCenter.default.addObserver(self, selector: #selector(TestViewController.guidedAccessNotificationHandler(_:)), name: NSNotification.Name(rawValue: "kECABGuidedAccessNotification"), object: nil)
                 
         menu.translatesAutoresizingMaskIntoConstraints = false
@@ -178,7 +176,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: Presentation
-	
+
 	@objc func presentPreviousScreen() {
 		print("❌ Implement presentPreviousScreen() in \(self.description)")
 	}
@@ -200,13 +198,6 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     
     override var prefersStatusBarHidden : Bool {
         return true
-    }
-    
-    func addButtonBorder(_ button: UIButton) {
-        button.backgroundColor = UIColor.clear
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
-        button.layer.borderColor = button.tintColor!.cgColor
     }
     
     // Removes everything, except, the buttons
@@ -309,5 +300,45 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             pauseButton.isHidden = true
         }
         // Hide button completly
+    }
+}
+
+final class BorderedButton: UIButton {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        layer.borderColor = UIColor.gray.cgColor
+        layer.borderWidth = 1
+        layer.cornerRadius = 5
+
+        contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("NSCoding not supported")
+    }
+
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+
+        layer.borderColor = UIColor.gray.cgColor
+    }
+
+    override var isHighlighted: Bool {
+        didSet {
+            let fadedColor = tintColor.withAlphaComponent(0.2).cgColor
+
+            if isHighlighted {
+                layer.borderColor = fadedColor
+            } else {
+                layer.borderColor = UIColor.gray.cgColor
+
+                let animation = CABasicAnimation(keyPath: "borderColor")
+                animation.fromValue = fadedColor
+                animation.toValue = UIColor.gray.cgColor
+                animation.duration = 0.4
+                layer.add(animation, forKey: nil)
+            }
+        }
     }
 }
