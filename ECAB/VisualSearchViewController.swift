@@ -63,7 +63,7 @@ class VisualSearchViewController: TestViewController,
 	init() {
 		let flowLayout = UICollectionViewFlowLayout()
 		collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: flowLayout)
-		
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -74,9 +74,8 @@ class VisualSearchViewController: TestViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutCollection()
-        view.addSubview(menu)
-        layoutMenu()
-        
+        addMenu()
+
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		
@@ -107,7 +106,7 @@ class VisualSearchViewController: TestViewController,
         // Disable scrolling
         collectionView.isScrollEnabled = false
 		
-		backButton.setTitle("Back", for: UIControl.State())
+        gameMenuViewController?.updateBackButtonTitle("Back")
 	}
     
     private func layoutCollection() {

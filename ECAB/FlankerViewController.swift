@@ -32,11 +32,10 @@ class FlankerViewController: CounterpointingViewController {
 			session.imageSizeComment = "Normal images (2x)"
 		}
 		
-		addTouchTargetButtons()
-        
+        addMenu()
     }
+
 	override func addTouchTargetButtons() {
-		
 		let screen = UIScreen.main.bounds
 		let screenAreaLeft = CGRect(x: 0, y: menuBarHeight, width: barWidth, height: screen.size.height-menuBarHeight)
 		let screenAreaRight = CGRect(x: UIScreen.main.bounds.size.width - barWidth, y: menuBarHeight, width: barWidth, height: screen.size.height-menuBarHeight)

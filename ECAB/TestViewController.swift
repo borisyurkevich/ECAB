@@ -12,58 +12,53 @@
 
 import UIKit
 import AVFoundation
+import os
 
-enum SessionType: Int {
-    case counterpointing
-    case flanker
-    case visualSustain
-    case flankerRandomized
-}
 
-class TestViewController: UIViewController, UITextFieldDelegate {
-	
-	let model: Model = Model.sharedInstance
-    
-    let menu = UIView()
-	
-	let menuHeight:CGFloat = 30
-	let marginTop:CGFloat = 16
-	let margin:CGFloat = 16
-	let buttonWidth:CGFloat = 100
-    let menuTag = 10
-	
-	let pauseButton = BorderedButton(type: UIButton.ButtonType.system)
-	let nextButton = BorderedButton(type: UIButton.ButtonType.system)
-	let backButton = BorderedButton(type: UIButton.ButtonType.system)
-	let skipTrainingButton = BorderedButton(type: UIButton.ButtonType.system)
-	
-	var currentScreenShowing = 0
+class TestViewController: UIViewController, UITextFieldDelegate, GameMenuDelegate {
 
-	var trainingMode = true
-	var gamePaused = false
-    
-    // For cases when information on the screen, for example,
-    // blue dot or title label. In this case app should not 
-    // accept players interactions.
-    var playerInteractionsDisabled = false
-	
-	var menuBarHeight: CGFloat = 0.0
-	// Doesnt affect Visual Search
-	// Affects Y offeset for the big buttons pn left and ride side
-	
-	enum Side {
-		case left
-		case right
-	}
-    
+    enum Side {
+        case left
+        case right
+    }
+
     enum Sound {
         case positive
         case negative
         case attention
     }
-    
+	
+	let model: Model = Model.sharedInstance
+
+    var currentScreenShowing = 0
+    var trainingMode = true
+    var gamePaused = false
+    var gameMenuViewController: GameMenuViewController?
+
+    /// For cases when information on the screen, for example,
+    /// blue dot or title label. In this case app should not
+    /// accept players interactions.
+    var playerInteractionsDisabled = false
+
+    /// Doesnt affect Visual Search
+    /// Affects Y offeset for the big buttons pn left and ride side
+    let menuBarHeight: CGFloat = 36.0
+
+    let menuTag = 10 // Set in Menu.storyboard
+
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+		
+		view.backgroundColor = UIColor.white
+
+		NotificationCenter.default.addObserver(self, selector: #selector(Self.guidedAccessNotificationHandler(_:)), name: NSNotification.Name(rawValue: "kECABGuidedAccessNotification"), object: nil)
+    }
+
     func playSound(_ type: Sound) {
-    
         switch type {
         case .positive:
             if let soundURL = Bundle.main.url(forResource: "slide-magic", withExtension: "aif") {
@@ -91,7 +86,7 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
+
     func presentErrorAlert() {
         let errorAlert = UIAlertController(title: nil,
             message: "Couldn't play a sound.",
@@ -101,106 +96,33 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         present(errorAlert, animated: true, completion: nil)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		
-		view.backgroundColor = UIColor.white
-		
-		menuBarHeight = menuHeight + (marginTop * 2)
-		
-		// Buttons
-		
-		backButton.setTitle("Restart", for: UIControl.State())
-		backButton.sizeToFit()
-		backButton.addTarget(self, action: #selector(presentPreviousScreen), for: .touchUpInside)
-
-		backButton.tintColor = UIColor.gray
-
-		nextButton.setTitle("Next", for: UIControl.State())
-		nextButton.sizeToFit()
-        nextButton.addTarget(self, action: #selector(presentNextScreen), for: .touchUpInside)
-
-		nextButton.tintColor = UIColor.gray
-
-		skipTrainingButton.setTitle("Skip", for: UIControl.State())
-		skipTrainingButton.sizeToFit()
-		skipTrainingButton.tintColor = UIColor.gray
-        skipTrainingButton.addTarget(self, action: #selector(skip), for: .touchUpInside)
-
-		pauseButton.setTitle("Pause", for: UIControl.State())
-		pauseButton.sizeToFit()
-		pauseButton.addTarget(self, action: #selector(presentPause), for: .touchUpInside)
-		pauseButton.tintColor = UIColor.gray
-
-		NotificationCenter.default.addObserver(self, selector: #selector(TestViewController.guidedAccessNotificationHandler(_:)), name: NSNotification.Name(rawValue: "kECABGuidedAccessNotification"), object: nil)
-                
-        menu.translatesAutoresizingMaskIntoConstraints = false
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        skipTrainingButton.translatesAutoresizingMaskIntoConstraints = false
-        pauseButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Tag the menu view to preserve it during Visual Sustain test.
-        menu.tag = menuTag
-    }
-    
-    func layoutMenu() {
-        menu.addSubview(backButton)
-        menu.addSubview(nextButton)
-        menu.addSubview(skipTrainingButton)
-        menu.addSubview(pauseButton)
-        
-        let screen = view.layoutMarginsGuide
-        
-        let constraints = [
-            menu.topAnchor.constraint(equalTo: screen.topAnchor, constant: margin),
-            menu.heightAnchor.constraint(equalToConstant: menuHeight),
-            menu.leftAnchor.constraint(equalTo: screen.leftAnchor),
-            menu.rightAnchor.constraint(equalTo: screen.rightAnchor),
-            menu.centerXAnchor.constraint(equalTo: screen.centerXAnchor),
-            
-            backButton.leftAnchor.constraint(equalTo: menu.leftAnchor),
-            backButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            
-            nextButton.leftAnchor.constraint(equalTo: backButton.rightAnchor, constant: margin),
-            nextButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            
-            skipTrainingButton.leftAnchor.constraint(equalTo: nextButton.rightAnchor, constant: margin),
-            skipTrainingButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            
-            pauseButton.rightAnchor.constraint(equalTo: screen.rightAnchor),
-            pauseButton.widthAnchor.constraint(equalToConstant: buttonWidth)
-            
-        ]
-        NSLayoutConstraint.activate(constraints)
+    func addMenu() {
+        let storyboard = UIStoryboard(name: "Menu", bundle: nil)
+        guard let initialViewController = storyboard.instantiateInitialViewController() as? GameMenuViewController else {
+            fatalError("Storyboard error")
+        }
+        gameMenuViewController = initialViewController
+        guard let gameMenuViewController = gameMenuViewController else {
+            fatalError("Failed to initialize the menu")
+        }
+        addChild(gameMenuViewController)
+        view.addSubview(gameMenuViewController.view)
+        layoutMenu()
+        gameMenuViewController.didMove(toParent: self)
+        gameMenuViewController.delelgate = self
     }
     
     // MARK: Presentation
 
-	@objc func presentPreviousScreen() {
-		print("❌ Implement presentPreviousScreen() in \(self.description)")
-	}
-	@objc func presentNextScreen() {
-		print("❌ Implement presentNextScreen() in in \(self.description)")
-	}
-	@objc func skip() {
-		print("❌ Implement skip() in \(self.description)")
-	}
-	
-	func delay(_ delay: Double, closure: @escaping () -> Void) {
-		DispatchQueue.main.asyncAfter(
-			deadline: DispatchTime.now() + Double(Int(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
+    /// Helper function to delay closure execution
+    func delay(_ delay: Double, closure: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
             execute: closure
         )
-	}
-    
-    // MARK: GUI
-    
-    override var prefersStatusBarHidden : Bool {
-        return true
     }
     
-    // Removes everything, except, the buttons
+    /// Removes everything except the menu
     func cleanView() {
         for v in view.subviews {
             if !v.isKind(of: UIButton.self) && v.tag != menuTag {
@@ -210,33 +132,38 @@ class TestViewController: UIViewController, UITextFieldDelegate {
         playerInteractionsDisabled = false
     }
     
-    // MARK: Quit, pause, and comment
+    // MARK: Other
     
-    func resumeTest() {
-        // Override in subclass and resume timers
+    @objc func guidedAccessNotificationHandler(_ notification: Notification) {
+        guard let enabled: Bool = notification.userInfo!["restriction"] as? Bool else {
+            return
+        }
+        gameMenuViewController?.updatePauseButtonState(isHidden: !enabled)
     }
-    
+
+    // MARK: - GameMenuDelegate
+
+    @objc func presentPreviousScreen() {
+        os_log(.error, "❌ Implement presentPreviousScreen() in %@", self.description)
+    }
+    @objc func presentNextScreen() {
+        os_log(.error, "❌ Implement presentNextScreen() in in %@", self.description)
+    }
+    @objc func skip() {
+        os_log(.error, "❌ Implement skip() in %@", self.description)
+    }
+    func resumeTest() {
+        os_log(.error, "❌ Override in subclass and resume timers")
+    }
+
     @objc func presentPause() {
         gamePaused = true
-        
-        let activity = UIActivityIndicatorView(style: .gray)
-        pauseButton.setTitle("", for: UIControl.State())
-        pauseButton.addSubview(activity)
-        activity.startAnimating()
-        
-        // For some reason it takes long time, need to show something in UI.
-        if #available(iOS 9.0, *) {
-            activity.translatesAutoresizingMaskIntoConstraints = false
-            activity.centerYAnchor.constraint(equalTo: pauseButton.centerYAnchor).isActive = true
-            activity.centerXAnchor.constraint(equalTo: pauseButton.centerXAnchor).isActive = true
-            
-        } else {
-            // Fallback on earlier versions
-            // In this case inidcator is not centered in the button, not a big deal.
+        DispatchQueue.main.async { [unowned self] in
+            gameMenuViewController?.startAnimatingPauseButton()
         }
-        
+
         let alertView = UIAlertController(title: "Pause", message: "Quit this test and add a comment.", preferredStyle: .alert)
-        
+
         let quit = UIAlertAction(title: "Quit", style: .default, handler: { (alertAction) -> Void in
             self.addComment(alertView)
             self.quit()
@@ -247,25 +174,29 @@ class TestViewController: UIViewController, UITextFieldDelegate {
             self.gamePaused = false
             self.resumeTest()
         })
-        
+
         alertView.addAction(quit)
         alertView.addAction(continueAction)
 
         alertView.addTextField {
             (textField: UITextField!) -> Void in
-            
+
             textField.delegate = self
             textField.clearButtonMode = .always
             textField.placeholder = "Your comment"
             textField.autocapitalizationType = .sentences
             textField.text = self.getComment()
         }
-        
-        present(alertView, animated: true) { 
-            activity.removeFromSuperview()
-            self.pauseButton.setTitle("Pause", for: UIControl.State())
+
+        present(alertView, animated: true) { [unowned self] in
+            DispatchQueue.main.async {
+                self.gameMenuViewController?.stopAnimatingPauseButton()
+            }
         }
     }
+
+    // MARK: Quit, pause, and comment
+
     func addComment(_ alert: UIAlertController) {
         // Implement in subclassws
     }
@@ -275,70 +206,23 @@ class TestViewController: UIViewController, UITextFieldDelegate {
     func quit() {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    // MARK: Other
-    
-    func addGestures() {
-        // Clean gestures first
-        if view.gestureRecognizers != nil {
-            for gesture in view.gestureRecognizers! {
-                view.removeGestureRecognizer(gesture)
-            }
+
+    // MARK: - Private
+
+    private func layoutMenu() {
+        guard let menu = gameMenuViewController?.view else {
+            fatalError("Failed to initialize the menu")
         }
-    }
-    
-    @objc func guidedAccessNotificationHandler(_ notification: Notification) {
-        
-        guard let enabled: Bool = notification.userInfo!["restriction"] as? Bool else {
-            return
-        }
-        pauseButton.isEnabled = enabled
-        
-        if pauseButton.isEnabled == true {
-            pauseButton.isHidden = false
-        } else {
-            pauseButton.isHidden = true
-        }
-        // Hide button completly
-    }
-}
+        menu.translatesAutoresizingMaskIntoConstraints = false
 
-final class BorderedButton: UIButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+        let screen = view.layoutMarginsGuide
 
-        layer.borderColor = UIColor.gray.cgColor
-        layer.borderWidth = 1
-        layer.cornerRadius = 5
-
-        contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("NSCoding not supported")
-    }
-
-    override func tintColorDidChange() {
-        super.tintColorDidChange()
-
-        layer.borderColor = UIColor.gray.cgColor
-    }
-
-    override var isHighlighted: Bool {
-        didSet {
-            let fadedColor = tintColor.withAlphaComponent(0.2).cgColor
-
-            if isHighlighted {
-                layer.borderColor = fadedColor
-            } else {
-                layer.borderColor = UIColor.gray.cgColor
-
-                let animation = CABasicAnimation(keyPath: "borderColor")
-                animation.fromValue = fadedColor
-                animation.toValue = UIColor.gray.cgColor
-                animation.duration = 0.4
-                layer.add(animation, forKey: nil)
-            }
-        }
+        let constraints = [
+            menu.topAnchor.constraint(equalTo: screen.topAnchor, constant: 0),
+            menu.heightAnchor.constraint(equalToConstant: menuBarHeight),
+            menu.leadingAnchor.constraint(equalTo: screen.leadingAnchor),
+            menu.trailingAnchor.constraint(equalTo: screen.trailingAnchor)
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
 }

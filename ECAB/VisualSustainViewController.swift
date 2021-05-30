@@ -108,6 +108,7 @@ class VisualSustainViewController: CounterpointingViewController {
 		imageVisibleOnScreen.isHidden = true
 		imageVisibleOnScreen.tag = tagChangingGamePicture
 		view.addSubview(imageVisibleOnScreen)
+        addMenu()
 		
 		timePictureVisible = model.data.visSustSpeed.doubleValue
 		timeBlankSpaceVisible = model.data.visSustDelay.doubleValue

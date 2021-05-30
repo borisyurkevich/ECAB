@@ -35,14 +35,15 @@ class CounterpointingViewController: TestViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
-        view.addSubview(menu)
-        layoutMenu()
-        
+
 		model.addCounterpointingSession(model.data.selectedPlayer, type: sessionType)
 		session = model.data.counterpointingSessions.lastObject as? CounterpointingSession
 		presentMessage(greeingMessage)
-		addTouchTargetButtons()
+
+        addTouchTargetButtons()
+        if self.isMember(of: CounterpointingViewController.self) {
+            addMenu()
+        }
 	}
     
     override func resumeTest() {
@@ -164,9 +165,7 @@ class CounterpointingViewController: TestViewController {
 	}
     
     func toggleNavigationButtons(isEnabled: Bool) {
-        nextButton.isEnabled = isEnabled
-        backButton.isEnabled = isEnabled
-        skipTrainingButton.isEnabled = isEnabled
+        gameMenuViewController?.toggleNavigationButtons(isEnabled: isEnabled)
     }
 	
 	func presentBlueDot() {
