@@ -44,7 +44,7 @@ class TestViewController: UIViewController, UITextFieldDelegate, GameMenuDelegat
     /// Affects Y offeset for the big buttons pn left and ride side
     let menuBarHeight: CGFloat = 36.0
 
-    let menuTag = 10 // Set in Menu.storyboard
+    let menuTag = 10
 
     override var prefersStatusBarHidden : Bool {
         return true
@@ -97,14 +97,11 @@ class TestViewController: UIViewController, UITextFieldDelegate, GameMenuDelegat
     }
 
     func addMenu() {
-        let storyboard = UIStoryboard(name: "Menu", bundle: nil)
-        guard let initialViewController = storyboard.instantiateInitialViewController() as? GameMenuViewController else {
-            fatalError("Storyboard error")
-        }
-        gameMenuViewController = initialViewController
+        gameMenuViewController = GameMenuViewController()
         guard let gameMenuViewController = gameMenuViewController else {
             fatalError("Failed to initialize the menu")
         }
+        gameMenuViewController.view.tag = menuTag
         addChild(gameMenuViewController)
         view.addSubview(gameMenuViewController.view)
         layoutMenu()

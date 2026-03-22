@@ -14,6 +14,20 @@ class TestsTableViewController: UITableViewController {
     
     fileprivate let reuseIdentifier = "Games Table Cell"
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        title = "Tests"
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let selectedRow = IndexPath(row: model.data.selectedGame.intValue, section: 0)
+        tableView.selectRow(at: selectedRow, animated: false, scrollPosition: .none)
+    }
+
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -26,6 +40,7 @@ class TestsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) 
         
         cell.textLabel!.text = model.games[indexPath.row]
+        cell.accessoryType = model.data.selectedGame.intValue == indexPath.row ? .checkmark : .none
         
         return cell
     }
@@ -36,6 +51,7 @@ class TestsTableViewController: UITableViewController {
 		
 		model.data.selectedGame = NSNumber(value: indexPath.row)
 		model.save()
+        tableView.reloadData()
 		
 		selectGame()
 	}

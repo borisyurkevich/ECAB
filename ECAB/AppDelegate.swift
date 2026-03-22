@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftUI
 
 private enum AppSection: Int, CaseIterable {
     case tests
@@ -149,6 +150,27 @@ private final class RootSplitViewController: UISplitViewController, SidebarViewC
     }
 }
 
+@available(iOS 13.0, *)
+private struct PlaceholderMessageView: View {
+    let title: String
+    let message: String
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text(title)
+                .font(.title2)
+                .fontWeight(.semibold)
+            Text(message)
+                .font(.body)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(32)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(UIColor.systemBackground))
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestrictionDelegate {
 
@@ -172,37 +194,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
     }
 
     func configureInitialViewController(for window: UIWindow) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        Model.sharedInstance.setupWithContext(coreDataStack.context)
 
-        guard
-            let tabBarController = storyboard.instantiateInitialViewController() as? UITabBarController,
-            let allTabs = tabBarController.viewControllers,
-            allTabs.count >= 3,
-            let testsSplitController = allTabs[0] as? UISplitViewController,
-            let contactsSplitController = allTabs[1] as? UISplitViewController,
-            let historySplitController = allTabs[2] as? UISplitViewController,
-            let testsDetailNavigationController = testsSplitController.viewControllers.last as? UINavigationController,
-            let menuViewController = testsDetailNavigationController.topViewController as? MenuViewController
-        else {
-            window.rootViewController = storyboard.instantiateInitialViewController()
-            return
-        }
+        let testsListController = TestsTableViewController(style: .insetGrouped)
+        let menuViewController = MenuViewController(managedContext: coreDataStack.context)
+        let historyListController = SessionsTableViewController(style: .insetGrouped)
+        let historyDetailController = HistoryViewController()
+        let playersController = PlayersTableViewController(style: .insetGrouped)
 
-        menuViewController.managedContext = coreDataStack.context
+        let testsPrimary = UINavigationController(rootViewController: testsListController)
+        let testsSecondary = UINavigationController(rootViewController: menuViewController)
+
+        let contactsPrimary = UINavigationController(rootViewController: playersController)
+        let contactsSecondary = UINavigationController(rootViewController: makePlaceholderController(title: "Players", message: "Choose a player from the list to make them active for the next test."))
+
+        let historyPrimary = UINavigationController(rootViewController: historyListController)
+        let historySecondary = UINavigationController(rootViewController: historyDetailController)
 
         if #available(iOS 14.0, *) {
             let sectionControllers: [AppSection: RootSplitViewController.SectionControllers] = [
                 .tests: (
-                    supplementary: testsSplitController.viewControllers.first ?? UIViewController(),
-                    secondary: testsSplitController.viewControllers.last ?? UIViewController()
+                    supplementary: testsPrimary,
+                    secondary: testsSecondary
                 ),
                 .contacts: (
-                    supplementary: contactsSplitController.viewControllers.first ?? UIViewController(),
-                    secondary: contactsSplitController.viewControllers.last ?? UIViewController()
+                    supplementary: contactsPrimary,
+                    secondary: contactsSecondary
                 ),
                 .history: (
-                    supplementary: historySplitController.viewControllers.first ?? UIViewController(),
-                    secondary: historySplitController.viewControllers.last ?? UIViewController()
+                    supplementary: historyPrimary,
+                    secondary: historySecondary
                 )
             ]
 
@@ -210,7 +231,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
             return
         }
 
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [
+            makeSplitViewController(primary: testsPrimary, secondary: testsSecondary, title: AppSection.tests.title, symbolName: AppSection.tests.symbolName),
+            makeSplitViewController(primary: contactsPrimary, secondary: contactsSecondary, title: AppSection.contacts.title, symbolName: AppSection.contacts.symbolName),
+            makeSplitViewController(primary: historyPrimary, secondary: historySecondary, title: AppSection.history.title, symbolName: AppSection.history.symbolName)
+        ]
         window.rootViewController = tabBarController
+    }
+
+    private func makeSplitViewController(primary: UIViewController, secondary: UIViewController, title: String, symbolName: String) -> UISplitViewController {
+        let splitViewController = UISplitViewController()
+        splitViewController.viewControllers = [primary, secondary]
+        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: symbolName), selectedImage: nil)
+        return splitViewController
+    }
+
+    private func makePlaceholderController(title: String, message: String) -> UIViewController {
+        if #available(iOS 13.0, *) {
+            return UIHostingController(rootView: PlaceholderMessageView(title: title, message: message))
+        }
+
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .systemBackground
+        return viewController
     }
 
     // MARK: - UIGuidedAccessRestrictionDelegate
