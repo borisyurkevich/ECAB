@@ -152,15 +152,30 @@ private final class RootSplitViewController: UISplitViewController, SidebarViewC
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestrictionDelegate {
 
-    var window: UIWindow?
 	lazy var coreDataStack = CoreDataStack()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        true
+    }
+
+    func application(_ application: UIApplication,
+                     configurationForConnecting connectingSceneSession: UISceneSession,
+                     options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        let configuration = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        configuration.delegateClass = SceneDelegate.self
+        return configuration
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+		coreDataStack.saveContext()
+    }
+
+    func configureInitialViewController(for window: UIWindow) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
         guard
-            let window,
-            let tabBarController = window.rootViewController as? UITabBarController,
+            let tabBarController = storyboard.instantiateInitialViewController() as? UITabBarController,
             let allTabs = tabBarController.viewControllers,
             allTabs.count >= 3,
             let testsSplitController = allTabs[0] as? UISplitViewController,
@@ -169,11 +184,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
             let testsDetailNavigationController = testsSplitController.viewControllers.last as? UINavigationController,
             let menuViewController = testsDetailNavigationController.topViewController as? MenuViewController
         else {
-            return true
+            window.rootViewController = storyboard.instantiateInitialViewController()
+            return
         }
-        
+
         menuViewController.managedContext = coreDataStack.context
-        
+
         if #available(iOS 14.0, *) {
             let sectionControllers: [AppSection: RootSplitViewController.SectionControllers] = [
                 .tests: (
@@ -189,21 +205,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
                     secondary: historySplitController.viewControllers.last ?? UIViewController()
                 )
             ]
-            
-            let rootViewController = RootSplitViewController(sectionControllers: sectionControllers)
-            window.rootViewController = rootViewController
-            window.makeKeyAndVisible()
+
+            window.rootViewController = RootSplitViewController(sectionControllers: sectionControllers)
+            return
         }
-		
-        return true
-    }
 
-    func applicationDidEnterBackground(_ application: UIApplication) {
-		coreDataStack.saveContext()
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-		coreDataStack.saveContext()
+        window.rootViewController = tabBarController
     }
 
     // MARK: - UIGuidedAccessRestrictionDelegate
