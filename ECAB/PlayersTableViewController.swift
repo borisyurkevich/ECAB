@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol SubjectPickerDelegate {
+protocol SubjectPickerDelegate: AnyObject {
     func pickSubject()
 }
 
 class PlayersTableViewController: UITableViewController {
     
-    var delegate: SubjectPickerDelegate!
+    weak var delegate: SubjectPickerDelegate?
     
     fileprivate let model: Model = Model.sharedInstance
     fileprivate let reuseIdentifier = "Subject picker cell"
     
-    @IBAction func addPlayerHandler(_ sender: UIBarButtonItem) {
+    @objc func addPlayerHandler(_ sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "New player",
             message: "Add a name for a new player",
@@ -56,9 +56,13 @@ class PlayersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        title = "Players"
         
         tableView.register(UITableViewCell.self,
             forCellReuseIdentifier: reuseIdentifier)
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPlayerHandler(_:)))
         
         self.clearsSelectionOnViewWillAppear = true;
         // Make row selections not persist.
@@ -97,7 +101,7 @@ class PlayersTableViewController: UITableViewController {
         let selectedPlayerEntity = data.players[indexPath.row] as! Player
         model.data.selectedPlayer = selectedPlayerEntity
 		
-		model.save()
+        model.save()
 		
         delegate?.pickSubject()
     }

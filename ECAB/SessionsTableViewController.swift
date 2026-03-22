@@ -29,9 +29,9 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     let rowNameformatter = DateFormatter()
     let fileNameformatter = DateFormatter()
     
-    @IBOutlet weak var actionButton: UIBarButtonItem!
+    private lazy var actionButton = UIBarButtonItem(title: "Export", style: .plain, target: self, action: #selector(handleExport(_:)))
 
-    @IBAction func tapEdit(_ sender: UIBarButtonItem) {
+    @objc func tapEdit(_ sender: UIBarButtonItem) {
         toggleEditMode()
     }
     
@@ -49,6 +49,11 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        title = "Sessions"
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        navigationItem.rightBarButtonItem = actionButton
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(toggleEditMode))
         
         rowNameformatter.dateFormat = "dd MMM yyyy HH:mm"
         fileNameformatter.dateFormat = "ddMMM_HHmm"
@@ -94,7 +99,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
     
     // Export
     
-    @IBAction func handleExport(_ sender: UIBarButtonItem) {
+    @objc func handleExport(_ sender: UIBarButtonItem) {
         
         let exportDialog = UIAlertController(title: "Export", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let fileOption = UIAlertAction(title: "Export file", style: UIAlertAction.Style.default, handler: { action in
@@ -327,8 +332,7 @@ class SessionsTableViewController: UITableViewController, UIDocumentInteractionC
 			// Last step
             rebuild()
 			tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-			detailVC.textView.text = ""
-			detailVC.helpMessage.text = "Select any session from the left."
+            detailVC.resetSelectionPrompt()
 		}
 	}
 	

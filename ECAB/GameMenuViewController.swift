@@ -9,17 +9,15 @@
 import UIKit
 import os
 
-
 final class GameMenuViewController: UIViewController {
 
     weak var delelgate: GameMenuDelegate?
 
-    @IBOutlet private weak var menuView: MenuView!
-    @IBOutlet private weak var menuStrip: UIView!
-    @IBOutlet private weak var backLabel: UILabel!
-    @IBOutlet private weak var forwardLabel: UILabel!
-    @IBOutlet private weak var skipLabel: UILabel!
-    @IBOutlet private weak var pauseLabel: UILabel!
+    private let menuView = MenuView()
+    private let backLabel = UILabel()
+    private let forwardLabel = UILabel()
+    private let skipLabel = UILabel()
+    private let pauseLabel = UILabel()
 
     private let borderWidth: CGFloat = 1.0
     private let borderColor: CGColor = UIColor.darkGray.cgColor
@@ -29,6 +27,7 @@ final class GameMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureViewHierarchy()
         addMenuBorders()
         setTextColor()
         menuView.delegate = self
@@ -51,13 +50,7 @@ final class GameMenuViewController: UIViewController {
 
     func startAnimatingPauseButton() {
         pauseLabel.text = ""
-
-        if #available(iOS 13.0, *) {
-            activity = UIActivityIndicatorView(style: .medium)
-        } else {
-            // Fallback on earlier versions
-            activity = UIActivityIndicatorView(style: .gray)
-        }
+        activity = UIActivityIndicatorView(style: .medium)
 
         guard let activity = activity else {
             return
@@ -73,35 +66,77 @@ final class GameMenuViewController: UIViewController {
 
     func stopAnimatingPauseButton() {
         activity?.removeFromSuperview()
-        self.pauseLabel.text = "Pause"
-        self.pauseLabel.textColor = backwardCompatibleLabelColor
+        pauseLabel.text = "Pause"
+        pauseLabel.textColor = labelColor
     }
 
-    // MARK: - Private
+    private var labelColor: UIColor {
+        UIColor.darkText
+    }
 
-    private var backwardCompatibleLabelColor: UIColor {
-        return UIColor.darkText
+    private func configureViewHierarchy() {
+        view.backgroundColor = .clear
+        view.tag = 10
+
+        menuView.translatesAutoresizingMaskIntoConstraints = false
+        menuView.backgroundColor = .secondarySystemBackground
+
+        view.addSubview(menuView)
+
+        NSLayoutConstraint.activate([
+            menuView.topAnchor.constraint(equalTo: view.topAnchor),
+            menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            menuView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        let labels = [backLabel, forwardLabel, skipLabel, pauseLabel]
+        let titles = ["Back", "Next", "Skip", "Pause"]
+
+        for (index, label) in labels.enumerated() {
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = titles[index]
+            label.textAlignment = .center
+            label.backgroundColor = .systemBackground
+            label.font = .preferredFont(forTextStyle: .headline)
+            menuView.addSubview(label)
+        }
+
+        NSLayoutConstraint.activate([
+            backLabel.topAnchor.constraint(equalTo: menuView.topAnchor),
+            backLabel.leadingAnchor.constraint(equalTo: menuView.leadingAnchor),
+            backLabel.bottomAnchor.constraint(equalTo: menuView.bottomAnchor),
+
+            forwardLabel.topAnchor.constraint(equalTo: menuView.topAnchor),
+            forwardLabel.leadingAnchor.constraint(equalTo: backLabel.trailingAnchor),
+            forwardLabel.bottomAnchor.constraint(equalTo: menuView.bottomAnchor),
+            forwardLabel.widthAnchor.constraint(equalTo: backLabel.widthAnchor),
+
+            skipLabel.topAnchor.constraint(equalTo: menuView.topAnchor),
+            skipLabel.leadingAnchor.constraint(equalTo: forwardLabel.trailingAnchor),
+            skipLabel.bottomAnchor.constraint(equalTo: menuView.bottomAnchor),
+            skipLabel.widthAnchor.constraint(equalTo: backLabel.widthAnchor),
+
+            pauseLabel.topAnchor.constraint(equalTo: menuView.topAnchor),
+            pauseLabel.leadingAnchor.constraint(equalTo: skipLabel.trailingAnchor),
+            pauseLabel.trailingAnchor.constraint(equalTo: menuView.trailingAnchor),
+            pauseLabel.bottomAnchor.constraint(equalTo: menuView.bottomAnchor),
+            pauseLabel.widthAnchor.constraint(equalTo: backLabel.widthAnchor)
+        ])
     }
 
     private func addMenuBorders() {
-        backLabel.layer.borderWidth = borderWidth
-        backLabel.layer.borderColor = borderColor
-
-        forwardLabel.layer.borderWidth = borderWidth
-        forwardLabel.layer.borderColor = borderColor
-
-        skipLabel.layer.borderWidth = borderWidth
-        skipLabel.layer.borderColor = borderColor
-
-        pauseLabel.layer.borderWidth = borderWidth
-        pauseLabel.layer.borderColor = borderColor
+        [backLabel, forwardLabel, skipLabel, pauseLabel].forEach {
+            $0.layer.borderWidth = borderWidth
+            $0.layer.borderColor = borderColor
+        }
     }
 
     private func setTextColor() {
-        backLabel.textColor = backwardCompatibleLabelColor
-        forwardLabel.textColor = backwardCompatibleLabelColor
-        skipLabel.textColor = backwardCompatibleLabelColor
-        pauseLabel.textColor = backwardCompatibleLabelColor
+        backLabel.textColor = labelColor
+        forwardLabel.textColor = labelColor
+        skipLabel.textColor = labelColor
+        pauseLabel.textColor = labelColor
     }
 }
 
@@ -111,20 +146,16 @@ extension GameMenuViewController: MenuViewDelegate {
         DispatchQueue.main.async { [unowned self] in
             if location.x < forwardLabel.frame.origin.x {
                 backLabel.backgroundColor = buttonColor
-                backLabel.textColor = backwardCompatibleLabelColor
-
+                backLabel.textColor = labelColor
             } else if location.x < skipLabel.frame.origin.x {
                 forwardLabel.backgroundColor = buttonColor
-                forwardLabel.textColor = backwardCompatibleLabelColor
-
+                forwardLabel.textColor = labelColor
             } else if location.x <= skipLabel.frame.origin.x + skipLabel.frame.width {
                 skipLabel.backgroundColor = buttonColor
-                skipLabel.textColor = backwardCompatibleLabelColor
-
+                skipLabel.textColor = labelColor
             } else if location.x >= pauseLabel.frame.origin.x {
                 pauseLabel.backgroundColor = buttonColor
-                pauseLabel.textColor = backwardCompatibleLabelColor
-
+                pauseLabel.textColor = labelColor
             } else {
                 os_log(.debug, "touch outise buttons area: %@", location.debugDescription)
             }
@@ -138,25 +169,21 @@ extension GameMenuViewController: MenuViewDelegate {
                     backLabel.backgroundColor = view.tintColor
                     backLabel.textColor = UIColor.lightText
                 }
-
             } else if location.x < skipLabel.frame.origin.x {
                 if forwardLabel.isEnabled {
                     forwardLabel.backgroundColor = view.tintColor
                     forwardLabel.textColor = UIColor.lightText
                 }
-
             } else if location.x <= skipLabel.frame.origin.x + skipLabel.frame.width {
                 if skipLabel.isEnabled {
                     skipLabel.backgroundColor = view.tintColor
                     skipLabel.textColor = UIColor.lightText
                 }
-
             } else if location.x >= pauseLabel.frame.origin.x {
                 if pauseLabel.isEnabled {
                     pauseLabel.backgroundColor = view.tintColor
                     pauseLabel.textColor = UIColor.lightText
                 }
-
             } else {
                 os_log(.debug, "touch outise buttons area: %@", location.debugDescription)
             }
@@ -168,25 +195,25 @@ extension GameMenuViewController: MenuViewDelegate {
             if location.x < forwardLabel.frame.origin.x {
                 if backLabel.isEnabled {
                     backLabel.backgroundColor = buttonColor
-                    backLabel.textColor = backwardCompatibleLabelColor
+                    backLabel.textColor = labelColor
                     delelgate?.presentPreviousScreen()
                 }
             } else if location.x < skipLabel.frame.origin.x {
                 if forwardLabel.isEnabled {
                     forwardLabel.backgroundColor = buttonColor
-                    forwardLabel.textColor = backwardCompatibleLabelColor
+                    forwardLabel.textColor = labelColor
                     delelgate?.presentNextScreen()
                 }
             } else if location.x <= skipLabel.frame.origin.x + skipLabel.frame.width {
-                if skipLabel.isEnabled  {
+                if skipLabel.isEnabled {
                     skipLabel.backgroundColor = buttonColor
-                    skipLabel.textColor = backwardCompatibleLabelColor
+                    skipLabel.textColor = labelColor
                     delelgate?.skip()
                 }
             } else if location.x >= pauseLabel.frame.origin.x {
                 if pauseLabel.isEnabled {
                     pauseLabel.backgroundColor = buttonColor
-                    pauseLabel.textColor = backwardCompatibleLabelColor
+                    pauseLabel.textColor = labelColor
                     delelgate?.presentPause()
                 }
             } else {

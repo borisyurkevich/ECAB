@@ -523,13 +523,4 @@ class VisualSearchViewController: TestViewController,
         }
     }
 	
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination.isKind(of: MenuViewController.self) {
-            let dest = segue.destination as! MenuViewController
-            dest.setNeedsStatusBarAppearanceUpdate()
-        }
-    }
-
 }
