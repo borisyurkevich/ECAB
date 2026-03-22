@@ -16,6 +16,10 @@ class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        edgesForExtendedLayout = []
+        view.backgroundColor = .systemBackground
+        textView.contentInsetAdjustmentBehavior = .automatic
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,4 +29,3 @@ class HistoryViewController: UIViewController {
 		helpMessage.text = "Select any session from the left."
     }
 }
-
