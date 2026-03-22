@@ -50,12 +50,7 @@ final class GameMenuViewController: UIViewController {
 
     func startAnimatingPauseButton() {
         pauseLabel.text = ""
-
-        if #available(iOS 13.0, *) {
-            activity = UIActivityIndicatorView(style: .medium)
-        } else {
-            activity = UIActivityIndicatorView(style: .gray)
-        }
+        activity = UIActivityIndicatorView(style: .medium)
 
         guard let activity = activity else {
             return
@@ -72,10 +67,10 @@ final class GameMenuViewController: UIViewController {
     func stopAnimatingPauseButton() {
         activity?.removeFromSuperview()
         pauseLabel.text = "Pause"
-        pauseLabel.textColor = backwardCompatibleLabelColor
+        pauseLabel.textColor = labelColor
     }
 
-    private var backwardCompatibleLabelColor: UIColor {
+    private var labelColor: UIColor {
         UIColor.darkText
     }
 
@@ -138,10 +133,10 @@ final class GameMenuViewController: UIViewController {
     }
 
     private func setTextColor() {
-        backLabel.textColor = backwardCompatibleLabelColor
-        forwardLabel.textColor = backwardCompatibleLabelColor
-        skipLabel.textColor = backwardCompatibleLabelColor
-        pauseLabel.textColor = backwardCompatibleLabelColor
+        backLabel.textColor = labelColor
+        forwardLabel.textColor = labelColor
+        skipLabel.textColor = labelColor
+        pauseLabel.textColor = labelColor
     }
 }
 
@@ -151,16 +146,16 @@ extension GameMenuViewController: MenuViewDelegate {
         DispatchQueue.main.async { [unowned self] in
             if location.x < forwardLabel.frame.origin.x {
                 backLabel.backgroundColor = buttonColor
-                backLabel.textColor = backwardCompatibleLabelColor
+                backLabel.textColor = labelColor
             } else if location.x < skipLabel.frame.origin.x {
                 forwardLabel.backgroundColor = buttonColor
-                forwardLabel.textColor = backwardCompatibleLabelColor
+                forwardLabel.textColor = labelColor
             } else if location.x <= skipLabel.frame.origin.x + skipLabel.frame.width {
                 skipLabel.backgroundColor = buttonColor
-                skipLabel.textColor = backwardCompatibleLabelColor
+                skipLabel.textColor = labelColor
             } else if location.x >= pauseLabel.frame.origin.x {
                 pauseLabel.backgroundColor = buttonColor
-                pauseLabel.textColor = backwardCompatibleLabelColor
+                pauseLabel.textColor = labelColor
             } else {
                 os_log(.debug, "touch outise buttons area: %@", location.debugDescription)
             }
@@ -200,25 +195,25 @@ extension GameMenuViewController: MenuViewDelegate {
             if location.x < forwardLabel.frame.origin.x {
                 if backLabel.isEnabled {
                     backLabel.backgroundColor = buttonColor
-                    backLabel.textColor = backwardCompatibleLabelColor
+                    backLabel.textColor = labelColor
                     delelgate?.presentPreviousScreen()
                 }
             } else if location.x < skipLabel.frame.origin.x {
                 if forwardLabel.isEnabled {
                     forwardLabel.backgroundColor = buttonColor
-                    forwardLabel.textColor = backwardCompatibleLabelColor
+                    forwardLabel.textColor = labelColor
                     delelgate?.presentNextScreen()
                 }
             } else if location.x <= skipLabel.frame.origin.x + skipLabel.frame.width {
                 if skipLabel.isEnabled {
                     skipLabel.backgroundColor = buttonColor
-                    skipLabel.textColor = backwardCompatibleLabelColor
+                    skipLabel.textColor = labelColor
                     delelgate?.skip()
                 }
             } else if location.x >= pauseLabel.frame.origin.x {
                 if pauseLabel.isEnabled {
                     pauseLabel.backgroundColor = buttonColor
-                    pauseLabel.textColor = backwardCompatibleLabelColor
+                    pauseLabel.textColor = labelColor
                     delelgate?.presentPause()
                 }
             } else {

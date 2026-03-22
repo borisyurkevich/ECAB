@@ -38,12 +38,10 @@ private enum AppSection: Int, CaseIterable {
     }
 }
 
-@available(iOS 14.0, *)
 private protocol SidebarViewControllerDelegate: AnyObject {
     func sidebarViewController(_ controller: SidebarViewController, didSelect section: AppSection)
 }
 
-@available(iOS 14.0, *)
 private final class SidebarViewController: UITableViewController {
     
     weak var selectionDelegate: SidebarViewControllerDelegate?
@@ -100,7 +98,6 @@ private final class SidebarViewController: UITableViewController {
     }
 }
 
-@available(iOS 14.0, *)
 private final class RootSplitViewController: UISplitViewController, SidebarViewControllerDelegate {
     
     typealias SectionControllers = (supplementary: UIViewController, secondary: UIViewController)
@@ -150,7 +147,6 @@ private final class RootSplitViewController: UISplitViewController, SidebarViewC
     }
 }
 
-@available(iOS 13.0, *)
 private struct PlaceholderMessageView: View {
     let title: String
     let message: String
@@ -211,51 +207,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGuidedAccessRestriction
         let historyPrimary = UINavigationController(rootViewController: historyListController)
         let historySecondary = UINavigationController(rootViewController: historyDetailController)
 
-        if #available(iOS 14.0, *) {
-            let sectionControllers: [AppSection: RootSplitViewController.SectionControllers] = [
-                .tests: (
-                    supplementary: testsPrimary,
-                    secondary: testsSecondary
-                ),
-                .contacts: (
-                    supplementary: contactsPrimary,
-                    secondary: contactsSecondary
-                ),
-                .history: (
-                    supplementary: historyPrimary,
-                    secondary: historySecondary
-                )
-            ]
-
-            window.rootViewController = RootSplitViewController(sectionControllers: sectionControllers)
-            return
-        }
-
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [
-            makeSplitViewController(primary: testsPrimary, secondary: testsSecondary, title: AppSection.tests.title, symbolName: AppSection.tests.symbolName),
-            makeSplitViewController(primary: contactsPrimary, secondary: contactsSecondary, title: AppSection.contacts.title, symbolName: AppSection.contacts.symbolName),
-            makeSplitViewController(primary: historyPrimary, secondary: historySecondary, title: AppSection.history.title, symbolName: AppSection.history.symbolName)
+        let sectionControllers: [AppSection: RootSplitViewController.SectionControllers] = [
+            .tests: (
+                supplementary: testsPrimary,
+                secondary: testsSecondary
+            ),
+            .contacts: (
+                supplementary: contactsPrimary,
+                secondary: contactsSecondary
+            ),
+            .history: (
+                supplementary: historyPrimary,
+                secondary: historySecondary
+            )
         ]
-        window.rootViewController = tabBarController
-    }
-
-    private func makeSplitViewController(primary: UIViewController, secondary: UIViewController, title: String, symbolName: String) -> UISplitViewController {
-        let splitViewController = UISplitViewController()
-        splitViewController.viewControllers = [primary, secondary]
-        splitViewController.preferredDisplayMode = .allVisible
-        splitViewController.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: symbolName), selectedImage: nil)
-        return splitViewController
+        window.rootViewController = RootSplitViewController(sectionControllers: sectionControllers)
     }
 
     private func makePlaceholderController(title: String, message: String) -> UIViewController {
-        if #available(iOS 13.0, *) {
-            return UIHostingController(rootView: PlaceholderMessageView(title: title, message: message))
-        }
-
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .systemBackground
-        return viewController
+        UIHostingController(rootView: PlaceholderMessageView(title: title, message: message))
     }
 
     // MARK: - UIGuidedAccessRestrictionDelegate
